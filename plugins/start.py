@@ -7,7 +7,7 @@ from pyrogram import Client, filters, enums
 from pyrogram.errors import FloodWait
 from info import API_ID, API_HASH, BOT_TOKEN, PORT
 
-@Client.on_message(filters=pyrogram.filters.command("start"))
+@Client.on_message(filters.command("start"))
 def start_command(client, message):
     # Welcome message
     welcome_message = "Welcome to my Telegram bot! 🎉"
