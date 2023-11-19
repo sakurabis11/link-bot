@@ -9,7 +9,7 @@ import telegraph
 
 telegraph = telegraph.api.Telegraph()
 
-@Client.on_message(pyrogram.filters.command('telegraph'))
+@Client.on_message(filters.command('telegraph'))
 def handle_upload_command(message):
     if message.reply_to_message:
         reply_message = message.reply_to_message
