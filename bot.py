@@ -27,10 +27,11 @@ class Bot(Client):
         temp.U_NAME = me.username
         temp.B_NAME = me.first_name
         app = web.AppRunner(await web_server())
-            await app.setup()
-            await web.TCPSite(app, "0.0.0.0", 8080).start()
-            logger.info("Web Response Is Running......🕸️")
+        await app.setup()
+        await web.TCPSite(app, "0.0.0.0", 8080).start()
+        logger.info("Web Response Is Running......🕸️")
         print(f"{me.first_name} | @{me.username} 𝚂𝚃𝙰𝚁𝚃𝙴𝙳...⚡️")
+
        
     async def stop(self, *args):
        await super().stop()      
