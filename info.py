@@ -10,4 +10,4 @@ from pyrogram import Client
 
 API_ID = int(os.environ.get('API_ID', '8914119'))
 API_HASH = os.environ.get('API_HASH', '652bae601b07c928b811bdb310fdb4b0')
-BOT_TOKEN = os.environ.get('BOT_TOKEN', '')
+BOT_TOKEN = os.environ.get('BOT_TOKEN', '6827046818:AAGcCZ10vdM_QBDR477p3UWN-YX71HEF6cI')
