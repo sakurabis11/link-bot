@@ -3,6 +3,7 @@ from info import API_ID, API_HASH, BOT_TOKEN, PORT
 import os, math, logging, datetime, pytz
 import logging.config
 from pyrogram.errors import BadRequest, Unauthorized
+from plugins import web_server 
 from aiohttp import web
 from typing import Union, Optional, AsyncGenerator
 from utils import temp
