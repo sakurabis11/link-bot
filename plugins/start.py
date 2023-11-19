@@ -5,17 +5,9 @@ from Script import script
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery
 from pyrogram import Client, filters, enums
 from pyrogram.errors import FloodWait
+from info import API_ID, API_HASH, BOT_TOKEN
 
-import pyrogram
-import asyncio
-from pyrogram.errors.exceptions.bad_request_400 import MediaEmpty, PhotoInvalidDimensions, WebpageMediaEmpty
-from Script import script
-from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery
-from pyrogram import Client, filters, enums
-from pyrogram.errors import FloodWait
-
-
-@Client.on_callback_query(filters.regex(r"start"))
+@Client.on_callback_query(filters.command("start"))
 async def start(query: CallbackQuery):
     buttons = [[
         InlineKeyboardButton("Hᴇʟᴩ 🕸️", callback_data="help"),
