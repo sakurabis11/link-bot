@@ -3,8 +3,9 @@ from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, Message, CallbackQuery
 from telegraph import upload_file
 from utils import get_file_id
+from info import API_ID, API_HASH, BOT_TOKEN, PORT
 
-@Client.on_message(filters.command("telegraph") & (filters.private | filters.group))
+@Client.on_message(filters.command("telegraph") & filters.private & filters.group)
 async def telegraph_upload(client, update):
     replied = update.reply_to_message
 
