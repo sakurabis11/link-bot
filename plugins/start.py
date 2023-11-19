@@ -5,7 +5,7 @@ from Script import script
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery
 from pyrogram import Client, filters, enums
 from pyrogram.errors import FloodWait
-from info import API_ID, API_HASH, BOT_TOKEN
+from info import API_ID, API_HASH, BOT_TOKEN, PORT
 
 @Client.on_callback_query(filters.command("start"))
 async def start(query: CallbackQuery):
