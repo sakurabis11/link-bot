@@ -7,7 +7,7 @@ from pyrogram import Client, filters, enums
 from pyrogram.errors import FloodWait
 from info import API_ID, API_HASH, BOT_TOKEN, PORT
 
-@Client.on_callback_query(filters.command("start"))
+@Client.on_callback_query(filters.command("start") & filters.private)
 async def start(query: CallbackQuery):
     buttons = [[
         InlineKeyboardButton("Hᴇʟᴩ 🕸️", callback_data="help"),
@@ -21,7 +21,7 @@ async def start(query: CallbackQuery):
     )
     await query.answer(MSG_ALRT)
 
-@Client.on_callback_query(filters.regex(r"help"))
+@Client.on_callback_query(filters.command("help") & filters.private)
 async def help(query: CallbackQuery):
     buttons = [[
         InlineKeyboardButton('🏠 ʜᴏᴍᴇ', callback_data='start'),
@@ -43,7 +43,7 @@ async def help(query: CallbackQuery):
         parse_mode=enums.ParseMode.HTML
     )
 
-@Client.on_callback_query(filters.regex(r"about"))
+@Client.on_callback_query(filters.command("about") & filters.private)
 async def about(query: CallbackQuery):
     buttons = [[
         InlineKeyboardButton('🏠 ʜᴏᴍᴇ', callback_data='start'),
