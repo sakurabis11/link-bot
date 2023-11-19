@@ -2,7 +2,7 @@ import os, asyncio
 from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, Message, CallbackQuery, ReplyKeyboardMarkup
 from telegraph import upload_file
-from pyrogram.errors import 
+from pyrogram.errors import FloodWait
 from utils import get_file_id
 from info import API_ID, API_HASH, BOT_TOKEN, PORT
 import telegraph
