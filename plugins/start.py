@@ -16,8 +16,8 @@ def start_command(client, message):
     keyboard = pyrogram.types.InlineKeyboardMarkup(
         [
             [
-                pyrogram.types.InlineKeyboardButton("Support Group", url="https://t.me/amal_nath_05"),
-                pyrogram.types.InlineKeyboardButton("Dᴇᴠᴇʟᴏᴩᴇʀ", url="https://t.me/MrTG_Coder"),
+                InlineKeyboardButton("Support Group", url="https://t.me/amal_nath_05"),
+                InlineKeyboardButton("Dᴇᴠᴇʟᴏᴩᴇʀ", url="https://t.me/MrTG_Coder"),
             ],
         ]
     )
