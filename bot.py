@@ -4,6 +4,8 @@ import os, math, logging, datetime, pytz
 import logging.config
 from pyrogram.errors import BadRequest, Unauthorized
 from aiohttp import web
+from typing import Union, Optional, AsyncGenerator
+
 
 logging.config.fileConfig("logging.conf")
 logging.getLogger().setLevel(logging.INFO)
