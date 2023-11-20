@@ -8,7 +8,7 @@ from pyrogram import Client, filters, enums
 from pyrogram.errors import FloodWait
 from info import API_ID, API_HASH, BOT_TOKEN, PORT, LOG_CHANNEL, ADMINS
 import logging, re, asyncio, time, shutil, psutil, os, sys
-from utils import temp, extract_user, humanbytes
+from utils import temp, extract_user
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.ERROR)
