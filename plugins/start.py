@@ -9,6 +9,6 @@ from info import API_ID, API_HASH, BOT_TOKEN, PORT
 
 # Define a function to handle the /start command
 @Client.on_message(filters.command("start"))
-def start_message(client, message):
+async def start_message(client, message):
     client.send_message("Hello! Welcome to my Telegram bot.")
 
