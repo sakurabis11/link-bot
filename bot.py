@@ -53,5 +53,5 @@ async def iter_messages(self, chat_id: Union[int, str], limit: int, offset: int 
                 current += 1
 
 
-bot = Bot()
-bot.run()
+if __name__ == "__main__":
+   app.run()
