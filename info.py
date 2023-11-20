@@ -7,6 +7,12 @@ import asyncio
 import json
 from pyrogram import Client
 
+id_pattern = re.compile(r'^.\d+$')
+def is_enabled(value, default):
+    if value.strip().lower() in ["on", "true", "yes", "1", "enable", "y"]: return True
+    elif value.strip().lower() in ["off", "false", "no", "0", "disable", "n"]: return False
+    else: return default
+
 API_ID = int(os.environ.get('API_ID', '8914119'))
 API_HASH = os.environ.get('API_HASH', '652bae601b07c928b811bdb310fdb4b0')
 BOT_TOKEN = os.environ.get('BOT_TOKEN', '6866077251:AAGMOU-l84Qe_PIZFQ_pH5M7BALyhqbqK_E')
