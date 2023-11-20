@@ -16,8 +16,8 @@ logger.setLevel(logging.ERROR)
 # Define a function to handle the /start command
 @Client.on_message(filters.command("start"))
 async def start_message(client, message):
-    await message.reply(script.START_TXT.format(message.from_user.mention if message.from_user else message.chat.title, temp.U_NAME, temp.B_NAME), reply_markup=reply_markup)
-
+    await message.reply("Hi")
+    
     # Check if the chat exists in the database
     if not await db.get_chat(message.chat.id):
         # Get the number of chat members
@@ -166,45 +166,22 @@ async def list_users(bot, message):
             outfile.write(out)
         await message.reply_document('users.txt', caption="Lɪꜱᴛ Oꜰ Uꜱᴇʀꜱ")
 
-@Client.on_message(filters.reply & filters.command('ban') & filters.user(ADMINS))
-async def ban_a_user(bot, message):
-    replied_message = message.reply_to_message
-    if not replied_message:
-        return await message.reply('Gɪᴠᴇ Mᴇ A Uꜱᴇʀ Iᴅ / Uꜱᴇʀɴᴀᴍᴇ')
-
-    user_id = replied_message.from_user.id
-    reason = message.text.split(None, 2)[2]
-
-    try: chat = int(chat)
-    except: pass
-    try: k = await bot.get_users(user_id)
-    except PeerIdInvalid: return await message.reply("Tʜɪs Is Aɴ Iɴᴠᴀʟɪᴅ Usᴇʀ, Mᴀᴋᴇ Sᴜʀᴇ Iᴀ Hᴀᴠᴇ Mᴇᴛ Hɪᴍ Bᴇғᴏʀᴇ")
-    except IndexError: return await message.reply("Tʜɪs Mɪɢʜᴛ Bᴇ A Cʜᴀɴɴᴇʟ, Mᴀᴋᴇ Sᴜʀᴇ Iᴛs A Usᴇʀ.")
-    except Exception as e: return await message.reply(f'Eʀʀᴏʀ: {e}')
+@Client.on_message(filters.command("ban") & filters.reply)
+async def handle_ban_reply(message):
+    await handle_ban(message)
+    if message.reply_to_message is not None:
+        user_to_ban = message.reply_to_message.from_user.id
+        await bot.ban_chat_member(message.chat.id, user_to_ban)
+        await bot.send_message(message.chat.id, "User banned.")
     else:
-        jar = await db.get_ban_status(k.id)
-        if jar['is_banned']: return await message.reply(f"{k.mention} Iꜱ Aʟʀᴇᴅʏ Bᴀɴɴᴇᴅ\nRᴇᴀꜱᴏɴ: {jar['ban_reason']}")
-        await db.ban_user(k.id, reason)
-        temp.BANNED_USERS.append(k.id)
-        await message.reply(f"Sᴜᴄᴄᴇꜱꜰᴜʟʟʏ Bᴀɴɴᴇᴅ {k.mention}")
+        await bot.send_message(message.chat.id, "Please reply to a message from the user you want to ban.")
 
-@Client.on_message(filters.reply & filters.command('unban') & filters.user(ADMINS))
-async def unban_a_user(bot, message):
-    replied_message = message.reply_to_message
-    if not replied_message:
-        return await message.reply('Gɪᴠᴇ Mᴇ A Uꜱᴇʀ Iᴅ / Uꜱᴇʀɴᴀᴍᴇ')
-
-    user_id = replied_message.from_user.id
-
-    try: chat = int(chat)
-    except: pass
-    try: k = await bot.get_users(user_id)
-    except PeerIdInvalid: return await message.reply("Tʜɪs Is Aɴ Iɴᴠᴀʟɪᴅ Usᴇʀ, Mᴀᴋᴇ Sᴜʀᴇ Iᴀ Hᴀᴠᴇ Mᴇᴛ Hɪᴍ Bᴇғᴏʀᴇ")
-    except IndexError: return await message.reply("Tʜɪs Mɪɢʜᴛ Bᴇ A Cʜᴀɴᴇʟ, Mᴀᴋᴇ Sᴜʀᴇ Iᴛs A Usᴇʀ.")
-    except Exception as e: return await message.reply(f'Eʀʀᴏʀ: {e}')
+@bot.on_message(filters.command("unban") & filters.reply)
+async def handle_unban_reply(message):
+    await handle_unban(message)
+    if message.reply_to_message is not None:
+        user_to_unban = message.reply_to_message.from_user.id
+        await bot.unban_chat_member(message.chat.id, user_to_unban)
+        await bot.send_message(message.chat.id, "User unbanned.")
     else:
-        jar = await db.get_ban_status(k.id)
-        if not jar['is_banned']: return await message.reply(f"{k.mention} Iꜱ Nᴏᴛ Yᴇᴛ Bᴀɴɴᴇᴅ")
-        await db.remove_ban(k.id)
-        temp.BANNED_USERS.remove(k.id)
-        await message.reply(f"Sᴜᴄᴄᴇꜱꜰᴜʟʟʏ Uɴʙᴀɴɴᴇᴅ {k.mention}")
+        await bot.send_message(message.chat.id, "Please reply to a message from the user you want to unban.")
