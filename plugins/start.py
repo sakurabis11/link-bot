@@ -176,7 +176,7 @@ async def handle_ban_reply(message):
     else:
         await bot.send_message(message.chat.id, "Please reply to a message from the user you want to ban.")
 
-@bot.on_message(filters.command("unban") & filters.reply)
+@Client.on_message(filters.command("unban") & filters.reply)
 async def handle_unban_reply(message):
     await handle_unban(message)
     if message.reply_to_message is not None:
