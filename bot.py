@@ -13,7 +13,7 @@ logging.config.fileConfig("logging.conf")
 logging.getLogger().setLevel(logging.INFO)
 logger = logging.getLogger(__name__)
 
-class Bot(Client):
+class app(Client):
 
     def __init__(self):
         super().__init__(
