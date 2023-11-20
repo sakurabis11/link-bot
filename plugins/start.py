@@ -6,17 +6,12 @@ from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQ
 from database.users_chats_db import db
 from pyrogram import Client, filters, enums
 from pyrogram.errors import FloodWait
-from info import API_ID, API_HASH, BOT_TOKEN, PORT
+from info import API_ID, API_HASH, BOT_TOKEN, PORT, LOG_CHANNEL
 
 # Define a function to handle the /start command
 @Client.on_message(filters.command("start"))
 async def start_message(client, message):
-    await client.send_message(chat_id=message.chat.id, text="Hello! Welcome to my Telegram bot.")
-    # Reply with the START_TXT message and the reply_markup keyboard
     await message.reply(script.START_TXT.format(message.from_user.mention if message.from_user else message.chat.title, temp.U_NAME, temp.B_NAME), reply_markup=reply_markup)
-
-    # Wait for 2 seconds
-    await asyncio.sleep(2)
 
     # Check if the chat exists in the database
     if not await db.get_chat(message.chat.id):
@@ -37,3 +32,11 @@ async def start_message(client, message):
 
         # Send a log message to the LOG_CHANNEL
         await client.send_message(LOG_CHANNEL, script.LOG_TEXT_P.format(message.from_user.id, message.from_user.mention))
+
+@Client.on_message(filters.command('logs') & filters.user(ADMINS))
+async def log_file(bot, message):
+    """Send log file"""
+    try:
+        await message.reply_document('bot.log')
+    except Exception as e:
+        await message.reply(str(e))
