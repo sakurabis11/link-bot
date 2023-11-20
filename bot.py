@@ -3,6 +3,7 @@ from info import API_ID, API_HASH, BOT_TOKEN, PORT
 import os, math, logging, datetime, pytz
 import logging.config
 from pyrogram.errors import BadRequest, Unauthorized
+from database.users_chats_db import db
 from plugins import web_server 
 from aiohttp import web
 from typing import Union, Optional, AsyncGenerator
@@ -26,6 +27,9 @@ class Bot(Client):
             sleep_threshold=5,
         )
     async def start(self):
+        b_users, b_chats = await db.get_banned()
+        temp.BANNED_USERS = b_users
+        temp.BANNED_CHATS = b_chats
         await super().start()
         me = await self.get_me()
         temp.U_NAME = me.username
