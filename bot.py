@@ -1,5 +1,5 @@
 from pyrogram import Client
-from info import API_ID, API_HASH, BOT_TOKEN, PORT
+from info import API_ID, API_HASH, BOT_TOKEN, PORT, ADMINS, LOG_CHANNEL
 import os, math, logging, datetime, pytz
 import logging.config
 from pyrogram.errors import BadRequest, Unauthorized
