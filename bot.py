@@ -17,7 +17,7 @@ class Bot(Client):
 
     def __init__(self):
         super().__init__(
-            name="simple-renamer",
+            name="simple-bot",
             api_id=API_ID,
             api_hash=API_HASH,
             bot_token=BOT_TOKEN,
@@ -33,7 +33,7 @@ class Bot(Client):
         app = web.AppRunner(await web_server())
         await app.setup()
         await web.TCPSite(app, "0.0.0.0", 8080).start()
-        logger.info("Web Response Is Running......🕸️")
+        logger.info("Running...")
         print(f"{me.first_name} | @{me.username} 𝚂𝚃𝙰𝚁𝚃𝙴𝙳...⚡️")
 
        
