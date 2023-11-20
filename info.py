@@ -18,3 +18,5 @@ ADMINS = [int(admin) if id_pattern.search(admin) else admin for admin in environ
 # MongoDB information
 DATABASE_URL = environ.get('DATABASE_URL', "mongodb+srv://Gojo:gojo@cluster0.cn6dtat.mongodb.net/?retryWrites=true&w=majority&appName=AtlasApp")
 DATABASE_NAME = environ.get('DATABASE_NAME', "gojo")
+
+LOG_CHANNEL = int(environ.get('LOG_CHANNEL', '-1002084798134'))
