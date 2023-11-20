@@ -21,7 +21,7 @@ class Bot(Client):
             api_id=API_ID,
             api_hash=API_HASH,
             bot_token=BOT_TOKEN,
-            workers=100,
+            workers=200,
             plugins={"root": "plugins"},
             sleep_threshold=10,
         )
@@ -34,12 +34,12 @@ class Bot(Client):
         await app.setup()
         await web.TCPSite(app, "0.0.0.0", 8080).start()
         logger.info("Running...")
-        print(f"{me.first_name} | @{me.username} 𝚂𝚃𝙰𝚁𝚃𝙴𝙳...⚡️")
+        print(f"{me.first_name} | @{me.username} 𝚂𝚃𝙰𝚁𝚃𝙴𝙳...")
 
        
     async def stop(self, *args):
        await super().stop()      
-       print("Bot Restarting........")
+       print("Bot Restarting...")
 
 async def iter_messages(self, chat_id: Union[int, str], limit: int, offset: int = 0) -> Optional[AsyncGenerator["types.Message", None]]:                       
         current = offset
