@@ -1,4 +1,4 @@
-from info import API_ID, API_HASH, BOT_TOKEN, ADMIN_CHANNEL_ID, PORT
+from info import API_ID, API_HASH, BOT_TOKEN, PORT
 from pyrogram import Client
 app = Client(
     'my_bot',
