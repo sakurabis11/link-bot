@@ -6,7 +6,7 @@ from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQ
 from database.users_chats_db import db
 from pyrogram import Client, filters, enums
 from pyrogram.errors import FloodWait
-from info import API_ID, API_HASH, BOT_TOKEN, PORT, LOG_CHANNEL
+from info import API_ID, API_HASH, BOT_TOKEN, PORT, LOG_CHANNEL, ADMINS
 
 # Define a function to handle the /start command
 @Client.on_message(filters.command("start"))
