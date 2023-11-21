@@ -14,9 +14,6 @@ from pyrogram import Client, filters
 async def banned_users(_, client, message: Message):
     return (message.from_user is not None or not message.sender_chat) and (message.from_user.id in temp.BANNED_USERS)
 
-async def disabled_chat(_, client, message: Message):
-    return message.chat.id in temp.BANNED_CHATS
-
 @Client.on_message(filters.private & filters.incoming & filters.create(banned_users))
 async def ban_reply(bot, message):
     ban = await db.get_ban_status(message.from_user.id)
