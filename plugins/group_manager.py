@@ -10,7 +10,16 @@ from Script import script
 from time import time
 import asyncio
 
+async def banned_users(_, client, message: Message):
+    return (message.from_user is not None or not message.sender_chat) and (message.from_user.id in temp.BANNED_USERS)
 
+async def disabled_chat(_, client, message: Message):
+    return message.chat.id in temp.BANNED_CHATS
+
+@Client.on_message(filters.private & filters.incoming & filters.create(banned_users))
+async def ban_reply(bot, message):
+    ban = await db.get_ban_status(message.from_user.id)
+    await message.reply(f"Sᴏʀʀʏ Dᴜᴅᴇ, Yᴏᴜ Aʀᴇ Bᴀɴɴᴇᴅ Tᴏ Usᴇ Mᴇ. \nBᴀɴ Rᴇᴀsᴏɴ: {ban['ban_reason']}")
 
 @Client.on_message(filters.command("ban"))
 async def ban_user(_, message):
