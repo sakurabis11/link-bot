@@ -5,7 +5,7 @@ from telegraph import upload_file
 from utils import get_file_id
 
 @Client.on_message(filters.command("telegraph"))
-async def telegraph_upload(bot, update):
+async def telegraph_upload(client, update):
     replied = update.reply_to_message
     if not replied:
         return await update.reply_text("Reply To A Photo Or Video Under 20MB")
