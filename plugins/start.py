@@ -14,12 +14,7 @@ logger = logging.getLogger(__name__)
 logger.setLevel(logging.ERROR)
 
 @Client.on_message(filters.command(['start']))
-
-async
- 
-def
- 
-home(client, message):
+async def home(client, message):
     buttons = [[
         InlineKeyboardButton('Help', callback_data='help'),
         InlineKeyboardButton('Close', callback_data='close')
@@ -37,12 +32,7 @@ home(client, message):
     )
 
 @Client.on_message(filters.command(['help']))
-
-async
- 
-def
- 
-help(client, message):
+async def help(client, message):
     buttons = [[
         InlineKeyboardButton('Home', callback_data='home'),
         InlineKeyboardButton('Close', callback_data='close')
@@ -73,6 +63,7 @@ async def button(client, update):
     elif cb_data == 'home':
         await update.message.delete()
         await home(client, update.message)
+
 @Client.on_message(filters.command("restart") & filters.user(ADMINS))
 async def restart_bot(client, msg):
     await msg.reply("Rᴇꜱᴛᴀᴛɪɴɢ........")
