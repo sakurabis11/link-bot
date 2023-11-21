@@ -3,7 +3,7 @@ from telegraph import upload_file
 import pyrogram
 from pyrogram import filters, Client
 
-@client.on_message(filters.photo)
+@Client.on_message(filters.photo)
 async def upload_photo(message):
   # Send a message indicating the download is in progress
   await message.reply("`Downloading photo...`")
@@ -30,7 +30,7 @@ async def upload_photo(message):
   os.remove(photo_path)
 
 
-@client.on_message(filters.animation)
+@Client.on_message(filters.animation)
 async def upload_gif(message):
   # Check if the GIF file size is less than 20 MB
   if message.animation.file_size < 20971520:
@@ -62,7 +62,7 @@ async def upload_gif(message):
       await message.reply("`The GIF size should be less than 20 MB. Please try with a smaller GIF.`")
 
 
-@client.on_message(filters.video)
+@Client.on_message(filters.video)
 async def upload_video(message):
   # Check if the video file size is less than 20 MB
   if message.video.file_size < 20971520:
