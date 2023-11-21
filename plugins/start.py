@@ -84,6 +84,7 @@ if not await db.is_user_exist(message.from_user.id):
     # Send a log message to the LOG_CHANNEL
     await client.send_message(LOG_CHANNEL, script.LOG_TEXT_P.format(message.from_user.id, message.from_user.mention))
 
+
 @Client.on_message(filters.command("restart") & filters.user(ADMINS))
 async def restart_bot(client, msg):
     await msg.reply("Rᴇꜱᴛᴀᴛɪɴɢ........")
