@@ -13,10 +13,53 @@ from utils import get_size, temp, extract_user, get_file_id, humanbytes
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.ERROR)
 
-# Define a function to handle the /start command
-@Client.on_message(filters.command("start"))
-async def start_message(client, message):
-    await message.reply("Hi")
+@Client.on_message(filters.command(["start"]))
+async def home(client, message):
+  buttons = [[
+        InlineKeyboardButton('Help', callback_data='help'),
+        InlineKeyboardButton('Close', callback_data='close')
+    ],
+    [
+        InlineKeyboardButton('Our Channel', url='https://t.me/amal_nath_05')
+    ]]
+  reply_markup = InlineKeyboardMarkup(buttons)
+  await Tgraph.send_message(
+        chat_id=message.chat.id,
+        text=START_TXT,
+        reply_markup=reply_markup,
+        parse_mode="html",
+        reply_to_message_id=message.message_id
+    )
+
+@Client.on_message(filters.command(["help"]))
+async def help(client, message):
+  buttons = [[
+        InlineKeyboardButton('Home', callback_data='home'),
+        InlineKeyboardButton('Close', callback_data='close')
+    ],
+    [
+        InlineKeyboardButton('Our Channel', url='https://t.me/amal_nath_05')
+    ]]
+  reply_markup = InlineKeyboardMarkup(buttons)
+  await Tgraph.send_message(
+        chat_id=message.chat.id,
+        text="""wait""",
+        reply_markup=reply_markup,
+        parse_mode="html",
+        reply_to_message_id=message.message_id
+    )                           
+@Client.on_callback_query()
+async def button(client, update):
+      cb_data = update.data
+      if "help" in cb_data:
+        await update.message.delete()
+        await help(client, update.message)
+      elif "close" in cb_data:
+        await update.message.delete() 
+      elif "home" in cb_data:
+        await update.message.delete()
+        await home(client, update.message)
+
     
     # Check if the chat exists in the database
     if not await db.get_chat(message.chat.id):
