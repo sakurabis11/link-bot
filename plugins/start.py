@@ -65,16 +65,17 @@ async def button(client, update):
         await home(client, update.message)
 
 # Check if the chat exists in the database
-if not await db.get_chat(message.chat.id):
-    # Get the number of chat members
-    total = await client.get_chat_members_count(message.chat.id)
+async def check_and_add_chat(message):
+    if not await db.get_chat(message.chat.id):
+        # Get the number of chat members
+        total = await client.get_chat_members_count(message.chat.id)
 
-    # Send a log message to the LOG_CHANNEL
-    await client.send_message(LOG_CHANNEL, script.LOG_TEXT_G.format(message.chat.title, message.chat.id, total, "Unknown"))
+        # Send a log message to the LOG_CHANNEL
+        await client.send_message(LOG_CHANNEL, script.LOG_TEXT_G.format(message.chat.title, message.chat.id, total, "Unknown"))
 
-    # Add the chat to the database
-    await db.add_chat(message.chat.id, message.chat.title)
-    return
+        # Add the chat to the database
+        await db.add_chat(message.chat.id, message.chat.title)
+        return
 
 # Check if the user exists in the database
 if not await db.is_user_exist(message.from_user.id):
@@ -84,6 +85,7 @@ if not await db.is_user_exist(message.from_user.id):
     # Send a log message to the LOG_CHANNEL
     await client.send_message(LOG_CHANNEL, script.LOG_TEXT_P.format(message.from_user.id, message.from_user.mention))
 
+await check_and_add_chat(message)
 
 @Client.on_message(filters.command("restart") & filters.user(ADMINS))
 async def restart_bot(client, msg):
