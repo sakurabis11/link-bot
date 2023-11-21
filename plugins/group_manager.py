@@ -4,11 +4,12 @@ from pyrogram import Client, filters, enums
 from pyrogram.errors.exceptions.forbidden_403 import ChatWriteForbidden
 from pyrogram.errors.exceptions.bad_request_400 import ChatAdminRequired, UserAdminInvalid
 
-from utils import extract_time, extract_user, admin_check, admin_filter                        
+from utils import extract_time, extract_user, admin_check, admin_filter, temp                    
 from info import ADMINS
 from Script import script
 from time import time
 import asyncio
+from pyrogram import Client, filters
 
 async def banned_users(_, client, message: Message):
     return (message.from_user is not None or not message.sender_chat) and (message.from_user.id in temp.BANNED_USERS)
