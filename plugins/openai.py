@@ -6,6 +6,8 @@ from info import API_ID, API_HASH, BOT_TOKEN, OPENAI_API_KEY, PORT
 # Define GPT-3 command handler
 @Client.on_message(filters.command("openai"))
 async def openai_handler(client, message):
+    try:
+        prompt = message.text.split(" ")[1]
         response = openai.Completion.create(
             prompt=prompt,
             model="text-davinci-003",
@@ -21,10 +23,8 @@ async def openai_handler(client, message):
 
         # Send OpenAI response to Telegram chat
         await message.reply(response_text)
-
     except IndexError:
-        await message.reply("Please provide a prompt after the command, e.g., /gpt3 Tell me a joke.")
-
+        await message.reply("Please provide a prompt after the command, e.g., /openai Tell me a joke.")
     except Exception as e:
         if isinstance(e, openai.errors.OpenAIError) and e.status_code == 400:
             await message.reply("Invalid prompt or request format. Please try again.")
@@ -33,4 +33,3 @@ async def openai_handler(client, message):
         else:
             print(f"Unexpected error occurred: {e}")
             await message.reply("An unexpected error occurred while processing your request. Please try again later.")
-
