@@ -3,17 +3,15 @@ from pyrogram.types import Message
 import openai
 from info import API_ID, API_HASH, BOT_TOKEN, OPENAI_API_KEY
 
-@Client.on_message(filters.command("openai"))
-async def generate_response(_, message: Message):
-    # Get the user's message
-    user_input = message.text
+OPENAI_API_KEY = openai.api_key
 
-    # Use OpenAI to generate a response
+@Client.on_message(filters.private & filters.text)
+def chat_with_openai(client, message):
     response = openai.Completion.create(
-        engine="text-davinci-003",
-        prompt=user_input,
-        max_tokens=100
+        model="gpt-3.5-turbo",
+        messages=[
+            {"role": "system", "content": "You are a helpful assistant."},
+            {"role": "user", "content": message.text}
+        ]
     )
-
-    # Send the generated response to the user
-    message.reply_text(response['choices'][0]['text'])
+    message.reply_text(response.choices[0].text)
