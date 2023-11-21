@@ -4,18 +4,16 @@ import asyncio
 from info import API_ID, API_HASH, BOT_TOKEN, OPENAI_API_KEY, PORT
 
 # Define GPT-3 command handler
-@Client.on_message(filters.command("gpt3"))
-async def gpt3_handler(client, message):
-    try:
-        # Extract prompt from message
-        prompt = message.text.split("gpt3 ")[1]
-
-        # Send prompt to OpenAI API and get response
+@Client.on_message(filters.command("openai"))
+async def openai_handler(client, message):
         response = openai.Completion.create(
             prompt=prompt,
             model="text-davinci-003",
-            temperature=0.7,
-            max_tokens=1024
+            temperature=0.5,
+            max_tokens=1024,
+            top_p=1,
+            frequency_penalty=0.0,
+            presence_penalty=0.0
         )
 
         # Truncate response to a reasonable length
