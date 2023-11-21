@@ -25,7 +25,7 @@ async def home(client, message):
     reply_markup = InlineKeyboardMarkup(buttons)
     await Tgraph.send_message(
         chat_id=message.chat.id,
-        text=START_TXT,
+        text="""hello""",
         reply_markup=reply_markup,
         parse_mode="html",
         reply_to_message_id=message.message_id
