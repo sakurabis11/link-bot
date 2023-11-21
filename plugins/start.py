@@ -47,7 +47,7 @@ async def log_file(bot, message):
         await message.reply(str(e))
 
 @Client.on_message(filters.command("restart") & filters.user(ADMINS))
-async def restart_bot(bot, msg):
+async def restart_bot(client, msg):
     await msg.reply("Rᴇꜱᴛᴀᴛɪɴɢ........")
     await asyncio.sleep(2)
     await sts.delete()
@@ -142,7 +142,7 @@ async def user_info(client, message):
     await status_message.delete()
 
 @Client.on_message(filters.command('stats') & filters.incoming)
-async def get_ststs(bot, message):
+async def get_ststs(client, message):
     rju = await message.reply('<b>Pʟᴇᴀꜱᴇ Wᴀɪᴛ...</b>')
     total_users = await db.total_users_count()
     totl_chats = await db.total_chat_count()
@@ -153,7 +153,7 @@ async def get_ststs(bot, message):
     await rju.edit(script.STATUS_TXT.format(total_users, totl_chats, size, free))
 
 @Client.on_message(filters.command('users') & filters.user(ADMINS))
-async def list_users(bot, message):
+async def list_users(client, message):
     sps = await message.reply('Gᴇᴛᴛɪɴɢ Lɪꜱᴛ Oꜰ Uꜱᴇʀꜱ')
     users = await db.get_all_users()
     out = "Uꜱᴇʀꜱ Sᴀᴠᴇᴅ Iɴ DB Aʀᴇ:\n\n"
@@ -165,23 +165,3 @@ async def list_users(bot, message):
         with open('users.txt', 'w+') as outfile:
             outfile.write(out)
         await message.reply_document('users.txt', caption="Lɪꜱᴛ Oꜰ Uꜱᴇʀꜱ")
-
-@Client.on_message(filters.command("ban") & filters.reply)
-async def handle_ban_reply(message):
-    await handle_ban(message)
-    if message.reply_to_message is not None:
-        user_to_ban = message.reply_to_message.from_user.id
-        await bot.ban_chat_member(message.chat.id, user_to_ban)
-        await bot.send_message(message.chat.id, "User banned.")
-    else:
-        await bot.send_message(message.chat.id, "Please reply to a message from the user you want to ban.")
-
-@Client.on_message(filters.command("unban") & filters.reply)
-async def handle_unban_reply(message):
-    await handle_unban(message)
-    if message.reply_to_message is not None:
-        user_to_unban = message.reply_to_message.from_user.id
-        await bot.unban_chat_member(message.chat.id, user_to_unban)
-        await bot.send_message(message.chat.id, "User unbanned.")
-    else:
-        await bot.send_message(message.chat.id, "Please reply to a message from the user you want to unban.")
