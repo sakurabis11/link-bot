@@ -1,47 +1,94 @@
-import os, asyncio
-from pyrogram import Client, filters
-from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, Message, CallbackQuery
+import os
 from telegraph import upload_file
-from utils import get_file_id
+import pyrogram
+from pyrogram import filters, Client
 
-@Client.on_message(filters.command("telegraph"))
-async def telegraph_upload(client, update):
-    replied = update.reply_to_message
-    if not replied:
-        return await update.reply_text("Reply To A Photo Or Video Under 20MB")
-    file_info = get_file_id(replied)
-    if not file_info:
-        return await update.reply_text("Not Supported!")
-    text = await update.reply_text(text="<code>Downloading To My Server ...</code>", disable_web_page_preview=True)
+@client.on_message(filters.photo)
+async def upload_photo(message):
+  # Send a message indicating the download is in progress
+  await message.reply("`Downloading photo...`")
 
-    # Check file size before downloading
-    file_size = (await replied.download()).size
-    if file_size > 20 * 1024 * 1024:  # 20 MB in bytes
-        return await update.reply_text("File size exceeds the limit of 20 MB.")
+  # Get the user ID from the chat message
+  user_id = get_user_id(message.chat)
 
-    media = await update.reply_to_message.download()
-    await text.edit_text(text="<code>Downloading Completed. Now I am Uploading to telegra.ph Link ...</code>", disable_web_page_preview=True)
+  # Construct the file path for the downloaded photo
+  photo_path = f"./DOWNLOADS/{user_id}.jpg"
 
-    try:
-        response = upload_file(media)
-    except Exception as error:
-        print(error)
-        await text.edit_text(text=f"Error :- {error}", disable_web_page_preview=True)
-        return
+  # Download the photo from the Telegram message
+  await client.download_media(message=message, file_name=photo_path)
 
-    try:
-        os.remove(media)
-    except Exception as error:
-        print(error)
-        return
+  # Send a message indicating the upload is in progress
+  await message.edit("`Uploading photo...`")
 
-    await text.edit_text(
-        text=f"<b>Link :-</b>\n\n<code>https://graph.org{response[0]}</code>",
-        disable_web_page_preview=True,
-        reply_markup=InlineKeyboardMarkup([[
-            InlineKeyboardButton(text="Open Link", url=f"https://graph.org{response[0]}"),
-            InlineKeyboardButton(text="Share Link", url=f"https://telegram.me/share/url?url=https://graph.org{response[0]}")
-        ], [
-            InlineKeyboardButton(text=" Close ", callback_data="close")
-        ]])
-    )
+  # Upload the photo to Telegram and get the public link
+  public_link = upload_file(photo_path)
+
+  # Send the public link of the uploaded photo
+  await message.edit(f"**Photo uploaded:**\n{public_link}")
+
+  # Remove the downloaded photo file
+  os.remove(photo_path)
+
+
+@client.on_message(filters.animation)
+async def upload_gif(message):
+  # Check if the GIF file size is less than 20 MB
+  if message.animation.file_size < 20971520:
+      # Send a message indicating the download is in progress
+      await message.reply("`Downloading GIF...`")
+
+      # Get the user ID from the chat message
+      user_id = get_user_id(message.chat)
+
+      # Construct the file path for the downloaded GIF
+      gif_path = f"./DOWNLOADS/{user_id}.mp4"
+
+      # Download the GIF from the Telegram message
+      await client.download_media(message=message, file_name=gif_path)
+
+      # Send a message indicating the upload is in progress
+      await message.edit("`Uploading GIF...`")
+
+      # Upload the GIF to Telegram and get the public link
+      public_link = upload_file(gif_path)
+
+      # Send the public link of the uploaded GIF
+      await message.edit(f"**GIF uploaded:**\n{public_link}")
+
+      # Remove the downloaded GIF file
+      os.remove(gif_path)
+  else:
+      # Notify the user about the file size limit
+      await message.reply("`The GIF size should be less than 20 MB. Please try with a smaller GIF.`")
+
+
+@client.on_message(filters.video)
+async def upload_video(message):
+  # Check if the video file size is less than 20 MB
+  if message.video.file_size < 20971520:
+      # Send a message indicating the download is in progress
+      await message.reply("`Downloading video...`")
+
+      # Get the user ID from the chat message
+      user_id = get_user_id(message.chat)
+
+      # Construct the file path for the downloaded video
+      video_path = f"./DOWNLOADS/{user_id}.mp4"
+
+      # Download the video from the Telegram message
+      await client.download_media(message=message, file_name=video_path)
+
+      # Send a message indicating the upload is in progress
+      await message.edit("`Uploading video...`")
+
+      # Upload the video to Telegram and get the public link
+      public_link = upload_file(video_path)
+
+      # Send the public link of the uploaded video
+      await message.edit(f"**Video uploaded:**\n{public_link}")
+
+      # Remove the downloaded video file
+      os.remove(video_path)
+  else:
+      # Notify the user about the file size limit
+      await message.reply("`The video size should be less than 20 MB. Please try with a smaller video.`")
