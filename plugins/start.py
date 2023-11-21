@@ -15,15 +15,15 @@ logger.setLevel(logging.ERROR)
 
 @Client.on_message(filters.command(["start"]))
 async def home(client, message):
-  buttons = [[
+    buttons = [[
         InlineKeyboardButton('Help', callback_data='help'),
         InlineKeyboardButton('Close', callback_data='close')
     ],
     [
         InlineKeyboardButton('Our Channel', url='https://t.me/amal_nath_05')
     ]]
-  reply_markup = InlineKeyboardMarkup(buttons)
-  await Tgraph.send_message(
+    reply_markup = InlineKeyboardMarkup(buttons)
+    await Tgraph.send_message(
         chat_id=message.chat.id,
         text=START_TXT,
         reply_markup=reply_markup,
@@ -33,61 +33,56 @@ async def home(client, message):
 
 @Client.on_message(filters.command(["help"]))
 async def help(client, message):
-  buttons = [[
+    buttons = [[
         InlineKeyboardButton('Home', callback_data='home'),
         InlineKeyboardButton('Close', callback_data='close')
     ],
     [
         InlineKeyboardButton('Our Channel', url='https://t.me/amal_nath_05')
     ]]
-  reply_markup = InlineKeyboardMarkup(buttons)
-  await Tgraph.send_message(
+    reply_markup = InlineKeyboardMarkup(buttons)
+    await Tgraph.send_message(
         chat_id=message.chat.id,
         text="""wait""",
         reply_markup=reply_markup,
         parse_mode="html",
         reply_to_message_id=message.message_id
-    )                           
+    )
+
 @Client.on_callback_query()
 async def button(client, update):
-      cb_data = update.data
-      if "help" in cb_data:
+    if not update.message.from_user.bot:
+        return
+
+    cb_data = update.data
+    if "help" in cb_data:
         await update.message.delete()
         await help(client, update.message)
-      elif "close" in cb_data:
-        await update.message.delete() 
-      elif "home" in cb_data:
+    elif "close" in cb_data:
+        await update.message.delete()
+    elif "home" in cb_data:
         await update.message.delete()
         await home(client, update.message)
 
-    
-    # Check if the chat exists in the database
-    if not await db.get_chat(message.chat.id):
-        # Get the number of chat members
-        total = await client.get_chat_members_count(message.chat.id)
+# Check if the chat exists in the database
+if not await db.get_chat(message.chat.id):
+    # Get the number of chat members
+    total = await client.get_chat_members_count(message.chat.id)
 
-        # Send a log message to the LOG_CHANNEL
-        await client.send_message(LOG_CHANNEL, script.LOG_TEXT_G.format(message.chat.title, message.chat.id, total, "Unknown"))
+    # Send a log message to the LOG_CHANNEL
+    await client.send_message(LOG_CHANNEL, script.LOG_TEXT_G.format(message.chat.title, message.chat.id, total, "Unknown"))
 
-        # Add the chat to the database
-        await db.add_chat(message.chat.id, message.chat.title)
-        return
+    # Add the chat to the database
+    await db.add_chat(message.chat.id, message.chat.title)
+    return
 
-    # Check if the user exists in the database
-    if not await db.is_user_exist(message.from_user.id):
-        # Add the user to the database
-        await db.add_user(message.from_user.id, message.from_user.first_name)
+# Check if the user exists in the database
+if not await db.is_user_exist(message.from_user.id):
+    # Add the user to the database
+    await db.add_user(message.from_user.id, message.from_user.first_name)
 
-        # Send a log message to the LOG_CHANNEL
-        await client.send_message(LOG_CHANNEL, script.LOG_TEXT_P.format(message.from_user.id, message.from_user.mention))
-
-@Client.on_message(filters.command('logs') & filters.user(ADMINS))
-async def log_file(bot, message):
-    """Send log file"""
-    try:
-        await message.reply_document('bot.log')
-    except Exception as e:
-        await message.reply(str(e))
+    # Send a log message to the LOG_CHANNEL
+    await client.send_message(LOG_CHANNEL, script.LOG_TEXT_P.format(message.from_user.id, message.from_user.mention))
 
 @Client.on_message(filters.command("restart") & filters.user(ADMINS))
 async def restart_bot(client, msg):
