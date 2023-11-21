@@ -10,9 +10,6 @@ async def gpt3_handler(client, message):
         # Extract prompt from message
         prompt = message.text.split("gpt3 ")[1]
 
-        # Send a typing indicator while processing
-        await message.chat.send_action(action="typing")
-
         # Send prompt to OpenAI API and get response
         response = openai.Completion.create(
             prompt=prompt,
