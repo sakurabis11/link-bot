@@ -2,7 +2,7 @@ import pyrogram
 import asyncio
 import pyrogram.errors.exceptions.bad_request_400 as bad_request
 from Script import script
-from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery
+from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery, InlineQueryResultArticle, InputTextMessageContent, ReplykeyboardMarkup
 from database.users_chats_db import db
 from pyrogram import Client, filters, enums
 from pyrogram.errors import FloodWait
