@@ -3,7 +3,7 @@ from pyrogram.types import Message
 import openai
 from info import API_ID, API_HASH, BOT_TOKEN, OPENAI_API_KEY
 
-@Client.on_message(filters.text)
+@Client.on_message(filters.command("openai"))
 async def generate_response(_, message: Message):
     # Get the user's message
     user_input = message.text
