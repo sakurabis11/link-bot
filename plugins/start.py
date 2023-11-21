@@ -78,7 +78,7 @@ async def check_and_add_chat(message):
         return
 
 # Check if the user exists in the database
-if not await db.is_user_exist(message.from_user.id):
+await if not db.is_user_exist(message.from_user.id):
     # Add the user to the database
     await db.add_user(message.from_user.id, message.from_user.first_name)
 
