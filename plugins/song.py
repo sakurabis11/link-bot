@@ -1,69 +1,49 @@
 import pyrogram
-from pyrogram import Client, filters, types
-from pyrogram.types import ReplyKeyboardMarkup, InlineKeyboardButton
-from pyrogram.errors import FloodWait
-import yt_dlp
-import os
+import yt_dlp‎
+from pyrogram import types, Client, filters
+from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
+from pyrogram.utils import get_file_id, download_media
 from info import API_ID, API_HASH, BOT_TOKEN
 
-DOWNLOAD_LOCATION = "downloads"  # Change this to your desired download location
+# Define the command handler for downloading songs
+@Client.on_message(filters.command("download"))
+async def download_song(client, message):
+    # Get the song name from the message
+    song_name = message.text.split()[1]
 
-@Client.on_message(filters.command("start"))
-def handle_message(message: types.Message):
-    if message.text == "/start":
-        keyboard = ReplyKeyboardMarkup(
-            [[InlineKeyboardButton("Search Songs", callback_data="search_songs")]]
-        )
-        message.reply(
-            "Welcome to the Telegram Song Downloader bot! 🎉\n\nUse the buttons below to search for songs and download them:",
-            reply_markup=keyboard,
-        )
+    # Search for the song on YouTube
+    youtube_results = search(song_name)
 
-    elif message.text.startswith("/search"):
-        search_query = message.text.split(" ")[1]
-        try:
-            search_results = yt_dlp.YoutubeDL().extract_info(f"ytsearch:{search_query}", download=False)["entries"]
+    # If no results found, notify the user
+    if not youtube_results:
+        message.reply_text("No results found for the song '" + song_name + "'")
+        return
 
-            reply_markup = InlineKeyboardMarkup(
-                [
-                    [
-                        InlineKeyboardButton(
-                            f"🎵 {result['title']}", callback_data=f"download_song {result['url']}"
-                        )
-                    ]
-                    for result in search_results[:10]
-                ]
-            )
+    # Send a message with the first YouTube result and a download button
+    first_result = youtube_results[0]
+    message.reply_text(f"Found the song '{first_result['title']}' by {first_result['artist']} on YouTube.\nDo you want to download this song?", reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("Download", callback_data=first_result['url'])]]))
 
-            message.reply(
-                "Choose the song you want to download:", reply_markup=reply_markup
-            )
-        except yt_dlp.utils.DownloadError:
-            message.reply("No matching songs found.")
-
-
+# Define the callback handler for handling download requests
 @Client.on_callback_query()
-def handle_callback_query(callback_query: types.CallbackQuery):
-    if callback_query.data.startswith("download_song"):
-        song_url = callback_query.data.split(" ")[1]
+async def handle_download_request(client, callback_query):
+    # Get the song URL from the callback data
+    song_url = callback_query.data
 
-        try:
-            with yt_dlp.YoutubeDL({"format": "bestaudio/bestvideo[ext=m4a]/best[ext=mp4]"}) as ydl:
-                video_info = ydl.extract_info(song_url, download=False)
+    # Download the song from YouTube
+    audio = download_song_from_youtube(song_url)
 
-                song_title = video_info["title"]
-                song_format = ydl.prepare_filename(video_info)
+    # Send the downloaded song to the user
+    callback_query.message.reply_document(audio)
 
-                message = callback_query.message
-                message.edit_text("Downloading song...")
+# Define a function to download songs from YouTube
+def download_song_from_youtube(song_url):
+    # Extract the video ID from the URL
+    video_id = song_url.split("v=")[1]
 
-                ydl.download([song_url])
+    # Download the audio file
+    audio_file = youtube_dl.YoutubeDL({"format": "bestaudio/best"})
+    audio_file.download([song_url])
+    audio_filename = audio_file.prepare_filename(info_dict={})
 
-                os.rename(song_format, f"{DOWNLOAD_LOCATION}/{song_title}.mp3")
-
-                message.edit_text("Song downloaded successfully! 🎉\n\nDownload location: " + DOWNLOAD_LOCATION)
-
-        except yt_dlp.utils.DownloadError:
-            message.edit_text("Error downloading song. Please try again later.")
-
-
+    # Return the audio file path
+    return audio_filename
