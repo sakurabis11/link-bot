@@ -1,7 +1,6 @@
 from pyrogram import Client, filters
 from pyrogram.types import Message
 import openai
-from openai import OpenAI
 from info import API_ID, API_HASH, BOT_TOKEN, OPENAI_API_KEY, PORT
 
 openai.api_key = OPENAI_API_KEY  # Set the OpenAI API key
