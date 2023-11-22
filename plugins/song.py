@@ -8,7 +8,7 @@ from info import API_ID, API_HASH, BOT_TOKEN, PORT
 
 
 @Client.on_message(filters.command(['song']))
-async def (client: Client, message: Message):
+async def(client: Client, message: Message):
     query = ' '.join(message.command[1:])
     print(query)
 
