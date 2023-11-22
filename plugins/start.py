@@ -13,10 +13,13 @@ from utils import get_size, temp, extract_user, get_file_id, humanbytes
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.ERROR)
 
+@Client.on_message(filters.command("help"))
+async def help_bot(client, message):
+    await message.reply("Hi\n How are you")
 
 @Client.on_message(filters.command("restart") & filters.user(ADMINS))
-async def restart_bot(client, msg):
-    await msg.reply("Rᴇꜱᴛᴀᴛɪɴɢ........")
+async def restart_bot(client, message):
+    await message.reply("Rᴇꜱᴛᴀᴛɪɴɢ........")
     await asyncio.sleep(2)
     await sts.delete()
     os.execl(sys.executable, sys.executable, *sys.argv)
