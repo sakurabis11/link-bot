@@ -13,56 +13,6 @@ from utils import get_size, temp, extract_user, get_file_id, humanbytes
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.ERROR)
 
-@Client.on_message(filters.command(['start']))
-async def home(client, message):
-    buttons = [[
-        InlineKeyboardButton('Help', callback_data='help'),
-        InlineKeyboardButton('Close', callback_data='close')
-    ],
-    [
-        InlineKeyboardButton('Our Channel', url='https://t.me/amal_nath_05')
-    ]]
-    reply_markup = InlineKeyboardMarkup(buttons)
-    await client.send_message(
-        chat_id=message.chat.id,
-        text="""hello""",
-        reply_markup=reply_markup,
-        parse_mode="html",
-        reply_to_message_id=message.message_id
-    )
-
-@Client.on_message(filters.command(['help']))
-async def help(client, message):
-    buttons = [[
-        InlineKeyboardButton('Home', callback_data='home'),
-        InlineKeyboardButton('Close', callback_data='close')
-    ],
-    [
-        InlineKeyboardButton('Our Channel', url='https://t.me/amal_nath_05')
-    ]]
-    reply_markup = InlineKeyboardMarkup(buttons)
-    await client.send_message(
-        chat_id=message.chat.id,
-        text="""wait""",
-        reply_markup=reply_markup,
-        parse_mode="html",
-        reply_to_message_id=message.message_id
-    )
-
-@Client.on_callback_query()
-async def button(client, update):
-    if not update.message.from_user.bot:
-        return
-
-    cb_data = update.data
-    if cb_data == 'help':
-        await update.message.delete()
-        await help(client, update.message)
-    elif cb_data == 'close':
-        await update.message.delete()
-    elif cb_data == 'home':
-        await update.message.delete()
-        await home(client, update.message)
 
 @Client.on_message(filters.command("restart") & filters.user(ADMINS))
 async def restart_bot(client, msg):
