@@ -3,7 +3,6 @@ import yt_dlp
 from youtube_search import YoutubeSearch
 import requests
 import time
-from youtube_dl import YoutubeDL
 from info import API_ID, API_HASH, BOT_TOKEN, PORT
 
 
