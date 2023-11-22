@@ -1,7 +1,7 @@
 import pyrogram
 from pyrogram import Client, filters, types
 from pyrogram.types import ReplyKeyboardMarkup, InlineKeyboardButton
-from pyrogram.errors import FloodWaitError
+from pyrogram.errors import FloodWait
 import yt_dlp
 import os
 
