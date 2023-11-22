@@ -4,6 +4,7 @@ from pyrogram.types import ReplyKeyboardMarkup, InlineKeyboardButton
 from pyrogram.errors import FloodWait
 import yt_dlp
 import os
+from info import API_ID, API_HASH, BOT_TOKEN
 
 DOWNLOAD_LOCATION = "downloads"  # Change this to your desired download location
 
