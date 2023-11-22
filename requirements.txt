@@ -17,3 +17,7 @@ ujson
 wget
 pytz
 yt_dlp
+youtube_search_python
+youtube_search
+requests
+ffmpeg-python
