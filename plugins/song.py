@@ -1,6 +1,6 @@
 import pyrogram
 from pyrogram import types, Client, filters
-from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton, 
+from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery
 from pyrogram.utils import get_file_id, download_media
 from info import API_ID, API_HASH, BOT_TOKEN
 from yt_dlp import YoutubeDL
