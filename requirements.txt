@@ -16,3 +16,4 @@ psutil==5.9.4
 ujson
 wget
 pytz
+yt_dlp
