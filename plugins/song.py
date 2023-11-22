@@ -8,7 +8,7 @@ from info import API_ID, API_HASH, BOT_TOKEN
 
 DOWNLOAD_LOCATION = "downloads"  # Change this to your desired download location
 
-@Client.on_message(filters.private)
+@Client.on_message(filters.command("start"))
 def handle_message(message: types.Message):
     if message.text == "/start":
         keyboard = ReplyKeyboardMarkup(
