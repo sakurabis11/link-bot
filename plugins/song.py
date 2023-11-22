@@ -1,5 +1,4 @@
 import pyrogram
-import yt_dlp‎
 from pyrogram import types, Client, filters
 from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton, 
 from pyrogram.utils import get_file_id, download_media
