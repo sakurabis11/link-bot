@@ -1,13 +1,14 @@
 from pyrogram import Client, filters
 import yt_dlp
 from youtube_search import YoutubeSearch
+from pyrogram.types import message
 import requests
 import time
 from info import API_ID, API_HASH, BOT_TOKEN, PORT
 
 
 @Client.on_message(filters.command(['song']))
-def a(client: Client, message: Message):
+async def (client: Client, message: Message):
     query = ' '.join(message.command[1:])
     print(query)
 
