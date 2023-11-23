@@ -3,8 +3,6 @@ from pyrogram import Client, filters
 from pytube import YouTube
 import os
 
-bot = Client("my_bot", api_id=123456789, api_hash="abcdefghijklmnopqrstuvwxyz")
-
 @Client.on_message(filters.text)
 async def handle_message(message):
     if message.text.startswith("/download "):
