@@ -1,4 +1,4 @@
-
+from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery
 from pyrogram import enums, filters, Client
 from info import API_ID, API_HASH, BOT_TOKEN, PORT
 import pyrogram
