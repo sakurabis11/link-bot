@@ -19,9 +19,9 @@ async def openai_command(client, message):
         )
 
         # Send the generated response back to the user
-        message.reply_text(response.choices[0].text)
+    await message.reply_text(response.choices[0].text)
 
     except Exception as e:
         # Handle any errors and send an error message to the user
         error_message = f"Sorry, an error occurred: {str(e)}"
-        message.reply_text(error_message)
+  await message.reply_text(error_message)
