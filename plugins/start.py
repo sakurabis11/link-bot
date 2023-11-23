@@ -28,7 +28,7 @@ async def start_command(client, message):
         InlineKeyboardButton("About", callback_data="about")
     ]]
     reply_markup = InlineKeyboardMarkup(button)
-    await message.reply_text("**Welcome to my bot**", reply_markup=reply_markup)
+    await message.reply_text("**Hi {first_name}, welcome to my bot! 🤖🎉\n**", reply_markup=reply_markup)
 
 @Client.on_message(filters.command("help"))
 async def help_command(client, message):
@@ -37,7 +37,7 @@ async def help_command(client, message):
         InlineKeyboardButton("Close", callback_data="close_data")
     ]]
     reply_markup = InlineKeyboardMarkup(button)
-    await message.reply_text("**HELP COMMANDS ARE:\n/openai {works in both group and private chat}\n**", reply_markup=reply_markup)
+    await message.reply_text("**HELPS**", reply_markup=reply_markup)
 
 @Client.on_message(filters.command("about"))
 async def about_command(client, message):
@@ -58,7 +58,7 @@ async def callback_handler(client, callback_query):
             InlineKeyboardButton("About", callback_data="about")
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
-        await query.message.edit_text("**Welcome to my bot**", reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
+        await query.message.edit_text("**Hi {first_name}, welcome to my bot! 🤖🎉\n**", reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
 
     if query.data == "help":
         buttons = [[
@@ -66,7 +66,7 @@ async def callback_handler(client, callback_query):
             InlineKeyboardButton('Close', callback_data='close_data')
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
-        await query.message.edit_text("**HELP COMMANDS ARE:\n/openai {works in both group and private chat}**", reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
+        await query.message.edit_text("**HELPS**", reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
 
     if query.data == "about":
         buttons = [[
