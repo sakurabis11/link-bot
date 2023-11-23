@@ -7,7 +7,6 @@ openai.api_key = OPENAI_API_KEY
 
 @Client.on_message(filters.command("openai"))
 async def openai_command(client, message):
-  try:
     user_input = message.text
 
     if "when user" in user_input:
