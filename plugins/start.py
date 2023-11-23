@@ -3,6 +3,12 @@ from pyrogram import enums, filters, Client
 from info import API_ID, API_HASH, BOT_TOKEN, PORT
 from Script import script
 
+    ABOUT_TXT ="""<b>✯ Mʏ ɴᴀᴍᴇ: {}
+✯ Dᴇᴠᴇʟᴏᴩᴇʀ: <a https://t.me/MrTG_Coder>ᴍʀ.ʙᴏᴛ ᴛɢ</a>
+✯ Lɪʙʀᴀʀʏ: <a href='https://docs.pyrogram.org/'>Pʏʀᴏɢʀᴀᴍ</a>
+✯ Lᴀɴɢᴜᴀɢᴇ: <a href='https://www.python.org/download/releases/3.0/'>Pʏᴛʜᴏɴ 3</a>
+✯ Mʏ Sᴇʀᴠᴇʀ: <a href='https://www.render.com'>ʀᴇɴᴅᴇʀ </a>"""
+
 @Client.on_message(filters.command("start"))
 async def start_command(client, message):
     button = [[
