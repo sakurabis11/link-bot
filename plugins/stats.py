@@ -1,5 +1,5 @@
 import pyrogram
-from pyrogram import Client, filters, enum
+from pyrogram import Client, filters, enums
 from info import API_ID, API_HASH, BOT_TOKEN, PORT
 
 
