@@ -13,7 +13,7 @@ async def openai_command(client, message):
         response = await openai.Completion.create(
             engine="text-davinci-003",
             prompt=user_input,
-            max_tokens=100
+            max_tokens=1024
         )
 
         await message.reply_text(response.choices[0].text)
