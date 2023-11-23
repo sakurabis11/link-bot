@@ -11,12 +11,14 @@ async def openai_command(client, message):
         user_input = message.text
 
         response = openai.Completion.create(
-            engine="gpt-3.5-turbo",
-            prompt=user_input,
-            max_tokens=1024
+            model="gpt-3.5-turbo",
+            messages=[
+                {"role": "system", "content": "I am ready to assist."},
+                {"role": "user", "content": user_input}
+            ]
         )
 
-        await message.reply_text(`response.choices[0].text`)
+        await message.reply_text(response.choices[0].text)
 
     except Exception as e:
         error_message = f"Sorry, an error occurred: {str(e)}"
