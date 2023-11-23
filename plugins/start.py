@@ -24,8 +24,8 @@ async def support_command(client, message):
 @Client.on_message(filters.command("start"))
 async def start_command(client, message):
     button = [[
-        InlineKeyboardButton("Help", callback_data="help"), 
-        InlineKeyboardButton("About", callback_data="about")
+        InlineKeyboardButton("🕸️ Hᴇʟᴩ", callback_data="help"), 
+        InlineKeyboardButton("✨ Aʙᴏᴜᴛ", callback_data="about")
     ]]
     reply_markup = InlineKeyboardMarkup(button)
     await message.reply_text("**Hi {first_name}, welcome to my bot! 🤖🎉\n**", reply_markup=reply_markup)
@@ -36,7 +36,7 @@ async def help_command(client, message):
          InlineKeyboardButton('Telegraph', callback_data='telegraph'),
          InlineKeyboardButton('Openai', callback_data='openai')
          ],[
-         InlineKeyboardButton('Back', callback_data='start')
+         InlineKeyboardButton('🏠 ʜᴏᴍᴇ', callback_data='start')
     ]]
     reply_markup = InlineKeyboardMarkup(button)
     await message.reply_text("**HELPS**", reply_markup=reply_markup)
@@ -55,8 +55,8 @@ async def callback_handler(client, callback_query):
 
     if query.data == "start":
         buttons = [[
-            InlineKeyboardButton("Help", callback_data="help"),
-            InlineKeyboardButton("About", callback_data="about")
+            InlineKeyboardButton("🕸️ Hᴇʟᴩ", callback_data="help"),
+            InlineKeyboardButton("✨ Aʙᴏᴜᴛ", callback_data="about")
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text("**Hi {first_name}, welcome to my bot! 🤖🎉\n**", reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
@@ -66,28 +66,28 @@ async def callback_handler(client, callback_query):
             InlineKeyboardButton('Telegraph', callback_data='telegraph'),
             InlineKeyboardButton('Openai', callback_data='openai')
             ],[
-            InlineKeyboardButton('Back', callback_data='start')
+            InlineKeyboardButton('🏠 ʜᴏᴍᴇ', callback_data='start')
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text("**HELPS**", reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
 
     if query.data == "telegraph"
         buttons = [[
-            InlineKeyboardButton('Back', callback_data='help')
+            InlineKeyboardButton('🏠 ʜᴏᴍᴇ', callback_data='help')
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text("**/telegraph Rᴇᴘʟʏ Tᴏ A Pʜᴏᴛᴏ Oʀ Vɪᴅᴇᴏ**", reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
 
     if query.data == "openai"
         buttons = [[
-            InlineKeyboardButton('Back', callback_data='help')
+            InlineKeyboardButton('🏠 ʜᴏᴍᴇ', callback_data='help')
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text("**/openai {ur question}\n Sometimes it will not work has very well**", reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
     
     if query.data == "about":
         buttons = [[
-            InlineKeyboardButton('Back', callback_data='start')
+            InlineKeyboardButton('🏠 ʜᴏᴍᴇ', callback_data='start')
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(ABOUT_TXT, reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
