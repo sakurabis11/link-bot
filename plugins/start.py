@@ -9,4 +9,5 @@ async def start_command(client, message):
         InlineKeyboardButton("Developer", url="https://t.me/Unni0240"),
     ]]
     reply_markup = InlineKeyboardMarkup(button)
-    message.reply_text("**Welcome to my bot**", reply_markup=reply_markup)
+
+    await message.reply_text("**Welcome to my bot**", reply_markup=reply_markup)
