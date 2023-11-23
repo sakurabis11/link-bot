@@ -5,8 +5,8 @@ import pyrogram
 
 @Client.on_message(filters.command("start"))
 async def start_command(client, message):
-    keyboard = [[
+    button = [[
         InlineKeyboardButton("Developer", url="https://t.me/Unni0240"),
     ]]
-    reply_markup = InlineKeyboardMarkup(keyboard)
+    reply_markup = InlineKeyboardMarkup(button)
     message.reply_text("**Welcome to my bot**", reply_markup=reply_markup)
