@@ -3,8 +3,8 @@ RUN apt update && apt upgrade -y
 RUN apt install git -y
 RUN  pip install --upgrade pip
 
-RUN pip install openai==0.28
 RUN pip install youtube-dl
+RUN pip install openai==0.28
 
 COPY requirements.txt /requirements.txt
 
