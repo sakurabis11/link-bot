@@ -14,8 +14,8 @@ ABOUT_TXT = """<b>✯ Mʏ ɴᴀᴍᴇ ɪS <^ ~ ^> ᴍʀ.ʙᴏᴛ ᵀᴳ </>
 async def support_command(client, message):
     button = [
         [
-            InlineKeyboardButton("Support Group", url="https://t.me/+1YR5aYuCdr40N2M1"),
-            InlineKeyboardButton("Support Channel", url="https://t.me/amal_nath_05")
+            InlineKeyboardButton("📢 Support Group", url="https://t.me/+1YR5aYuCdr40N2M1"),
+            InlineKeyboardButton("📢 Support Channel", url="https://t.me/amal_nath_05")
         ]
     ]
     reply_markup = InlineKeyboardMarkup(button)
@@ -33,13 +33,13 @@ async def start_command(client, message):
 @Client.on_message(filters.command("help"))
 async def help_command(client, message):
     buttons = [[
-         InlineKeyboardButton('Telegraph', callback_data='telegraph'),
-         InlineKeyboardButton('Openai', callback_data='openai')
+         InlineKeyboardButton('☯ Telegraph', callback_data='telegraph'),
+         InlineKeyboardButton('☯ Openai', callback_data='openai')
          ],[
          InlineKeyboardButton('🏠 ʜᴏᴍᴇ', callback_data='start')
     ]]
     reply_markup = InlineKeyboardMarkup(button)
-    await message.reply_text("**HELPS**", reply_markup=reply_markup)
+    await message.reply_text("**Hᴇʀᴇ Mꜱ Mʏ Hᴇʟᴩ.**", reply_markup=reply_markup)
 
 @Client.on_message(filters.command("about"))
 async def about_command(client, message):
