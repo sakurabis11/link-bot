@@ -27,6 +27,6 @@ async def telegraph_upload(bot, update):
         print(error)
         return
     await text.edit_text(
-        text=f"<b>Link :-</b>\nhttps://graph.org{response[0]}",
+        text=f"https://telegra.ph{response[0]}",
         disable_web_page_preview=True,
         )
