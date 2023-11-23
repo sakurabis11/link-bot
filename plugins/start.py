@@ -71,14 +71,14 @@ async def callback_handler(client, callback_query):
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text("**HELPS**", reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
 
-    if query.data == "telegraph"
+    if query.data == "telegraph":
         buttons = [[
             InlineKeyboardButton('🏠 ʜᴏᴍᴇ', callback_data='help')
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text("**/telegraph Rᴇᴘʟʏ Tᴏ A Pʜᴏᴛᴏ Oʀ Vɪᴅᴇᴏ**", reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
 
-    if query.data == "openai"
+    if query.data == "openai":
         buttons = [[
             InlineKeyboardButton('🏠 ʜᴏᴍᴇ', callback_data='help')
         ]]
