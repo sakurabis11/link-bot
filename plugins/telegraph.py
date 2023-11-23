@@ -33,13 +33,6 @@ async def telegraph_upload(bot, update):
         disable_web_page_preview=True,
     )
 
-    # Get the upload speed
-    async with aiohttp.ClientSession() as session:
-        async with session.get("https://speed.cloudflare.com/api/v4/get") as response:
-            if response.status == 200:
-                upload_speed_data = await response.json()
-                upload_speed = upload_speed_data["result"]["upload"]["bps"] / 1000000
-
     # Upload the media to Telegraph
     try:
         response = upload_file(media)
@@ -58,6 +51,6 @@ async def telegraph_upload(bot, update):
 
     # Send the Telegraph link and upload speed information to the user
     await download_text.edit_text(
-        text=f"https://telegra.ph{response[0]}\n\nUpload Speed: {upload_speed:.2f} Mbps",
+        text=f"https://telegra.ph{response[0]}",
         disable_web_page_preview=True,
     )
