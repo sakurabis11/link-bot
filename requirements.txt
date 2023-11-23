@@ -16,8 +16,8 @@ psutil==5.9.4
 ujson
 wget
 pytz
-yt_dlp
+youtube-dl 
+asyncio
 youtube_search_python
 youtube_search
-requests
 ffmpeg-python
