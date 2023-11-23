@@ -18,6 +18,4 @@ wget
 pytz
 youtube-dl 
 asyncio
-youtube_search_python
-youtube_search
-ffmpeg-python
+pytube
