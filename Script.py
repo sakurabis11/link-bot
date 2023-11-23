@@ -1,7 +1,9 @@
 class script(object):  
-    START_TXT = """<b>✨ Hᴇʟʟᴏ {user}.
-
-Mʏ Nᴀᴍᴇ Is {bot}."""
+    ABOUT_TXT ="""<b>✯ Mʏ ɴᴀᴍᴇ: {}
+✯ Dᴇᴠᴇʟᴏᴩᴇʀ: <a https://t.me/MrTG_Coder>ᴍʀ.ʙᴏᴛ ᴛɢ</a>
+✯ Lɪʙʀᴀʀʏ: <a href='https://docs.pyrogram.org/'>Pʏʀᴏɢʀᴀᴍ</a>
+✯ Lᴀɴɢᴜᴀɢᴇ: <a href='https://www.python.org/download/releases/3.0/'>Pʏᴛʜᴏɴ 3</a>
+✯ Mʏ Sᴇʀᴠᴇʀ: <a href='https://www.render.com'>ʀᴇɴᴅᴇʀ </a>"""
     LOG_TEXT_G = """<b>#ɴᴇᴡ_ɢʀᴏᴜᴩ
 
 ◉ ɢʀᴏᴜᴩ: {}(<code>{}</code>)
