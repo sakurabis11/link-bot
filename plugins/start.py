@@ -3,7 +3,7 @@ from pyrogram import enums, filters, Client
 from info import API_ID, API_HASH, BOT_TOKEN, PORT
 import pyrogram
 
-@Client.on_message(Filters.command("start"))
+@Client.on_message(filters.command("start"))
 def start_command(client, message):
     keyboard = [[
         InlineKeyboardButton("Option 1", url="https://t.me/Unni0240"),
