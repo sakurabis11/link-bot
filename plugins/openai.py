@@ -10,7 +10,7 @@ async def openai_command(client, message):
     try:
         user_input = message.text
 
-            response = openai.Completion.create(
+        response = openai.Completion.create(
             model="gpt-3.5-turbo-instruct",
             prompt=user_input,
             max_tokens=1024
