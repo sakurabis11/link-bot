@@ -15,10 +15,17 @@ logger.setLevel(logging.ERROR)
 
 @Client.on_message(filters.command("restart") & filters.user(ADMINS))
 async def restart_bot(client, message):
-    await message.reply("Rᴇꜱᴛᴀᴛɪɴɢ........")
+    # Send a message indicating that the bot is restarting
+    message_id = await message.reply("Rᴇꜱᴛᴀᴛɪɴɢ....")
+    # Restart the bot
     await asyncio.sleep(2)
     await sts.delete()
     os.execl(sys.executable, sys.executable, *sys.argv)
+    # Edit the message to indicate that the restart is complete
+    await client.edit_message_text(chat_id=message.chat.id, message_id=message_id, text="Restart completed!")
+    # Delete the message after 60 seconds
+    await asyncio.sleep(60)
+    await client.delete_messages(chat_id=message.chat.id, message_ids=[message_id])
 
 @Client.on_message(filters.command('id'))
 async def show_id(client, message):
