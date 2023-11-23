@@ -6,7 +6,7 @@ import pyrogram
 @Client.on_message(filters.command("start"))
 def start_command(client, message):
     keyboard = [[
-        InlineKeyboardButton("Option 1", url="https://t.me/Unni0240"),
+        InlineKeyboardButton("Developer", url="https://t.me/Unni0240"),
     ]]
 
     reply_markup = InlineKeyboardMarkup(keyboard)
