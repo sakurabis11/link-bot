@@ -27,9 +27,3 @@ DATABASE_URL = environ.get('DATABASE_URL', "mongodb+srv://Gojo:gojo@cluster0.cn6
 DATABASE_NAME = environ.get('DATABASE_NAME', "gojo")
 
 LOG_CHANNEL = int(environ.get('LOG_CHANNEL', '-1002084798134'))
-
-#rename
-CAPTION = environ.get("CAPTION", "")
-
-# for thumbnail ( back end is MrMKN brain 😉)
-DOWNLOAD_LOCATION = "./DOWNLOADS"
