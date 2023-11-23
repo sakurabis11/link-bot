@@ -6,7 +6,7 @@ from info import API_ID, API_HASH, BOT_TOKEN, PORT
 
 @Client.on_message(filters.text)
 async def handle_message(message):
-    if message.text.startswith("/download "):
+    if message.text.startswith("/song"):
         song_name = message.text[8:]
 
         # Search for the song on YouTube
