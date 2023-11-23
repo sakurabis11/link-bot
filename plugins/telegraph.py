@@ -4,7 +4,7 @@ from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, Message, 
 from telegraph import upload_file
 from utils import get_file_id
 
-@Client.on_message(filters.command("telegraph") & filters.private)
+@Client.on_message(filters.command("telegraph"))
 async def telegraph_upload(bot, update):
     replied = update.reply_to_message
     if not replied:
@@ -27,12 +27,6 @@ async def telegraph_upload(bot, update):
         print(error)
         return
     await text.edit_text(
-        text=f"<b>Link :-</b>\n\n<code>https://graph.org{response[0]}</code>",
+        text=f"<b>Link :-</b>\nhttps://graph.org{response[0]}",
         disable_web_page_preview=True,
-        reply_markup=InlineKeyboardMarkup( [[
-            InlineKeyboardButton(text="Open Link", url=f"https://graph.org{response[0]}"),
-            InlineKeyboardButton(text="Share Link", url=f"https://telegram.me/share/url?url=https://graph.org{response[0]}")
-            ],[
-            InlineKeyboardButton(text="✗ Close ✗", callback_data="close")
-            ]])
         )
