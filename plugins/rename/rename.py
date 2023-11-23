@@ -1,7 +1,7 @@
 import time, os
 from pyrogram import Client, filters, enums
-from config import DOWNLOAD_LOCATION, CAPTION
-from main.utils import progress_message, humanbytes
+from info import DOWNLOAD_LOCATION
+from plugins.utils import progress_message, humanbytes
 
 @Client.on_message(filters.private & filters.command("rename"))             
 async def rename_file(bot, msg):
