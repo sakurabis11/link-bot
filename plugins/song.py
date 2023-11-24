@@ -2,7 +2,8 @@ import asyncio
 from pyrogram import Client, filters, enums
 import requests
 import os
-
+from pyrogram.errors import FloodWait
+from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery
 
 @Client.on_message(filters.command("song"))
 async def download_song(client, message):
@@ -30,8 +31,9 @@ async def download_song(client, message):
 
         await client.send_audio(chat_id=message.chat.id, audio=audio, caption=f"{song_name}", reply_markup=inline_query)
 
-    @Client.on_callback_query(filters.regex(r"lyrics\|(.*)"))
-    async def handle_lyrics_callback(client, callback_query):
+@Client.on_callback_query(filters.regex(r"lyrics\|(.*)"))
+async def handle_lyrics_callback(client, callback_query):
+    try:
         song_name = callback_query.data.split("|")[1]
 
         response = await asyncio.to_thread(requests.get, f"https://www.musixmatch.com/lyrics/{song_name}")
@@ -43,6 +45,5 @@ async def download_song(client, message):
 
         if os.path.exists(f"{song_name}.mp3"):
             await asyncio.to_thread(os.remove, f"{song_name}.mp3")
-
     except Exception as e:
-        await client.send_message(chat_id=message.chat.id, text=f"An error occurred while downloading the song: {e}")
+        await client.send_message(chat_id=callback_query.message.chat.id, text=f"An error occurred while retrieving lyrics: {e}")
