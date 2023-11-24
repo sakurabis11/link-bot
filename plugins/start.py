@@ -52,7 +52,7 @@ async def help_command(client, message):
          InlineKeyboardButton('🏠 ʜᴏᴍᴇ', callback_data='start')
     ]]
     reply_markup = InlineKeyboardMarkup(button)
-    await message.reply_text("Hᴇʀᴇ ɪs Mʏ Hᴇʟᴩ.", reply_markup=reply_markup)
+    await message.reply_text("Hᴇʀᴇ ɪs Mʏ Hᴇʟᴩ.\n /support", reply_markup=reply_markup)
 
 @Client.on_message(filters.command("about"))
 async def about_command(client, message):
