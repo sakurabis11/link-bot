@@ -19,20 +19,18 @@ async def download_song(client, message):
         song_response = await asyncio.to_thread(requests.get, f"https://www.jiosaavn.com/api.php?__call=song.getDetails&pids={song_id}&_format=json&_marker=0&model=SM-G930F")
         song_data = song_response.json()
 
-        # Extract song URL, name, artist, album, and genre
+        # Extract song URL, name
         song_url = song_data[song_id]['media_preview_url'].replace("preview", "aac")
         song_name = song_data[song_id]['song']
-        album = song_data[song_id]['album']
-        genre = song_data[song_id]['genre']
 
         # Download song file
         r = await asyncio.to_thread(requests.get, song_url)
         with open(f"{song_name}.mp3", 'wb') as f:
             f.write(r.content)
 
-        # Send audio file to chat with song information
+        # Send audio file to chat without song information
         audio = open(f"{song_name}.mp3", 'rb')
-        await client.send_audio(chat_id=message.chat.id, audio=audio, caption=f"{song_name} from the album {album} ({genre})")
+        await client.send_audio(chat_id=message.chat.id, audio=audio)
 
         # Remove temporary file
         await asyncio.to_thread(os.remove, f"{song_name}.mp3")
