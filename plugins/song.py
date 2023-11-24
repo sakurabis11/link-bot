@@ -22,7 +22,6 @@ async def download_song(client, message):
         # Extract song URL, name, artist, album, and genre
         song_url = song_data[song_id]['media_preview_url'].replace("preview", "aac")
         song_name = song_data[song_id]['song']
-        artist = song_data[song_id]['artist']
         album = song_data[song_id]['album']
         genre = song_data[song_id]['genre']
 
@@ -33,7 +32,7 @@ async def download_song(client, message):
 
         # Send audio file to chat with song information
         audio = open(f"{song_name}.mp3", 'rb')
-        await client.send_audio(chat_id=message.chat.id, audio=audio, caption=f"{song_name} by {artist} from the album {album} ({genre})")
+        await client.send_audio(chat_id=message.chat.id, audio=audio, caption=f"{song_name} from the album {album} ({genre})")
 
         # Remove temporary file
         await asyncio.to_thread(os.remove, f"{song_name}.mp3")
