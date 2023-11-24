@@ -16,7 +16,7 @@ psutil==5.9.4
 ujson
 wget
 pytz
-youtube-dl
-youtube_search
+youtube-dl==2022.1.24
+youtube-search-python==1.4.1
 asyncio
 pytube
