@@ -7,7 +7,6 @@ from pyrogram import enums, filters, Client
 from info import API_ID, API_HASH, BOT_TOKEN, PORT
 from Script import script
 from utils import temp
-from database.users_chats_db import db
 from pyrogram.errors import FloodWait
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery
 import re
