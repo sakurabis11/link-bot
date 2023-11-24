@@ -3,7 +3,7 @@ import psutil
 from pyrogram import Client, filters
 
 @Client.on_message(filters.command("uptime"))
-def uptime_handler(client, message):
+def uptime_status(client, message):
     uptime = psutil.boot_time()
     cpu_usage = psutil.cpu_percent()
     ram_usage = psutil.virtual_memory().percent
@@ -17,5 +17,6 @@ def uptime_handler(client, message):
         f"Uꜱᴇᴅ Dɪꜱᴋ: {disk_usage.used:,} GB ({disk_usage.percent:.1f}%)\\n"
         f"Fʀᴇᴇ Dɪꜱᴋ: {disk_usage.free:,} GB"
     )
-  
+    
+  message.reply_text(uptime_status)
 
