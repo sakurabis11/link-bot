@@ -27,3 +27,5 @@ DATABASE_URI = environ.get('DATABASE_URL', "mongodb+srv://Gojo:gojo@cluster0.cn6
 DATABASE_NAME = environ.get('DATABASE_NAME', "gojo")
 
 LOG_CHANNEL = int(environ.get('LOG_CHANNEL', '-1002084798134'))
+MELCOW_NEW_USERS = is_enabled((environ.get('MELCOW_NEW_USERS', "True")), True)
+MELCOW_VID = environ.get('MELCOW_VID',"https://telegra.ph/file/c3d0547a2cbd37abfe04b.mp4")
