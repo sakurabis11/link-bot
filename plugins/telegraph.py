@@ -10,18 +10,18 @@ async def telegraph_upload(bot, update):
     # Check if the user has replied to a message
     replied = update.reply_to_message
     if not replied:
-        await update.reply_text("Reply To A Photo Or Video Under 15mb")
+        await update.reply_text("ʀᴇᴘʟʏ ᴛᴏ ᴀ ᴘʜᴏᴛᴏ ᴏʀ ᴠɪᴅᴇᴏ")
         return
 
     # Get the file information from the replied message
     file_info = get_file_id(replied)
     if not file_info:
-        await update.reply_text("Not Supported!")
+        await update.reply_text("ɴᴏᴛ sᴜᴘᴘᴏʀᴛᴇᴅ")
         return
 
     # Send a message indicating that the file is being downloaded
     download_text = await update.reply_text(
-        text="<code>Downloading To My Server ...</code>", disable_web_page_preview=True
+        text="<code>Downloading...</code>", disable_web_page_preview=True
     )
 
     # Download the media from the replied message
@@ -29,7 +29,7 @@ async def telegraph_upload(bot, update):
 
     # Update the message to indicate that the file has been downloaded
     await download_text.edit_text(
-        text="<code>Downloading Completed. Now I am Uploading to telegra.ph Link ...</code>",
+        text="<code>ᴅᴏᴡɴʟᴏᴀᴅɪɴɢ ᴄᴏᴍᴘʟᴇᴛᴇᴅ. ᴜᴘʟᴏᴀᴅɪɴɢ...</code>",
         disable_web_page_preview=True,
     )
 
