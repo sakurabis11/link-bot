@@ -23,7 +23,7 @@ def a(client, message):
         results = []
         count = 0
         while len(results) == 0 and count < 6:
-            if count>0:
+            if count > 0:
                 time.sleep(1)
             results = YoutubeSearch(query, max_results=1).to_dict()
             count += 1
@@ -51,7 +51,7 @@ def a(client, message):
             return
     except Exception as e:
         m.edit(
-            "✖️ 𝐅𝐨𝐮𝐧𝐝 𝐍𝐨𝐭𝐡𝐢𝐧𝐠. 𝐒𝐨𝐫𝐫𝐲.\n\n𝐓𝐫𝐲 𝐀𝐧𝐨𝐭𝐡𝐞𝐫 𝐊𝐞𝐲𝐰𝐨𝐫𝐤 𝐎𝐫 𝐌𝐚𝐲𝐛𝐞 𝐒𝐩𝐞𝐥𝐥 𝐈𝐭 𝐏𝐫𝐨𝐩𝐞𝐫𝐥𝐲.\n\nEg.`/song wanna be yours`"
+            "✖️ 𝐅𝐨𝐮𝐧𝐝 𝐍𝐨𝐭𝐡𝐢𝐧𝐠. 𝐒𝐨𝐫𝐫𝐲.\n\n𝐓𝐫𝐲 𝐀𝐧𝐨𝐭𝐡𝐞𝐫 𝐊𝐞𝐲𝐰𝐨𝐫𝐝 𝐎𝐫 𝐌𝐚𝐲𝐛𝐞 𝐒𝐩𝐞𝐥𝐥 𝐈𝐭 𝐏𝐫𝐨𝐩𝐞𝐫𝐥𝐲.\n\nEg.`/song wanna be yours`"
         )
         print(str(e))
         return
@@ -60,19 +60,4 @@ def a(client, message):
         with youtube_dl.YoutubeDL(ydl_opts) as ydl:
             info_dict = ydl.extract_info(link, download=False)
             audio_file = ydl.prepare_filename(info_dict)
-            ydl.process_info(info_dict)
-        rep = f'🎧 𝐓𝐢𝐭𝐥𝐞 : [{title[:35]}]({link})\n⏳ 𝐃𝐮𝐫𝐚𝐭𝐢𝐨𝐧 : `{duration}`\n🎬 𝐒𝐨𝐮𝐫𝐜𝐞 : [Youtube](https://youtu.be/3pN0W4KzzNY)\n👁‍🗨 𝐕𝐢𝐞𝐰𝐬 : `{views}`\n\n💌 𝐁𝐲 : @SongPlayRoBot'
-        secmul, dur, dur_arr = 1, 0, duration.split(':')
-        for i in range(len(dur_arr)-1, -1, -1):
-            dur += (int(dur_arr[i]) * secmul)
-            secmul *= 60
-        message.reply_audio(audio_file, caption=rep, parse_mode='md',quote=False, title=title, duration=dur, thumb=thumb_name)
-        m.delete()
-    except Exception as e:
-        m.edit('❌ 𝐄𝐫𝐫𝐨𝐫\n\n Report This Erorr To Fix @TamilSupport ❤️')
-        print(e)
-    try:
-        os.remove(audio_file)
-        os.remove(thumb_name)
-    except Exception as e:
-        print(e)
+            ydl.process_
