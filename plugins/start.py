@@ -1,3 +1,7 @@
+import os
+from pyrogram.errors import ChatAdminRequired, FloodWait
+import random
+import asyncio
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery
 from pyrogram import enums, filters, Client
 from info import API_ID, API_HASH, BOT_TOKEN, PORT
@@ -6,6 +10,9 @@ from utils import temp
 from database.users_chats_db import db
 from pyrogram.errors import FloodWait
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery
+import re
+import json
+import base64
 import logging
 
 logger = logging.getLogger(__name__)
@@ -36,6 +43,14 @@ async def start_command(client, message):
     ]]
     reply_markup = InlineKeyboardMarkup(button)
     await message.reply_text("ʜɪ {}✨, ᴡᴇʟᴄᴏᴍᴇ ᴛᴏ ᴍʏ ʙᴏᴛ 🤖🎉", reply_markup=reply_markup)
+       if not await db.get_chat(message.chat.id):
+            total=await client.get_chat_members_count(message.chat.id)
+            await client.send_message(LOG_CHANNEL, script.LOG_TEXT_G.format(message.chat.title, message.chat.id, total, "Unknown"))       
+            await db.add_chat(message.chat.id, message.chat.title)
+        return 
+    if not await db.is_user_exist(message.from_user.id):
+        await db.add_user(message.from_user.id, message.from_user.first_name)
+        await client.send_message(LOG_CHANNEL, script.LOG_TEXT_P.format(message.from_user.id, message.from_user.mention))
 
 @Client.on_message(filters.command("help"))
 async def help_command(client, message):
