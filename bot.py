@@ -10,7 +10,6 @@ import aiohttp
 from aiohttp import web
 from utils import temp
 from pyrogram.raw.all import layer
-from database.users_chats_db import db
 from pyrogram import types
 from Script import script 
 import aiohttp
