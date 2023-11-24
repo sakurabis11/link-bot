@@ -16,6 +16,7 @@ psutil==5.9.4
 ujson
 wget
 pytz
-youtube-dl 
+youtube-dl
+youtube_search
 asyncio
 pytube
