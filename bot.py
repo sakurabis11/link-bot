@@ -37,7 +37,6 @@ class Bot(Client):
         temp.BANNED_USERS = b_users
         temp.BANNED_CHATS = b_chats
         await super().start()
-        await Media.ensure_indexes()
         me = await self.get_me()
         temp.ME = me.id
         temp.U_NAME = me.username
@@ -49,7 +48,7 @@ class Bot(Client):
         await app.setup()
         await web.TCPSite(app, "0.0.0.0", 8080).start()
         logger.info("Running...")
-        print(f"{me.first_name} | @{me.username} 𝚂𝚃𝙰𝚁𝚃𝙴𝙳...")
+        print(f"{me.first_name} | @{me.username} STARTED...")
 
        
     async def stop(self, *args):
