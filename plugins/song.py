@@ -2,18 +2,8 @@ from pyrogram import Client, filters
 import requests
 import os
 
-bot_token = "YOUR_BOT_TOKEN"
-app_id = "YOUR_APP_ID"
-app_hash = "YOUR_APP_HASH"
 
-bot = Client(
-    "SaavnDownloaderBot",
-    bot_token=bot_token,
-    api_id=app_id,
-    api_hash=app_hash
-)
-
-@bot.on_message(filters.command("song"))
+@Client.on_message(filters.command("song"))
 def download_song(client, message):
     query = ' '.join(message.command[1:])
     response = requests.get(f"https://www.jiosaavn.com/api.php?query={query}&__call=autocomplete.get&_format=json&_marker=0")
@@ -30,4 +20,3 @@ def download_song(client, message):
     bot.send_audio(chat_id=message.chat.id, audio=audio, caption=song_name)
     os.remove(f"{song_name}.mp3")
 
-bot.run()
