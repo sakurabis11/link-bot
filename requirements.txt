@@ -17,6 +17,6 @@ ujson
 wget
 pytz
 youtube-dl==2021.12.17
-youtube-search-python==1.4.1
+youtube-search-python
 asyncio
 pytube
