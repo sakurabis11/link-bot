@@ -19,7 +19,7 @@ async def support_command(client, message):
         ]
     ]
     reply_markup = InlineKeyboardMarkup(button)
-    await message.reply_text("**These are my support group and channel. If any problem, send a report to the groups**", reply_markup=reply_markup)
+    await message.reply_text("ᴛʜᴇsᴇ ᴀʀᴇ ᴍʏ sᴜᴘᴘᴏʀᴛ ᴄʜᴀɴɴᴇʟ ᴀɴᴅ ɢʀᴏᴜᴘ. ɪғ ᴀɴʏ ᴘʀᴏʙʟᴇᴍ, ʀᴇᴘᴏʀᴛ ᴛᴏ ᴛʜᴇ ᴀᴅᴍɪɴ ", reply_markup=reply_markup)
 
 @Client.on_message(filters.command("start"))
 async def start_command(client, message):
@@ -28,7 +28,7 @@ async def start_command(client, message):
         InlineKeyboardButton("✨ Aʙᴏᴜᴛ", callback_data="about")
     ]]
     reply_markup = InlineKeyboardMarkup(button)
-    await message.reply_text("**Hi ✨, welcome to my bot! 🤖🎉\n**", reply_markup=reply_markup)
+    await message.reply_text("ʜɪ ✨, ᴡᴇʟᴄᴏᴍᴇ ᴛᴏ ᴍʏ ʙᴏᴛ 🤖🎉", reply_markup=reply_markup)
 
 @Client.on_message(filters.command("help"))
 async def help_command(client, message):
@@ -39,12 +39,12 @@ async def help_command(client, message):
          InlineKeyboardButton('🏠 ʜᴏᴍᴇ', callback_data='start')
     ]]
     reply_markup = InlineKeyboardMarkup(button)
-    await message.reply_text("Hᴇʀᴇ Mꜱ Mʏ Hᴇʟᴩ.", reply_markup=reply_markup)
+    await message.reply_text("Hᴇʀᴇ ɪs Mʏ Hᴇʟᴩ.", reply_markup=reply_markup)
 
 @Client.on_message(filters.command("about"))
 async def about_command(client, message):
     button = [[
-        InlineKeyboardButton("Back to Start", callback_data="start")
+        InlineKeyboardButton("ʙᴀᴄᴋ ᴛᴏ sᴛᴀʀᴛ", callback_data="start")
     ]]
     reply_markup = InlineKeyboardMarkup(button)
     await message.reply_text(ABOUT_TXT, reply_markup=reply_markup)
@@ -59,7 +59,7 @@ async def callback_handler(client, callback_query):
             InlineKeyboardButton("✨ Aʙᴏᴜᴛ", callback_data="about")
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
-        await query.message.edit_text("**Hi ✨, welcome to my bot! 🤖🎉\n**", reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
+        await query.message.edit_text("ʜɪ ✨, ᴡᴇʟᴄᴏᴍᴇ ᴛᴏ ᴍʏ ʙᴏᴛ 🤖🎉", reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
 
     if query.data == "help":
         buttons = [[
@@ -76,14 +76,14 @@ async def callback_handler(client, callback_query):
             InlineKeyboardButton('🏠 ʜᴏᴍᴇ', callback_data='help')
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
-        await query.message.edit_text("/telegraph **Rᴇᴘʟʏ Tᴏ A Pʜᴏᴛᴏ Oʀ Vɪᴅᴇᴏ**", reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
+        await query.message.edit_text("/telegraph Rᴇᴘʟʏ Tᴏ A Pʜᴏᴛᴏ Oʀ Vɪᴅᴇᴏ", reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
 
     if query.data == "openai":
         buttons = [[
             InlineKeyboardButton('🏠 ʜᴏᴍᴇ', callback_data='help')
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
-        await query.message.edit_text("/openai **{ur question}\n Sometimes it will not work has very well**", reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
+        await query.message.edit_text("/openai {ᴜʀ ǫᴜᴇsᴛɪᴏɴ}\n sᴏᴍᴇᴛɪᴍᴇs ɪᴛ ᴡɪʟʟ ɴᴏᴛ ᴡᴏʀᴋ ᴘʀᴏᴘᴇʀʟʏ", reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
     
     if query.data == "about":
         buttons = [[
