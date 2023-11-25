@@ -3,7 +3,7 @@ RUN apt update && apt upgrade -y
 RUN apt install git -y
 RUN  pip install --upgrade pip
 
-RUN pip install youtube-search-python
+RUN pip install ffmpeg
 RUN pip install openai==0.28
 RUN pip install youtube_dl
 
