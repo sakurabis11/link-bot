@@ -49,7 +49,10 @@ async def start_command(client, message):
 async def help_command(client, message):
     buttons = [[
          InlineKeyboardButton('☯ Telegraph', callback_data='telegraph'),
-         InlineKeyboardButton('☯ Openai', callback_data='openai')
+         InlineKeyboardButton('☯ Openai', callback_data='openai')            
+         ],[
+         InlineKeyboardButton('', callback_data='song')
+         
          ],[
          InlineKeyboardButton('🏠 ʜᴏᴍᴇ', callback_data='start')
     ]]
