@@ -16,7 +16,7 @@ psutil==5.9.4
 ujson
 wget
 pytz
-youtube-dl==2021.12.17
-youtube-search-python
+pydub==2.0.0
+shazam==2.3.7
 asyncio
 pytube
