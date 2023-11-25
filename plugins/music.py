@@ -28,7 +28,7 @@ async def song(_, message):
             randomdir = f"/tmp/{str(randint(1,100000000))}"
             os.mkdir(randomdir)
         except Exception as e:
-            await message.reply_text(f"Failed to send song retry after sometime 😥 reason: {e} ")
+            await message.reply_text(f"Failed to send song retry after sometime 😥 reason: {e}\n forward this message to @mrtgbot_support")
             return await k.delete()
 
         query = message.text.split(None, 1)[1]
@@ -41,14 +41,14 @@ async def song(_, message):
         await message.reply_audio(path)
 
     except IndexError:
-        await message.reply("song requies an argument `eg /song faded`")
+        await message.reply("eg `/music lover`")
         return await k.delete()
     except Exception as e:
-        await message.reply_text(f"Failed to send song 😥 reason: {e}")
+        await message.reply_text(f"Failed to send song 😥 reason: {e}\n forward this message to @mrtgbot_support")
     finally:
         try:
             shutil.rmtree(randomdir)
-            await message.reply_text(f"Check out @Unni0240")
+            await message.reply_text(f"Check out @mrtgbot_support")
             return await k.delete()
         except:
             pass
