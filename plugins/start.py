@@ -81,6 +81,8 @@ async def callback_handler(client, callback_query):
             InlineKeyboardButton('Telegraph', callback_data='telegraph'),
             InlineKeyboardButton('Openai', callback_data='openai')
             ],[
+            InlineKeyboardButton('', callback_data='song')
+            ],[
             InlineKeyboardButton('🏠 ʜᴏᴍᴇ', callback_data='start')
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
@@ -99,6 +101,13 @@ async def callback_handler(client, callback_query):
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text("/openai {ᴜʀ ǫᴜᴇsᴛɪᴏɴ}\n sᴏᴍᴇᴛɪᴍᴇs ɪᴛ ᴡɪʟʟ ɴᴏᴛ ᴡᴏʀᴋ ᴘʀᴏᴘᴇʀʟʏ", reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
+
+    if query.data == "song":
+        buttons = [[
+            InlineKeyboardButton('🏠 ʜᴏᴍᴇ', callback_data='help')
+        ]]
+        reply_markup = InlineKeyboardMarkup(buttons)
+        await query.message.edit_text("/song {song_name + artist_name}, {artist_name + song_name}, {song_name}", reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)    
     
     if query.data == "about":
         buttons = [[
