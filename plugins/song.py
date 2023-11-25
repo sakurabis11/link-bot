@@ -28,11 +28,11 @@ async def download_song(client, message):
         # Download song file
         r = await asyncio.to_thread(requests.get, song_url)
         temp_file = f"{song_name}.mp3"
-        with open(temp_file, 'wb') as f:
+        with open(temp_file, 'mp3') as f:
             f.write(r.content)
 
         # Send audio file to chat without song information
-        audio = open(temp_file, 'rb')
+        audio = open(temp_file, 'mp3')
         await client.send_audio(chat_id=message.chat.id, audio=audio)
 
         # Remove temporary file
