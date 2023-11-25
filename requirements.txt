@@ -16,7 +16,7 @@ psutil==5.9.4
 ujson
 wget
 pytz
-pydub==2.0.0
+pydub==0.25.1
 shazam==2.3.7
 asyncio
 pytube
