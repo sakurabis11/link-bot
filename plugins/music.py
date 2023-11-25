@@ -4,7 +4,7 @@ from pyrogram import filters, enums
 import random
 from random import randint
 from pyrogram import errors
-
+import ffmpeg
 
 @Client.on_message(filters.command('music') & filters.text)
 async def song(_, message):
