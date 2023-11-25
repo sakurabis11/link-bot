@@ -42,14 +42,12 @@ async def song(client, message):
     spotify_button = InlineKeyboardButton("Spotify", url=f"https://open.spotify.com/search?q={sname}")
     youtube_button = InlineKeyboardButton("YouTube", url=f"https://www.youtube.com/results?search_query={sname}")
     saavn_button = InlineKeyboardButton("Saavn", url=response['data']['results'][0]['url'])
-    apple_music_button = InlineKeyboardButton("Apple Music", url=f"https://music.apple.com/search/{sname}")
 
     # Create an inline keyboard markup and add the buttons
-    keyboard = InlineKeyboardMarkup([[spotify_button], [youtube_button], [saavn_button], [apple_music_button]])
+    keyboard = InlineKeyboardMarkup([[spotify_button], [youtube_button], [saavn_button]])
 
     # Send the audio file with metadata and inline buttons
     await message.reply_audio(audio=ffile, title=sname, performer=ssingers,
-                             caption=f"[{sname}]({response['data']['results'][0]['url']})",
                              thumb=thumbnail, reply_markup=keyboard)
 
     # Remove temporary files
