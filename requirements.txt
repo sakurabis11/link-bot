@@ -22,6 +22,7 @@ asyncio
 pytube
 Pillow
 wget
+ffmpeg
 youtube_dl
 youtube-search-python
 youtube-search
