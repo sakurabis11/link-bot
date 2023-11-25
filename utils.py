@@ -10,6 +10,8 @@ from datetime import datetime
 from typing import List
 from bs4 import BeautifulSoup
 import requests
+import tempfile
+
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
@@ -44,6 +46,18 @@ async def is_subscribed(bot, query):
             return True
 
     return False
+
+
+class PathManager:
+async def __init__(self):
+        self.temp_dir = tempfile.mkdtemp()
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        shutil.rmtree(self.temp_dir)
+
 
 
 async def broadcast_messages(user_id, message):
