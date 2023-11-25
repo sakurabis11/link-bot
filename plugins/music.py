@@ -1,4 +1,3 @@
-from concurrent.futures import Future
 import os
 import shutil
 from pyrogram import filters, enums, Client
@@ -6,7 +5,7 @@ import random
 from random import randint
 from pyrogram import errors
 import ffmpeg
-from concurrent.futures import ThreadPoolExecutor
+from concurrent.futures import Future
 
 def download_songs(query, random_dir):
     # Download the song using a music downloader library or API
@@ -54,20 +53,20 @@ async def song(_, message):
         print('Downloading ⬇️')
 
         await message.reply_chat_action(enums.ChatAction.RECORD_AUDIO)
-        audio_path = await download_songs(query, random_dir)
+        audio_path_future = await download_songs(query, random_dir)
+
+        # Wait for the download operation to complete
+        audio_path = await audio_path_future
+
+        # Check if there was an error during the download operation
+        if audio_path_future.exception():
+            await message.reply_text(f"Failed to send song 😥 Reason: {audio_path_future.exception()}")
+            return await k.delete()
 
         await message.reply_chat_action(enums.ChatAction.UPLOAD_AUDIO)
         await k.edit('Uploading ⬆️')
 
-        # Wait for the download operation to complete
-        await audio_path
-
-        # Check if there was an error during the download operation
-        if audio_path.exception():
-            await message.reply_text(f"Failed to send song 😥 Reason: {audio_path.exception()}")
-            return await k.delete()
-
-        await message.reply_audio(audio_path.result())
+        await message.reply_audio(audio_path)
 
     except IndexError:
         await message.reply("Song requires an argument, e.g., /song faded")
@@ -83,3 +82,4 @@ async def song(_, message):
             return await k.delete()
         except:
             pass
+
