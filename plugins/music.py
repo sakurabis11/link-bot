@@ -1,3 +1,4 @@
+from concurrent.futures import Future
 import os
 import shutil
 from pyrogram import filters, enums, Client
@@ -5,7 +6,7 @@ import random
 from random import randint
 from pyrogram import errors
 import ffmpeg
-from concurrent.futures import Future
+from concurrent.futures import ThreadPoolExecutor
 
 def download_songs(query, random_dir):
     # Download the song using a music downloader library or API
