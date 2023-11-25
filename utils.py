@@ -48,17 +48,6 @@ async def is_subscribed(bot, query):
     return False
 
 
-class PathManager:
-async def __init__(self):
-        self.temp_dir = tempfile.mkdtemp()
-
-    def __enter__(self):
-        return self
-
-    def __exit__(self, exc_type, exc_val, exc_tb):
-        shutil.rmtree(self.temp_dir)
-
-
 
 async def broadcast_messages(user_id, message):
     try:
