@@ -7,10 +7,10 @@ async def song(client, message):
     try:
         args = message.text.split(None, 1)[1]
     except:
-        return await message.reply("/song requires an argument.")
+        return await message.reply("send the the song name.")
 
     if not args:
-        await message.reply("/song requires an argument.")
+        await message.reply("send the the song name..")
         return ""
 
     pak = await client.send_sticker(message.chat.id, 'CAACAgUAAxkBAAJyMWVhaXgwvctsfT0fApCGniRz20upAAKfAwACgSNIVG3KGaDGncrFHgQ')
