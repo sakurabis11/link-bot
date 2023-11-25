@@ -48,10 +48,10 @@ async def start_command(client, message):
 @Client.on_message(filters.command("help"))
 async def help_command(client, message):
     buttons = [[
-         InlineKeyboardButton('☯ Telegraph', callback_data='telegraph'),
-         InlineKeyboardButton('☯ Openai', callback_data='openai')            
+         InlineKeyboardButton('ᴛᴇʟᴇɢʀᴀᴘʜ', callback_data='telegraph'),
+         InlineKeyboardButton('ᴏᴘᴇɴᴀɪ', callback_data='openai')            
          ],[
-         InlineKeyboardButton('', callback_data='song')
+         InlineKeyboardButton('sᴏɴɢ', callback_data='song')
          
          ],[
          InlineKeyboardButton('🏠 ʜᴏᴍᴇ', callback_data='start')
@@ -81,10 +81,10 @@ async def callback_handler(client, callback_query):
 
     if query.data == "help":
         buttons = [[
-            InlineKeyboardButton('Telegraph', callback_data='telegraph'),
-            InlineKeyboardButton('Openai', callback_data='openai')
+            InlineKeyboardButton('ᴛᴇᴇɢʀᴀᴘʜ', callback_data='telegraph'),
+            InlineKeyboardButton('ᴏᴘᴇɴᴀɪ', callback_data='openai')
             ],[
-            InlineKeyboardButton('', callback_data='song')
+            InlineKeyboardButton('sᴏɴɢ', callback_data='song')
             ],[
             InlineKeyboardButton('🏠 ʜᴏᴍᴇ', callback_data='start')
         ]]
