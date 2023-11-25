@@ -18,7 +18,7 @@ async def download_song(query, randomdir):
         print(f"Failed to download song: {e}")
         raise e
 
-@Client.on_message(filters.command('song') & filters.text & filters.incoming)
+@Client.on_message(filters.command('music') & filters.text & filters.incoming)
 async def song(client, message):
     try:
         await message.reply_chat_action(enums.ChatAction.TYPING)
