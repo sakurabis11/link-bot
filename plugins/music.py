@@ -1,6 +1,6 @@
 import os
 import shutil
-from pyrogram import filters, enums
+from pyrogram import filters, enums, Client
 import random
 from random import randint
 from pyrogram import errors
