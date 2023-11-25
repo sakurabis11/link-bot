@@ -20,3 +20,5 @@ pydub==0.25.1
 shazam==0.2
 asyncio
 pytube
+Pillow
+wget
