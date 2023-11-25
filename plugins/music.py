@@ -1,20 +1,21 @@
 import os
-from random import randint
 import shutil
 import random
+import youtube_dl
 from pyrogram import Client, filters, enums
-
 
 async def download_song(query, randomdir):
     try:
         print(f"Downloading song: {query}")
-        # Use your preferred song download method here
-        music_file_path = f"{randomdir}/{query}.mp3"
-        
-        # Simulating download completion
-        with open(music_file_path, 'w') as dummy_file:
-            dummy_file.write("Sample content")
+        ydl_opts = {
+            'format': 'bestaudio/best',
+            'outtmpl': f"{randomdir}/{query}.%(ext)s",
+        }
 
+        with youtube_dl.YoutubeDL(ydl_opts) as ydl:
+            ydl.download([f"ytsearch1:{query}"])
+
+        music_file_path = f"{randomdir}/{query}.mp3"
         print(f"Song downloaded: {music_file_path}")
         return music_file_path
     except Exception as e:
