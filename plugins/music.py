@@ -10,8 +10,11 @@ async def download_song(query, randomdir):
         print(f"Downloading song: {query}")
         # Use your preferred song download method here
         music_file_path = f"{randomdir}/{query}.mp3"
+        
         # Simulating download completion
-        open(music_file_path, 'w').close()
+        with open(music_file_path, 'w') as dummy_file:
+            dummy_file.write("Sample content")
+
         print(f"Song downloaded: {music_file_path}")
         return music_file_path
     except Exception as e:
