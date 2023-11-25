@@ -12,7 +12,7 @@ def format_uptime(seconds):
     seconds %= 60
     return f"{days} days, {hours} hours, {minutes} minutes, {seconds} seconds"
 
-@bot.on_message(filters.command("system"))
+@Client.on_message(filters.command("system"))
 def system_info(client, message):
     uptime = format_uptime(time.time() - psutil.boot_time())
     cpu_usage = psutil.cpu_percent()
