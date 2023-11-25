@@ -3,8 +3,8 @@ import shutil
 import random
 from pyrogram import Client, filters, enums
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
-from requests import get
-from random import randint
+from pyrogram.errors import PyrogramError
+from pyrogram.utils import PathManager
 
 async def download_songs(query, randomdir):
     try:
@@ -18,38 +18,50 @@ async def download_songs(query, randomdir):
         print(f"Failed to download song: {e}")
         raise e
 
-@Client.on_message(filters.command('music') & filters.text & filters.incoming)
+
+@Client.on_message(filters.command('song') & filters.text & filters.incoming)
 async def song(_, message):
     try:
         await message.reply_chat_action(enums.ChatAction.TYPING)
         k = await message.reply("⌛")
-        print('⌛')
+        print("⌛")
+
         try:
-            randomdir = f"/tmp/{str(randint(1,100000000))}"
+            randomdir = f"/tmp/{str(randint(1, 100000000))}"
             os.mkdir(randomdir)
         except Exception as e:
-            await message.reply_text(f"Failed to send song retry after sometime 😥 reason: {e}\n forward this message to @mrtgbot_support")
+            await message.reply_text(f"Failed to send song. Retry after some time. Reason: {e}")
             return await k.delete()
 
-        query = message.text.split(None, 1)[1]
-        await k.edit("downloading")
-        print('downloading')
+        query = message.text.split(None, 1)[1].lower()
+        await k.edit("downloading...")
+        print("downloading...")
         await message.reply_chat_action(enums.ChatAction.RECORD_AUDIO)
-        path = await download_songs(query,randomdir)
+
+        path = await download_songs(query, randomdir)
+
+        # Check if file exists before sending
+        if not os.path.exists(path):
+            await message.reply_text("Song not found.")
+            return await k.delete()
+
         await message.reply_chat_action(enums.ChatAction.UPLOAD_AUDIO)
-        await k.edit('uploading')
+        await k.edit("uploading...")
         await message.reply_audio(path)
 
     except IndexError:
-        await message.reply("eg `/music lover`")
+        await message.reply("Please provide a song name after the `/song` command.")
         return await k.delete()
     except Exception as e:
-        await message.reply_text(f"Failed to send song 😥 reason: {e}\n forward this message to @mrtgbot_support")
+        await message.reply_text(f"Failed to send song. Reason: {e}")
     finally:
         try:
-            shutil.rmtree(randomdir)
-            await message.reply_text(f"Check out @mrtgbot_support")
+            # Use a lock to prevent race condition
+            lock = PathManager._lock
+            with lock:
+                shutil.rmtree(randomdir)
+            await message.reply_text(f"Check out @Spotify_downloa(music) @Spotifynewss(Updates Group)")
             return await k.delete()
-        except:
+        except Exception as e:
+            print(f"Failed to cleanup temporary directory: {e}")
             pass
-
