@@ -2,7 +2,7 @@ import pyrogram
 from pyrogram import filters, Client, enums
 from pyrogram.types import Message
 from pydub import AudioSegment
-import shazam
+
 import requests
 
 ALLOWED_GROUP_IDS = [-1001568397419]
