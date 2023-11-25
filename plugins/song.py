@@ -1,5 +1,5 @@
-from pyrogram import Client, filters
 import requests, os, wget
+from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
 @Client.on_message(filters.command('song') & filters.text)
@@ -7,20 +7,23 @@ async def song(client, message):
     try:
         args = message.text.split(None, 1)[1]
     except:
-        return await message.reply("send the the song name.")
+        return await message.reply("Send the song name.")
 
     if not args:
-        await message.reply("send the the song name..")
+        await message.reply("Send the song name..")
         return ""
 
+    # Send a sticker to indicate that the request is being processed
     pak = await client.send_sticker(message.chat.id, 'CAACAgUAAxkBAAJyMWVhaXgwvctsfT0fApCGniRz20upAAKfAwACgSNIVG3KGaDGncrFHgQ')
 
     try:
+        # Search for the song using Saavn API
         response = requests.get(f"https://saavn.me/search/songs?query={args}&page=1&limit=1").json()
     except Exception as e:
         await pak.edit(str(e))
         return
 
+    # Extract song information from the API response
     sname = response['data']['results'][0]['name']
     slink = response['data']['results'][0]['downloadUrl'][4]['link']
     ssingers = response['data']['results'][0]['primaryArtists']
