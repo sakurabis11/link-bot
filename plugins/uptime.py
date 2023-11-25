@@ -1,23 +1,15 @@
-import psutil
-
 from pyrogram import Client, filters
+import psutil
+import time
+import os
 
-
-@Client.on_message(filters.command("uptime"))
-def uptime_status(client, message):
-    uptime = psutil.boot_time()
+@Client.on_message(filters.command("system"))
+def system_info(client, message):
+    uptime = time.time() - psutil.boot_time()
     cpu_usage = psutil.cpu_percent()
     ram_usage = psutil.virtual_memory().percent
-    disk_usage = psutil.disk_usage("/")
-
-    message.reply_text(
-        f"Uᴩᴛɪᴍᴇ: {psutil.elapsed_time(uptime)}\\n"
-        f"CPU Uꜱᴀɢᴇ: {cpu_usage:.1f}%\\n"
-        f"RAM Uꜱᴀɢᴇ: {ram_usage:.1f}%\\n"
-        f"Tᴏᴛᴀʟ Dɪꜱᴋ: {disk_usage.total:,} GB\\n"
-        f"Uꜱᴇᴅ Dɪꜱᴋ: {disk_usage.used:,} GB ({disk_usage.percent:.1f}%)\\n"
-        f"Fʀᴇᴇ Dɪꜱᴋ: {disk_usage.free:,} GB"
-    )
-
-    # Indent this line correctly
-    message.reply_text(uptime_status)
+    total_disk = psutil.disk_usage('/').total / (1024.0 ** 3)
+    used_disk = psutil.disk_usage('/').used / (1024.0 ** 3)
+    used_disk_percent = psutil.disk_usage('/').percent
+    free_disk = psutil.disk_usage('/').free / (1024.0 ** 3)
+    bot.send_message(chat_id=message.chat.id, text=f"Uᴩᴛɪᴍᴇ: {uptime}\nCPU Uꜱᴀɢᴇ: {cpu_usage}%\nRAM Uꜱᴀɢᴇ: {ram_usage}%\nTᴏᴛᴀʟ Dɪꜱᴋ: {total_disk} GB\nUꜱᴇᴅ Dɪꜱᴋ: {used_disk} GB ({used_disk_percent}%)\nFʀᴇᴇ Dɪꜱᴋ: {free_disk} GB")
