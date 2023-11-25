@@ -3,8 +3,6 @@ import shutil
 import random
 from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
-from pyrogram.errors import PyrogramError
-from pyrogram.utils import PathManager
 
 async def download_songs(query, randomdir):
     try:
