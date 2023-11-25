@@ -1,5 +1,6 @@
 from pyrogram import Client, filters
 import requests, os, wget
+from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
 @Client.on_message(filters.command('song') & filters.text)
 async def song(client, message):
@@ -23,10 +24,12 @@ async def song(client, message):
     sname = response['data']['results'][0]['name']
     slink = response['data']['results'][0]['downloadUrl'][4]['link']
     ssingers = response['data']['results'][0]['primaryArtists']
-    # album_id = r.json()[0]["albumid"]
-    img = response['data']['results'][0]['image'][2]['link']
 
+    # Download the thumbnail image
+    img = response['data']['results'][0]['image'][2]['link']
     thumbnail = wget.download(img)
+
+    # Download the audio file
     file = wget.download(slink)
 
     # Replace "mp4" with "mp3" in the filename
@@ -35,10 +38,19 @@ async def song(client, message):
     # Rename the file to the final filename
     os.rename(file, ffile)
 
-    # Send the audio file with metadata
+    # Generate inline buttons for music streaming services
+    spotify_button = InlineKeyboardButton("Spotify", url=f"https://open.spotify.com/search?q={sname}")
+    youtube_button = InlineKeyboardButton("YouTube", url=f"https://www.youtube.com/results?search_query={sname}")
+    saavn_button = InlineKeyboardButton("Saavn", url=response['data']['results'][0]['url'])
+    apple_music_button = InlineKeyboardButton("Apple Music", url=f"https://music.apple.com/search/{sname}")
+
+    # Create an inline keyboard markup and add the buttons
+    keyboard = InlineKeyboardMarkup([[spotify_button], [youtube_button], [saavn_button], [apple_music_button]])
+
+    # Send the audio file with metadata and inline buttons
     await message.reply_audio(audio=ffile, title=sname, performer=ssingers,
                              caption=f"[{sname}]({response['data']['results'][0]['url']})",
-                             thumb=thumbnail)
+                             thumb=thumbnail, reply_markup=keyboard)
 
     # Remove temporary files
     os.remove(ffile)
