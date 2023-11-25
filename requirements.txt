@@ -22,7 +22,7 @@ asyncio
 pytube
 Pillow
 wget
-ffmpeg
+ffmpeg==1.4
 youtube_dl
 youtube-search-python
 youtube-search
