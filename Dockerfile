@@ -5,6 +5,7 @@ RUN  pip install --upgrade pip
 
 RUN pip install youtube-search-python
 RUN pip install openai==0.28
+RUN pip install youtube_dl
 
 COPY requirements.txt /requirements.txt
 
