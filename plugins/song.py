@@ -1,45 +1,44 @@
-import asyncio
-from pyrogram import Client, filters, enums
+import pyrogram
+from pyrogram.filters import filters
+from pyrogram.types import Message
+from pydub import AudioSegment
+import shazam
 import requests
-import os
-from pyrogram.errors import FloodWait
-from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery
 
-@Client.on_message(filters.command("song"))
-async def download_song(client, message):
-    try:
-        query = ' '.join(message.command[1:])
+ALLOWED_GROUP_IDS = [-1001568397419]
 
-        # Download song information
-        response = await asyncio.to_thread(requests.get, f"https://www.jiosaavn.com/api.php?query={query}&__call=autocomplete.get&_format=json&_marker=0")
-        data = response.json()
+@Client.on_message(filters.audio | filters.video)
+def handle_audio_or_video(client: pyrogram.Client, message: Message):
+    if message.audio or message.video:
+        # Check if the message is in an allowed group
+        if message.chat.id not in ALLOWED_GROUP_IDS:
+            return
 
-        # Extract song ID
-        song_id = data['songs']['data'][0]['id']
+        # Download the audio file
+        audio_file = client.download_media(message.media)
 
-        # Download song details
-        song_response = await asyncio.to_thread(requests.get, f"https://www.jiosaavn.com/api.php?__call=song.getDetails&pids={song_id}&_format=json&_marker=0&model=SM-G930F")
-        song_data = song_response.json()
+        # Convert the audio file to MP3 if it's not already MP3
+        if not audio_file.endswith(".mp3"):
+            audio_file = AudioSegment.from_file(audio_file).export("audio.mp3")
 
-        # Extract song URL, name
-        song_url = song_data[song_id]['media_preview_url'].replace("preview", "aac")
-        song_name = song_data[song_id]['song']
-
-        # Download song file
-        r = await asyncio.to_thread(requests.get, song_url)
-        temp_file = f"{song_name}.mp3"
-        with open(temp_file, 'mp3') as f:
-            f.write(r.content)
-
-        # Send audio file to chat without song information
-        audio = open(temp_file, 'mp3')
-        await client.send_audio(chat_id=message.chat.id, audio=audio)
-
-        # Remove temporary file
+        # Try to recognize the song using Shazam
         try:
-            await asyncio.to_thread(os.remove, temp_file)
+            song = shazam.recognize(audio_file)
         except Exception as e:
-            await client.send_message(chat_id=message.chat.id, text=f"Failed to remove temporary file: {e}")
+            print(f"Error recognizing song: {e}")
+            client.send_message(message.chat.id, "Sorry, I couldn't recognize the song.")
+            return
 
-    except Exception as e:
-        await client.send_message(chat_id=message.chat.id, text=f"An error occurred while downloading the song: {e}")
+        # Send the Shazam result to the chat
+        if song:
+            spotify_link = f"[Spotify]({song.uri})"
+            youtube_link = f"[YouTube]({song.youtube_url})"
+            apple_music_link = f"[Apple Music]({song.apple_music_url})"
+            youtube_music_link = f"[YouTube Music]({song.youtube_music_url})"
+
+            message_text = f"Song: {song.artist} - {song.title}\n\n"
+            message_text += f"{spotify_link} | {youtube_link} | {apple_music_link} | {youtube_music_link}"
+
+            client.send_message(message.chat.id, message_text)
+        else:
+            client.send_message(message.chat.id, "Sorry, I couldn't find any Shazam results for this song.")
