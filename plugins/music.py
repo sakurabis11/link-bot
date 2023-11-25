@@ -3,6 +3,7 @@ import shutil
 from random import randint
 import random
 import youtube_dl
+import ffmpeg
 from pyrogram import Client, filters, enums
 
 async def download_song(query, randomdir):
