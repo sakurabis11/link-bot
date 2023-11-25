@@ -1,5 +1,5 @@
 import pyrogram
-from pyrogram.filters import filters
+from pyrogram import filters, Client, enums
 from pyrogram.types import Message
 from pydub import AudioSegment
 import shazam
