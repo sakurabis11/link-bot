@@ -6,6 +6,21 @@ from random import randint
 from pyrogram import errors
 import ffmpeg
 
+def download_songs(query, random_dir):
+    # Download the song using a music downloader library or API
+    # Save the downloaded song file to the temporary directory
+    # Return the path to the downloaded song file
+    audio_path = os.path.join(random_dir, "downloaded_song.mp3")
+
+    # Convert the downloaded song file to MP3 format (if necessary)
+    # using ffmpeg library if the song is not in MP3 format
+    if not audio_path.endswith(".mp3"):
+        input_file = audio_path
+        output_file = audio_path[:-4] + ".mp3"
+        ffmpeg.input(input_file).output(output_file).run()
+
+    return audio_path
+
 @Client.on_message(filters.command('music') & filters.text)
 async def song(_, message):
     try:
@@ -45,3 +60,5 @@ async def song(_, message):
             return await k.delete()
         except:
             pass
+
+
