@@ -17,6 +17,6 @@ ujson
 wget
 pytz
 pydub==0.25.1
-shazam==2.3.7
+shazam==0.2
 asyncio
 pytube
