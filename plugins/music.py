@@ -3,6 +3,9 @@ import shutil
 import random
 from pyrogram import Client, filters, enums
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
+from asgiref.sync import sync_to_async
+from requests import get
+from random import randint
 
 async def download_songs(query, randomdir):
     try:
