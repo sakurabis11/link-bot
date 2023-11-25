@@ -22,3 +22,6 @@ asyncio
 pytube
 Pillow
 wget
+youtube-search-python
+youtube-search
+yt-dlp==2023.2.17
