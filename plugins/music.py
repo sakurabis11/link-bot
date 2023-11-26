@@ -2,13 +2,11 @@ import os
 import logging
 from pyrogram import Client, filters
 import requests
+from info import GROUP_CHAT_ID
 
 logging.basicConfig(level=logging.INFO)
 
-# Replace 'your_group_chat_id' with the actual ID of your group chat
-group_chat_id = "-1001568397419"
-
-@Client.on_message(filters.text & filters.group(group_chat_id))
+@Client.on_message(filters.text & filters.group(GROUP_CHAT_ID))
 async def song(client, message):
     query = message.text
 
