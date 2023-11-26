@@ -56,7 +56,22 @@ async def download_song(client, callback_query):
                 ydl.download([video_url])
 
             await callback_query.edit_message_text(f"Song downloaded: {song_title}")
+
+            await send_audio(client, callback_query.message, song_title)
         except Exception as e:
             await callback_query.edit_message_text(f"Error downloading song: {e}")
     else:
         await callback_query.edit_message_text("Invalid callback data. Please try again.")
+
+async def send_audio(client, message, song_title):
+    audio_path = os.path.join(DOWNLOAD_DIRECTORY, song_title)
+
+    if os.path.exists(audio_path):
+        try:
+            await client.send_audio(message.chat.id, audio_path, reply_to_message_id=message.id)
+            await message.reply(f"Audio sent: {song_title}")
+            os.remove(audio_path)  # Delete the downloaded audio file after sending it
+        except Exception as e:
+            await message.reply(f"Error sending audio: {e}")
+    else:
+        await message.reply("Audio file not found.")
