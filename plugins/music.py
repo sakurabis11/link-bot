@@ -1,11 +1,11 @@
 import os
 import logging
-from pyrogram import Client, filters
+from pyrogram import Client, filters, enums
 import requests
 
 logging.basicConfig(level=logging.INFO)
 
-@Client.on_message(filters.command("music") & filter.text)
+@Client.on_message(filters.command("music") & filters.text)
 async def song(client, message):
     query = message.text
 
