@@ -30,8 +30,12 @@ async def download_music(client, message):
             video_url = video_info['entries'][0]['url']
             video_title = video_info['entries'][0]['title']
 
+            # Use a unique identifier for the file name (e.g., video ID)
+            video_id = video_info['entries'][0]['id']
+            song_title = f"{video_id}.mp3"
+
             # Use a short identifier as callback data
-            callback_data = f"download:{randint(1000, 9999)}"
+            callback_data = f"download:{video_id}"
             callback_data_mapping[callback_data] = video_url
 
             keyboard = InlineKeyboardMarkup([[InlineKeyboardButton("Download", callback_data=callback_data)]])
@@ -39,19 +43,19 @@ async def download_music(client, message):
     except Exception as e:
         await message.reply(f"Error: {e}")
 
-@Client.on_callback_query(filters.regex(r"download:\d+"))
+@Client.on_callback_query(filters.regex(r"download:\w+"))
 async def download_song(client, callback_query):
     callback_data = callback_query.data
     video_url = callback_data_mapping.get(callback_data)
 
     if video_url:
-        song_title = video_url.split("/")[-1].split(".")[0]
+        song_title = f"{callback_data}.mp3"
 
         try:
             with YoutubeDL({'format': 'best', 'postprocessors': [{'key': 'FFmpegExtractAudio', 'preferredcodec': 'mp3', 'preferredquality': '192'}]}) as ydl:
                 ydl.download([video_url])
 
-            await callback_query.edit_message_text(f"Song downloaded: {song_title}.mp3")
+            await callback_query.edit_message_text(f"Song downloaded: {song_title}")
         except Exception as e:
             await callback_query.edit_message_text(f"Error downloading song: {e}")
     else:
