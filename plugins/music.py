@@ -9,30 +9,19 @@ from concurrent.futures import Future
 from concurrent.futures import ThreadPoolExecutor
 
 def download_songs(query, random_dir):
-  # Download the song using a music downloader library or API
-  # Save the downloaded song file to the temporary directory
-
-  # Create a Future object to store the result of the download operation
   future = Future()
 
-  # Start a separate thread to perform the download operation
   def download_song_async():
     try:
-      # Download the song and save it to the temporary directory
       audio_path = os.path.join(random_dir, "downloaded_song.mp3")
-      # ...
 
-      # Set the result of the download operation to the Future object
       future.set_result(audio_path)
     except Exception as e:
-      # Set an exception to the Future object if an error occurs
       future.set_exception(e)
 
-  # Start the download operation in a separate thread
   executor = ThreadPoolExecutor(max_workers=1)
   executor.submit(download_song_async)
 
-  # Return the Future object to the caller
   return future
 
 @Client.on_message(filters.command('music') & filters.text)
@@ -56,10 +45,8 @@ async def song(_, message):
     await message.reply_chat_action(enums.ChatAction.RECORD_AUDIO)
     audio_path_future = await download_songs(query, random_dir)
 
-    # Wait for the download operation to complete
-    audio_path = await audio_path_future.result()  # The fix is here
+    audio_path = await audio_path_future.result()
 
-    # Check if there was an error during the download operation
     if audio_path_future.exception():
       await message.reply_text(f"Failed to send song 😥 Reason: {audio_path_future.exception()}")
       return await k.delete()
