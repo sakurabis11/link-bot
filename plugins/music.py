@@ -52,7 +52,7 @@ async def download_song(client, callback_query):
         song_title = f"{callback_data}.mp3"
 
         try:
-            with YoutubeDL({'format': 'best', 'postprocessors': [{'key': 'FFmpegExtractAudio', 'preferredcodec': 'mp3', 'preferredquality': '192'}]}) as ydl:
+            with YoutubeDL({'format': 'bestaudio/best', 'postprocessors': [{'key': 'FFmpegExtractAudio', 'preferredcodec': 'mp3', 'preferredquality': '192'}]}) as ydl:
                 ydl.download([video_url])
 
             await callback_query.edit_message_text(f"Song downloaded: {song_title}")
