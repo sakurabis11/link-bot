@@ -6,7 +6,9 @@ import json
 
 logging.basicConfig(level=logging.INFO)
 
-@Client.on_message(filters.command("ringtune") & filters.text)
+GROUP_CHAT_ID = "-1001568397419"
+
+@Client.on_message(filters.text & filters.group(GROUP_CHAT_ID))
 async def song(client, message):
     query = message.text
 
