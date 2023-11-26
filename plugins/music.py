@@ -5,7 +5,10 @@ import requests
 
 logging.basicConfig(level=logging.INFO)
 
-@Client.on_message(filters.text)
+# Replace 'your_group_chat_id' with the actual ID of your group chat
+group_chat_id = "-1001568397419"
+
+@Client.on_message(filters.text & filters.chat(chat_id=group_chat_id))
 async def song(client, message):
     query = message.text
 
