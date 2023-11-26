@@ -5,12 +5,16 @@ import requests
 
 logging.basicConfig(level=logging.INFO)
 
-@Client.on_message(filters.command("ringtune") & filters.text)
+@Client.on_message(filters.command("ringtone") & filters.text)
 async def song(client, message):
     query = message.text
 
     # Send a request to the Deezer API with the search query
-    response = requests.get(f"https://api.deezer.com/search?q={query}")
+    try:
+        response = requests.get(f"https://api.deezer.com/search?q={query}")
+    except requests.exceptions.RequestException as e:
+        await client.send_message(message.chat.id, "Error accessing the API: " + str(e))
+        return
 
     # Check if the request was successful
     if response.status_code == 200:
@@ -28,16 +32,18 @@ async def song(client, message):
             duration = song["duration"]
 
             # Send a message to the user with the song details and a download link
-            message_text = f"Artist: {artist}\nTitle: {title}\nDuration: {duration} seconds\n"
-            await client.send_message(message.chat.id, message_text)
+            await client.send_message(message.chat.id, "🎧 Downloading your ringtone...")
 
-            # Send a chat action to indicate that the bot is uploading an audio file
-            await client.send_chat_action(message.chat.id, "upload_audio")
+            # Download the audio file
+            audio_url = song["preview"]
+            audio_data = requests.get(audio_url).content
 
-            # Send the audio file to the user
-            await client.send_audio(message.chat.id, title=title, performer=artist)
+            # Send the audio file as a reply
+            await client.send_audio(message.chat.id, audio_data, reply_to_message_id=message.chat.id, title=title, performer=artist)
+
+            # Send a download complete message
+            await client.send_message(message.chat.id, "✅ Download complete! Enjoy your new ringtone!")
         else:
             await client.send_message(message.chat.id, "No results found.")
     else:
-        await client.send_message(message.chat.id, "Error accessing\n forward this message to @mrtgbot_support.")
-
+        await client.send_message(message.chat.id, "Error accessing the API. Please try again later.")
