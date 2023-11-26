@@ -22,10 +22,6 @@ OPENAI_API_KEY = os.environ.get('OPENAI_API_KEY', 'sk-OAhx2ooadTrvjqUOuNnDT3Blbk
 CACHE_TIME = int(environ.get('CACHE_TIME', 300))
 ADMINS = [int(admin) if id_pattern.search(admin) else admin for admin in environ.get('ADMINS', '1342641151').split()]
 
-# MongoDB information
-DATABASE_URI = environ.get('DATABASE_URL', "mongodb+srv://Gojo:gojo@cluster0.cn6dtat.mongodb.net/?retryWrites=true&w=majority&appName=AtlasApp")
-DATABASE_NAME = environ.get('DATABASE_NAME', "gojo")
-
+GROUP_CHAT_ID = int(environ.get('GROUP_CHAT_ID', '-1001568397419'))
 LOG_CHANNEL = int(environ.get('LOG_CHANNEL', '-1002084798134'))
-MELCOW_NEW_USERS = is_enabled((environ.get('MELCOW_NEW_USERS', "True")), True)
-MELCOW_VID = environ.get('MELCOW_VID',"https://telegra.ph/file/c3d0547a2cbd37abfe04b.mp4")
+
