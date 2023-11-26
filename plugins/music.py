@@ -3,6 +3,7 @@ import logging
 from pyrogram import Client, filters, enums
 import requests
 from info import GROUP_CHAT_ID
+from utils import temp
 
 logging.basicConfig(level=logging.INFO)
 
@@ -32,7 +33,7 @@ async def song(client, message):
                 preview_url = song["preview"]
 
                 # Send a message to the user with the song details and a download link
-                message_text = f"ʜᴇʏ \n\nʏᴏᴜʀ ʀᴇǫᴜᴇsᴛ ɪs {query}\n\nᴛɪᴛʟᴇ: {title}\nᴀʀᴛɪsᴛ: {artist}\nᴅᴜʀᴀᴛɪᴏɴ: {duration} sᴇᴄᴏɴᴅs\nᴅᴏᴡɴʟᴏᴀᴅ ғʀᴏᴍ ᴄʜʀᴏᴍᴇ: {preview_url}\n\nᴛʜɪs ɪs {query} ʀɪɴɢᴛᴜɴᴇ"
+                message_text = f"ʜᴇʏ <a href='tg://user?id={from_user.id}'><b>✨</b></a>\n\n\nʏᴏᴜʀ ʀᴇǫᴜᴇsᴛ ɪs {query}\n\nᴛɪᴛʟᴇ: {title}\nᴀʀᴛɪsᴛ: {artist}\nᴅᴜʀᴀᴛɪᴏɴ: {duration} sᴇᴄᴏɴᴅs\nᴅᴏᴡɴʟᴏᴀᴅ ғʀᴏᴍ ᴄʜʀᴏᴍᴇ: {preview_url}\n\nᴛʜɪs ɪs {query} ʀɪɴɢᴛᴜɴᴇ"
                 await client.send_message(message.chat.id, message_text)
 
                 # Send a chat action to indicate that the bot is uploading an audio file
