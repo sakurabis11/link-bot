@@ -1,12 +1,3 @@
-import os
-import logging
-from pyrogram import Client, filters, enums
-import requests
-from info import GROUP_CHAT_ID
-from utils import temp
-
-logging.basicConfig(level=logging.INFO)
-
 @Client.on_message(filters.text & filters.group)
 async def song(client, message):
     # Check if the message is from the required group
@@ -22,7 +13,7 @@ async def song(client, message):
             result = response.json()
 
             # Check if there are any search results
-            if "data" in result and result["data"]:
+            if "data" in result and result["data"] and len(result["data"]) > 0:
                 # Get the first result (most relevant result)
                 song = result["data"][0]
 
