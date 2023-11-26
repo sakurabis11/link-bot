@@ -1,7 +1,9 @@
 import asyncio
 import os
 from pyrogram import Client, filters, enums
-from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, 
+from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery
+from pyrogram.errors import FloodWait
+
 from youtube_dl import YoutubeDL
 from yt_dlp import YoutubeDL
 from random import randint
