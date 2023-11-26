@@ -9,10 +9,7 @@ from yt_dlp import YoutubeDL
 from random import randint
 import shutil
 import asyncio
-import os
-
-
-DOWNLOAD_DIRECTORY = "downloads"
+import re
 
 DOWNLOAD_DIRECTORY = "downloads"
 callback_data_mapping = {}
@@ -33,6 +30,10 @@ async def download_music(client, message):
             # Use a unique identifier for the file name (e.g., video ID)
             video_id = video_info['entries'][0]['id']
             song_title = f"{video_id}.mp3"
+
+            # Shorten the file name to avoid errors
+            if len(song_title) > 255:
+                song_title = song_title[:255]
 
             # Use a short identifier as callback data
             callback_data = f"download:{video_id}"
@@ -57,6 +58,7 @@ async def download_song(client, callback_query):
 
             await callback_query.edit_message_text(f"Song downloaded: {song_title}")
 
+            # Send the audio file after downloading
             await send_audio(client, callback_query.message, song_title)
         except Exception as e:
             await callback_query.edit_message_text(f"Error downloading song: {e}")
