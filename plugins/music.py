@@ -1,7 +1,7 @@
 import asyncio
 import os
 from pyrogram import Client, filters, enums
-from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery
+from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery, Message
 from pyrogram.errors import FloodWait
 
 from youtube_dl import YoutubeDL
@@ -30,7 +30,7 @@ async def download_music(client, message):
     except Exception as e:
         await message.reply(f"Error: {e}")
 
-@Client.on_callback_query(filters.callback_data.startswith("download:"))
+@Client.on_callback_query(("download:"))
 async def download_song(client, callback_query):
     video_url = callback_query.data.split(":")[1]
     song_title = video_url.split("/")[-1].split(".")[0]
