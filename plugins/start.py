@@ -23,7 +23,7 @@ ABOUT_TXT = """<b>✯ Mʏ ɴᴀᴍᴇ ɪS <^ ~ ^> ᴍʀ.ʙᴏᴛ ᵀᴳ </>
 ✯ Lᴀɴɢᴜᴀɢᴇ: <a href='https://www.python.org/download/releases/3.0/'>Pʏᴛʜᴏɴ 3</a>
 ✯ Mʏ Sᴇʀᴠᴇʀ: <a href='https://www.render.com'>ʀᴇɴᴅᴇʀ </a>
 ✯ Pʏʀᴏɢʀᴀᴍ ᴠᴇʀsɪᴏɴ: ᴠ2.0.30
-✯ Mʏ ᴠᴇʀsɪᴏɴ: ᴠ1"""
+✯ Mʏ ᴠᴇʀsɪᴏɴ: ᴠ1.04"""
 
 @Client.on_message(filters.command("support"))
 async def support_command(client, message):
@@ -51,8 +51,8 @@ async def help_command(client, message):
          InlineKeyboardButton('ᴛᴇʟᴇɢʀᴀᴘʜ', callback_data='telegraph'),
          InlineKeyboardButton('ᴏᴘᴇɴᴀɪ', callback_data='openai')            
          ],[
-         InlineKeyboardButton('sᴏɴɢ', callback_data='song')
-         
+         InlineKeyboardButton('sᴏɴɢ', callback_data='song'),
+         InlineKeyboardButton('ʀɪɴɢᴛᴜɴᴇ', callback_data='ringtune') 
          ],[
          InlineKeyboardButton('🏠 ʜᴏᴍᴇ', callback_data='start')
     ]]
@@ -84,7 +84,8 @@ async def callback_handler(client, callback_query):
             InlineKeyboardButton('ᴛᴇᴇɢʀᴀᴘʜ', callback_data='telegraph'),
             InlineKeyboardButton('ᴏᴘᴇɴᴀɪ', callback_data='openai')
             ],[
-            InlineKeyboardButton('sᴏɴɢ', callback_data='song')
+            InlineKeyboardButton('sᴏɴɢ', callback_data='song'),
+            InlineKeyboardButton('ʀɪɴɢᴛᴜɴᴇ', callback_data='ringtune')
             ],[
             InlineKeyboardButton('🏠 ʜᴏᴍᴇ', callback_data='start')
         ]]
@@ -110,7 +111,14 @@ async def callback_handler(client, callback_query):
             InlineKeyboardButton('🏠 ʜᴏᴍᴇ', callback_data='help')
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
-        await query.message.edit_text("/song {song_name}", reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)    
+        await query.message.edit_text("/song {song_name}", reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
+
+    if query.data == "ringtune":
+        buttons = [[
+            InlineKeyboardButton('🏠 ʜᴏᴍᴇ', callback_data='help')
+        ]]
+        reply_markup = InlineKeyboardMarkup(buttons)
+        await query.message.edit_text("/ringtune {song_name}", reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
     
     if query.data == "about":
         buttons = [[
