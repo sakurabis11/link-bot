@@ -3,7 +3,7 @@ import requests, os, wget
 from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
-@Client.on_message(filters.command('song') & filters.text)
+@Client.on_message(filters.command('song'))
 async def song(client, message):
     try:
         args = message.text.split(None, 1)[1]
