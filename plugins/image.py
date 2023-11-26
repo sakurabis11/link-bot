@@ -1,7 +1,7 @@
 import pyrogram
 from pyrogram import Client, filters, enums
 import requests
-from info import API_ID, API_HASH, BOT_TOKEN, OPENAI_API_KEY PORT
+from info import API_ID, API_HASH, BOT_TOKEN, OPENAI_API_KEY, PORT
 
 @Client.on_message(filters.command("generate"))
 async def on_message(client, message):
