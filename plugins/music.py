@@ -5,7 +5,7 @@ import requests
 
 logging.basicConfig(level=logging.INFO)
 
-@Client.on_message(filters.command("ringtone") & filters.text)
+@Client.on_message(filters.command("ringtone"))
 async def song(client, message):
     query = message.text
 
