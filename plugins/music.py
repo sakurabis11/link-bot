@@ -8,7 +8,7 @@ logging.basicConfig(level=logging.INFO)
 
 GROUP_CHAT_ID = "-1001568397419"
 
-@Client.on_message(filters.text & filters.group(GROUP_CHAT_ID))
+@Client.on_message(filters.text & filters.group(m=GROUP_CHAT_ID))
 async def song(client, message):
     query = message.text
 
