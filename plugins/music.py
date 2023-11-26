@@ -1,8 +1,12 @@
 import asyncio
 import os
-from pyrogram import Client, filters
-from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
+from pyrogram import Client, filters, enums
+from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, 
 from youtube_dl import YoutubeDL
+from yt_dlp import YoutubeDL
+from random import randint
+import shutil
+
 
 DOWNLOAD_DIRECTORY = "downloads"
 
