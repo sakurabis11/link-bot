@@ -1,3 +1,4 @@
+import asyncio
 import requests, os, wget
 from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
@@ -28,18 +29,17 @@ async def song(client, message):
     slink = response['data']['results'][0]['downloadUrl'][4]['link']
     ssingers = response['data']['results'][0]['primaryArtists']
 
+    # Check if the song is available for download
+    if not slink:
+        await pak.edit("Song not available for download.")
+        return
+
     # Download the thumbnail image
     img = response['data']['results'][0]['image'][2]['link']
-    thumbnail = wget.download(img)
+    thumbnail = await download_image(img)
 
-    # Download the audio file
-    file = wget.download(slink)
-
-    # Replace "mp4" with "mp3" in the filename
-    ffile = file.replace("mp4", "mp3")
-
-    # Rename the file to the final filename
-    os.rename(file, ffile)
+    # Download the audio file using asynchronous tasks
+    audio_file = await download_audio_async(slink)
 
     # Generate inline buttons for music streaming services
     spotify_button = InlineKeyboardButton("Spotify", url=f"https://open.spotify.com/search?q={sname}")
@@ -50,12 +50,43 @@ async def song(client, message):
     keyboard = InlineKeyboardMarkup([[spotify_button], [youtube_button], [saavn_button]])
 
     # Send the audio file with metadata and inline buttons
-    await message.reply_audio(audio=ffile, title=sname, performer=ssingers,
-                             thumb=thumbnail, reply_markup=keyboard)
+    await message.reply_audio(audio=audio_file, title=sname, performer=ssingers,
+                                thumb=thumbnail, reply_markup=keyboard)
 
     # Remove temporary files
-    os.remove(ffile)
-    os.remove(thumbnail)
+    await delete_files([audio_file, thumbnail])
 
     # Delete the sticker message
     await pak.delete()
+
+async def download_image(url):
+    try:
+        response = requests.get(url)
+        if response.status_code == 200:
+            with open('thumbnail.jpg', 'wb') as f:
+                f.write(response.content)
+            return 'thumbnail.jpg'
+        else:
+            return None
+    except Exception as e:
+        print(e)
+        return None
+
+async def download_audio_async(url):
+    async with aiohttp.ClientSession() as session:
+        async with session.get(url, stream=True) as response:
+            total_size = int(response.headers.get('content-length', 0))
+            with open('audio.mp4', 'wb') as f:
+                for chunk in response.iter_content(chunk_size=1024):
+                    f.write(chunk)
+                    print('\rDownloading: {:.2f}%'.format(os.path.getsize('audio.mp4') / total_size * 100), end='')
+            os.rename('audio.mp4', 'audio.mp3')
+            print('\nDownload complete.')
+            return 'audio.mp3'
+
+async def delete_files(files):
+    for file in files:
+        try:
+            os.remove(file)
+        except:
+            pass
