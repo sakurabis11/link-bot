@@ -32,7 +32,7 @@ async def song(client, message):
                 preview_url = song["preview"]
 
                 # Send a message to the user with the song details and a download link
-                message_text = f"Artist: {artist}\nTitle: {title}\nDuration: {duration} seconds\nPreview: {preview_url}"
+                message_text = f"hey {message.from_user.first_name},\nyour request is {query}\n Artist: {artist}\nTitle: {title}\nDuration: {duration} seconds\nPreview: {preview_url}"
                 await client.send_message(message.chat.id, message_text)
 
                 # Send a chat action to indicate that the bot is uploading an audio file
