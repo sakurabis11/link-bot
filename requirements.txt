@@ -20,6 +20,7 @@ pydub==0.25.1
 shazam==0.2
 asyncio
 pytube
+youtube-search
 Pillow
 wget
 ffmpeg
