@@ -5,7 +5,7 @@ import requests
 import json
 from info import GROUP_CHAT_ID 
 
-@Client.on_message(filters.command("music"))
+@Client.on_message(filters.text & filters.group)
 async def music(client, message):
     # Check if the message is from an allowed group
     if message.chat.id not in :
