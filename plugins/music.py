@@ -12,7 +12,7 @@ async def music(client, message):
     
     # Check if a query is provided
     if not query:
-        bot.send_message(message.chat.id, "Please provide a song name to search. Usage: /music <song_name>")
+        client.send_message(message.chat.id, "Please provide a song name to search. Usage: /music <song_name>")
         return
 
     try:
@@ -27,7 +27,7 @@ async def music(client, message):
 
         # Check if there are any search results
         if "data" not in result or not result["data"]:
-            bot.send_message(message.chat.id, "No results found for the given query.")
+            client.send_message(message.chat.id, "No results found for the given query.")
             return
 
         # Get the first result (most relevant result)
@@ -40,27 +40,27 @@ async def music(client, message):
         preview_url = song["preview"]
 
         # Send a message to the user with the song details and a download link as a reply to the original message
-        bot.send_message(
+        client.send_message(
             message.chat.id,
             f"Artist: {artist}\nTitle: {title}\nDuration: {duration} seconds\nPreview: {preview_url}",
             reply_to_message_id=message.message_id
         )
 
         # Send chat action to indicate that the bot is uploading audio
-        bot.send_chat_action(message.chat.id, "upload_audio")
+        client.send_chat_action(message.chat.id, "upload_audio")
 
         # Send the audio preview to the user as a reply to the original message
-        bot.send_audio(message.chat.id, preview_url, title=title, performer=artist, reply_to_message_id=message.message_id)
-
+        client.send_audio(message.chat.id, preview_url, title=title, performer=artist, reply_to_message_id=message.message_id)
+        
     except requests.RequestException as e:
         # Handle HTTP request errors
         logging.error(f"Error fetching song information: {e}")
-        bot.send_message(message.chat.id, "Error fetching song information. Please try again later.")
+        client.send_message(message.chat.id, "Error fetching song information. Please try again later.")
     except json.JSONDecodeError as e:
         # Handle JSON decoding errors
         logging.error(f"Error decoding JSON response: {e}")
-        bot.send_message(message.chat.id, "Error decoding JSON response from Deezer API. Please try again later.")
+        client.send_message(message.chat.id, "Error decoding JSON response from Deezer API. Please try again later.")
     except Exception as e:
         # Handle other unexpected errors
         logging.error(f"An unexpected error occurred: {e}")
-        bot.send_message(message.chat.id, "An unexpected error occurred. Please try again later.")
+        client.send_message(message.chat.id, "An unexpected error occurred. Please try again later.")
