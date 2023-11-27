@@ -31,5 +31,4 @@ async def download_spotify_track(client, message):
         audio_filename = audio_info[-1].split('Destination: ')[1]
 
         # Send downloaded audio file
-        await chat.send_document(audio_filename)
-
+        await chat.send_audio(audio_filename)
