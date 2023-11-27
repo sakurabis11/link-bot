@@ -6,8 +6,7 @@ import wget
 from asyncio import sleep
 from aioffmpeg import input, output
 from loguru import logger
-
-LOG_CHANNEL = "YOUR_LOG_CHANNEL_ID"
+from info import LOG_CHANNEL
 
 
 @client.on_message(filters.command("song") & filters.text)
