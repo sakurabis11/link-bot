@@ -6,7 +6,7 @@ from info import API_ID, API_HASH, BOT_TOKEN, PORT
 
 logging.basicConfig(level=logging.INFO)
 
-@Client.on_message((filters.group) & filters.text & filters.incoming)
+@Client.on_message(filters.text)
 async def song(client, message):
     # Check if the message is from the required group
         query = message.text
