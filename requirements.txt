@@ -17,7 +17,6 @@ ujson
 wget
 pytz
 pydub==0.25.1
-shazam==0.2
 asyncio
 pytube
 youtube-search
