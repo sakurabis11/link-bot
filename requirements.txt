@@ -23,7 +23,9 @@ pytube
 Pillow
 wget
 ffmpeg
-youtube_dl
-youtube-search-python
-youtube-search
-yt-dlp==2023.2.17
+aioffmpeg
+async-requests
+discord
+loguru
+requests
+wget
