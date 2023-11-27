@@ -21,7 +21,7 @@ async def download_song(client, message):
 
     try:
         video.download(filename=audio_filename)
-        await message.reply(f"Song downloaded: {audio_filename}")
+        await message.reply(f"**Song downloaded: {audio_filename}**")
 
         # Send the downloaded song to the user
         await message.reply_audio(audio_filename)
