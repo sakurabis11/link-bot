@@ -2,7 +2,7 @@ import pyrogram
 from pyrogram import Client, filters
 from moviepy.editor import VideoFileClip
 from pydub import AudioSegment
-import shazam
+#import shazam
 
 @Client.on_message(filters.video)
 async def handle_video(client, message):
