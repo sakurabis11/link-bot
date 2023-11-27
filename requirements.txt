@@ -23,9 +23,5 @@ pytube
 Pillow
 wget
 ffmpeg
-aioffmpeg
-async-requests
 discord
-loguru
-requests
-wget
+
