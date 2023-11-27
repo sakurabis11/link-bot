@@ -3,10 +3,14 @@ import logging
 from pyrogram import Client, filters, enums
 import requests
 import json
+from info import GROUP_CHAT_ID 
 
-# Define the command handler for /song
 @Client.on_message(filters.command("music"))
 async def music(client, message):
+    # Check if the message is from an allowed group
+    if message.chat.id not in :
+        await client.send_message(message.chat.id, "This command is not available in this group.")
+        return
     # Extract the query from the command message
     query = " ".join(message.command[1:])
 
