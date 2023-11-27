@@ -1,54 +1,70 @@
 import os
 import logging
-from pyrogram import Client, filters, enums
 import requests
+from pyrogram import Client, filters, enums
 from info import API_ID, API_HASH, BOT_TOKEN, PORT
 
 logging.basicConfig(level=logging.INFO)
 
 @Client.on_message(filters.text)
 async def song(client, message):
-    # Check if the message is from the required group
-        query = message.text
+    # Extract the search query from the message
+    query = message.text.strip()
 
-        # Send a request to the Deezer API with the search query
-        response = requests.get(f"https://api.deezer.com/search?q={query}")
+    # Construct the Deezer API search URL
+    api_url = f"https://api.deezer.com/search?q={query}"
 
-        # Check if the request was successful
-        if response.status_code == 200:
-            # Convert the response to JSON format
-            result = response.json()
+    # Send a GET request to the Deezer API
+    try:
+        response = requests.get(api_url)
+    except requests.exceptions.RequestException as e:
+        logging.error(f"Error accessing Deezer API: {e}")
+        await client.send_message(message.chat.id, "Error accessing Deezer API.")
+        return
 
-            # Check if there are any search results
-            if "data" in result and result["data"]:
-                # Get the first result (most relevant result)
-                song = result["data"][0]
+    # Check if the API request was successful
+    if response.status_code != 200:
+        logging.error(f"Deezer API returned error code: {response.status_code}")
+        await client.send_message(message.chat.id, "Error accessing Deezer API.")
+        return
 
-                # Get the song details
-                artist = song["artist"]["name"]
-                title = song["title"]
-                duration = song["duration"]
-                preview_url = song["preview"]
+    # Parse the JSON response
+    result = response.json()
 
-                # Download the audio file from the preview URL
-                audio_file_path = f"temp/{title}.mp3"
-                with open(audio_file_path, "wb") as f:
-                    f.write(requests.get(preview_url).content)
+    # Check if there are any search results
+    if "data" not in result or not result["data"]:
+        await client.send_message(message.chat.id, "No results found.")
+        return
 
-                # Send a message to the user with the song details and a download link
-                message_text = f"Artist: {artist}\nTitle: {title}\nDuration: {duration} seconds\nPreview: {preview_url}"
-                await client.send_message(message.chat.id, message_text)
+    # Extract the first search result (most relevant result)
+    song = result["data"][0]
 
-                # Send a chat action to indicate that the bot is uploading an audio file
-                await client.send_chat_action(message.chat.id, "upload_audio")
+    # Extract song details
+    artist = song["artist"]["name"]
+    title = song["title"]
+    duration = song["duration"]
+    preview_url = song["preview"]
 
-                # Send the audio file to the user
-                await client.send_audio(message.chat.id, audio=audio_file_path, title=title, performer=artist)
+    # Download the audio file from the preview URL
+    try:
+        audio_file_path = f"temp/{title}.mp3"
+        with open(audio_file_path, "wb") as f:
+            f.write(requests.get(preview_url).content)
+    except requests.exceptions.RequestException as e:
+        logging.error(f"Error downloading audio file: {e}")
+        await client.send_message(message.chat.id, "Error downloading song.")
+        return
 
-                # Delete the downloaded audio file
-                if os.path.exists(audio_file_path):
-                    os.remove(audio_file_path)
-            else:
-                await client.send_message(message.chat.id, "No results found.")
-        else:
-            await client.send_message(message.chat.id, "Error accessing Deezer API.")
+    # Send song details and download link to the user
+    message_text = f"**Song:** {title}\n**Artist:** {artist}\n**Duration:** {duration} seconds\n**Preview:** {preview_url}"
+    await client.send_message(message.chat.id, message_text)
+
+    # Send chat action indicating uploading audio file
+    await client.send_chat_action(message.chat.id, "upload_audio")
+
+    # Send the audio file to the user
+    await client.send_audio(message.chat.id, audio=audio_file_path, title=title, performer=artist)
+
+    # Delete the downloaded audio file
+    if os.path.exists(audio_file_path):
+        os.remove(audio_file_path)
