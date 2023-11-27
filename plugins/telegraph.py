@@ -51,6 +51,6 @@ async def telegraph_upload(bot, update):
 
     # Send the Telegraph link and upload speed information to the user
     await download_text.edit_text(
-        text=f"https://telegra.ph{response[0]}",
+        text=f"ʜᴇʏ {message.from_user.mention},\nhttps://telegra.ph{response[0]}",
         disable_web_page_preview=True,
     )
