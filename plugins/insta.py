@@ -2,6 +2,7 @@ import asyncio
 import os
 import requests
 from pyrogram import Client, filters, enums
+from info import API_ID, API_HASH, BOT_TOKEN, PORT
 
 # Initialize Pyrogram Client
 app = Client("instagram-downloader")
