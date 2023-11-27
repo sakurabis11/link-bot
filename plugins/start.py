@@ -25,7 +25,7 @@ ABOUT_TXT = """<b>✯ Mʏ ɴᴀᴍᴇ ɪS <^ ~ ^> ᴍʀ.ʙᴏᴛ ᵀᴳ </>
 ✯ Pʏʀᴏɢʀᴀᴍ ᴠᴇʀsɪᴏɴ: ᴠ2.0.30
 ✯ Mʏ ᴠᴇʀsɪᴏɴ: ᴠ1.4"""
 
-@Client.on_message(filters.command('support'))
+@Client.on_message(filters.command('support') & filters.private)
 async def support_command(client, message):
     button = [
         [
@@ -36,7 +36,7 @@ async def support_command(client, message):
     reply_markup = InlineKeyboardMarkup(button)
     await message.reply_text("ᴛʜᴇsᴇ ᴀʀᴇ ᴍʏ sᴜᴘᴘᴏʀᴛ ᴄʜᴀɴɴᴇʟ ᴀɴᴅ ɢʀᴏᴜᴘ. ɪғ ᴀɴʏ ᴘʀᴏʙʟᴇᴍ, ʀᴇᴘᴏʀᴛ ᴛᴏ ᴛʜᴇ ᴀᴅᴍɪɴ ", reply_markup=reply_markup)
 
-@Client.on_message(filters.command('start'))
+@Client.on_message(filters.command('start') & filters.private)
 async def start_command(client, message):
     button = [[
         InlineKeyboardButton("🕸️ Hᴇʟᴩ", callback_data="help"),
@@ -45,7 +45,7 @@ async def start_command(client, message):
     reply_markup = InlineKeyboardMarkup(button)
     await message.reply_text("ʜɪ ✨, ᴡᴇʟᴄᴏᴍᴇ ᴛᴏ ᴍʏ ʙᴏᴛ 🤖🎉", reply_markup=reply_markup)
 
-@Client.on_message(filters.command('help'))
+@Client.on_message(filters.command('help') & filters.private)
 async def help_command(client, message):
     buttons = [[
          InlineKeyboardButton('ᴛᴇʟᴇɢʀᴀᴘʜ', callback_data='telegraph'),
@@ -59,7 +59,7 @@ async def help_command(client, message):
     reply_markup = InlineKeyboardMarkup(button)
     await message.reply_text("Hᴇʀᴇ ɪs Mʏ Hᴇʟᴩ.\n /support", reply_markup=reply_markup)
 
-@Client.on_message(filters.command('about'))
+@Client.on_message(filters.command('about') & filters.private)
 async def about_command(client, message):
     button = [[
         InlineKeyboardButton("ʙᴀᴄᴋ ᴛᴏ sᴛᴀʀᴛ", callback_data="start")
