@@ -5,7 +5,7 @@ from info import API_ID, API_HASH, BOT_TOKEN, OPENAI_API_KEY, PORT
 
 openai.api_key = OPENAI_API_KEY
 
-@Client.on_message(filters.command("openai"))
+@Client.on_message(filters.command('openai'))
 async def openai_command(client, message):
     try:
         user_input = message.text
