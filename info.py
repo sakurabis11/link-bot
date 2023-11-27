@@ -15,7 +15,7 @@ def is_enabled(value, default):
 
 API_ID = int(os.environ.get('API_ID', '8914119'))
 API_HASH = os.environ.get('API_HASH', '652bae601b07c928b811bdb310fdb4b0')
-BOT_TOKEN = os.environ.get('BOT_TOKEN', '6645084082:AAH1ufWceeZRdkoa_Ir-vllz8ADKH2R3-VI')
+BOT_TOKEN = os.environ.get('BOT_TOKEN', '6645084082:AAGl_J_AWdAYb_2mAyRCLHSlM4htqwFvTTI')
 PORT = os.environ.get("PORT", "8080")
 OPENAI_API_KEY = os.environ.get('OPENAI_API_KEY', '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')
 
