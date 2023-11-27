@@ -1,14 +1,15 @@
 import wget
 import discord
 import requests
+from pyrogram import filters, Client, enums
 from asyncio import sleep
 from info import LOG_CHANNEL
 
-@client.on_message(filters.command('ssong') & filters.text)
+@Client.on_message(filters.command('song') & filters.text)
 async def song(client, message):
     args = message.text.split(None, 1)[1]
     if not args:
-        return await message.reply("/ssong requires an argument.")
+        return await message.reply("/song requires an argument.")
 
     # Download the song
 
