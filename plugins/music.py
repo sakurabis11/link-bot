@@ -31,6 +31,11 @@ async def song(client, message):
                 duration = song["duration"]
                 preview_url = song["preview"]
 
+                # Download the audio file from the preview URL
+                audio_file_path = f"temp/{title}.mp3"
+                with open(audio_file_path, "wb") as f:
+                    f.write(requests.get(preview_url).content)
+
                 # Send a message to the user with the song details and a download link
                 message_text = f"Artist: {artist}\nTitle: {title}\nDuration: {duration} seconds\nPreview: {preview_url}"
                 await client.send_message(message.chat.id, message_text)
@@ -39,7 +44,11 @@ async def song(client, message):
                 await client.send_chat_action(message.chat.id, "upload_audio")
 
                 # Send the audio file to the user
-                await client.send_audio(message.chat.id, audio=preview_url, title=title, performer=artist)
+                await client.send_audio(message.chat.id, audio=audio_file_path, title=title, performer=artist)
+
+                # Delete the downloaded audio file
+                if os.path.exists(audio_file_path):
+                    os.remove(audio_file_path)
             else:
                 await client.send_message(message.chat.id, "No results found.")
         else:
