@@ -6,8 +6,8 @@ RUN  pip install --upgrade pip
 RUN pip install ffmpeg
 RUN pip install openai==0.28
 
-RUN pip install discord 
-
+RUN pip install pytube 
+RUN pip install youtube-search
 COPY requirements.txt /requirements.txt
 
 RUN cd /
