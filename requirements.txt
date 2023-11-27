@@ -26,4 +26,4 @@ ffmpeg
 discord
 moviepy==1.0.3
 pydub
-shazam==2.4.2
+shazam==0.2
