@@ -118,7 +118,7 @@ async def callback_handler(client, callback_query):
             InlineKeyboardButton('🏠 ʜᴏᴍᴇ', callback_data='help')
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
-        await query.message.edit_text("ʏᴏᴜ ᴄᴀɴ ᴀsᴋ ʀɪɴɢᴛᴜɴᴇ ɪɴ ᴛʜᴇ ғʀᴏᴍ ᴏғ {sᴏɴɢ_ɴᴀᴍᴇ + ᴀʀᴛɪsᴛ_ɴᴀᴍᴇ} ᴏʀ {sᴏɴɢ_ɴᴀᴍᴇ}\n ᴛʜᴇʀᴇ ɪs ᴀ ᴘʀᴏʙʟᴇᴍ ʜᴇʀᴇ ʏᴏᴜ ᴄᴀɴ ʀᴇǫᴜᴇsᴛ ɪɴ <a href='https://t.me/melody_cafe_music'>ᴛʜɪs ɢʀᴏᴜᴘ</a>", reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
+        await query.message.edit_text("ʏᴏᴜ ᴄᴀɴ ᴀsᴋ ʀɪɴɢᴛᴜɴᴇ ɪɴ ᴛʜᴇ ғʀᴏᴍ ᴏғ /ringtune {sᴏɴɢ_ɴᴀᴍᴇ + ᴀʀᴛɪsᴛ_ɴᴀᴍᴇ} ᴏʀ {sᴏɴɢ_ɴᴀᴍᴇ}\n ᴛʜᴇʀᴇ ɪs ᴀ ᴘʀᴏʙʟᴇᴍ ʜᴇʀᴇ ʏᴏᴜ ᴄᴀɴ ʀᴇǫᴜᴇsᴛ ɪɴ <a href='https://t.me/melody_cafe_music'>ᴛʜɪs ɢʀᴏᴜᴘ</a>", reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
     
     if query.data == "about":
         buttons = [[
