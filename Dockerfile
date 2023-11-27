@@ -5,8 +5,8 @@ RUN  pip install --upgrade pip
 
 RUN pip install ffmpeg
 RUN pip install openai==0.28
-RUN pip install aioffmpeg
-RUN pip install async-requests discord loguru
+
+RUN pip install discord 
 
 COPY requirements.txt /requirements.txt
 
