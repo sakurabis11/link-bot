@@ -6,10 +6,9 @@ from info import GROUP_CHAT_ID
 
 logging.basicConfig(level=logging.INFO)
 
-@Client.on_message(filters.text & filters.group)
+@Client.on_message(filters.text)
 async def song(client, message):
     # Check if the message is from the required group
-    if message.chat.id == GROUP_CHAT_ID:
         query = message.text
 
         # Send a request to the Deezer API with the search query
