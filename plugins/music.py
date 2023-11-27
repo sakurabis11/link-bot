@@ -8,7 +8,7 @@ from info import GROUP_CHAT_ID
 @Client.on_message(filters.text & filters.group)
 async def music(client, message):
     # Check if the message is from an allowed group
-    if message.chat.id not in :
+    if message.chat.id not in GROUP_CHAT_ID:
         await client.send_message(message.chat.id, "This command is not available in this group.")
         return
     # Extract the query from the command message
