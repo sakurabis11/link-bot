@@ -12,7 +12,7 @@ async def music(client, message):
 
     # Check if a query is provided
     if not query:
-        await client.send_message(message.chat.id, "Please provide a song name to search. Usage: /ringtune <song_name>")
+        await client.send_message(message.chat.id, "ᴘʟᴇᴀsᴇ ᴘʀᴏᴠɪᴅᴇ ᴀ sᴏɴɢ ɴᴀᴍᴇ ᴛᴏ sᴇᴀʀᴄʜ. ᴜsᴀɢᴇ: /ringtune <song_name> or <song_name + Artist_name>")
         return
 
     try:
