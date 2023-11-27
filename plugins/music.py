@@ -27,7 +27,7 @@ async def music(client, message):
 
         # Check if there are any search results
         if "data" not in result or not result["data"]:
-            await client.send_message(message.chat.id, "No results found for the given query.")
+            await client.send_message(message.chat.id, "ɴᴏ ʀᴇsᴜʟᴛs ғᴏᴜɴᴅ ғᴏʀ ᴛʜᴇ ɢɪᴠᴇɴ {query}.")
             return
 
         # Get the first result (most relevant result)
@@ -42,7 +42,7 @@ async def music(client, message):
         }
 
         # Send a message to the user with the song details and a download link
-        await client.send_message(message.chat.id, f"Artist: {song_info['artist']}\nTitle: {song_info['title']}\nDuration: {song_info['duration']} seconds\nPreview: {song_info['preview_url']}")
+        await client.send_message(message.chat.id, f"ʜᴇʏ ,\nʏᴏᴜʀ ʀᴇǫᴜᴇsᴛ {query}\nᴀʀᴛɪsᴛ: {song_info['artist']}\nᴛɪᴛʟᴇ: {song_info['title']}\nᴅᴜʀᴀᴛɪᴏɴ: {song_info['duration']} sᴇᴄᴏɴᴅs\nʏᴏᴜ ᴄᴀɴ ᴅᴏᴡɴʟᴏᴀᴅ ᴛʜɪs sᴏɴɢ ғʀᴏᴍ ᴄʜʀᴏᴍᴇ: {song_info['preview_url']}")
 
         # Send chat action to indicate that the bot is uploading audio
         await client.send_chat_action(message.chat.id, "upload_audio")
