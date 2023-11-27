@@ -1,64 +1,72 @@
-import async_requests
-import discord
-import os
-import re
 import wget
+import discord
+import requests
 from asyncio import sleep
-from aioffmpeg import input, output
-from loguru import logger
 from info import LOG_CHANNEL
 
-
-@client.on_message(filters.command("song") & filters.text)
+@client.on_message(filters.command('ssong') & filters.text)
 async def song(client, message):
+    args = message.text.split(None, 1)[1]
+    if not args:
+        return await message.reply("/ssong requires an argument.")
+
+    # Download the song
+
+    pak = await message.reply('Downloading...')
     try:
-        args = message.text.split(None, 1)[1]
-        # Check if an argument is provided
-        if not args:
-            raise ValueError("/song {song_name}.")
-
-        # Download the song
-        logger.info(f"Downloading song: {args}")
-        pak = await message.reply('Downloading...')
-        response = await async_requests.get(f"https://saavn.me/search/songs?query={args}&page=1&limit=1")
-        response_json = await response.json()
-        song_info = response_json['data']['results'][0]
-
-        # Extract song information
-        song_name = song_info['name']
-        song_url = song_info['downloadUrl'][4]['link']
-        song_artists = song_info['primaryArtists']
-
-        # Download the thumbnail image
-        thumbnail_url = song_info['image'][2]['link']
-        thumbnail_filename = f"song_thumbnail.{thumbnail_url.split('.')[-1]}"
-        await wget.download(thumbnail_url, thumbnail_filename)
-
-        # Download the song file and convert it to MP3
-        song_filename = f"song.{song_url.split('.')[-1]}"
-        await wget.download(song_url, song_filename)
-        mp3_filename = song_filename.replace("mp4", "mp3")
-        await convert_to_mp3(song_filename, mp3_filename)
-
-        # Send the song message
-        await pak.edit('Uploading...')
-        await message.reply_audio(audio=mp3_filename, title=song_name, performer=song_artists, caption=f"[{song_name}]({song_info['url']}) - from saavn ",thumb=thumbnail_filename)
-
-        # Cleanup
-        os.remove(mp3_filename)
-        os.remove(thumbnail_filename)
-        await pak.delete()
-
-        # Log the request
-        logger.info(f"Song request: {message.from_user.id} - {song_name}")
-
+        response = requests.get(f"https://saavn.me/search/songs?query={args}&page=1&limit=1").json()
     except Exception as e:
-        logger.error(e)
-        await message.reply(f"Error: {e}")
+        await pak.edit(str(e))
+        return
+
+    # Extract song information
+
+    sname = response['data']['results'][0]['name']
+    slink = response['data']['results'][0]['downloadUrl'][4]['link']
+    ssingers = response['data']['results'][0]['primaryArtists']
+    thumbnail_url = response['data']['results'][0]['image'][2]['link']
+
+    # Download the thumbnail
+
+    thumbnail = await download_image(thumbnail_url)
+
+    # Download the song file
+
+    file = await download_song(slink)
+
+    # Convert MP4 to MP3
+
+    mp3_file = convert_mp4_to_mp3(file)
+
+    # Send the song message
+
+    await pak.edit('Uploading...')
+    await message.reply_audio(audio=mp3_file, title=sname, performer=ssingers, caption=f"[{sname}]({response['data']['results'][0]['url']}) - from saavn ",thumb=thumbnail)
+
+    # Cleanup
+
+    os.remove(mp3_file)
+    os.remove(thumbnail)
+    await pak.delete()
+
+    # Log the request
+
+    await client.send_message(LOG_CHANNEL, f"<@{message.from_user.id}> requested a song: {sname}")
 
 
-async def convert_to_mp3(input_filename, output_filename):
-    async with input(input_filename), output(output_filename):
-        await output.overwrite_output(True)
-        await output.global_args('-codec:a libmp3lame')
-        await output.run()
+async def download_image(url):
+    filename = f"song_thumbnail.{url.split('.')[-1]}"
+    await wget.download(url, filename)
+    return filename
+
+
+async def download_song(url):
+    filename = f"song.{url.split('.')[-1]}"
+    await wget.download(url, filename)
+    return filename
+
+
+def convert_mp4_to_mp3(filename):
+    mp3_filename = filename.replace("mp4", "mp3")
+    os.system(f"ffmpeg -i {filename} {mp3_filename}")
+    return mp3_filename
