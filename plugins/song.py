@@ -1,92 +1,65 @@
-import asyncio
-import requests, os, wget
-from pyrogram import Client, filters
-from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
+import async_requests
+import discord
+import os
+import re
+import wget
+from asyncio import sleep
+from aioffmpeg import input, output
+from loguru import logger
 
-@Client.on_message(filters.command('song'))
+LOG_CHANNEL = "YOUR_LOG_CHANNEL_ID"
+
+
+@client.on_message(filters.command("song") & filters.text)
 async def song(client, message):
     try:
         args = message.text.split(None, 1)[1]
-    except:
-        return await message.reply("Send the song name.")
+        # Check if an argument is provided
+        if not args:
+            raise ValueError("/song {song_name}.")
 
-    if not args:
-        await message.reply("Send the song name..")
-        return ""
+        # Download the song
+        logger.info(f"Downloading song: {args}")
+        pak = await message.reply('Downloading...')
+        response = await async_requests.get(f"https://saavn.me/search/songs?query={args}&page=1&limit=1")
+        response_json = await response.json()
+        song_info = response_json['data']['results'][0]
 
-    # Send a sticker to indicate that the request is being processed
-    pak = await client.send_sticker(message.chat.id, 'CAACAgUAAxkBAAJyMWVhaXgwvctsfT0fApCGniRz20upAAKfAwACgSNIVG3KGaDGncrFHgQ')
+        # Extract song information
+        song_name = song_info['name']
+        song_url = song_info['downloadUrl'][4]['link']
+        song_artists = song_info['primaryArtists']
 
-    try:
-        # Search for the song using Saavn API
-        response = requests.get(f"https://saavn.me/search/songs?query={args}&page=1&limit=1").json()
+        # Download the thumbnail image
+        thumbnail_url = song_info['image'][2]['link']
+        thumbnail_filename = f"song_thumbnail.{thumbnail_url.split('.')[-1]}"
+        await wget.download(thumbnail_url, thumbnail_filename)
+
+        # Download the song file and convert it to MP3
+        song_filename = f"song.{song_url.split('.')[-1]}"
+        await wget.download(song_url, song_filename)
+        mp3_filename = song_filename.replace("mp4", "mp3")
+        await convert_to_mp3(song_filename, mp3_filename)
+
+        # Send the song message
+        await pak.edit('Uploading...')
+        await message.reply_audio(audio=mp3_filename, title=song_name, performer=song_artists, caption=f"[{song_name}]({song_info['url']}) - from saavn ",thumb=thumbnail_filename)
+
+        # Cleanup
+        os.remove(mp3_filename)
+        os.remove(thumbnail_filename)
+        await pak.delete()
+
+        # Log the request
+        logger.info(f"Song request: {message.from_user.id} - {song_name}")
+
     except Exception as e:
-        await pak.edit(str(e))
-        return
+        logger.error(e)
+        await message.reply(f"Error: {e}")
 
-    # Extract song information from the API response
-    sname = response['data']['results'][0]['name']
-    slink = response['data']['results'][0]['downloadUrl'][4]['link']
-    ssingers = response['data']['results'][0]['primaryArtists']
 
-    # Check if the song is available for download
-    if not slink:
-        await pak.edit("Song not available for download.")
-        return
-
-    # Download the thumbnail image
-    img = response['data']['results'][0]['image'][2]['link']
-    thumbnail = await download_image(img)
-
-    # Download the audio file using asynchronous tasks
-    audio_file = await download_audio_async(slink)
-
-    # Generate inline buttons for music streaming services
-    spotify_button = InlineKeyboardButton("Spotify", url=f"https://open.spotify.com/search?q={sname}")
-    youtube_button = InlineKeyboardButton("YouTube", url=f"https://www.youtube.com/results?search_query={sname}")
-    saavn_button = InlineKeyboardButton("Saavn", url=response['data']['results'][0]['url'])
-
-    # Create an inline keyboard markup and add the buttons
-    keyboard = InlineKeyboardMarkup([[spotify_button], [youtube_button], [saavn_button]])
-
-    # Send the audio file with metadata and inline buttons
-    await message.reply_audio(audio=audio_file, title=sname, performer=ssingers,
-                                thumb=thumbnail, reply_markup=keyboard)
-
-    # Remove temporary files
-    await delete_files([audio_file, thumbnail])
-
-    # Delete the sticker message
-    await pak.delete()
-
-async def download_image(url):
-    try:
-        response = requests.get(url)
-        if response.status_code == 200:
-            with open('thumbnail.jpg', 'wb') as f:
-                f.write(response.content)
-            return 'thumbnail.jpg'
-        else:
-            return None
-    except Exception as e:
-        print(e)
-        return None
-
-async def download_audio_async(url):
-    async with aiohttp.ClientSession() as session:
-        async with session.get(url, stream=True) as response:
-            total_size = int(response.headers.get('content-length', 0))
-            with open('audio.mp4', 'wb') as f:
-                for chunk in response.iter_content(chunk_size=1024):
-                    f.write(chunk)
-                    print('\rDownloading: {:.2f}%'.format(os.path.getsize('audio.mp4') / total_size * 100), end='')
-            os.rename('audio.mp4', 'audio.mp3')
-            print('\nDownload complete.')
-            return 'audio.mp3'
-
-async def delete_files(files):
-    for file in files:
-        try:
-            os.remove(file)
-        except:
-            pass
+async def convert_to_mp3(input_filename, output_filename):
+    async with input(input_filename), output(output_filename):
+        await output.overwrite_output(True)
+        await output.global_args('-codec:a libmp3lame')
+        await output.run()
