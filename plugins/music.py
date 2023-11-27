@@ -12,7 +12,7 @@ async def music(client, message):
 
     # Check if a query is provided
     if not query:
-        await client.send_message(message.chat.id, "Please provide a song name to search. Usage: /music <song_name>")
+        await client.send_message(message.chat.id, "Please provide a song name to search. Usage: /ringtune <song_name> or <song_name + artist_name>")
         return
 
     try:
@@ -47,9 +47,14 @@ async def music(client, message):
         # Send chat action to indicate that the bot is uploading audio
         await client.send_chat_action(message.chat.id, "upload_audio")
 
-        # Send the audio preview to the user
-        await client.send_audio(message.chat.id, song_info['preview_url'], title=song_info['title'], performer=song_info['artist'])
+        # Check if the message is a reply to another audio message
+        if message.reply_to_message and message.reply_to_message.media:
+            # If it is, send the audio preview as a reply to the original audio message
+            await client.send_audio(message.chat.id, song_info['preview_url'], title=song_info['title'], performer=song_info['artist'], reply_to_message_id=message.reply_to_message.id)
+        else:
+            # Otherwise, send it as a reply to the original message
+            await client.send_audio(message.chat.id, song_info['preview_url'], title=song_info['title'], performer=song_info['artist'], reply_to_message_id=message.id)
     except requests.RequestException as e:
         # Handle HTTP request errors
         logging.error(f"Error fetching song information: {e}")
-        await client.send_message
+        await client.send_message(message.chat.id, "An error occurred while fetching the song information. Please try again later.")
