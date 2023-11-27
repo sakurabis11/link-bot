@@ -4,6 +4,7 @@ from pyrogram import Client, filters, enums
 import requests
 import json
 
+# Define the command handler for /song
 @Client.on_message(filters.command("ringtune"))
 async def music(client, message):
     # Extract the query from the command message
@@ -11,7 +12,7 @@ async def music(client, message):
 
     # Check if a query is provided
     if not query:
-        await client.message.send_message(message.chat.id, "Please provide a song name to search. Usage: /ringtune <song_name> or <song_name + artist_name>")
+        await client.send_message(message.chat.id, "Please provide a song name to search. Usage: /ringtune <song_name>")
         return
 
     try:
@@ -41,21 +42,18 @@ async def music(client, message):
         }
 
         # Send a message to the user with the song details and a download link
-        await client.message.send_message(message.chat.id, f"Artist: {song_info['artist']}\nTitle: {song_info['title']}\nDuration: {song_info['duration']} seconds\nPreview: {song_info['preview_url']}")
+        await client.send_message(message.chat.id, f"Artist: {song_info['artist']}\nTitle: {song_info['title']}\nDuration: {song_info['duration']} seconds\nPreview: {song_info['preview_url']}")
 
         # Send chat action to indicate that the bot is uploading audio
         await client.send_chat_action(message.chat.id, "upload_audio")
 
-        # Follow the redirect to get the actual audio URL
-        stream = requests.get(song_info['preview_url'], stream=True)
-        if stream.status_code == 200:
-            # Download the audio data
-            audio_data = stream.read()
-
-            # Send the audio file using the downloaded data
-            await client.send_audio(message.chat.id, audio_data, title=song_info['title'], performer=song_info['artist'], reply_to_message_id=message.id)
+        # Check if the message is a reply to another audio message
+        if message.reply_to_message and message.reply_to_message.media:
+            # If it is, send the audio preview as a reply to the original audio message
+            await client.send_audio(message.chat.id, song_info['preview_url'], title=song_info['title'], performer=song_info['artist'], reply_to_message_id=message.reply_to_message.id)
         else:
-            await client.send_message(message.chat.id, "Failed to download the audio file. Please try again later.")
+            # Otherwise, send it as a reply to the original message
+            await client.send_audio(message.chat.id, song_info['preview_url'], title=song_info['title'], performer=song_info['artist'], reply_to_message_id=message.id)
     except requests.RequestException as e:
         # Handle HTTP request errors
         logging.error(f"Error fetching song information: {e}")
