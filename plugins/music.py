@@ -6,7 +6,7 @@ from info import GROUP_CHAT_ID
 
 logging.basicConfig(level=logging.INFO)
 
-@Client.on_message(filters.text)
+@Client.on_message((filters.group) & filters.text & filters.incoming)
 async def song(client, message):
     # Check if the message is from the required group
         query = message.text
