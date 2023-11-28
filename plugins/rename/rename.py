@@ -1,7 +1,7 @@
 # code from MRMKN, it also includes some improvements such as: try-except,os.listdir(),os.remove().
 import time, os
 from pyrogram import Client, filters, enums
-from info import DOWNLOAD_LOCATION, ADMIN
+from info import DOWNLOAD_LOCATION, ADMINS
 from utils import progress_message, humanbytes
 
 CAPTION = environ.get("CAPTION", "")
