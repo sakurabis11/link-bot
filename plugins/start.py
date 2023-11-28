@@ -4,7 +4,7 @@ import random
 import asyncio
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery
 from pyrogram import enums, filters, Client
-from info import API_ID, API_HASH, BOT_TOKEN, PORT
+from info import API_ID, API_HASH, BOT_TOKEN, PORT, STICKER
 from Script import script
 from utils import temp
 from pyrogram.errors import FloodWait
@@ -45,7 +45,7 @@ async def start_command(client, message):
     reply_markup = InlineKeyboardMarkup(button)
     await message.reply_sticker(
         sticker=random.choice(STICKER),
-    await message.reply_text("ʜɪ ✨, ᴡᴇʟᴄᴏᴍᴇ ᴛᴏ ᴍʏ ʙᴏᴛ 🤖🎉", reply_markup=reply_markup))
+    await message.reply_text("ʜɪ {message.from_user.mention}, ᴡᴇʟᴄᴏᴍᴇ ᴛᴏ ᴍʏ ʙᴏᴛ 🤖🎉", reply_markup=reply_markup))
 
 @Client.on_message(filters.command("help"))
 async def help_command(client, message):
@@ -79,7 +79,9 @@ async def callback_handler(client, callback_query):
             InlineKeyboardButton("✨ Aʙᴏᴜᴛ", callback_data="about")
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
-        await query.message.edit_text("ʜɪ ✨, ᴡᴇʟᴄᴏᴍᴇ ᴛᴏ ᴍʏ ʙᴏᴛ 🤖🎉", reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
+        await message.reply_sticker(
+        sticker=random.choice(STICKER),
+        await query.message.edit_text("ʜɪ {message.from_user.mention}, ᴡᴇʟᴄᴏᴍᴇ ᴛᴏ ᴍʏ ʙᴏᴛ 🤖🎉", reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML))
 
     if query.data == "help":
         buttons = [[
