@@ -22,5 +22,8 @@ OPENAI_API_KEY = os.environ.get('OPENAI_API_KEY', 'sk-OAhx2ooadTrvjqUOuNnDT3Blbk
 CACHE_TIME = int(environ.get('CACHE_TIME', 300))
 ADMINS = [int(admin) if id_pattern.search(admin) else admin for admin in environ.get('ADMINS', '1342641151').split()]
 
+DOWNLOAD_LOCATION = "./DOWNLOADS"
+
 GROUP_CHAT_ID = int(environ.get('GROUP_CHAT_ID', '-1001568397419'))
 LOG_CHANNEL = int(environ.get('LOG_CHANNEL', '-1002084798134'))
+
