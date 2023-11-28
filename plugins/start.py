@@ -43,9 +43,8 @@ async def start_command(client, message):
         InlineKeyboardButton("✨ Aʙᴏᴜᴛ", callback_data="about")
     ]]
     reply_markup = InlineKeyboardMarkup(button)
-    await message.reply_sticker(
-        sticker=random.choice(STICKER),
-    await message.reply_text("ʜɪ {message.from_user.mention}, ᴡᴇʟᴄᴏᴍᴇ ᴛᴏ ᴍʏ ʙᴏᴛ 🤖🎉", reply_markup=reply_markup))
+    await message.reply_sticker('CAACAgIAAxkBAAJ36WVmFrKxXZ4gTXkmQ4nFl3bATuRKAALZFQACUi9AS_AtAUSnzq4gHgQ')
+    await message.reply_text("ʜɪ {message.from_user.mention}, ᴡᴇʟᴄᴏᴍᴇ ᴛᴏ ᴍʏ ʙᴏᴛ 🤖🎉", reply_markup=reply_markup)
 
 @Client.on_message(filters.command("help"))
 async def help_command(client, message):
@@ -79,8 +78,7 @@ async def callback_handler(client, callback_query):
             InlineKeyboardButton("✨ Aʙᴏᴜᴛ", callback_data="about")
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
-        await message.reply_sticker(
-        sticker=random.choice(STICKER),
+        await message.reply_sticker('CAACAgIAAxkBAAJ36WVmFrKxXZ4gTXkmQ4nFl3bATuRKAALZFQACUi9AS_AtAUSnzq4gHgQ')
         await query.message.edit_text("ʜɪ {message.from_user.mention}, ᴡᴇʟᴄᴏᴍᴇ ᴛᴏ ᴍʏ ʙᴏᴛ 🤖🎉", reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML))
 
     if query.data == "help":
