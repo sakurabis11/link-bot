@@ -1,6 +1,6 @@
 # code from MRMKN, it also includes some improvements such as: os.path.exists(), os.makedirs()
 from pyrogram import Client, filters
-from config import ADMIN, DOWNLOAD_LOCATION
+from info import ADMIN, DOWNLOAD_LOCATION
 import os
 
 @Client.on_message(filters.private & filters.command("set_thubnail") & filters.user(ADMIN))
