@@ -22,7 +22,5 @@ OPENAI_API_KEY = os.environ.get('OPENAI_API_KEY', 'sk-OAhx2ooadTrvjqUOuNnDT3Blbk
 CACHE_TIME = int(environ.get('CACHE_TIME', 300))
 ADMINS = [int(admin) if id_pattern.search(admin) else admin for admin in environ.get('ADMINS', '1342641151').split()]
 
-STICKER = int(environ.get('STICKER', 'CAACAgIAAxkBAAJ34GVmFnKEJ1V15UeENfzENumkorL6AAJkEQACdouhSm5_eb7qhNQHHgQ', 'CAACAgIAAxkBAAJ36WVmFrKxXZ4gTXkmQ4nFl3bATuRKAALZFQACUi9AS_AtAUSnzq4gHgQ')).split()
-
 GROUP_CHAT_ID = int(environ.get('GROUP_CHAT_ID', '-1001568397419'))
 LOG_CHANNEL = int(environ.get('LOG_CHANNEL', '-1002084798134'))
