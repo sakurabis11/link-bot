@@ -95,6 +95,15 @@ async def callback_handler(client, callback_query):
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text("Hᴇʀᴇ Mꜱ Mʏ Hᴇʟᴩ.\n /support", reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
 
+    if query.data == "admin":
+        buttons = [[
+            InlineKeyboardButton('🏠 ʜᴏᴍᴇ', callback_data='help')
+       ]]
+       reply_markup = InlineKeyboardMarkup(buttons)
+       if query.from_user.id not in ADMINS:
+           return await query.answer("Sᴏʀʀʏ Tʜɪs Mᴇɴᴜ Oɴʟʏ Fᴏʀ Mʏ Aᴅᴍɪɴs ⚒️", show_alert=True) 
+    await query.message.edit_text("/rename - replay with file to rename\ndel - to delete your thumbnail\nview - view current thumbnail ", reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)   
+
     if query.data == "telegraph":
         buttons = [[
             InlineKeyboardButton('🏠 ʜᴏᴍᴇ', callback_data='help')
