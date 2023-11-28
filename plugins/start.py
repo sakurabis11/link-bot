@@ -79,7 +79,7 @@ async def callback_handler(client, callback_query):
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await message.reply_sticker('CAACAgIAAxkBAAJ36WVmFrKxXZ4gTXkmQ4nFl3bATuRKAALZFQACUi9AS_AtAUSnzq4gHgQ')
-        await query.message.edit_text("ʜɪ {message.from_user.mention}, ᴡᴇʟᴄᴏᴍᴇ ᴛᴏ ᴍʏ ʙᴏᴛ 🤖🎉", reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML))
+        await query.message.edit_text("ʜɪ {message.from_user.mention}, ᴡᴇʟᴄᴏᴍᴇ ᴛᴏ ᴍʏ ʙᴏᴛ 🤖🎉", reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
 
     if query.data == "help":
         buttons = [[
