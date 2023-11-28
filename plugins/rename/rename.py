@@ -4,7 +4,7 @@ from pyrogram import Client, filters, enums
 from info import ADMINS
 from utils import progress_message, humanbytes
 
-CAPTION = environ.get("CAPTION", "")
+CAPTION = environ.get("CAPTION", "{new_name}\n\n💽 size : {filesize}")
 
 DOWNLOAD_LOCATION = "./DOWNLOADS"
 
