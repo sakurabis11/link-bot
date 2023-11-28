@@ -1,3 +1,4 @@
+# code from MRMKN, it also includes some improvements such as: try-except,os.listdir(),os.remove().
 import time, os
 from pyrogram import Client, filters, enums
 from config import DOWNLOAD_LOCATION, CAPTION, ADMIN
@@ -46,8 +47,6 @@ async def rename_file(bot, msg):
             )
     else:
         cap = f"{new_name}\n\n💽 size : {filesize}"
-
-    # this idea's back end is MKN brain 🧠
 
     dir = os.listdir(DOWNLOAD_LOCATION)
 
