@@ -43,7 +43,6 @@ async def start_command(client, message):
         InlineKeyboardButton("✨ Aʙᴏᴜᴛ", callback_data="about")
     ]]
     reply_markup = InlineKeyboardMarkup(button)
-    await message.reply_sticker('CAACAgIAAxkBAAJ36WVmFrKxXZ4gTXkmQ4nFl3bATuRKAALZFQACUi9AS_AtAUSnzq4gHgQ')
     await message.reply_text("ʜɪ ✨, ᴡᴇʟᴄᴏᴍᴇ ᴛᴏ ᴍʏ ʙᴏᴛ 🤖🎉", reply_markup=reply_markup)
 
 @Client.on_message(filters.command("help"))
@@ -55,7 +54,7 @@ async def help_command(client, message):
          InlineKeyboardButton('sᴏɴɢ', callback_data='song'),
          InlineKeyboardButton('ʀɪɴɢᴛᴜɴᴇ', callback_data='ringtune') 
          ],[
-         InlineKeyboardButton('🏠 ʜᴏᴍᴇ', callback_data='start')
+         InlineKeyboardButton('🏠 ʜᴏᴍᴇ', callback_data="start")
     ]]
     reply_markup = InlineKeyboardMarkup(button)
     await message.reply_text("Hᴇʀᴇ ɪs Mʏ Hᴇʟᴩ.\n /support", reply_markup=reply_markup)
