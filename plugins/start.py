@@ -43,7 +43,9 @@ async def start_command(client, message):
         InlineKeyboardButton("✨ Aʙᴏᴜᴛ", callback_data="about")
     ]]
     reply_markup = InlineKeyboardMarkup(button)
-    await message.reply_text("ʜɪ ✨, ᴡᴇʟᴄᴏᴍᴇ ᴛᴏ ᴍʏ ʙᴏᴛ 🤖🎉", reply_markup=reply_markup)
+    await message.reply_sticker(
+        sticker=random.choice(STICKER),
+    await message.reply_text("ʜɪ ✨, ᴡᴇʟᴄᴏᴍᴇ ᴛᴏ ᴍʏ ʙᴏᴛ 🤖🎉", reply_markup=reply_markup))
 
 @Client.on_message(filters.command("help"))
 async def help_command(client, message):
