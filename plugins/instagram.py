@@ -74,7 +74,7 @@ async def button_click(client, callback_query):
 
 
 # Define a function to handle incoming messages
-@Client.on_message(filters.private)
+@Client.on_message(filters.group)
 async def handle_message(client, message):
     # Check if the message contains a link to an Instagram post or Reel
     if 'instagram.com/p/' in message.text or 'instagram.com/reel/' in message.text:
