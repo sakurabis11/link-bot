@@ -4,7 +4,7 @@ import random
 import asyncio
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery
 from pyrogram import enums, filters, Client
-from info import API_ID, API_HASH, BOT_TOKEN, PORT
+from info import API_ID, API_HASH, BOT_TOKEN, PORT, ADMINS
 from Script import script
 from utils import temp
 from pyrogram.errors import FloodWait
