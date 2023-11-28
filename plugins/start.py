@@ -48,6 +48,8 @@ async def start_command(client, message):
 @Client.on_message(filters.command("help"))
 async def help_command(client, message):
     buttons = [[
+         InlineKeyboardButton('ᴀᴅᴍɪɴ', callback_data='admin')
+         ],[
          InlineKeyboardButton('ᴛᴇʟᴇɢʀᴀᴘʜ', callback_data='telegraph'),
          InlineKeyboardButton('ᴏᴘᴇɴᴀɪ', callback_data='openai')            
          ],[
