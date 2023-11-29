@@ -3,7 +3,7 @@ from pyrogram import Client, filters
 from info import ADMINS, DOWNLOAD_LOCATION
 import os
 
-@Client.on_message(filters.private & filters.command("set_thubnail") & filters.user(ADMINS))
+@Client.on_message(filters.private & filters.command("set_thumbnail") & filters.user(ADMINS))
 async def set_thumbnail(client, msg):
     if not os.path.exists(DOWNLOAD_LOCATION):
         os.makedirs(DOWNLOAD_LOCATION)
