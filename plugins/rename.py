@@ -28,16 +28,26 @@ async def rename_file(client, msg):
             "Please Reply To An File or video or audio With filename + .extension eg:-(`.mkv` or `.mp4` or `.zip`)"
         )
 
-    og_media = getattr(reply, reply.media.value)
-    new_name = msg.text.split(" ", 1)[1]
+    og_media = getattr(reply, reply.media.value)  # Get the media object
+    new_name = msg.text.split(" ", 1)[1]  # Extract the new filename
 
     sts = await msg.reply_text("Trying to Downloading.....")
 
     c_time = time.time()
 
-    downloaded = await reply.download(
-        file_name=new_name, progress=progress_message, progress_args=("Download Started.....", sts, c_time)
-    )
+    # Check if og_media is not None
+    if og_media is not None:
+        downloaded = await reply.download(
+            file_name=new_name,
+            progress=progress_message,
+            progress_args=("Download Started.....", sts, c_time),
+        )
+    else:
+        # If og_media is None, handle the error
+        await sts.edit("Error: No media file found to rename.")
+        return
+
+    # Continue with the renaming process if media is valid
 
     filesize = humanbytes(og_media.file_size)
 
