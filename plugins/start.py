@@ -36,6 +36,10 @@ async def support_command(client, message):
     reply_markup = InlineKeyboardMarkup(button)
     await message.reply_text("ᴛʜᴇsᴇ ᴀʀᴇ ᴍʏ sᴜᴘᴘᴏʀᴛ ᴄʜᴀɴɴᴇʟ ᴀɴᴅ ɢʀᴏᴜᴘ. ɪғ ᴀɴʏ ᴘʀᴏʙʟᴇᴍ, ʀᴇᴘᴏʀᴛ ᴛᴏ ᴛʜᴇ ᴀᴅᴍɪɴ ", reply_markup=reply_markup)
 
+async def start_handler(client, message):
+    logger.info(f"New user has started the bot: {message.from_user.mention}")
+    await client.send_message(LOG_CHANNEL, f"New user has started the bot: {message.from_user.mention}")
+
 @Client.on_message(filters.command("start"))
 async def start_command(client, message):
     button = [[
@@ -44,9 +48,7 @@ async def start_command(client, message):
     ]]
     reply_markup = InlineKeyboardMarkup(button)
     await message.reply_text("ʜɪ ✨, ᴡᴇʟᴄᴏᴍᴇ ᴛᴏ ᴍʏ ʙᴏᴛ 🤖🎉", reply_markup=reply_markup)
-    async def start_handler(client, message):
-    await client.send_message(LOG_CHANNEL, f"New user has started the bot: {message.from_user.mention}")
-
+    
 @Client.on_message(filters.command("help"))
 async def help_command(client, message):
     buttons = [[
