@@ -12,7 +12,7 @@ CAPTION = environ.get("CAPTION", "{new_name}\n\n💽 size : {filesize}")
 DOWNLOAD_LOCATION = "./DOWNLOADS"
 
 
-@Client.on_message(filters.private & filters.command("rename") & filters.user(ADMIN))
+@Client.on_message(filters.private & filters.command("rename") & filters.user(ADMINS))
 async def rename_file(bot, msg):
     reply = msg.reply_to_message
 
