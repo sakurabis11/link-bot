@@ -1,27 +1,47 @@
 import asyncio
 import os
 import pytube
+import spotipy
+from spotipy.oauth2 import SpotifyOAuth
 from pyrogram import Client, filters
+
 
 def get_song_details(spotify_link):
     try:
-        yt = pytube.YouTube(spotify_link)
+        # Extract song ID from Spotify link
+        song_id = spotify_link.split("/")[-1]
 
-        # Check if the video is playable
-        if not yt.streams:
-            raise Exception(f"❌ Song unavailable: {yt.title} by {yt.author}")
+        # Initialize Spotify API with client ID and secret
+        sp = spotipy.Spotify(auth_manager=SpotifyOAuth(client_id="d211d50a2fd04b1fab37f49138efe3c6",
+                                                        client_secret="82cb098c25684ded949137884b5c0b17"))
 
-        # Extract song details
-        song_title = yt.title
-        song_artist = yt.author
+        # Get song details using Spotify API
+        song_info = sp.track(song_id)
+        song_title = song_info["name"]
+        song_artist = song_info["artists"][0]["name"]
 
         return song_title, song_artist
 
     except Exception as e:
         raise e
 
+
 def download_song(song_title, song_artist, spotify_link):
     try:
+        # Extract song ID from Spotify link
+        song_id = spotify_link.split("/")[-1]
+
+        # Initialize YouTube with pytube
+        yt = pytube.YouTube(f"https://www.youtube.com/watch?v={song_id}")
+
+        # Check if the video has any streams
+        if not yt.streams:
+            raise Exception(f"❌ Song unavailable: {song_title} by {song_artist}")
+
+        # Check for copyright restrictions in the song's description
+        if "copyright" in yt.description:
+            raise Exception(f"❌ Song unavailable due to copyright restrictions: {song_title} by {song_artist}")
+
         # Download the first available stream of the video
         video = yt.streams.first()
         video.download(filename=f"{song_title}.mp4")
@@ -36,6 +56,7 @@ def download_song(song_title, song_artist, spotify_link):
 
     except Exception as e:
         raise e
+
 
 @Client.on_message(filters.command(["download"]))
 async def download_song_handler(client, message):
@@ -64,4 +85,7 @@ async def download_song_handler(client, message):
         await message.reply_text(f"✅ Song downloaded: {song_title} by {song_artist}")
 
     except Exception as e:
-        await message.reply_text(f"❌ Error downloading song: {e}")
+        if "copyright" in str(e):
+            await message.reply_text(f"❌ Song unavailable due to copyright restrictions: {song_title} by {song_artist}")
+        else:
+            await message.reply_text(f"❌ Error downloading song: {e}")
