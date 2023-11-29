@@ -1,17 +1,17 @@
 import asyncio
 import os
 import pytube
-import ffmpeg
 from pyrogram import Client, filters
 
 def get_song_details(spotify_link):
     try:
         yt = pytube.YouTube(spotify_link)
 
-        # Check song availability
-        if not yt.is_playable():
+        # Check if the video is playable
+        if not yt.streams:
             raise Exception(f"❌ Song unavailable: {yt.title} by {yt.author}")
 
+        # Extract song details
         song_title = yt.title
         song_artist = yt.author
 
@@ -22,8 +22,8 @@ def get_song_details(spotify_link):
 
 def download_song(song_title, song_artist, spotify_link):
     try:
-        # Download the song
-        video = pytube.YouTube(spotify_link).streams.first()
+        # Download the first available stream of the video
+        video = yt.streams.first()
         video.download(filename=f"{song_title}.mp4")
 
         # Convert MP4 to MP3
