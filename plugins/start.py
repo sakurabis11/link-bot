@@ -4,7 +4,7 @@ import random
 import asyncio
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery
 from pyrogram import enums, filters, Client
-from info import API_ID, API_HASH, BOT_TOKEN, PORT, ADMINS
+from info import API_ID, API_HASH, BOT_TOKEN, PORT, ADMINS, LOG_CHANNEL
 from Script import script
 from utils import temp
 from pyrogram.errors import FloodWait
@@ -44,6 +44,8 @@ async def start_command(client, message):
     ]]
     reply_markup = InlineKeyboardMarkup(button)
     await message.reply_text("ʜɪ ✨, ᴡᴇʟᴄᴏᴍᴇ ᴛᴏ ᴍʏ ʙᴏᴛ 🤖🎉", reply_markup=reply_markup)
+    async def start_handler(client, message):
+    await client.send_message(LOG_CHANNEL, f"New user has started the bot: {message.from_user.mention}")
 
 @Client.on_message(filters.command("help"))
 async def help_command(client, message):
