@@ -56,7 +56,7 @@ async def help_command(client, message):
          InlineKeyboardButton('sᴏɴɢ', callback_data='song'),
          InlineKeyboardButton('ʀɪɴɢᴛᴜɴᴇ', callback_data='ringtune') 
          ],[
-         InlineKeyboardButton('🏠 ʜᴏᴍᴇ', callback_data="start")
+         InlineKeyboardButton('🏠 ʜᴏᴍᴇ', callback_data='start')
     ]]
     reply_markup = InlineKeyboardMarkup(button)
     await message.reply_text("Hᴇʀᴇ ɪs Mʏ Hᴇʟᴩ.\n /support", reply_markup=reply_markup)
