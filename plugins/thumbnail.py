@@ -1,27 +1,38 @@
 # code from MRMKN, it also includes some improvements such as: os.path.exists(), os.makedirs()
 from pyrogram import Client, filters
-from info import ADMINS, DOWNLOAD_LOCATION
+from info import ADMINS
 import os
 
+import os
+
+# Define the download location
+DOWNLOAD_LOCATION = "thumbnails"
+
 @Client.on_message(filters.private & filters.command("set_thumbnail") & filters.user(ADMINS))
-async def set_thumbnail(client, msg):
+async def set_thumbnail(client, message):
+    # Create the download directory if it doesn't exist
     if not os.path.exists(DOWNLOAD_LOCATION):
         os.makedirs(DOWNLOAD_LOCATION)
 
     # Check if a thumbnail already exists
-    if os.path.exists(f"{DOWNLOAD_LOCATION}/thumbnail.jpg"):
-        os.remove(f"{DOWNLOAD_LOCATION}/thumbnail.jpg")
+    thumbnail_path = f"{DOWNLOAD_LOCATION}/thumbnail.jpg"
+    if os.path.exists(thumbnail_path):
+        os.remove(thumbnail_path)
 
-    # Download the new thumbnail
-    await client.download_media(message=msg.photo.file_id, file_name=f"{DOWNLOAD_LOCATION}/thumbnail.jpg")
+    # Check if the message contains a photo
+    if msg.photo is None:
+        await msg.reply_text("Please send a photo to set as the thumbnail.")
+        return
 
-    # Remove filters from the photo
-    msg.photo.filters.clear()
+    # Download the thumbnail
+    await client.download_media(message=msg.photo.file_id, file_name=thumbnail_path)
+
+    # Remove filters from the photo (optional)
+    # msg.photo.filters.clear()
 
     # Send confirmation message
-    await msg.reply_text(
-        f"Your permanent thumbnail is saved in dictionary ✅️ \nIf you change your server or recreate the server app, the thumbnail will be reset⚠️"
-    )
+    await msg.reply_text("Your permanent thumbnail has been saved ✅️")
+
 
 @Client.on_message(filters.private & filters.command("view_thumbnail") & filters.user(ADMINS))
 async def view_thumbnail(bot, msg):
