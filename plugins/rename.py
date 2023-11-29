@@ -12,8 +12,8 @@ CAPTION = environ.get("CAPTION", "{file_name}\n\n💽 size : {file_size}")
 DOWNLOAD_LOCATION = "./DOWNLOADS"
 
 
-@Client.on_message(filters.private & filters.command("rename") & filters.user(ADMIN))             
-async def rename_file(clientt, message):
+@Client.on_message(filters.private & filters.command("rename") & filters.user(ADMINS))             
+async def rename_file(client, message):
     reply = msg.reply_to_message
     if len(msg.command) < 2 or not reply:
        return await msg.reply_text("Please Reply To An File or video or audio With filename + .extension eg:-(`.mkv` or `.mp4` or `.zip`)")
