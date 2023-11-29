@@ -13,7 +13,8 @@ def get_song_details(spotify_link):
 
         # Initialize Spotify API with client ID and secret
         sp = spotipy.Spotify(auth_manager=SpotifyOAuth(client_id="d211d50a2fd04b1fab37f49138efe3c6",
-                                                        client_secret="82cb098c25684ded949137884b5c0b17"))
+                                                       client_secret="82cb098c25684ded949137884b5c0b17",
+                                                       redirect_uri="https://sakura.com/callback"))
 
         # Get song details using Spotify API
         song_info = sp.track(song_id)
