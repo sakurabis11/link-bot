@@ -3,7 +3,7 @@ from pyrogram import Client, filters
 from info import ADMINS, DOWNLOAD_LOCATION
 import os
 
-@Client.on_message(filters.private & filters.command("set_thubnail") & filters.user(ADMIN))
+@Client.on_message(filters.private & filters.command("set_thubnail") & filters.user(ADMINS))
 async def set_thumbnail(client, msg):
     if not os.path.exists(DOWNLOAD_LOCATION):
         os.makedirs(DOWNLOAD_LOCATION)
@@ -23,7 +23,7 @@ async def set_thumbnail(client, msg):
         f"Your permanent thumbnail is saved in dictionary ✅️ \nIf you change your server or recreate the server app, the thumbnail will be reset⚠️"
     )
 
-@Client.on_message(filters.private & filters.command("view_thumbnail") & filters.user(ADMIN))
+@Client.on_message(filters.private & filters.command("view_thumbnail") & filters.user(ADMINS))
 async def view_thumbnail(bot, msg):
     if not os.path.exists(f"{DOWNLOAD_LOCATION}/thumbnail.jpg"):
         await msg.reply_text(text="You don't have any thumbnail")
@@ -32,7 +32,7 @@ async def view_thumbnail(bot, msg):
     # Send the thumbnail
     await msg.reply_photo(photo=f"{DOWNLOAD_LOCATION}/thumbnail.jpg", caption="This is your current thumbnail")
 
-@Client.on_message(filters.private & filters.command(["del_thumbnail", "remove_thumbnail"]) & filters.user(ADMIN))
+@Client.on_message(filters.private & filters.command(["del_thumbnail", "remove_thumbnail"]) & filters.user(ADMINS))
 async def delete_thumbnail(client, msg):
     if not os.path.exists(f"{DOWNLOAD_LOCATION}/thumbnail.jpg"):
         await msg.reply_text(text="You don't have any thumbnail")
