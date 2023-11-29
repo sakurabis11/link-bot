@@ -16,7 +16,7 @@ psutil==5.9.4
 ujson
 wget
 pytz
-potipy
+spotipy
 pydub==0.25.1
 ffmpeg
 asyncio
