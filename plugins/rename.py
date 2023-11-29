@@ -13,7 +13,7 @@ DOWNLOAD_LOCATION = "./DOWNLOADS"
 
 
 @Client.on_message(filters.private & filters.command("rename") & filters.user(ADMINS))
-async def rename_file(client, msg):
+async def rename_file(client, message):
     reply = msg.reply_to_message
 
     if len(msg.command) < 2 or not reply:
