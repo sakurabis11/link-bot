@@ -13,7 +13,7 @@ async def set_thumbnail(client, msg):
         os.remove(f"{DOWNLOAD_LOCATION}/thumbnail.jpg")
 
     # Download the new thumbnail
-    await bot.download_media(message=msg.photo.file_id, file_name=f"{DOWNLOAD_LOCATION}/thumbnail.jpg")
+    await client.download_media(message=msg.photo.file_id, file_name=f"{DOWNLOAD_LOCATION}/thumbnail.jpg")
 
     # Remove filters from the photo
     msg.photo.filters.clear()
