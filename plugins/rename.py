@@ -13,7 +13,7 @@ DOWNLOAD_LOCATION = "./DOWNLOADS"
 
 
 @Client.on_message(filters.private & filters.command("rename") & filters.user(ADMINS))
-async def rename_file(bot, msg):
+async def rename_file(client, msg):
     reply = msg.reply_to_message
 
     if len(msg.command) < 2 or not reply:
@@ -54,7 +54,7 @@ async def rename_file(bot, msg):
     dir = os.listdir(DOWNLOAD_LOCATION)
 
     if len(dir) == 0:
-        file_thumb = await bot.download_media(og_media.thumbs[0].file_id)
+        file_thumb = await client.download_media(og_media.thumbs[0].file_id)
         og_thumbnail = file_thumb
     else:
         try:
@@ -68,7 +68,7 @@ async def rename_file(bot, msg):
     c_time = time.time()
 
     try:
-        await bot.send_document(
+        await client.send_document(
             msg.chat.id,
             document=downloaded,
             thumb=og_thumbnail,
