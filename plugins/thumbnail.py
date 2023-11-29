@@ -9,29 +9,14 @@ import os
 DOWNLOAD_LOCATION = "thumbnails"
 
 @Client.on_message(filters.private & filters.command("set_thumbnail") & filters.user(ADMINS))
-async def set_thumbnail(client, message):
-    # Create the download directory if it doesn't exist
-    if not os.path.exists(DOWNLOAD_LOCATION):
-        os.makedirs(DOWNLOAD_LOCATION)
-
-    # Check if a thumbnail already exists
-    thumbnail_path = f"{DOWNLOAD_LOCATION}/thumbnail.jpg"
-    if os.path.exists(thumbnail_path):
-        os.remove(thumbnail_path)
-
-    # Check if the message contains a photo
-    if msg.photo is None:
-        await msg.reply_text("Please send a photo to set as the thumbnail.")
-        return
-
-    # Download the thumbnail
-    await client.download_media(message=msg.photo.file_id, file_name=thumbnail_path)
-
-    # Remove filters from the photo (optional)
-    # msg.photo.filters.clear()
-
-    # Send confirmation message
-    await msg.reply_text("Your permanent thumbnail has been saved ✅️")
+async def set_tumb(bot, msg):       
+    if len(dir) == 0:
+        await client.download_media(message=msg.photo.file_id, file_name=f"{DOWNLOAD_LOCATION}/thumbnail.jpg")
+        return await msg.reply(f"Your permanent thumbnail is saved in dictionary ✅️ \nif you change yur server or recreate the server app to again reset your thumbnail⚠️")            
+    else:    
+        os.remove(f"{DOWNLOAD_LOCATION}/thumbnail.jpg")
+        await client.download_media(message=msg.photo.file_id, file_name=f"{DOWNLOAD_LOCATION}/thumbnail.jpg")               
+        return await msg.reply(f"Your permanent thumbnail is saved in dictionary ✅️ \nif you change yur server or recreate the server app to again reset your thumbnail⚠️")  
 
 
 @Client.on_message(filters.private & filters.command("view_thumbnail") & filters.user(ADMINS))
