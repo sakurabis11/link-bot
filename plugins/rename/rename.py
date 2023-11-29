@@ -1,5 +1,8 @@
 # code from MRMKN, it also includes some improvements such as: try-except,os.listdir(),os.remove().
 import time, os
+
+from os import environ
+
 from pyrogram import Client, filters, enums
 from info import ADMINS
 from utils import progress_message, humanbytes
