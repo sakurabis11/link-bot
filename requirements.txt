@@ -17,12 +17,12 @@ ujson
 wget
 pytz
 pydub==0.25.1
+ffmpeg
 asyncio
 pytube
 youtube-search
 Pillow
 wget
-ffmpeg
 discord
 moviepy==1.0.3
 pydub
