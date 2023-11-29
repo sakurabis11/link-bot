@@ -84,6 +84,8 @@ async def callback_handler(client, callback_query):
 
     if query.data == "help":
         buttons = [[
+            InlineKeyboardButton('ᴀᴅᴍɪɴ', callback_data='admin')
+            ],[
             InlineKeyboardButton('ᴛᴇᴇɢʀᴀᴘʜ', callback_data='telegraph'),
             InlineKeyboardButton('ᴏᴘᴇɴᴀɪ', callback_data='openai')
             ],[
