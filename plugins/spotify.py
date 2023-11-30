@@ -6,15 +6,15 @@ import os
 
 # Set Telegram bot token and Spotify API credentials
 BOT_TOKEN = "YOUR_BOT_TOKEN"
-SPOTIFY_CLIENT_ID = "YOUR_SPOTIFY_CLIENT_ID"
-SPOTIFY_CLIENT_SECRET = "YOUR_SPOTIFY_CLIENT_SECRET"
+SPOTIFY_CLIENT_ID = "21cf39f58bf7494d8fa377c59b72211c"
+SPOTIFY_CLIENT_SECRET = "cc98f5a4038e40a9adc7573bf5b072a5"
 
 # Initialize Pyrogram client and Spotify API
 sp = spotipy.Spotify(
     auth_manager=SpotifyOAuth(
         client_id=SPOTIFY_CLIENT_ID,
         client_secret=SPOTIFY_CLIENT_SECRET,
-        redirect_uri="YOUR_REDIRECT_URI",
+        redirect_uri="http://://localhost:27017",
         scope="user-read-playback-state,user-modify-playback-state"
     )
 )
