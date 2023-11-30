@@ -18,7 +18,7 @@ wget
 pytz
 spotipy
 pydub==0.25.1
-ffmpeg
+ffmpeg==1.4
 asyncio
 pytube
 youtube-search
