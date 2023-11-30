@@ -4,6 +4,7 @@ from moviepy.editor import *
 import os
 import time
 import random
+import ffmpeg
 
 @Client.on_message(filters.command("generatesamplevideo"))
 def generatesamplevideo(client, message):
