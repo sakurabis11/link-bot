@@ -48,8 +48,6 @@ async def start_command(client, message):
 @Client.on_message(filters.command("help"))
 async def help_command(client, message):
     buttons = [[
-         InlineKeyboardButton('ᴀᴅᴍɪɴ', callback_data='admin')
-         ],[
          InlineKeyboardButton('ᴛᴇʟᴇɢʀᴀᴘʜ', callback_data='telegraph'),
          InlineKeyboardButton('ᴏᴘᴇɴᴀɪ', callback_data='openai')            
          ],[
@@ -84,15 +82,13 @@ async def callback_handler(client, callback_query):
 
     if query.data == "help":
         buttons = [[
-            InlineKeyboardButton('ᴀᴅᴍɪɴ', callback_data='admin')
-            ],[
             InlineKeyboardButton('ᴛᴇᴇɢʀᴀᴘʜ', callback_data='telegraph'),
             InlineKeyboardButton('ᴏᴘᴇɴᴀɪ', callback_data='openai')
             ],[
             InlineKeyboardButton('sᴏɴɢ', callback_data='song'),
             InlineKeyboardButton('ʀɪɴɢᴛᴜɴᴇ', callback_data='ringtune')
             ],[
-            InlineKeyboardButton('🏠 ʜᴏᴍᴇ', callback_data='start')
+            InlineKeyboardButton('🏠 ʜᴏᴍᴇ', callback_data="start")
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text("Hᴇʀᴇ Mꜱ Mʏ Hᴇʟᴩ.\n /support", reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
