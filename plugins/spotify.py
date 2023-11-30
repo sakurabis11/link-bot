@@ -1,4 +1,5 @@
 import pyrogram
+from pyrogram import filters, Client
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth
 import requests
