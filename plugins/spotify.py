@@ -4,8 +4,6 @@ from spotipy.oauth2 import SpotifyOAuth
 import requests
 import os
 
-# Set Telegram bot token and Spotify API credentials
-BOT_TOKEN = "YOUR_BOT_TOKEN"
 SPOTIFY_CLIENT_ID = "21cf39f58bf7494d8fa377c59b72211c"
 SPOTIFY_CLIENT_SECRET = "cc98f5a4038e40a9adc7573bf5b072a5"
 
