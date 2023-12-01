@@ -3,54 +3,46 @@ import aiohttp
 from pyrogram import Client, filters
 from telegraph import upload_file
 from utils import get_file_id
+import shutil
 
+TG_DOWNLOAD_DIRECTORY = "./DOWNLOADS/"
 
-@Client.on_message(filters.command("telegraph"))
-async def telegraph_upload(bot, update):
-    # Check if the user has replied to a message
-    replied = update.reply_to_message
+@Client.on_message(
+    filters.command("telegraph")
+)
+async def telegraph(client, message):
+    replied = message.reply_to_message
+
     if not replied:
-        await update.reply_text("ʀᴇᴘʟʏ ᴛᴏ ᴀ ᴘʜᴏᴛᴏ ᴏʀ ᴠɪᴅᴇᴏ")
+        await message.reply_text("Reply to a supported media file")
         return
 
-    # Get the file information from the replied message
-    file_info = get_file_id(replied)
-    if not file_info:
-        await update.reply_text("ɴᴏᴛ sᴜᴘᴘᴏʀᴛᴇᴅ")
+    file_path = get_file_path(replied)
+
+    if not file_path:
+        await message.reply_text("Not supported!")
         return
 
-    # Send a message indicating that the file is being downloaded
-    download_text = await update.reply_text(
-        text="<code>Downloading...</code>", disable_web_page_preview=True
-    )
-
-    # Download the media from the replied message
-    media = await update.reply_to_message.download()
-
-    # Update the message to indicate that the file has been downloaded
-    await download_text.edit_text(
-        text="<code>ᴅᴏᴡɴʟᴏᴀᴅɪɴɢ ᴄᴏᴍᴘʟᴇᴛᴇᴅ. ᴜᴘʟᴏᴀᴅɪɴɢ...</code>",
-        disable_web_page_preview=True,
-    )
-
-    # Upload the media to Telegraph
     try:
-        response = upload_file(media)
-    except Exception as error:
-        print(error)
-        await download_text.edit_text(
-            text=f"Error :- {error}", disable_web_page_preview=True
+        response = upload_file(file_path)
+    except Exception as document:
+        await message.reply_text(message, text=document)
+    else:
+        await message.reply(
+            f"<b>Link :-</b> <code>https://telegra.ph{response[0]}</code>\n\n<b>",
+            disable_web_page_preview=True
         )
-        return
 
-    # Remove the downloaded media file if possible
-    try:
-        os.remove(media)
-    except Exception as error:
-        print(error)
+    finally:
+        if os.path.exists(file_path):
+            os.remove(file_path)
 
-    # Send the Telegraph link and upload speed information to the user
-    await download_text.edit_text(
-        text=f"ʜᴇʏ {message.from_user.mention},\nhttps://telegra.ph{response[0]}",
-        disable_web_page_preview=True,
-    )
+def get_file_path(message):
+    if message.photo or message.video:
+        file_path = message.download(TG_DOWNLOAD_DIRECTORY)
+    elif message.document:
+        file_path = message.document.file_path
+    else:
+        return None
+
+    return file_path
