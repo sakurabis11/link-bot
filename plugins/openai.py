@@ -7,8 +7,12 @@ openai.api_key = OPENAI_API_KEY
 
 @Client.on_message(filters.command('openai'))
 async def openai_command(client, message):
+    if not message.text:
+        await client.send_message(message.chat.id, "Please provide ur request")
+        return
+
     try:
-        user_input = message.text
+        user_input = message.text.split(' ', 1)[1]
 
         response = openai.Completion.create(
             model="gpt-3.5-turbo-instruct",
