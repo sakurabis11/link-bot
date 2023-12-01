@@ -20,9 +20,6 @@ wget
 pytz
 spotipy
 pafy
-setuptools>=42
-wheel
-fudge
 pydub==0.25.1
 ffmpeg==1.4
 asyncio
