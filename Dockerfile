@@ -6,8 +6,6 @@ RUN  pip install --upgrade pip
 RUN pip install ffmpeg
 RUN pip install openai==0.28
 RUN pip install spotipy
-RUN pip install fudge
-RUN pip install setuptools<58
 RUN pip instalL pafy
 RUN pip install pytube 
 RUN pip install youtube-search
