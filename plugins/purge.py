@@ -6,7 +6,7 @@ from plugins.admin_check import admin_check
 
 TG_MAX_SELECT_LEN = 100
 
-@Client.on_message(filters.command("purge") & filters.users(ADMINS))
+@Client.on_message(filters.command("purge") & filters.user(ADMINS))
 async def purge(client, message):
     """ purge upto the replied message """
     if message.chat.type not in (("supergroup", "channel")):
