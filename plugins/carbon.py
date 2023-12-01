@@ -4,8 +4,6 @@ from pyrogram.types import *
 from telegraph import upload_file
 from io import BytesIO
 
-ai_client = ClientSession()
-
 async def make_carbon(code, tele=False):
     url = "https://carbonara.solopov.dev/api/cook"
     async with ai_client.post(url, json={"code": code}) as resp:
