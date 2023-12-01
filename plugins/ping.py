@@ -2,7 +2,7 @@ import time
 from pyrogram import Client, filters
 from info import ADMINS
 
-@Client.on_message(filters.command("ping", [prefix='.']) & filters.user(ADMINS))
+@Client.on_message(filters.command("ping", [prefix=='.']) & filters.user(ADMINS))
 async def ping(client, message):
   start_time = time.time()
   reply_message = await message.reply_text("...")
