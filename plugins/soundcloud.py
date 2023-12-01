@@ -2,6 +2,7 @@ import asyncio
 import pyrogram
 from pyrogram import filters, Client
 from scdl import *
+import re
 
 
 @Client.on_message(filters.command("soundcloud"))
@@ -14,8 +15,8 @@ async def handle_message(client, message):
         # Download the song using scdl
         try:
             song = await scdl.download(track_url)
-        except Exception as e:
-            await message.reply(f'Error downloading song: {e}')
+        except scdl.Error as e:
+            await message.reply(f'Error downloading song: {e.message}')
             return
 
         # Send the downloaded song to the user
