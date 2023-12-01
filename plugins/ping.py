@@ -2,6 +2,8 @@ import time
 from pyrogram import Client, filters
 from info import ADMINS
 
+prefix = '.'
+
 @Client.on_message(filters.command("ping", [prefix=='.']) & filters.user(ADMINS))
 async def ping(client, message):
   start_time = time.time()
