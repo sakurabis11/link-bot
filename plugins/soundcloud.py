@@ -1,12 +1,10 @@
 import asyncio
 import pyrogram
+from pyrogram import filters, Client
 from scdl import *
 
-# Initialize Pyrogram
-app = pyrogram.Client('my_bot', api_id=12345, api_hash='my_api_hash')
 
-# Define the bot's event handler
-@app.on_message(filters.command("soundcloud"))
+@Client.on_message(filters.command("soundcloud"))
 async def handle_message(client, message):
     # Check if the message starts with the command "soundcloud"
     if message.text.startswith('soundcloud'):
