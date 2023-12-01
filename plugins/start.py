@@ -54,7 +54,7 @@ async def help_command(client, message):
          InlineKeyboardButton('sᴏɴɢ', callback_data='song'),
          InlineKeyboardButton('ʀɪɴɢᴛᴜɴᴇ', callback_data='ringtune') 
          ],[
-         InlineKeyboardButton('🏠 ʜᴏᴍᴇ', callback_data="start")
+         InlineKeyboardButton('🏠 ʜᴏᴍᴇ', callback_data='start')
     ]]
     reply_markup = InlineKeyboardMarkup(button)
     await message.reply_text("Hᴇʀᴇ ɪs Mʏ Hᴇʟᴩ.\n /support", reply_markup=reply_markup)
@@ -62,7 +62,7 @@ async def help_command(client, message):
 @Client.on_message(filters.command("about"))
 async def about_command(client, message):
     button = [[
-        InlineKeyboardButton("ʙᴀᴄᴋ ᴛᴏ sᴛᴀʀᴛ", callback_data="start")
+        InlineKeyboardButton("ʙᴀᴄᴋ ᴛᴏ sᴛᴀʀᴛ", callback_data='start')
     ]]
     reply_markup = InlineKeyboardMarkup(button)
     await message.reply_text(ABOUT_TXT, reply_markup=reply_markup)
@@ -77,7 +77,6 @@ async def callback_handler(client, callback_query):
             InlineKeyboardButton("✨ Aʙᴏᴜᴛ", callback_data="about")
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
-        await message.reply_sticker('CAACAgIAAxkBAAJ36WVmFrKxXZ4gTXkmQ4nFl3bATuRKAALZFQACUi9AS_AtAUSnzq4gHgQ')
         await query.message.edit_text("ʜɪ ✨, ᴡᴇʟᴄᴏᴍᴇ ᴛᴏ ᴍʏ ʙᴏᴛ 🤖🎉", reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
 
     if query.data == "help":
@@ -88,18 +87,10 @@ async def callback_handler(client, callback_query):
             InlineKeyboardButton('sᴏɴɢ', callback_data='song'),
             InlineKeyboardButton('ʀɪɴɢᴛᴜɴᴇ', callback_data='ringtune')
             ],[
-            InlineKeyboardButton('🏠 ʜᴏᴍᴇ', callback_data="start")
+            InlineKeyboardButton('🏠 ʜᴏᴍᴇ', callback_data='start')
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text("Hᴇʀᴇ Mꜱ Mʏ Hᴇʟᴩ.\n /support", reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
-
-    if query.data == "start":
-    button = [[
-        InlineKeyboardButton("🕸️ Hᴇʟᴩ", callback_data="help"),
-        InlineKeyboardButton("✨ Aʙᴏᴜᴛ", callback_data="about")
-        ]]
-    reply_markup = InlineKeyboardMarkup(button)
-    await message.reply_text("ʜɪ ✨, ᴡᴇʟᴄᴏᴍᴇ ᴛᴏ ᴍʏ ʙᴏᴛ 🤖🎉", reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
 
     if query.data == "telegraph":
         buttons = [[
