@@ -93,12 +93,13 @@ async def callback_handler(client, callback_query):
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text("Hᴇʀᴇ Mꜱ Mʏ Hᴇʟᴩ.\n /support", reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
 
-    if query.data == "admin":
-        buttons = [[
-            InlineKeyboardButton('🏠 ʜᴏᴍᴇ', callback_data='help')
+    if query.data == "start":
+    button = [[
+        InlineKeyboardButton("🕸️ Hᴇʟᴩ", callback_data="help"),
+        InlineKeyboardButton("✨ Aʙᴏᴜᴛ", callback_data="about")
         ]]
-        reply_markup = InlineKeyboardMarkup(buttons)
-        await query.message.edit_text("/rename - replay with file to rename\ndel - to delete your thumbnail\nview - view current thumbnail ", reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)   
+    reply_markup = InlineKeyboardMarkup(button)
+    await message.reply_text("ʜɪ ✨, ᴡᴇʟᴄᴏᴍᴇ ᴛᴏ ᴍʏ ʙᴏᴛ 🤖🎉", reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
 
     if query.data == "telegraph":
         buttons = [[
