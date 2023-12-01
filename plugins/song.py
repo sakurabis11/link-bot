@@ -8,6 +8,10 @@ from youtube_search import YoutubeSearch
 @Client.on_message(filters.command(["song"]))
 async def download_song(client, message):
     song_name = message.text
+    
+    if not query:
+        await client.send_message(message.chat.id, "ᴘʟᴇᴀsᴇ ᴘʀᴏᴠɪᴅᴇ ᴀ sᴏɴɢ ɴᴀᴍᴇ ᴛᴏ sᴇᴀʀᴄʜ. ᴜsᴀɢᴇ: /song (song_name) or (song_name + Artist_name)")
+        return    
 
     # Search for the song on YouTube
     search_results = YoutubeSearch(song_name, max_results=1).to_dict()
