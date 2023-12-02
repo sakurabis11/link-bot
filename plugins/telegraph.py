@@ -7,9 +7,7 @@ import shutil
 
 TG_DOWNLOAD_DIRECTORY = "./DOWNLOADS/"
 
-@Client.on_message(
-    filters.command("telegraph")
-)
+@Client.on_message(filters.command("telegraph"))
 async def telegraph(client, message):
     replied = message.reply_to_message
 
