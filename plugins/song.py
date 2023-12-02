@@ -9,10 +9,10 @@ from youtube_search import YoutubeSearch
 @Client.on_message(filters.command(["song"]))
 async def download_song(client, message):
     song_name = message.text
-    
-    if not query:
-        await client.send_message(message.chat.id, "ᴘʟᴇᴀsᴇ ᴘʀᴏᴠɪᴅᴇ ᴀ sᴏɴɢ ɴᴀᴍᴇ ᴛᴏ sᴇᴀʀᴄʜ. ᴜsᴀɢᴇ: /song (song_name) or (song_name + Artist_name)")
-        return    
+
+    if not song_name:
+        await client.send_message(message.chat.id, "Please provide a song name to search. Usage: /song (song_name) or (song_name + Artist_name)")
+        return
 
     # Search for the song on YouTube
     search_results = YoutubeSearch(song_name, max_results=1).to_dict()
@@ -21,7 +21,13 @@ async def download_song(client, message):
 
     # Download the song using pytube
     yt = YouTube(f"https://www.youtube.com{song_url}")
-    video = yt.streams.filter(only_audio=True).first()
+    audio_streams = yt.streams.filter(only_audio=True)
+
+    if not audio_streams:
+        await client.send_message(message.chat.id, "No audio stream found for the specified video")
+        return
+
+    video = audio_streams.first()
     audio_filename = f"{song_title}.mp3"
 
     try:
@@ -35,4 +41,3 @@ async def download_song(client, message):
         os.remove(audio_filename)
     except Exception as e:
         await message.reply(f"Error downloading song: {e}")
-
