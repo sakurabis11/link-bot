@@ -1,8 +1,8 @@
-from pyrogram import Client, filters
-from pyrogram.types import *
 import os
 import requests
 import base64
+from pyrogram import Client, filters
+from pyrogram.types import *
 
 # Define your client id and client secret
 client_id = 'd3a0f15a75014999945b5628dca40d0a'
@@ -66,10 +66,19 @@ async def spotify(client, message):
     response = requests.get(url, headers=headers)
 
     # Save the song to a file
-    with open(f"{name}.mp3", "wb") as f:
+    file_name = f"{name}.mp3"
+    with open(file_name, "wb") as f:
         f.write(response.content)
+
+    # Upload the downloaded song file
+    file_path = os.path.abspath(file_name)
+    with open(file_path, 'rb') as file_obj:
+        document = await client.upload_document(file_obj)
 
     # Send the song thumbnail and details to the user
     await message.reply_photo(photo=thumbnail_url)
     await message.reply_text(f"Title: {name}\nArtist: {artist}\nDuration:{duration}\n")
 
+    # Send the uploaded song file to the user
+    await message.reply_document(document=document)
+    await message.reply_text("The requested song has been sent.")
