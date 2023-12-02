@@ -1,5 +1,5 @@
 from pyrogram import Client, filters
-from pyrogram.types import InputFile
+from pyrogram.types import *
 import os
 import requests
 import base64
