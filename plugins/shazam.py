@@ -5,8 +5,8 @@ from pyrogram import Client, filters
 shazam_api_key = os.environ.get('6f3350e8e1msh0271352cf1c240dp1736d0jsn3acbbacd481a')
 shazam_api_url = 'https://shazam.p.rapidapi.com/recognize'
 headers = {
-  'X-RapidAPI-Key': '6f3350e8e1msh0271352cf1c240dp1736d0jsn3acbbacd481a',
-  'X-RapidAPI-Host': 'shazam.p.rapidapi.com'
+    'X-RapidAPI-Key': '6f3350e8e1msh0271352cf1c240dp1736d0jsn3acbbacd481a',
+    'X-RapidAPI-Host': 'shazam.p.rapidapi.com'
 }
 
 # Define a command to recognize an audio file
