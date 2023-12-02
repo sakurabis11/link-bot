@@ -1,9 +1,6 @@
 import os
-from os import environ
 import requests
-import pyrogram
 from pyrogram import Client, filters
-from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
 shazam_api_key = os.environ.get('6f3350e8e1msh0271352cf1c240dp1736d0jsn3acbbacd481a')
 shazam_api_url = 'https://shazam.p.rapidapi.com/recognize'
@@ -20,7 +17,7 @@ async def recognize_audio(client, message):
         # Get the audio file ID
         audio_file_id = message.audio.file_id
         # Download the audio file
-        audio_file = bot.download_media(audio_file_id)
+        audio_file = client.download_media(audio_file_id)
         # Send a message to the user to indicate that the audio file is being processed
         message.reply_text('Processing your audio file...')
         # Send a request to the Shazam API to recognize the audio file
