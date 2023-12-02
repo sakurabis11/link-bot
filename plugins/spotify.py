@@ -70,6 +70,6 @@ async def spotify(client, message):
         f.write(response.content)
 
     # Send the song thumbnail and details to the user
-    message.reply_photo(photo=thumbnail_url)
-    message.reply_text(f"{name} by {artist} ({duration}) has been downloaded.")
+    await message.reply_photo(photo=thumbnail_url)
+    await message.reply_text(f"{name} by {artist} ({duration}) has been downloaded.")
 
