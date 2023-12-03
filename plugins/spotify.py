@@ -1,3 +1,4 @@
+import re
 from pyrogram import Client, filters
 from pyrogram.types import *
 import os
@@ -24,30 +25,37 @@ def get_access_token():
     response = requests.post(url, headers=headers, data=data)
     return response.json()['access_token']
 
-# Define a function to handle the /spotify command
 @Client.on_message(filters.command("spotify"))
 async def spotify(client, message):
     # Get the access token
     access_token = get_access_token()
 
-    # Get the song name from the command
-    song_name = message.command[1:]
-    song_name = " ".join(song_name)
+    # Get the song name or Spotify URL from the command
+    song_name_or_url = message.command[1:]
+    song_name_or_url = " ".join(song_name_or_url)
 
-    # Search for the song on Spotify
-    url = f'https://api.spotify.com/v1/search?q={song_name}&type=album,track'
-    headers = {"Authorization": f"Bearer {access_token}"}
-    response = requests.get(url, headers=headers)
-    data = response.json()
+    # Check if the command argument is a Spotify URL
+    match = re.match(r'https://open\.spotify\.com/track/([a-zA-Z0-9]+)', song_name_or_url)
+    if match:
+        # If it is a Spotify URL, extract the song ID from the URL
+        song_id = match.group(1)
+    else:
+        # If it is not a Spotify URL, search for the song on Spotify
+        song_name = song_name_or_url
+        url = f'https://api.spotify.com/v1/search?q={song_name}&type=album,track'
+        headers = {"Authorization": f"Bearer {access_token}"}
+        response = requests.get(url, headers=headers)
+        data = response.json()
 
-    # Get the first search result
-    item = data["tracks"]["items"][0]
+        # Get the first search result
+        item = data["tracks"]["items"][0]
 
-    # Get the song ID
-    song_id = item["id"]
+        # Get the song ID
+        song_id = item["id"]
 
     # Get the song thumbnail and details from Spotify
     url = f'https://api.spotify.com/v1/tracks/{song_id}'
+    headers = {"Authorization": f"Bearer {access_token}"}
     response = requests.get(url, headers=headers)
     data = response.json()
 
