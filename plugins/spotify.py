@@ -4,9 +4,7 @@ from os import environ
 from pyrogram import Client, filters
 from spotipy import Spotify
 from spotipy.oauth2 import SpotifyOAuth
-
-SPOTIFY_CLIENT_ID = "d3a0f15a75014999945b5628dca40d0a",
-SPOTIFY_CLIENT_SECRET = "e39d1705e35c47e6a0baf50ff3bb587f"
+from info import SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET
 
 # Create a Spotify client instance
 spotify = Spotify(auth_manager=SpotifyOAuth(client_id=os.environ['SPOTIFY_CLIENT_ID'],
