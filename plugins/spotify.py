@@ -12,7 +12,7 @@ spotify = Spotify(auth_manager=SpotifyOAuth(client_id=SPOTIFY_CLIENT_ID,
                                              redirect_uri='http://localhost:8080'))
 
 # Define a command handler for the `/spotify` command
-@Clientt.on_message(filters.command('spotify'))
+@Client.on_message(filters.command('spotify'))
 async def download_song(client, message):
     # Extract the song name from the command argument
     song_name = message.text.split(' ')[1]
