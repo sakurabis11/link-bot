@@ -7,8 +7,8 @@ from spotipy.oauth2 import SpotifyOAuth
 from info import SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET
 
 # Create a Spotify client instance
-spotify = Spotify(auth_manager=SpotifyOAuth(client_id=os.environ['SPOTIFY_CLIENT_ID'],
-                                             client_secret=os.environ['SPOTIFY_CLIENT_SECRET'],
+spotify = Spotify(auth_manager=SpotifyOAuth(client_id=SPOTIFY_CLIENT_ID,
+                                             client_secret=SPOTIFY_CLIENT_SECRET,
                                              redirect_uri='http://localhost:8080'))
 
 # Define a command handler for the `/spotify` command
