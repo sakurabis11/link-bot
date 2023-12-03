@@ -54,7 +54,7 @@ async def help_command(client, message):
          InlineKeyboardButton('sᴏɴɢ', callback_data='song'),
          InlineKeyboardButton('ʀɪɴɢᴛᴜɴᴇ', callback_data='ringtune') 
          ],[
-         InlineKeyboardButton('sᴛɪᴄ ᴇʀ', callback_data='sticker'),
+         InlineKeyboardButton('sᴛɪᴄᴋᴇʀ', callback_data='sticker'),
          InlineKeyboardButton('ɢɪᴛʜᴜʙ', callback_data='github')
          ],[
          InlineKeyboardButton('🏠 ʜᴏᴍᴇ', callback_data='start')
