@@ -6,10 +6,6 @@ from spotipy import Spotify
 from spotipy.oauth2 import SpotifyOAuth
 from info import SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET
 
-# Replace with your Spotify client ID and client secret
-SPOTIFY_CLIENT_ID = "YOUR_SPOTIFY_CLIENT_ID"
-SPOTIFY_CLIENT_SECRET = "YOUR_SPOTIFY_CLIENT_SECRET"
-
 # Create Spotify OAuth object
 sp_oauth = SpotifyOAuth(
     SPOTIFY_CLIENT_ID,
