@@ -63,12 +63,13 @@ async def spotify(client, message):
     # Download the song
     url = f'https://api.spotify.com/v1/tracks/{song_id}/download'
     headers = {"Authorization": f"Bearer {access_token}"}
-    response = requests.get(url, headers=headers)
+    response = requests.get(url, headers=headers, stream=True)
 
-    # Save the song to a file
+    # Save the song to a temporary file
     file_name = f"{name}.mp3"
     with open(file_name, "wb") as f:
-        f.write(response.content)
+        for chunk in response.iter_content(1024):
+            f.write(chunk)
 
     # Upload the downloaded song file
     file_path = os.path.abspath(file_name)
@@ -82,3 +83,6 @@ async def spotify(client, message):
     # Send the uploaded song file to the user
     await message.reply_document(document=document)
     await message.reply_text("The requested song has been sent.")
+
+    # Delete the temporary song file
+    os.remove(file_name)
