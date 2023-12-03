@@ -77,7 +77,7 @@ async def spotify(client, message):
 
     # Send the song thumbnail and details to the user
     await message.reply_photo(photo=thumbnail_url)
-    await message.reply_text(f"Title: {name}\nArtist: {artist}\nDuration:{duration}\n")
+    await message.reply_text(f"{name} by {artist}({duration)}")
 
     # Send the uploaded song file to the user
     await message.reply_document(document=document)
