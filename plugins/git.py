@@ -41,5 +41,5 @@ async def github(client, message):
     except Exception as e:
         print(str(e))
         return
-
-    await client.send_photo(message.chat.id, avatar_url, caption=caption)
+        
+    await client.send_photo(message.chat.id, avatar_url, caption=caption, reply_to_message_id=message.message_id)
