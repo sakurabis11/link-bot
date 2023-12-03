@@ -9,7 +9,7 @@ from info import SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET
 # Create a Spotify client instance
 spotify = Spotify(auth_manager=SpotifyOAuth(client_id=SPOTIFY_CLIENT_ID,
                                              client_secret=SPOTIFY_CLIENT_SECRET,
-                                             redirect_uri=none))
+                                             redirect_uri=None))
 
 # Define a command handler for the `/spotify` command
 @Client.on_message(filters.command('spotify'))
