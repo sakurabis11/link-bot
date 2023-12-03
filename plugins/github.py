@@ -27,20 +27,13 @@ async def github(client, message):
         watchers_count = result["watchers_count"]
         open_issues_count = result["open_issues_count"]
 
-        caption = f"""**ɪɴғᴏ ᴏғ {name} ʀᴇᴘᴏsɪᴛᴏʀʏ**
-**Ғᴜʟʟ ɴᴀᴍᴇ:** `{full_name}`
-**ᴏᴡɴᴇʀ:** `{owner}`
-**ᴅᴇsᴄʀɪᴘᴛɪᴏɴ:** `{description}`
-**ʀᴇᴘᴏ ʟɪɴᴋ:** Here
-**ᴄʀᴇᴛᴇᴅ ᴏɴ:** `{created_at}`
-**ᴜᴘᴅᴛᴀᴇᴅ ᴏɴ:** `{updated_at}`
-**ʟɴɢᴜᴀɢᴇ:** `{language}`
-**ғᴏʀᴋs:** `{forks_count}`
-**sᴛᴀʀs:** `{stargazers_count}`
-**ᴡᴛᴄʜᴇʀs:** `{watchers_count}`
-**ᴏᴘᴇɴ ɪssᴜᴇs:** `{open_issues_count}`"""
+        caption = f"**ɪɴғᴏ ᴏғ {name} ʀᴇᴘᴏsɪᴛᴏʀʏ**\n**Ғᴜʟʟ ɴᴀᴍᴇ:** `{full_name}`\n**ᴏᴡɴᴇʀ:** `{owner}`\n**ᴅᴇsᴄʀɪᴘᴛɪᴏɴ:** `{description}`"
     except Exception as e:
         print(str(e))
         return
-        
-    await client.send_photo(message.chat.id, result["owner"]["avatar_url"], caption=caption, reply_to_message_id=message.message_id)
+
+    if result["owner"]["avatar_url"]:
+        avatar_url = result["owner"]["avatar_url"]
+        await client.send_photo(message.chat.id, avatar_url, caption=caption, reply_to_message_id=message.message_id)
+    else:
+        await client.send_message(message.chat.id, caption, reply_to_message_id=message.message_id)
