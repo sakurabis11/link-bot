@@ -3,7 +3,6 @@ import base64
 import requests
 from pyrogram import Client, filters
 from spotipy import Spotify
-from spotipy_downloader import SpotifyDownloader
 from info import SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET
 
 # Create Spotify OAuth object
