@@ -9,7 +9,7 @@ async def github(client, message):
     response = requests.get(URL)
 
     if response.status_code == 404:
-        client.send_message(message.chat.id, "404")
+        await client.send_message(message.chat.id, "404")
         return
 
     result = response.json()
@@ -42,4 +42,4 @@ async def github(client, message):
         print(str(e))
         return
 
-    client.send_photo(message.chat.id, avatar_url, caption=caption)
+    await client.send_photo(message.chat.id, avatar_url, caption=caption)
