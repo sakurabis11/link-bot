@@ -84,13 +84,16 @@ async def callback_handler(client, callback_query):
 
     if query.data == "help":
         buttons = [[
-            InlineKeyboardButton('ᴛᴇᴇɢʀᴀᴘʜ', callback_data='telegraph'),
-            InlineKeyboardButton('ᴏᴘᴇɴᴀɪ', callback_data='openai')
-            ],[
-            InlineKeyboardButton('sᴏɴɢ', callback_data='song'),
-            InlineKeyboardButton('ʀɪɴɢᴛᴜɴᴇ', callback_data='ringtune')
-            ],[
-            InlineKeyboardButton('🏠 ʜᴏᴍᴇ', callback_data='start')
+         InlineKeyboardButton('ᴛᴇʟᴇɢʀᴀᴘʜ', callback_data='telegraph'),
+         InlineKeyboardButton('ᴏᴘᴇɴᴀɪ', callback_data='openai')            
+         ],[
+         InlineKeyboardButton('sᴏɴɢ', callback_data='song'),
+         InlineKeyboardButton('ʀɪɴɢᴛᴜɴᴇ', callback_data='ringtune') 
+         ],[
+         InlineKeyboardButton('sᴛɪᴄᴋᴇʀ', callback_data='sticker'),
+         InlineKeyboardButton('ɢɪᴛʜᴜʙ', callback_data='github')
+         ],[
+         InlineKeyboardButton('🏠 ʜᴏᴍᴇ', callback_data='start')
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text("Hᴇʀᴇ Mꜱ Mʏ Hᴇʟᴩ.\n /support", reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
@@ -122,6 +125,20 @@ async def callback_handler(client, callback_query):
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text("ʏᴏᴜ ᴄᴀɴ ᴀsᴋ ʀɪɴɢᴛᴜɴᴇ ɪɴ ᴛʜᴇ ғʀᴏᴍ ᴏғ /ringtune {sᴏɴɢ_ɴᴀᴍᴇ + ᴀʀᴛɪsᴛ_ɴᴀᴍᴇ} ᴏʀ {sᴏɴɢ_ɴᴀᴍᴇ}\n <a href='https://t.me/amal_nath_05/197'>ʀᴇᴀsᴏɴ</a>", reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
+
+    if query.data == "sticker":
+        buttons = [[
+            InlineKeyboardButton('🏠 ʜᴏᴍᴇ', callback_data='help')
+        ]]
+        reply_markup = InlineKeyboardMarkup(buttons)
+        await query.message.edit_text("reply to the sticker as /sticker_id", reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
+
+    if query.data == "github":
+        buttons = [[
+            InlineKeyboardButton('🏠 ʜᴏᴍᴇ', callback_data='help')
+        ]]
+        reply_markup = InlineKeyboardMarkup(buttons)
+        await query.message.edit_text("/github {repo_name}", reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
     
     if query.data == "about":
         buttons = [[
