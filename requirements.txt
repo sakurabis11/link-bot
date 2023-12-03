@@ -1,6 +1,6 @@
 pyrogram==2.0.30
 tgcrypto==1.2.5
-aiofiles==22.1.0     
+aiofiles==22.1.0
 aiohttp==3.8.3
 requests
 openai==0.28
@@ -13,6 +13,9 @@ marshmallow==3.20.1
 umongo==3.1.0
 motor==3.0.0
 psutil==5.9.4
+asyncio
+base64
+spotipy-downloader
 scdl
 tqdm
 ujson
@@ -30,4 +33,3 @@ wget
 discord
 moviepy==1.0.3
 pydub
-shazam==0.2
