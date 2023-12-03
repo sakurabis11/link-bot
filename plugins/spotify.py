@@ -10,7 +10,7 @@ from info import SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET
 sp_oauth = SpotifyOAuth(
     SPOTIFY_CLIENT_ID,
     SPOTIFY_CLIENT_SECRET,
-    redirect_uri="http://localhost:8888/callback",
+    redirect_uri=None,
     scope="user-read-private",
 )
 
