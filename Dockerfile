@@ -10,7 +10,7 @@ RUN pip install spotipy-downloader
 RUN pip instalL pafy
 RUN pip install pytube 
 RUN pip install youtube-search
-RUN pip install youtube_dl
+
 COPY requirements.txt /requirements.txt
 
 RUN cd /
