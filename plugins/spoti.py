@@ -2,7 +2,7 @@ import os
 import requests
 from pyrogram import Client, filters
 from pyrogram.types import *
-import youtube_dl
+
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
 import spotdl
