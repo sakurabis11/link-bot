@@ -28,18 +28,18 @@ async def github(client, message):
         watchers_count = result["watchers_count"]
         open_issues_count = result["open_issues_count"]
 
-        caption = f"""**Info Of {name} Repository**
-**Full Name:** `{full_name}`
-**Owner:** `{owner}`
-**Description:** `{description}`
-**Repo Link:** Here
-**Created On:** `{created_at}`
-**Updated On:** `{updated_at}`
-**Language:** `{language}`
-**Forks:** `{forks_count}`
-**Stars:** `{stargazers_count}`
-**Watchers:** `{watchers_count}`
-**Open Issues:** `{open_issues_count}`"""
+        caption = f"""**ɪɴғᴏ ᴏғ {name} ʀᴇᴘᴏsɪᴛᴏʀʏ**
+**Ғᴜʟʟ ɴᴀᴍᴇ:** `{full_name}`
+**ᴏᴡɴᴇʀ:** `{owner}`
+**ᴅᴇsᴄʀɪᴘᴛɪᴏɴ:** `{description}`
+**ʀᴇᴘᴏ ʟɪɴᴋ:** Here
+**ᴄʀᴇᴛᴇᴅ ᴏɴ:** `{created_at}`
+**ᴜᴘᴅᴛᴀᴇᴅ ᴏɴ:** `{updated_at}`
+**ʟɴɢᴜᴀɢᴇ:** `{language}`
+**ғᴏʀᴋs:** `{forks_count}`
+**sᴛᴀʀs:** `{stargazers_count}`
+**ᴡᴛᴄʜᴇʀs:** `{watchers_count}`
+**ᴏᴘᴇɴ ɪssᴜᴇs:** `{open_issues_count}`"""
     except Exception as e:
         print(str(e))
         return
