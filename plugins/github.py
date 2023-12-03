@@ -15,7 +15,6 @@ async def github(client, message):
     result = response.json()
 
     try:
-        url = result["html_url"]
         name = result["name"]
         full_name = result["full_name"]
         owner = result["owner"]["login"]
