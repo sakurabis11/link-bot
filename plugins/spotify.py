@@ -1,45 +1,64 @@
-import os
+import asyncio
+import base64
 import requests
-from os import environ
 from pyrogram import Client, filters
 from spotipy import Spotify
 from spotipy.oauth2 import SpotifyOAuth
 from info import SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET
 
-# Create a Spotify client instance
-spotify = Spotify(auth_manager=SpotifyOAuth(client_id=SPOTIFY_CLIENT_ID,
-                                             client_secret=SPOTIFY_CLIENT_SECRET,
-                                             redirect_uri='http://localhost:8080'))
+# Replace with your Spotify client ID and client secret
+SPOTIFY_CLIENT_ID = "YOUR_SPOTIFY_CLIENT_ID"
+SPOTIFY_CLIENT_SECRET = "YOUR_SPOTIFY_CLIENT_SECRET"
 
-# Define a command handler for the `/spotify` command
-@Client.on_message(filters.command('spotify'))
+# Create Spotify OAuth object
+sp_oauth = SpotifyOAuth(
+    SPOTIFY_CLIENT_ID,
+    SPOTIFY_CLIENT_SECRET,
+    redirect_uri="http://localhost:8888/callback",
+    scope="user-read-private",
+)
+
+# Create Spotify client instance
+spotify = Spotify(auth_manager=sp_oauth)
+
+# Handle /spotify command
+@Client.on_message(filters.command(["spotify"]))
 async def download_song(client, message):
-    # Extract the song name from the command argument
-    song_name = message.text.split(' ')[1]
+    # Extract song name from command
+    song_name = message.text.split(" ")[1]
 
-    # Search for the song on Spotify
-    results = spotify.search(q=song_name, type='track')
-    if len(results['tracks']['items']) == 0:
-        await message.reply_text('Song not found')
+    # Search for song on Spotify
+    search_results = spotify.search(q=song_name, type="track")
+
+    # Check if song was found
+    if not search_results["tracks"]["items"]:
+        await message.reply_text("Song not found")
         return
 
-    # Get the first song result
-    track = results['tracks']['items'][0]
+    # Get song details
+    song = search_results["tracks"]["items"][0]
+    song_id = song["id"]
+    song_name = song["name"]
+    artist = song["artists"][0]["name"]
+    album_name = song["album"]["name"]
+    album_image_url = song["album"]["images"][0]["url"]
 
-    # Get the song thumbnail
-    thumbnail_url = track['album']['images'][0]['url']
+    # Download song from Spotify
+    audio_url = spotify.track(song_id)["preview_url"]
+    response = requests.get(audio_url, stream=True)
 
-    # Get the song details
-    song_details = f"**Song:** {track['name']}\n**Artist:** {track['artists'][0]['name']}\n**Album:** {track['album']['name']}"
+    # Prepare song data
+    audio_data = response.content
+    audio_filename = f"{song_name}.mp3"
 
-    # Download the song
-    song_url = track['uri']
-    response = requests.get(song_url)
-    with open('song.mp3', 'wb') as f:
-        f.write(response.content)
+    # Send song details and thumbnail
+    await message.send_photo(
+        photo=album_image_url, caption=f"**Song:** {song_name}\n**Artist:** {artist}\n**Album:** {album_name}"
+    )
 
-    # Send the thumbnail, song details, and song file to Telegram
-    await message.reply_photo(thumbnail_url)
-    await message.reply_text(song_details)
-    await message.reply_document('song.mp3')
-
+    # Upload song to Telegram
+    await message.reply_audio(
+        audio=audio_data,
+        filename=audio_filename,
+        caption=f"**Song:** {song_name}",
+    )
