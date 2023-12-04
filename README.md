@@ -5,8 +5,8 @@
   <b>Mr TG</b>
 </h1>
 
-<a href="https://t.me/Unni0240">
-  <img src="https://img.shields.io/badge/Join-blue?logo=telegram" width="70">
+<a href="https://t.me/MrTG_Coder">
+  <img src="https://img.shields.io/badge/Join-blue?logo=telegram" width="120">
 
 
 ## Features
