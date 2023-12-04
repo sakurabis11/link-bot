@@ -65,11 +65,8 @@ async def spotify(client, message):
     # Get the song details
     artist = data["artists"][0]["name"]
     name = data["name"]
-    duration_ms = data["duration_ms"]
-    duration = str(int(duration_ms / 1000)) + " seconds"
     album = data["album"]["name"]
     release_date = data["album"]["release_date"]
-    popularity = data["popularity"]
 
     # Send the song thumbnail and details to the user
-    await message.reply_photo(photo=thumbnail_url, caption=f"Title: {name}\nArtist: {artist}\nDuration: {duration}\nAlbum: {album}\nRelease Date: {release_date}\nPopularity: {popularity}")
+    await message.reply_photo(photo=thumbnail_url, caption=f"ᴛɪᴛʟᴇ: {name}\nᴀʀᴛɪsᴛ: {artist}\nᴀʟʙᴜᴍ: {album}\nʀᴇʟᴇᴀsᴇ ᴅᴀᴛᴇ: {release_date}\n")
