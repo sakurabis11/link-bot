@@ -15,11 +15,12 @@ async def repo(client, message):
                         f"**URL:** {repo['html_url']}\n" \
                         f"**Stars:** {repo['stargazers_count']}\n" \
                         f"**Forks:** {repo['forks_count']}"
-                message.reply_text(reply)
-            else:
-                message.reply_text("No results found.")
-        else:
-            message.reply_text("An error occurred.")
-    else:
-        message.reply_text("Usage: /repo <query>")
 
+                # Await the coroutine here
+                await message.reply_text(reply)
+            else:
+                await message.reply_text("No results found.")
+        else:
+            await message.reply_text("An error occurred.")
+    else:
+        await message.reply_text("Usage: /repo <query>")
