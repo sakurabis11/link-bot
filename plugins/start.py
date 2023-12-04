@@ -55,7 +55,7 @@ async def help_command(client, message):
          InlineKeyboardButton('ʀɪɴɢᴛᴜɴᴇ', callback_data='ringtune') 
          ],[
          InlineKeyboardButton('sᴛɪᴄᴋᴇʀ', callback_data='sticker'),
-         InlineKeyboardButton('ɢɪᴛʜᴜʙ', callback_data='github')
+         InlineKeyboardButton('sᴘᴏᴛɪғʏ', callback_data='spotify')
          ],[
          InlineKeyboardButton('🏠 ʜᴏᴍᴇ', callback_data='start')
     ]]
@@ -91,7 +91,7 @@ async def callback_handler(client, callback_query):
          InlineKeyboardButton('ʀɪɴɢᴛᴜɴᴇ', callback_data='ringtune') 
          ],[
          InlineKeyboardButton('sᴛɪᴄᴋᴇʀ', callback_data='sticker'),
-         InlineKeyboardButton('ɢɪᴛʜᴜʙ', callback_data='github')
+         InlineKeyboardButton('sᴘᴏᴛɪғʏ', callback_data='spotify')
          ],[
          InlineKeyboardButton('🏠 ʜᴏᴍᴇ', callback_data='start')
         ]]
@@ -133,12 +133,12 @@ async def callback_handler(client, callback_query):
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text("reply to the sticker as /sticker_id", reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
 
-    if query.data == "github":
+    if query.data == "spotify":
         buttons = [[
             InlineKeyboardButton('🏠 ʜᴏᴍᴇ', callback_data='help')
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
-        await query.message.edit_text("/github {repo_name}", reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
+        await query.message.edit_text("/spotify {song_name}\nɴᴏᴡ ᴡᴇ ᴏɴʟʏ ᴀᴅᴅ ғɪɴᴅ ᴛʜᴇ sᴏɴɢ ᴅᴇᴛᴀɪʟs ʙʏ ᴜʀ ʀᴇǫᴜᴇsᴛ.", reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
     
     if query.data == "about":
         buttons = [[
