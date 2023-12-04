@@ -8,24 +8,24 @@ from telegraph import upload_file
 async def telegraph_upload(bot, update):
     replied = update.reply_to_message
     if not replied:
-        return await update.reply_text("𝚁𝙴𝙿𝙻𝚈 𝚃𝙾 𝙰 𝙿𝙷𝙾𝚃𝙾 𝙾𝚁 𝚅𝙸𝙳𝙴𝙾 𝚄𝙽𝙳𝙴𝚁 𝟻𝙼𝙱.")
+        return await update.reply_text("Ʀᴇᴘʟʏ ᴛᴏ ᴘʜᴏᴛᴏ or ᴠɪᴅᴇᴏ.")
     if not ( replied.photo or replied.video ):
-        return await update.reply_text("please reply with valid media file")
-    text = await update.reply_text("<code>Downloading to My Server ...</code>", disable_web_page_preview=True)   
+        return await update.reply_text("ᴘʟᴇᴀsᴇ ʀᴇᴘʟʏ ᴡɪᴛʜ ᴀ ᴠᴀʟɪᴅ ᴍᴇᴅɪᴀ")
+    text = await update.reply_text("<code>Downloading...</code>", disable_web_page_preview=True)   
     media = await replied.download()   
-    await text.edit_text("<code>Downloading Completed. Now I am Uploading to telegra.ph Link ...</code>", disable_web_page_preview=True)                                            
+    await text.edit_text("<code>ᴜᴘʟᴏᴀᴅɪɴɢ...</code>", disable_web_page_preview=True)                                            
     try:
         response = upload_file(media)
     except Exception as error:
         print(error)
-        return await text.edit_text(text=f"Error :- {error}", disable_web_page_preview=True)          
+        return await text.edit_text(text=f"ᴇƦƦᴏƦ :- {error}\nғᴏʀᴡʀᴅ ᴛʜɪs ᴍᴇssᴀɢᴇ ᴛᴏ sᴜᴘᴘᴏʀᴛ ɢʀᴏᴜᴘ(/support) ᴏʀ ᴀᴅᴍɪɴ(/about", disable_web_page_preview=True)          
     try:
         os.remove(media)
     except Exception as error:
         print(error)
         return    
     await text.edit_text(
-        text=f"<b>Link :-</b>\n\n<code>https://telegra.ph{response[0]}</code>",
+        text=f"https://telegra.ph{response[0]}",
         disable_web_page_preview=True,
     )
 
