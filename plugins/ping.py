@@ -3,11 +3,10 @@ import logging
 from pyrogram import filters, Client
 from pyrogram.errors import FloodWait
 
-PREFIX = '.'
 
 logging.basicConfig(level=logging.INFO)
 
-@Client.on_message(filters.command("ping"["PREFIX"]))
+@Client.on_message(filters.command("ping"))
 async def ping(client, message):
     try:
         start_time = time.time()
