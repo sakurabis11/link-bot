@@ -1,27 +1,28 @@
-import asyncio
 from pyrogram import Client, filters
-from info import GITHUB_TOKEN
+from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
+import requests
 
-# Define a function to handle messages containing the `github` command
-@Client.on_message(filters.command("github"))
-async def github_command(client, message):
-    # Extract the search query from the message
-    search_query = message.text.split(" ")[1]
 
-    # Use the GitHub API to search for repositories
-    # (Replace `YOUR_GITHUB_TOKEN` with your actual GitHub token)
-    async with client.get_session() as session:
-        async with session.get(f"https://api.github.com/search/repositories?q={search_query}", headers={"Authorization": f"token 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"}) as response:
-            response_json = await response.json()
 
-    # Extract the search results from the response
-    repositories = response_json["items"]
-
-    # Generate a message with the search results
-    result_message = ""
-    for repository in repositories:
-        result_message += f"Name: {repository['full_name']}\nDescription: {repository['description']}\nURL: {repository['html_url']}\n\n"
-
-    # Send the search results to the user
-    await message.reply(result_message)
+# Define the /github command handler
+@Client.on_message(filters.command('github'))
+async def search_github(client, message):
+    # Get the search query from the user
+    query = message.text.split(' ', 1)[1]
+    
+    # Search for the repository using the GitHub API
+    response = requests.get(f'https://api.github.com/search/repositories?q={query}')
+    data = response.json()
+    
+    # Get the first 5 results
+    items = data['items'][:5]
+    
+    # Create a list of buttons for the results
+    buttons = [InlineKeyboardButton(item['name'], url=item['html_url']) for item in items]
+    
+    # Create the keyboard markup with the buttons
+    keyboard = InlineKeyboardMarkup([buttons])
+    
+    # Reply to the message with the search results
+    message.reply_text(f'Here are the top 5 results for "{query}":', reply_markup=keyboard)
 
