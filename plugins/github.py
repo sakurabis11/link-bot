@@ -22,7 +22,7 @@ def github_repositories(query):
         return 'No results found.'
 
 # Define the /search command handler
-@Clientt.on_message(filters.command('search'))
+@Client.on_message(filters.command('search'))
 async def github_command(client, message):
     # Get the search query from the message text
     query = message.text.split(' ', 1)[1]
