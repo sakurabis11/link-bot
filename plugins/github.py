@@ -11,7 +11,7 @@ async def github_command(client, message):
     # Use the GitHub API to search for repositories
     # (Replace `YOUR_GITHUB_TOKEN` with your actual GitHub token)
     async with client.get_session() as session:
-        async with session.get(f"https://api.github.com/search/repositories?q={search_query}", headers={"Authorization": f"token GITHUB_TOKEN"}) as response:
+        async with session.get(f"https://api.github.com/search/repositories?q={search_query}", headers={"Authorization": f"token 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"}) as response:
             response_json = await response.json()
 
     # Extract the search results from the response
