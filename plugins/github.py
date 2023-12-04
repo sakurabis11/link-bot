@@ -1,32 +1,50 @@
-import os
-import re
+import pyrogram
+from pyrogram import filters, Client
 import requests
-from pyrogram import Client, filters
-from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
-# Define the search function
-def github_repositories(query):
-    url = f'https://api.github.com/search/repositories?q={query}&per_page=5'
-    response = requests.get(url)
-    if response.status_code == 200:
-        data = response.json()
-        items = data['items']
-        results = []
-        for item in items:
-            name = item['name']
-            description = item['description']
-            url = item['html_url']
-            results.append(f'<a href="{url}">{name}</a> - {description}')
-        return '\n'.join(results)
-    else:
-        return 'No results found.'
 
-# Define the /search command handler
-@Client.on_message(filters.command('search'))
-async def github_command(client, message):
-    # Get the search query from the message text
-    query = message.text.split(' ', 1)[1]
-    # Search for repositories on GitHub
-    results = search_repositories(query)
-    # Send the search results as a message
-    message.reply_text(results, parse_mode='HTML')
+def get_repository_info(repository):
+    repo_name = repository["full_name"]
+    repo_description = repository["description"]
+    repo_link = repository["html_url"]
+    repo_stars = repository["stargazers_count"]
+    repo_commits_url = repository["commits_url"]
+
+    # Try parsing the commits URL and fetching commit count
+    try:
+        commit_response = requests.get(repo_commits_url.replace("{/sha}", ""))
+        if commit_response.status_code == 200:
+            commit_data = commit_response.json()
+            commits_count = len(commit_data) if isinstance(commit_data, list) else 0
+        else:
+            commits_count = 0
+    except (ValueError, requests.exceptions.RequestException):
+        commits_count = 0
+
+    return (
+        f"Repository: {repo_name}\n"
+        f"Description: {repo_description}\n"
+        f"Link: {repo_link}\n"
+        f"Stars: {repo_stars}\n"
+        f"Commits: {commits_count}\n"
+    )
+
+@Client.on_message(filters.command("github"))
+async def search_repos(client, message):
+    try:
+        search_query = message.text.split(maxsplit=1)[1]
+        response = requests.get(f"https://api.github.com/search/repositories?q={search_query}")
+        response.raise_for_status()  # Check for HTTP errors
+
+        repositories = response.json().get("items", [])
+
+        if repositories:
+            message.reply("Found the following repositories on GitHub:")
+            for repository in repositories:
+                repo_info = get_repository_info(repository)
+                message.reply(repo_info)
+        else:
+            message.reply("No repositories found for the given query.")
+
+    except Exception as e:
+        message.reply(f"An error occurred: {str(e)}")
