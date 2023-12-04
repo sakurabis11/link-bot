@@ -1,28 +1,32 @@
+import os
+import re
+import requests
 from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
-import requests
 
+# Define the search function
+def github_repositories(query):
+    url = f'https://api.github.com/search/repositories?q={query}&per_page=5'
+    response = requests.get(url)
+    if response.status_code == 200:
+        data = response.json()
+        items = data['items']
+        results = []
+        for item in items:
+            name = item['name']
+            description = item['description']
+            url = item['html_url']
+            results.append(f'<a href="{url}">{name}</a> - {description}')
+        return '\n'.join(results)
+    else:
+        return 'No results found.'
 
-
-# Define the /github command handler
-@Client.on_message(filters.command('github'))
-async def search_github(client, message):
-    # Get the search query from the user
+# Define the /search command handler
+@Clientt.on_message(filters.command('search'))
+async def github_command(client, message):
+    # Get the search query from the message text
     query = message.text.split(' ', 1)[1]
-    
-    # Search for the repository using the GitHub API
-    response = requests.get(f'https://api.github.com/search/repositories?q={query}')
-    data = response.json()
-    
-    # Get the first 5 results
-    items = data['items'][:5]
-    
-    # Create a list of buttons for the results
-    buttons = [InlineKeyboardButton(item['name'], url=item['html_url']) for item in items]
-    
-    # Create the keyboard markup with the buttons
-    keyboard = InlineKeyboardMarkup([buttons])
-    
-    # Reply to the message with the search results
-    message.reply_text(f'Here are the top 5 results for "{query}":', reply_markup=keyboard)
-
+    # Search for repositories on GitHub
+    results = search_repositories(query)
+    # Send the search results as a message
+    message.reply_text(results, parse_mode='HTML')
