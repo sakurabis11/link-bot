@@ -17,7 +17,7 @@
 - [x] Openai
 - [x] Sticker id
 - [x] Spotify (now only find the details of song)
-- [x] 
+- [x] Uptime
 - [x] 
 - [x] 
 - [x] 
