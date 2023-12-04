@@ -149,7 +149,7 @@ async def callback_handler(client, callback_query):
             InlineKeyboardButton('🏠 ʜᴏᴍᴇ', callback_data='help')
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
-        await query.message.edit_text("", reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
+        await query.message.edit_text("Uᴩᴛɪᴍᴇ: {uptime}\nCPU Uꜱᴀɢᴇ: {cpu_usage}%\nRAM Uꜱᴀɢᴇ: {ram_usage}%\nUꜱᴇᴅ Dɪꜱᴋ: {used_disk} GB ({used_disk_percent}%)\n", reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
     
     if query.data == "about":
         buttons = [[
