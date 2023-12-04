@@ -1,48 +1,31 @@
 import os, asyncio
-import aiohttp
 from pyrogram import Client, filters
+from pyrogram.types import *
 from telegraph import upload_file
-from utils import get_file_id
-import shutil
 
-TG_DOWNLOAD_DIRECTORY = "./DOWNLOADS/"
 
-@Client.on_message(
-  filters.command("telegraph")
-)
-async def telegraph(client, message):
-  replied = message.reply_to_message
-
-  if not replied:
-    await message.reply_text("Reply to a supported media file")
-    return
-
-  file_path = get_file_path(replied)
-
-  if not file_path:
-    await message.reply_text("Not supported!")
-    return
-
-  try:
-    response = upload_file(file_path)
-  except Exception as document:
-    await message.reply_text(message, text=document)
-  else:
-    await message.reply(
-      f"<b>Link :-</b> <code>https://telegra.ph{response[0]}</code>\n\n<b>",
-      disable_web_page_preview=True
+@Client.on_message(filters.command("telegraph") & filters.private)
+async def telegraph_upload(bot, update):
+    replied = update.reply_to_message
+    if not replied:
+        return await update.reply_text("𝚁𝙴𝙿𝙻𝚈 𝚃𝙾 𝙰 𝙿𝙷𝙾𝚃𝙾 𝙾𝚁 𝚅𝙸𝙳𝙴𝙾 𝚄𝙽𝙳𝙴𝚁 𝟻𝙼𝙱.")
+    if not ( replied.photo or replied.video ):
+        return await update.reply_text("please reply with valid media file")
+    text = await update.reply_text("<code>Downloading to My Server ...</code>", disable_web_page_preview=True)   
+    media = await replied.download()   
+    await text.edit_text("<code>Downloading Completed. Now I am Uploading to telegra.ph Link ...</code>", disable_web_page_preview=True)                                            
+    try:
+        response = upload_file(media)
+    except Exception as error:
+        print(error)
+        return await text.edit_text(text=f"Error :- {error}", disable_web_page_preview=True)          
+    try:
+        os.remove(media)
+    except Exception as error:
+        print(error)
+        return    
+    await text.edit_text(
+        text=f"<b>Link :-</b>\n\n<code>https://telegra.ph{response[0]}</code>",
+        disable_web_page_preview=True,
     )
 
-  # Only delete the file if the upload was successful
-  if os.path.exists(file_path) and response:
-    os.remove(file_path)
-
-def get_file_path(message):
-  if message.photo or message.video:
-    file_path = message.download(TG_DOWNLOAD_DIRECTORY)
-  elif message.document:
-    file_path = message.document.file_path
-  else:
-    return None
-
-  return file_path
