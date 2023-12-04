@@ -7,7 +7,7 @@ PREFIX = '.'
 
 logging.basicConfig(level=logging.INFO)
 
-@Client.on_message(filters.command("ping"["PREFIX"])
+@Client.on_message(filters.command("ping"["PREFIX"]))
 async def ping(client, message):
     try:
         start_time = time.time()
