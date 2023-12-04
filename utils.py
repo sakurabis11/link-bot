@@ -12,8 +12,6 @@ from bs4 import BeautifulSoup
 import requests
 import tempfile
 
-PROGRESS_BAR = "\n\n📁 File: {b}\n📥 Downloaded: {c}\n🚀 Progress: {a}%\n⚡ Speed: {d}/s\n⏱️ Time Left: {f}"
-
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 
@@ -47,6 +45,30 @@ async def is_subscribed(bot, query):
             return True
 
     return False
+
+
+async def format_uptime(seconds):
+    days = seconds // (24 * 60 * 60)
+    seconds %= (24 * 60 * 60)
+    hours = seconds // (60 * 60)
+    seconds %= (60 * 60)
+    minutes = seconds // 60
+    seconds %= 60
+    return f"{days} days, {hours} hours, {minutes} minutes"
+
+
+async def uptime():
+    uptime_seconds = time.time() - psutil.boot_time()
+    cpu_usage = psutil.cpu_percent()
+    ram_usage = psutil.virtual_memory().percent
+    used_disk = psutil.disk_usage('/').percent
+    formatted_uptime = await format_uptime(uptime_seconds)
+    return {
+        "uptime": formatted_uptime,
+        "cpu_usage": cpu_usage,
+        "ram_usage": ram_usage,
+        "used_disk": used_disk
+    }
 
 
 
