@@ -11,13 +11,13 @@
 
 ## Features
 
-- [x] Telegraph
-- [x] Song downloader (from youtube)
-- [x] Ringtune downloader
-- [x] Openai
-- [x] Sticker id
-- [x] Spotify (now only find the details of song)
-- [x] Uptime
+- [x] ᴛᴇʟᴇɢʀᴀᴘʜ
+- [x] ᴏᴘᴇɴᴀɪ
+- [x] sᴏɴɢ ᴅᴏᴡɴʟᴏᴀᴅᴇʀ (ғʀᴏᴍ ʏᴏᴜᴛᴜʙᴇ)
+- [x] ʀɪɴɢᴛᴜɴᴇ ᴅᴏᴡɴʟᴏᴀᴅᴇʀ
+- [x] sᴛɪᴄᴋᴇʀ ɪᴅ
+- [x] sᴘᴏᴛɪғʏ (ɴᴏᴡ ᴏɴʟʏ ғɪɴᴅ ᴛʜᴇ ᴅᴇᴛᴀɪʟs ᴏғ sᴏɴɢ)
+- [x] ʀᴇᴘᴏ sᴇᴀʀᴄʜ
 - [x] 
 - [x] 
 - [x] 
@@ -29,5 +29,5 @@
 - [x] 
 - [x] 
 - [x] 
-- [x] 
+
 
