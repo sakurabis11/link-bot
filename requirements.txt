@@ -20,6 +20,9 @@ ujson
 wget
 pytz
 spotipy
+deezer
+shazam
+soundcloud_dl
 pafy
 pydub==0.25.1
 ffmpeg==1.4
