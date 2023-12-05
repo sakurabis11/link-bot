@@ -1,10 +1,10 @@
 import time, os
 from pyrogram import Client, filters, enums
-from config import DOWNLOAD_LOCATION, CAPTION, ADMIN
-from main.utils import progress_message, humanbytes
+from info import DOWNLOAD_LOCATION, CAPTION, ADMINS
+from utils import progress_message, humanbytes
 
-@Client.on_message(filters.private & filters.command("rename") & filters.user(ADMIN))             
-async def rename_file(bot, msg):
+@Client.on_message(filters.private & filters.command("rename") & filters.user(ADMINS))             
+async def rename_file(Client, msg):
     reply = msg.reply_to_message
     if len(msg.command) < 2 or not reply:
        return await msg.reply_text("Please Reply To An File or video or audio With filename + .extension eg:-(`.mkv` or `.mp4` or `.zip`)")
@@ -24,8 +24,6 @@ async def rename_file(bot, msg):
             return await sts.edit(text=f"Your caption Error unexpected keyword ●> ({e})")           
     else:
         cap = f"{new_name}\n\n💽 size : {filesize}"
-
-    # this idea's back end is MKN brain 🧠
 
     dir = os.listdir(DOWNLOAD_LOCATION)
     if len(dir) == 0:
