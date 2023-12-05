@@ -18,6 +18,6 @@ def system_info(client, message):
     ram_usage = psutil.virtual_memory().percent
     used_disk = psutil.disk_usage('/').percent
     used_disk_percent = psutil.disk_usage('/').percent
-    client.send_message(chat_id=message.chat.id, text=f"Uᴩᴛɪᴍᴇ: {uptime}\nCPU Uꜱᴀɢᴇ: {cpu_usage}%\nRAM Uꜱᴀɢᴇ: {ram_usage}%\nUꜱᴇᴅ Dɪꜱᴋ: {used_disk} GB ({used_disk_percent}%)\n")
+    client.send_message(chat_id=message.chat.id, text=f"Uᴩᴛɪᴍᴇ: <code>{uptime}</code>\nCPU Uꜱᴀɢᴇ: <code>{cpu_usage}%</code>\nRAM Uꜱᴀɢᴇ: <code>{ram_usage}%</code>\nUꜱᴇᴅ Dɪꜱᴋ: <code>{used_disk} GB </code>(<code>{used_disk_percent}%</code>)\n")
 
 
