@@ -31,4 +31,11 @@
 - [x] 
 - [x] 
 
+## Credits
+<details>
 
+ᴏᴡɴᴇʀ[ᴍʀ-ᴛɢ]
+(https://github.com/MrTGcoder) ᴏᴡɴᴇʀ
+
+
+</details>
