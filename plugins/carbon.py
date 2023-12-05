@@ -43,6 +43,6 @@ async def carbon_func(_, message):
     await m.edit("ᴜᴘʟᴏᴀᴅɪɴɢ..")
     await message.reply_photo(
         photo=carbon,
-        caption="**✨**"
+        caption="**✨**")
     await m.delete()
     carbon.close()
