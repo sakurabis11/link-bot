@@ -46,7 +46,7 @@ Simply add our bot (@MusicDownloader_Bot) on Telegram and start using its amazin
 
 ## Feedback
 
-We are constantly working on improving our bot and would love to hear your feedback. You can send us your suggestions and queries by in .
+We are constantly working on improving our bot and would love to hear your feedback. You can send us your suggestions and queries by in https://t.me/amal_nath_bot.
 
 Thank you for choosing our Telegram Bot for all your music and messaging needs! Enjoy your experience with our bot and don't forget to share it with your friends and family. 🎶❤️
       
@@ -57,8 +57,10 @@ Thank you for choosing our Telegram Bot for all your music and messaging needs! 
 <a href="https://t.me/MrTG_Coder">
   <img src="https://img.shields.io/badge/ᴏᴡɴᴇʀ-blue?logo=telegram" width="80">
 
+
 <a href="https://t.me/masterolic">
   <img src="https://img.shields.io/badge/ᴛʜᴀɴᴋs ᴛᴏ-blue?logo=telegram" width="80">
+
 
 <a href="https://t.me/Sunrises_24">
   <img src="https://img.shields.io/badge/ᴛʜᴀɴᴋs ᴛᴏ-blue?logo=telegram" width="80">
