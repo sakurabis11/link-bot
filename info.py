@@ -30,6 +30,6 @@ OPENAI_API_KEY = os.environ.get('OPENAI_API_KEY', 'sk-OAhx2ooadTrvjqUOuNnDT3Blbk
 SPOTIFY_CLIENT_ID = os.environ.get('SPOTIFY_CLIENT_ID', 'd3a0f15a75014999945b5628dca40d0a')
 SPOTIFY_CLIENT_SECRET = os.environ.get('SPOTIFY_CLIENT_SECRET', 'e39d1705e35c47e6a0baf50ff3bb587f')
 
-#for github repo search
-GITHUB_TOKEN = os.environ.get('GITHUB_TOKEN', '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')
-
+# for rename bot
+CAPTION = environ.get("CAPTION", "{file_name}")
+DOWNLOAD_LOCATION = "./DOWNLOADS"
