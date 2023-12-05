@@ -30,18 +30,6 @@ def get_access_token():
         print(f"Error fetching access token: {response.text}")
         return None
 
-async def download_soundcloud(url):
-    try:
-        # Use `soundcloud_dl` library to download the song
-    
-        downloader = soundcloud_dl.SoundcloudDL()
-        downloader.download([url])
-        downloaded_song_path = downloader.downloaded_filepaths()[0]
-        return downloaded_song_path
-    except Exception as e:
-        print(f"Error downloading from Soundcloud: {e}")
-        return None
-
 async def download_deezer(url):
     try:
         # Use `deezer` library to download the song
@@ -61,8 +49,6 @@ async def download_shazam(query):
         # Identify the song provider and download accordingly
         if song.provider == "deezer":
             return await download_deezer(song.url)
-        elif song.provider == "soundcloud":
-            return await download_soundcloud(song.url)
         else:
             print(f"Unsupported provider: {song.provider}")
             return None
@@ -122,9 +108,7 @@ async def spotify(client, message):
     release_date = data["album"]["release_date"]
 
     # Check for platform and download the song if possible
-    if re.match(r"https://soundcloud\.com/", song_name_or_url):
-        downloaded_song_path = await download_soundcloud(song_name_or_url)
-    elif re.match(r"https://deezer\.com/", song_name_or_url):
+    if re.match(r"https://deezer\.com/", song_name_or_url):
         downloaded_song_path = await download_deezer(song_name_or_url)
     else:
         # Use Shazam to identify the song and download it from a suitable source
