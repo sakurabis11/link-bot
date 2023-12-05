@@ -2,6 +2,8 @@ import asyncio
 import os
 from pyrogram import filters, enums, Client 
 
+REPORT_MESSAGE = "Reported To Admins"
+
 @Client.on_message((filters.command(["report"]) | filters.regex("@admins") | filters.regex("@admin")) & filters.group)
 async def report_user(bot, message):
     if message.reply_to_message:
@@ -27,4 +29,4 @@ async def report_user(bot, message):
             else: # Skipping Bots
                 pass
         if success:
-            await message.reply_text(“Reported To Admins”)
+            await message.reply_text(REPORT_MESSAGE)
