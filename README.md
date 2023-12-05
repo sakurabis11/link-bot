@@ -2,8 +2,8 @@
   <img src="https://telegra.ph/file/43e9e3a2e604ea243d3f7.jpg" alt="Sakura">
 </p>
 
-<a href="https://t.me/MrTG_Coder">
-  <img src="https://img.shields.io/badge/TEEGRAM-blue?logo=telegram" width="80">
+<a href="https://t.me/mrtgcoderbot">
+  <img src="https://img.shields.io/badge/ʙᴏᴛ-blue?logo=telegram" width="80">
 
 <h1 align="center">
   <b>Mr TG</b>
@@ -34,6 +34,8 @@
 ## Credits
 <details>
 
-ᴏᴡɴᴇʀ[ᴍʀ-ᴛɢ](https://t.me/MrTGcoder) ᴏᴡɴᴇʀ
+<a href="https://t.me/MrTG_Coder">
+  <img src="https://img.shields.io/badge/ᴏᴡɴᴇʀ-blue?logo=telegram" width="80">
+
 
 </details>
