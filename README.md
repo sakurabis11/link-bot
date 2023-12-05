@@ -35,7 +35,7 @@
 <details>
 
 ᴏᴡɴᴇʀ[ᴍʀ-ᴛɢ]
-(https://github.com/MrTGcoder) ᴏᴡɴᴇʀ
+(https://t.me/MrTGcoder) ᴏᴡɴᴇʀ
 
 
 </details>
