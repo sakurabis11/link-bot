@@ -1,5 +1,5 @@
 from pyrogram import Client, filters
-from shazam import Shazam
+from shazamio import Shazam
 from pyrogram.types import Message, Voice, Audio, Video
 import logging
 
