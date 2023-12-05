@@ -19,8 +19,8 @@ async def repo(client, message):
                 # Await the coroutine here
                 await message.reply_text(reply)
             else:
-                await message.reply_text("No results found.")
+                await message.reply_text("ɴᴏ ʀᴇsᴜʟᴛ ғᴏᴜɴᴅ.")
         else:
-            await message.reply_text("An error occurred.")
+            await message.reply_text("ᴀɴ ᴇʀʀᴏʀ ᴏᴄᴄᴜʀᴇᴅ.")
     else:
-        await message.reply_text("Usage: /repo <query>")
+        await message.reply_text("ᴜsᴀɢᴇ: /repo {repo_name}")
