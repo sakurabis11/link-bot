@@ -4,7 +4,7 @@ from pyrogram.types import *
 import os
 import requests
 import base64
-
+import itunes
 
 # Define your client id and client secret
 client_id = 'd3a0f15a75014999945b5628dca40d0a'
@@ -71,3 +71,33 @@ async def spotify(client, message):
 
     # Send the song thumbnail and details to the user
     await message.reply_photo(photo=thumbnail_url, caption=f"ᴛɪᴛʟᴇ: <code>{name}</code>\nᴀʀᴛɪsᴛ: <code>{artist}</code>\nᴀʟʙᴜᴍ: <code>{album}</code>\nʀᴇʟᴇᴀsᴇ ᴅᴀᴛᴇ: <code>{release_date}</code>\n")
+
+    # Download the song from iTunes if requested
+    if song_name_or_url.lower() == "download":
+        download_song(name, artist)
+
+def download_song(song_name, artist_name):
+    # Search for the song in iTunes
+    songs = itunes.search(f'{song_name} by {artist_name}')
+
+    # Check if the song was found
+    if not songs:
+        message.reply_text(f"Couldn't find the song '{song_name}' by '{artist_name}' on iTunes.")
+        return
+
+    # Get the first search result
+    song = songs[0]
+
+    # Check if the song is available for purchase
+    if not song.store_url:
+        message.reply_text(f"The song '{song_name}' by '{artist_name}' is not available for purchase on iTunes.")
+        return
+
+    # Get the song download URL
+    download_url = song.store_url
+
+    # Download the song
+    itunes.download(download_url)
+
+    # Notify the user that the download has started
+    message.reply_text(f"Downloading '{song_name}' by '{artist_name}' from iTunes...")
