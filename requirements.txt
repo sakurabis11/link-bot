@@ -22,6 +22,7 @@ pytz
 spotipy
 deezer-python 
 shazamio 
+Shazam
 pafy
 pydub==0.25.1
 ffmpeg==1.4
