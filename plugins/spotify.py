@@ -5,7 +5,6 @@ import os
 import requests
 import base64
 from shazamio import Shazam
-import soundcloud_dl
 from deezer import Session
 
 # Define your client id and client secret
