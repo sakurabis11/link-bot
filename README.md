@@ -41,6 +41,6 @@
   <img src="https://img.shields.io/badge/ᴛʜᴀɴᴋs ᴛᴏ-blue?logo=telegram" width="80">
 
 <a href="https://t.me/Sunrises_24">
-  <img src="https://img.shields.io/badge/ᴛʜᴀɴᴋs ᴛᴘ-blue?logo=telegram" width="80">
+  <img src="https://img.shields.io/badge/ᴛʜᴀɴᴋs ᴛᴏ-blue?logo=telegram" width="80">
 
 </details>
