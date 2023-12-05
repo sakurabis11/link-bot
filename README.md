@@ -35,12 +35,12 @@
 <details>
 
 <a href="https://t.me/MrTG_Coder">
-  <img src="https://img.shields.io/badge/ᴏᴡɴᴇʀ-blue?logo=telegram" width="80">
+  <img src="https://img.shields.io/badge/ᴏᴡɴᴇʀ-blue?logo=telegram" width="80">\n
 
 <a href="https://t.me/masterolic">
-  <img src="https://img.shields.io/badge/ᴛʜᴀɴᴋs ᴛᴏ-blue?logo=telegram" width="80">
+  <img src="https://img.shields.io/badge/ᴛʜᴀɴᴋs ᴛᴏ-blue?logo=telegram" width="80">\n
 
 <a href="https://t.me/Sunrises_24">
-  <img src="https://img.shields.io/badge/ᴛʜᴀɴᴋs ᴛᴘ-blue?logo=telegram" width="80">
+  <img src="https://img.shields.io/badge/ᴛʜᴀɴᴋs ᴛᴘ-blue?logo=telegram" width="80">\n
 
 </details>
