@@ -3,7 +3,7 @@
 </p>
 
 <a href="https://t.me/MrTG_Coder">
-  <img src="https://img.shields.io/badge/Join-blue?logo=telegram" width="60">
+  <img src="https://img.shields.io/badge/Join-blue?logo=telegram" width="80">
 
 <h1 align="center">
   <b>Mr TG</b>
