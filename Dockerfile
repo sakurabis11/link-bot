@@ -8,7 +8,7 @@ RUN pip install openai==0.28
 RUN pip install spotipy
 RUN pip install spotipy-downloader
 RUN pip install soundcloud_dl
-RUN pip install deezer
+RUN pip install deezer-python 
 RUN pip install shazam
 RUN pip instalL pafy
 RUN pip install pytube 
