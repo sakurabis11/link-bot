@@ -20,7 +20,7 @@ ujson
 wget
 pytz
 spotipy
-deezer
+deezer-python 
 shazam
 soundcloud_dl
 pafy
