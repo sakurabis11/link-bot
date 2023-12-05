@@ -2,76 +2,85 @@ from pyrogram import Client, filters
 from shazamio import Shazam
 from pyrogram.types import Message, Voice, Audio, Video
 import logging
+import ffmpeg
+import os
+import datetime
+import asyncio
+from pyrogram.types import *
+from pyrogram.errors import *
 
-shazam = Shazam()
+from utils import humanbytes, get_duration
 
-logger = logging.getLogger(__name__)
-logger.setLevel(logging.DEBUG)
+@Client.on_message(filters.command([""shazam"]))
+async def shazam_handler(client, message):
+    stime = time.time()
 
-@Client.on_message(filters.command(["shazam"]))
-async def shazam_handler(client: Client, message: Message):
-    if not message.reply_to_message:
-        await message.reply("Please reply to the audio or video message you want to Shazam.")
-        return
+    reply_msg = await message.reply_text("Shazaming this song...")
 
-    reply_message = message.reply_to_message
-    media_type = reply_message.media
+    try:
+        media_file, duration = await get_media_info(message.reply_to_message)
+    except ValueError as e:
+        return await reply_msg.edit(f"Error: {e}")
 
-    if isinstance(media_type, (Voice, Audio)):
-        # Extract audio from voice/audio message
-        await message.reply("Downloading audio...")
+    try:
+        thumb, song_info = await shazam_song(media_file, duration)
+    except Exception as e:
+        return await reply_msg.edit(f"Shazam failed: {e}")
+
+    etime = time.time()
+    time_taken = round(etime - stime)
+
+    caption = format_caption(song_info, duration, time_taken)
+
+    try:
+        await reply_msg.edit(caption)
+        if thumb:
+            await message.reply_to_message.reply_photo(thumb, caption=caption, quote=True)
+    except MessageNotModified:
+        pass
+    finally:
+        cleanup_files(media_file, thumb)
+
+async def get_media_info(message):
+    if not message or not message.reply_to_message:
+        raise ValueError("Reply to a valid message containing an audio or video file.")
+
+    media = message.reply_to_message.audio or message.reply_to_message.voice or message.reply_to_message.video
+    if not media:
+        raise ValueError("Reply to an audio or video file.")
+
+    media_file = await message.reply_to_message.download()
+    duration = get_duration(media)
+
+    return media_file, duration
+
+async def shazam_song(media_file, duration):
+    if duration <= 0:
+        raise ValueError("Invalid duration of the media file.")
+
+    thumb, by, title = await shazam(media_file)
+    if title is None:
+        raise ValueError("No results found.")
+
+    return thumb, {"title": title, "by": by, "duration": duration, "size": os.stat(media_file).st_size}
+
+def format_caption(song_info, duration, time_taken):
+    size = humanbytes(song_info["size"])
+    dur_str = str(datetime.timedelta(seconds=song_info["duration"]))
+
+    caption = f"""<b><u>Shazamed Song</b></u>
+<b>Song Name :</b> <code>{song_info['title']}</code>
+<b>Singer :</b> <code>{song_info['by']}</code>
+<b>Duration :</b> <code>{dur_str}</code>
+<b>Size :</b> <code>{size}</code>
+<b>Time Taken :</b> <code>{time_taken} Seconds</code>
+<b><u>Shazamed By @YourShazamBot</b></u>"""
+
+    return caption
+
+def cleanup_files(*files):
+    for file in files:
         try:
-            audio_bytes = await client.download_media(reply_message)
+            os.remove(file)
         except Exception as e:
-            logger.error(f"Error downloading audio: {e}")
-            await message.edit_text("Error downloading audio. Please try again.")
-            return
-        await message.edit_text("Analyzing audio...")
-
-        # Recognize song using Shazam
-        recognition = shazam.recognize_song(audio_bytes)
-
-        if recognition:
-            await message.edit_text(f"**Song:** {recognition.track.title} by {recognition.artist.name}")
-        else:
-            await message.edit_text("Sorry, I couldn't recognize the song.")
-
-    elif isinstance(media_type, Video):
-        # Extract audio from video using ffmpeg
-        await message.reply("Extracting audio...")
-        try:
-            video_path = await client.download_media(reply_message)
-        except Exception as e:
-            logger.error(f"Error downloading video: {e}")
-            await message.edit_text("Error downloading video. Please try again.")
-            return
-        audio_path = f"{video_path}.mp3"
-
-        try:
-            await message.edit_text("Converting video to audio...")
-            await client.run(f"ffmpeg -i {video_path} -vn -ar 44100 -ac 2 {audio_path}")
-        except Exception as e:
-            logger.error(f"Error converting video to audio: {e}")
-            await message.edit_text("Error converting video to audio. Please try again.")
-            return
-
-        # Recognize song using Shazam
-        with open(audio_path, "rb") as audio_file:
-            audio_bytes = audio_file.read()
-        await message.edit_text("Analyzing audio...")
-        recognition = shazam.recognize_song(audio_bytes)
-
-        # Cleanup temporary files
-        try:
-            await client.run(f"rm {video_path} {audio_path}")
-        except Exception as e:
-            logger.error(f"Error cleaning up files: {e}")
-
-        if recognition:
-            await message.edit_text(f"**Song:** {recognition.track.title} by {recognition.artist.name}")
-        else:
-            await message.edit_text("Sorry, I couldn't recognize the song.")
-
-    else:
-        await message.reply("Please reply to an audio or video message.")
-
+            print(f"Failed to remove file {file}: {e}")
