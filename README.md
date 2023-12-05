@@ -5,6 +5,14 @@
 <a href="https://t.me/mrtgcoderbot">
   <img src="https://img.shields.io/badge/ʙᴏᴛ-blue?logo=telegram" width="80">
 
+[![Stars](https://img.shields.io/github/stars/master-code-r/coder?style=flat-square&color=yellow)](https://github.com/master-code-r/coder/stargazers)
+[![Forks](https://img.shields.io/github/forks/master-code-r/coder?style=flat-square&color=orange)](https://github.com/master-code-r/coder/fork)
+[![Size](https://img.shields.io/github/repo-size/master-code-r/coder?style=flat-square&color=green)](https://github.com/master-code-r/coder)   
+[![Open Source Love svg2](https://badges.frapsoft.com/os/v2/open-source.svg?v=103)](https://github.com/Devil-Botz/Elsa)   
+[![Contributors](https://img.shields.io/github/contributors/v?style=flat-square&color=green)](https://github.com/master-code-r/coder/graphs/contributors)
+[![License](https://img.shields.io/badge/License-AGPL-blue)](https://github.com/master-code-r/coder/blob/main/LICENSE)
+[![Sparkline](https://stars.medv.io/master-code-r/coder.svg)](https://stars.medv.io/master-code-r/coder)
+
 ## Features
 
 - [x] ᴛᴇʟᴇɢʀᴀᴘʜ
