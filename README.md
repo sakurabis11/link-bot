@@ -37,5 +37,8 @@
 <a href="https://t.me/MrTG_Coder">
   <img src="https://img.shields.io/badge/ᴏᴡɴᴇʀ-blue?logo=telegram" width="80">
 
+<a href="https://t.me/masterolic">
+  <img src="https://img.shields.io/badge/ʜᴇʟᴘᴇʀ 𝟷-blue?logo=telegram" width="80">
+
 
 </details>
