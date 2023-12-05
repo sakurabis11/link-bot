@@ -9,9 +9,9 @@ import asyncio
 from pyrogram.types import *
 from pyrogram.errors import *
 
-from utils import humanbytes, get_duration
+from utils import humanbytes
 
-@Client.on_message(filters.command([""shazam"]))
+@Client.on_message(filters.command(["shazam"]))
 async def shazam_handler(client, message):
     stime = time.time()
 
