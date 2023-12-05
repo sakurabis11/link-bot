@@ -34,8 +34,6 @@
 ## Credits
 <details>
 
-ᴏᴡɴᴇʀ[ᴍʀ-ᴛɢ]
-(https://t.me/MrTGcoder) ᴏᴡɴᴇʀ
-
+ᴏᴡɴᴇʀ[ᴍʀ-ᴛɢ](https://t.me/MrTGcoder) ᴏᴡɴᴇʀ
 
 </details>
