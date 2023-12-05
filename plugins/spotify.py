@@ -4,7 +4,7 @@ from pyrogram.types import *
 import os
 import requests
 import base64
-import shazam
+from shazamio import Shazam
 import soundcloud_dl
 from deezer import Session
 
