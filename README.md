@@ -5,11 +5,6 @@
 <a href="https://t.me/mrtgcoderbot">
   <img src="https://img.shields.io/badge/ʙᴏᴛ-blue?logo=telegram" width="80">
 
-<h1 align="center">
-  <b>Mr TG</b>
-</h1>
-
-
 ## Features
 
 - [x] ᴛᴇʟᴇɢʀᴀᴘʜ
@@ -31,7 +26,7 @@
 - [x] 
 
 
-#Telegram Bot - Music Downloader and More!
+##Telegram Bot - Music Downloader and More!
 
 Welcome to our Telegram Bot for downloading songs from YouTube, creating ringtone, searching for songs on Spotify, generating telegraph, getting sticker id, and even searching for repositories on GitHub. Our bot aims to make your music and messaging experience on Telegram more enjoyable and convenient.
 
