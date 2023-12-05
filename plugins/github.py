@@ -1,6 +1,6 @@
 from pyrogram import Client, filters
 import requests
-
+<code> </code>
 @Client.on_message(filters.command("repo"))
 async def repo(client, message):
     if len(message.command) > 1:
@@ -11,10 +11,10 @@ async def repo(client, message):
             if data['total_count'] > 0:
                 repo = data['items'][0]  # Get the first result
                 reply = f"**{repo['name']}**\n\n" \
-                        f"**nᴅᴇsᴄʀɪᴘᴛɪᴏɴ:** {repo['description']}\n" \
+                        f"**nᴅᴇsᴄʀɪᴘᴛɪᴏɴ:** <code>{repo['description']}</code>\n" \
                         f"**ᴜʀʟ:** {repo['html_url']}\n" \
-                        f"**sᴛᴀʀs:** {repo['stargazers_count']}\n" \
-                        f"**ғᴏʀᴋs:** {repo['forks_count']}"
+                        f"**sᴛᴀʀs:** <code>{repo['stargazers_count']}</code>\n" \
+                        f"**ғᴏʀᴋs:** <code>{repo['forks_count']}</code>"
 
                 # Await the coroutine here
                 await message.reply_text(reply)
