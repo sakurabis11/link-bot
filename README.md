@@ -5,14 +5,6 @@
 <a href="https://t.me/mrtgcoderbot">
   <img src="https://img.shields.io/badge/ʙᴏᴛ-blue?logo=telegram" width="80">
 
-[![Stars](https://img.shields.io/github/stars/master-code-r/coder?style=flat-square&color=yellow)](https://github.com/master-code-r/coder/stargazers)
-[![Forks](https://img.shields.io/github/forks/master-code-r/coder?style=flat-square&color=orange)](https://github.com/master-code-r/coder/fork)
-[![Size](https://img.shields.io/github/repo-size/master-code-r/coder?style=flat-square&color=green)](https://github.com/master-code-r/coder)   
-[![Open Source Love svg2](https://badges.frapsoft.com/os/v2/open-source.svg?v=103)](https://github.com/Devil-Botz/Elsa)   
-[![Contributors](https://img.shields.io/github/contributors/v?style=flat-square&color=green)](https://github.com/master-code-r/coder/graphs/contributors)
-[![License](https://img.shields.io/badge/License-AGPL-blue)](https://github.com/master-code-r/coder/blob/main/LICENSE)
-[![Sparkline](https://stars.medv.io/master-code-r/coder.svg)](https://stars.medv.io/master-code-r/coder)
-
 ## Features
 
 - [x] ᴛᴇʟᴇɢʀᴀᴘʜ
@@ -33,6 +25,32 @@
 - [x] 
 - [x] 
 
+
+## CMD
+
+```
+* /start - to check i am in alive
+* /about - to get the bot details
+* /telegraph - reply to a media
+* /openai - your query
+* /song - to get the song from youtube
+* /ringtune - to get the ringtune
+* /sticker_id - to get the sticker id
+* /spotify - to get the details of song from spotify
+* /repo - to search repo from github
+```
+
+## CMD USAGE
+
+```
+/telegraph  reply to a supported media media
+* /openai {your query}
+* /song {song_name}
+* /ringtune {song_name} or {song_name + artist_name}
+* /sticker_id reply to a sticker
+* /spotify {song_name}
+* /repo {repo_name}
+```
 
 ## Telegram Bot - Music Downloader and More!
 
