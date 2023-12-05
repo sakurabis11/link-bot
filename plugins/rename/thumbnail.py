@@ -2,7 +2,7 @@ from pyrogram import Client, filters
 from info import ADMINS, DOWNLOAD_LOCATION
 import os
 
-dir = os.listdir(DOWNLOAD_LOCATION)
+
 
 @Client.on_message(filters.private & filters.photo & filters.user(ADMIN))                            
 async def set_tumb(client, msg):       
