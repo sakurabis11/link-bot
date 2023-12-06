@@ -6,7 +6,7 @@ RUN  pip install --upgrade pip
 RUN pip install ffmpeg
 RUN pip install openai==0.28
 RUN pip install spotipy
-RUN pip install itunes
+RUN pip install spotdl
 RUN pip instalL pafy
 RUN pip install pytube 
 RUN pip install youtube-search
