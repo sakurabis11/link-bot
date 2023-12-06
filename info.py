@@ -24,7 +24,7 @@ ADMINS = [int(admin) if id_pattern.search(admin) else admin for admin in environ
 
 # for mongodb
 DB_NAME = os.environ.get("DB_NAME", "mrtg")     
-DB_URL  = os.environ.get("DB_URL", "3rqnL0nfKO1DgVM2")
+DB_URL  = os.environ.get("DB_URL", "mongodb+srv://mrtg:3rqnL0nfKO1DgVM2@cluster0.m4nrgsu.mongodb.net/?retryWrites=true&w=majority")
 
 # for openai
 OPENAI_API_KEY = os.environ.get('OPENAI_API_KEY', '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')
