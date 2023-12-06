@@ -9,6 +9,7 @@ import os
 import psutil
 from pytz import timezone
 import time
+from info import Info
 import math
 from datetime import datetime
 from typing import List
@@ -345,41 +346,12 @@ async def progress_message(current, total, ud_type, message, start):
         pass
 
 
-async def progress_message(current, total, ud_type, message, start):
-    now = time.time()
-    diff = now - start
-    if round(diff % 10.00) == 0 or current == total:
-        percentage = current * 100 / total if total else 0
-        speed = current / diff
-        elapsed_time = round(diff) * 1000
-        time_to_completion = round((total - current) / speed) * 1000
-        estimated_total_time = elapsed_time + time_to_completion
-        elapsed_time = TimeFormatter(milliseconds=elapsed_time)
-        estimated_total_time = TimeFormatter(milliseconds=estimated_total_time)
-
-        progress = "\n{0}{1}".format("".join(["⬢" for i in range(math.floor(percentage / 5))]), "".join(["⬡" for i in range(20 - math.floor(percentage / 5))]))
-        tmp = (progress + PROGRESS_BAR).format(
-            a=round(percentage, 2),
-            b=humanbytes(current),
-            c=humanbytes(total),
-            d=humanbytes(speed),
-            f=estimated_total_time if estimated_total_time else "0 s")
-
-        try:
-            chance = [[InlineKeyboardButton(" Cancel", callback_data="del")]]
-            await message.edit(text="{}\n{}".format(ud_type, tmp), reply_markup=InlineKeyboardMarkup(chance))
-        except Exception:
-            # Log the error or handle it silently
-            pass
-
-def TimeFormatter(milliseconds: int) -> str:
-    seconds, milliseconds = divmod(int(milliseconds), 1000)
-    minutes, seconds = divmod(seconds, 60)
-    hours, minutes = divmod(minutes, 60)
-    days, hours = divmod(hours, 24)
-    tmp = ((str(days) + "d, ") if days else "") + \
-          ((str(hours) + "h, ") if hours else "") + \
-          ((str(minutes) + "m, ") if minutes else "") + \
-          ((str(seconds) + "s, ") if seconds else "") + \
-          ((str(milliseconds) + "ms, ") if milliseconds else "")
-    return tmp[:-2]
+async def send_log(b, u):
+    if Info.LOG_CHANNEL is not None:
+        curr = datetime.now(timezone("Asia/Kolkata"))
+        date = curr.strftime('%d %B, %Y')
+        time = curr.strftime('%I:%M:%S %p')
+        await b.send_message(
+            Info.LOG_CHANNEL,
+            f"**--Nᴇᴡ Uꜱᴇʀ Sᴛᴀʀᴛᴇᴅ Tʜᴇ Bᴏᴛ--**\n\nUꜱᴇʀ: {u.mention}\nIᴅ: `{u.id}`\nUɴ: @{u.username}\n\nDᴀᴛᴇ: {date}\nTɪᴍᴇ: {time}\n\nBy: {b.mention}"
+        )
