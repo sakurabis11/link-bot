@@ -6,7 +6,7 @@ from database.database import db
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery, Message
 from pyrogram import Client, filters, enums
 from pyrogram.errors import FloodWait, InputUserDeactivated, UserIsBlocked, PeerIdInvalid
-from info import API_ID, API_HASH, BOT_TOKEN, PORT, LOG_CHANNEL, ADMINS
+from info import API_ID, API_HASH, BOT_TOKEN, PORT, LOG_CHANNEL, ADMINS, DB_NAME, DB_URL
 import logging, re, asyncio, time, shutil, psutil, os, sys, datatime
 from utils import get_size, temp, extract_user, get_file_id, humanbytes
 
