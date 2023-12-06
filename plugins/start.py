@@ -38,6 +38,7 @@ async def support_command(client, message):
 
 @Client.on_message(filters.command("start"))
 async def start_command(client, message):
+    await db.add_user(client, message)
     button = [[
         InlineKeyboardButton("🕸️ Hᴇʟᴩ", callback_data="help"),
         InlineKeyboardButton("✨ Aʙᴏᴜᴛ", callback_data="about")
