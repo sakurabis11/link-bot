@@ -18,8 +18,6 @@ import tempfile
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 
-PROGRESS_BAR = "\n\n: {b} | {c}\n: {a}%\n⚡: {d}/s\n⏱️: {f}"
-
 BANNED = {}
 SMART_OPEN = '“'
 SMART_CLOSE = '”'
