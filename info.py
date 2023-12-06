@@ -12,6 +12,8 @@ def is_enabled(value, default):
     if value.strip().lower() in ["on", "true", "yes", "1", "enable", "y"]: return True
     elif value.strip().lower() in ["off", "false", "no", "0", "disable", "n"]: return False
     else: return default
+
+class Info(object):
 # bot information
 API_ID = int(os.environ.get('API_ID', '8914119'))
 API_HASH = os.environ.get('API_HASH', '652bae601b07c928b811bdb310fdb4b0')
