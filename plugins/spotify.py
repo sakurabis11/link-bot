@@ -3,6 +3,7 @@ from pyrogram import Client, filters
 from pyrogram.types import *
 import os
 import spotipy
+import spotdl
 import requests
 import base64
 
