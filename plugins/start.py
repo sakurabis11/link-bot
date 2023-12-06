@@ -48,7 +48,7 @@ async def start_command(client, message):
     if PIC:
         await message.reply_photo(Info.PIC, caption="ʜɪ {message.from_user.mention} ✨, ᴡᴇʟᴄᴏᴍᴇ ᴛᴏ ᴍʏ ʙᴏᴛ 🤖🎉", reply_markup=button)       
     else:
-    await message.reply_text("ʜɪ {message.from_user.mention} ✨, ᴡᴇʟᴄᴏᴍᴇ ᴛᴏ ᴍʏ ʙᴏᴛ 🤖🎉", reply_markup=reply_markup)
+        await message.reply_text("ʜɪ {message.from_user.mention} ✨, ᴡᴇʟᴄᴏᴍᴇ ᴛᴏ ᴍʏ ʙᴏᴛ 🤖🎉", reply_markup=reply_markup)
     
 @Client.on_message(filters.command("help"))
 async def help_command(client, message):
