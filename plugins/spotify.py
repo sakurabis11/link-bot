@@ -2,6 +2,7 @@ import re
 from pyrogram import Client, filters
 from pyrogram.types import *
 import os
+import spotipy
 import requests
 import base64
 
@@ -70,3 +71,33 @@ async def spotify(client, message):
 
     # Send the song thumbnail and details to the user
     await message.reply_photo(photo=thumbnail_url, caption=f"ʜᴇʏ {message.from_user.mention}\n\n ᴛɪᴛʟᴇ: <code>{name}</code>\nᴀʀᴛɪsᴛ: <code>{artist}</code>\nᴀʟʙᴜᴍ: <code>{album}</code>\nʀᴇʟᴇᴀsᴇ ᴅᴀᴛᴇ: <code>{release_date}</code>\n")
+
+user_id = message.from_user.id
+
+# Download logic using a function instead of undefined `spotify.download`
+def download_song(song_url, output_path):
+  response = requests.get(song_url)
+  if response.status_code == 200:
+    with open(output_path, 'wb') as f:
+      for chunk in response.iter_content(1024):
+        f.write(chunk)
+    return True
+  else:
+    return False
+
+# Download the song using the defined function
+download_successful = download_song(song_url, output_path="temp.mp3")
+
+# Check if download was successful
+if download_successful:
+  client.send_message(chat_id=user_id, text="Downloading song...")
+
+  # Upload the song to Telegram
+  bot.send_message(chat_id=user_id, text="Uploading song...")
+  with open("temp.mp3", "rb") as file:
+    bot.send_audio(chat_id=user_id, audio=file)
+
+  # Clean up
+  os.unlink("temp.mp3")
+else:
+  client.send_message(chat_id=user_id, text="Error downloading song. Please try again.")
