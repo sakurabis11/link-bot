@@ -45,12 +45,7 @@ async def start_command(client, message):
         InlineKeyboardButton("✨ Aʙᴏᴜᴛ", callback_data="about")
     ]]
     reply_markup = InlineKeyboardMarkup(button)
-if PIC:
-
-  await message.reply_photo(info.PIC, caption="ʜɪ {message.from_user.mention} ✨, ᴡᴇʟᴄᴏᴍᴇ ᴛᴏ ᴍʏ ʙᴏᴛ 🤖🎉", reply_markup=button)
-else:
-
-  await message.reply_text("ʜɪ {message.from_user.mention} ✨, ᴡᴇʟᴄᴏᴍᴇ ᴛᴏ ᴍʏ ʙᴏᴛ 🤖🎉", reply_markup=reply_markup)
+    await message.reply_text("ʜɪ {message.from_user.mention} ✨, ᴡᴇʟᴄᴏᴍᴇ ᴛᴏ ᴍʏ ʙᴏᴛ 🤖🎉", reply_markup=reply_markup)
 
     
 @Client.on_message(filters.command("help"))
