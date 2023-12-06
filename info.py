@@ -21,9 +21,10 @@ BOT_TOKEN = os.environ.get('BOT_TOKEN', '6645084082:AAEvdcfTZ0uFS_Gu6KvVPVBMNlrl
 PORT = os.environ.get("PORT", "8080")
 CACHE_TIME = int(environ.get('CACHE_TIME', 300))
 ADMINS = [int(admin) if id_pattern.search(admin) else admin for admin in environ.get('ADMINS', '1342641151').split()]
-GROUP_CHAT_ID = int(environ.get('GROUP_CHAT_ID', '-1001568397419'))
-LOG_CHANNEL = int(environ.get('LOG_CHANNEL', '-1002084798134'))
 
+# for mongodb
+DB_NAME = os.environ.get("DB_NAME", "")     
+DB_URL  = os.environ.get("DB_URL", "")
 
 # for openai
 OPENAI_API_KEY = os.environ.get('OPENAI_API_KEY', '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')
@@ -33,4 +34,6 @@ SPOTIFY_CLIENT_ID = os.environ.get('SPOTIFY_CLIENT_ID', 'd3a0f15a75014999945b562
 SPOTIFY_CLIENT_SECRET = os.environ.get('SPOTIFY_CLIENT_SECRET', 'e39d1705e35c47e6a0baf50ff3bb587f')
 
 # optional
-PIC = 
+PIC = (environ.get('PICS', 'https://telegra.ph/file/67a238112341dc2da77d9.jpg')).split()
+LOG_CHANNEL = int(environ.get('LOG_CHANNEL', '-1002084798134'))
+
