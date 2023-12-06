@@ -72,9 +72,6 @@ async def spotify(client, message):
     # Send the song thumbnail and details to the user
     await message.reply_photo(photo=thumbnail_url, caption=f"ʜᴇʏ {message.from_user.mention}\n\n ᴛɪᴛʟᴇ: <code>{name}</code>\nᴀʀᴛɪsᴛ: <code>{artist}</code>\nᴀʟʙᴜᴍ: <code>{album}</code>\nʀᴇʟᴇᴀsᴇ ᴅᴀᴛᴇ: <code>{release_date}</code>\n")
 
-message = Message
-
-user_id = message.from_user.id
 
 # Download logic using a function instead of undefined `spotify.download`
 def download_song(song_url, output_path):
