@@ -25,9 +25,9 @@ class Bot(Client):
     def __init__(self):
         super().__init__(
             name="simple-bot",
-            api_id=API_ID,
-            api_hash=API_HASH,
-            bot_token=BOT_TOKEN,
+            api_id=Info.API_ID,
+            api_hash=Info.API_HASH,
+            bot_token=Info.BOT_TOKEN,
             workers=50,
             plugins={"root": "plugins"},
             sleep_threshold=5,
