@@ -45,7 +45,7 @@ class Bot(Client):
         await web.TCPSite(app, "0.0.0.0", 8080).start()
         logger.info("Running...")
         print(f"{me.first_name} | @{me.username} 𝚂𝚃𝙰𝚁𝚃𝙴𝙳...")
-        if Info.LOG_CHANNEL:
+        if LOG_CHANNEL:
             try:
                 curr = datetime.now(timezone("Asia/Kolkata"))
                 date = curr.strftime('%d %B, %Y')
