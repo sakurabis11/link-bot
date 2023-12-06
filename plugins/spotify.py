@@ -73,12 +73,6 @@ async def spotify(client, message):
     # Send the song thumbnail and details to the user
     await message.reply_photo(photo=thumbnail_url, caption=f"ʜᴇʏ {message.from_user.mention}\n\n ᴛɪᴛʟᴇ: <code>{name}</code>\nᴀʀᴛɪsᴛ: <code>{artist}</code>\nᴀʟʙᴜᴍ: <code>{album}</code>\nʀᴇʟᴇᴀsᴇ ᴅᴀᴛᴇ: <code>{release_date}</code>\n")
 
-# Install necessary libraries
-!pip install spotdl
-
-# Import spotdl
-import spotdl
-
 # Define a function to download the song
 async def download_and_upload_song(client, message, song_id):
     # Get the song's audio URL
