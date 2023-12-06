@@ -72,3 +72,34 @@ async def spotify(client, message):
     # Send the song thumbnail and details to the user
     await message.reply_photo(photo=thumbnail_url, caption=f"ʜᴇʏ {message.from_user.mention}\n\n ᴛɪᴛʟᴇ: <code>{name}</code>\nᴀʀᴛɪsᴛ: <code>{artist}</code>\nᴀʟʙᴜᴍ: <code>{album}</code>\nʀᴇʟᴇᴀsᴇ ᴅᴀᴛᴇ: <code>{release_date}</code>\n")
 
+# Install necessary libraries
+!pip install spotdl
+
+# Import spotdl
+import spotdl
+
+# Define a function to download the song
+async def download_and_upload_song(client, message, song_id):
+    # Get the song's audio URL
+    url = f'https://api.spotify.com/v1/tracks/{song_id}/audio-features'
+    headers = {"Authorization": f"Bearer {access_token}"}
+    response = requests.get(url, headers=headers)
+    data = response.json()
+    audio_url = data["track_href"]
+
+    # Download the audio file
+    download_options = {
+        "format": "bestaudio/best",
+        "output": os.path.join("downloads", f"{song_id}.mp3")
+    }
+    downloader = spotdl.Downloader(download_options)
+    await downloader.download(audio_url)
+
+    # Upload the audio file to Telegram
+    await client.send_audio(
+        chat_id=message.chat.id,
+        audio=os.path.join("downloads", f"{song_id}.mp3")
+    )
+
+    # Delete the downloaded audio file
+    os.remove(os.path.join("downloads", f"{song_id}.mp3"))
