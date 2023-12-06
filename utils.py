@@ -9,7 +9,7 @@ import os
 import psutil
 from pytz import timezone
 import time
-from info import Info
+from info import API_ID, API_HASH, BOT_TOKEN, PORT, ADMINS, LOG_CHANNEL, PIC, DB_NAME, DB_URL
 import math
 from datetime import datetime
 from typing import List
