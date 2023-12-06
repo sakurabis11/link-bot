@@ -2,11 +2,12 @@ import pyrogram
 import asyncio
 import pyrogram.errors.exceptions.bad_request_400 as bad_request
 from Script import script
-from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery
+from database import db
+from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery, Message
 from pyrogram import Client, filters, enums
-from pyrogram.errors import FloodWait
+from pyrogram.errors import FloodWait, InputUserDeactivated, UserIsBlocked, PeerIdInvalid
 from info import API_ID, API_HASH, BOT_TOKEN, PORT, LOG_CHANNEL, ADMINS
-import logging, re, asyncio, time, shutil, psutil, os, sys
+import logging, re, asyncio, time, shutil, psutil, os, sys, datatime
 from utils import get_size, temp, extract_user, get_file_id, humanbytes
 
 logger = logging.getLogger(__name__)
