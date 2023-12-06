@@ -43,7 +43,7 @@
 ## CMD USAGE
 
 ```
-/telegraph  reply to a supported media media
+* /telegraph  reply to a supported media media
 * /openai {your query}
 * /song {song_name}
 * /ringtune {song_name} or {song_name + artist_name}
@@ -54,12 +54,12 @@
 
 ## Telegram Bot - Music Downloader and More!
 
-Welcome to our Telegram Bot for downloading songs from YouTube, download ringtune, searching for songs on Spotify, generating telegraph, getting sticker id, and even searching for repositories on GitHub.
+Welcome to our Telegram Bot for downloading songs from YouTube, download ringtune, searching for songs on Spotify, generating telegraph, getting sticker id, chat gpt function and even searching for repositories on GitHub.
 
 
 ## How to Use
 
-Simply add our bot (@MusicDownloader_Bot) on Telegram and start using its amazing features. You can either type commands or use the buttons provided for each feature. Our bot is user-friendly and easy to use, even for beginners.
+Simply add our bot (@mrtgcoderbot) on Telegram and start using its amazing features. You can either type commands or use the buttons provided for each feature. Our bot is user-friendly and easy to use, even for beginners.
 
 ## Why use our bot?
 
