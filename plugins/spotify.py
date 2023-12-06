@@ -74,8 +74,8 @@ async def spotify(client, message):
 
 
 # Download logic using a function instead of undefined `spotify.download`
-def download_song(song_name_or_url, output_path):
-  response = requests.get(song_url)
+def download_song(spotify, output_path):
+  response = requests.get(spotify)
   if response.status_code == 200:
     with open(output_path, 'wb') as f:
       for chunk in response.iter_content(1024):
@@ -85,7 +85,7 @@ def download_song(song_name_or_url, output_path):
     return False
 
 # Download the song using the defined function
-download_successful = download_song(song_url, output_path="temp.mp3")
+download_successful = download_song(spotify, output_path="temp.mp3")
 
 # Check if download was successful
 if download_successful:
