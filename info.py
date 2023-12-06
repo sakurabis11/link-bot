@@ -23,8 +23,8 @@ CACHE_TIME = int(environ.get('CACHE_TIME', 300))
 ADMINS = [int(admin) if id_pattern.search(admin) else admin for admin in environ.get('ADMINS', '1342641151').split()]
 
 # for mongodb
-DB_NAME = os.environ.get("DB_NAME", "")     
-DB_URL  = os.environ.get("DB_URL", "")
+DB_NAME = os.environ.get("DB_NAME", "mrtg")     
+DB_URL  = os.environ.get("DB_URL", "3rqnL0nfKO1DgVM2")
 
 # for openai
 OPENAI_API_KEY = os.environ.get('OPENAI_API_KEY', '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')
