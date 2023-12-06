@@ -40,4 +40,4 @@ class Database:
     
 
 
-db = Database(info.DB_URL, info.DB_NAME)
+db = Database(DB_URL, DB_NAME)
