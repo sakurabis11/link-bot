@@ -39,15 +39,6 @@ async def support_command(client, message):
 
 @Client.on_message(filters.command("start"))
 async def start_command(client, message):
-    await db.add_user(client, message)
-     if message.chat.type in ["private", "group", "supergroup"]:
-                user_id = message.from_user.id
-                if not users_collection.find_one({"id": user_id}):
-                    users_collection.insert_one({"id": user_id, "name": message.from_user.first_name})
-
-            # Send message to admin channel
-            LOG_MESSAGE = f"New user: @{message.from_user.username} (ID: {message.from_user.id})"
-            await client.send_message(LOG_CHANNEL, LOG_MESSAGE)
     button = [[
         InlineKeyboardButton("🕸️ Hᴇʟᴩ", callback_data="help"),
         InlineKeyboardButton("✨ Aʙᴏᴜᴛ", callback_data="about")
