@@ -1,9 +1,8 @@
 from pyrogram import Client, filters, enums
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from pyrogram.errors.exceptions.bad_request_400 import MessageTooLong, PeerIdInvalid
-from info import ADMINS, LOG_CHANNEL, SUPPORT_CHAT, MELCOW_NEW_USERS, MELCOW_IMG, MELCOW_VID, MAIN_CHANNEL, S_GROUP
-from database.users_chats_db import db
-from database.ia_filterdb import Media
+from info import ADMINS, LOG_CHANNEL, MELCOW_NEW_USERS, MELCOW_IMG, MELCOW_VID
+from database.users import db
 from utils import get_size, temp, get_settings
 from Script import script
 from pyrogram.errors import ChatAdminRequired
@@ -25,7 +24,7 @@ async def save_group(bot, message):
             ]]
             reply_markup=InlineKeyboardMarkup(buttons)
             k = await message.reply(
-                text='<b>CHAT NOT ALLOWED 🐞\n\nMy admins has restricted me from working here ! If you want to know more about it contact support..</b>',
+                text='<b>CHAT NOT ALLOWED \n\nMy admins has restricted me from working here ! If you want to know more about it contact support..</b>',
                 reply_markup=reply_markup,
             )
 
@@ -36,12 +35,12 @@ async def save_group(bot, message):
             await bot.leave_chat(message.chat.id)
             return
         buttons = [[
-            InlineKeyboardButton('ℹ️ Help', url=f"https://t.me/{temp.U_NAME}?start=help"),
-            InlineKeyboardButton('📢 Updates', url=(MAIN_CHANNEL))
+            InlineKeyboardButton('ℹ️ Help', url=f"https://t.me/mrtgcoderbot?start=help"),
+            InlineKeyboardButton('📢 Updates', url="https://t.me/amal_nath_05")
         ]]
         reply_markup=InlineKeyboardMarkup(buttons)
         await message.reply_text(
-            text=f"<b>Thankyou For Adding Me In {message.chat.title} ❣️\n\nIf you have any questions & doubts about using me contact support.</b>",
+            text=f"<b>Thankyou For Adding Me In {message.chat.title} \n\nIf you have any questions & doubts about using me contact support.</b>",
             reply_markup=reply_markup)
     else:
         settings = await get_settings(message.chat.id)
@@ -57,8 +56,8 @@ async def save_group(bot, message):
                                                  caption=(script.MELCOW_ENG.format(u.mention, message.chat.title)),
                                                  reply_markup=InlineKeyboardMarkup(
                                                                          [[
-                                                                           InlineKeyboardButton('Sᴜᴘᴘᴏʀᴛ Gʀᴏᴜᴘ', url=S_GROUP),
-                                                                           InlineKeyboardButton('Uᴘᴅᴀᴛᴇs Cʜᴀɴɴᴇʟ', url=MAIN_CHANNEL)
+                                                                           InlineKeyboardButton('Sᴜᴘᴘᴏʀᴛ Gʀᴏᴜᴘ', url="https://t.me/+1YR5aYuCdr40N2M1"),
+                                                                           InlineKeyboardButton('Uᴘᴅᴀᴛᴇs Cʜᴀɴɴᴇʟ', url="https://t.me/amal_nath_05")
                                                                         ]]
                                                  ),
                                                  parse_mode=enums.ParseMode.HTML
@@ -79,7 +78,7 @@ async def leave_a_chat(bot, message):
         chat = chat
     try:
         buttons = [[
-            InlineKeyboardButton('Support', url=f'https://t.me/{SUPPORT_CHAT}')
+            InlineKeyboardButton('Support', url="https://t.me/+1YR5aYuCdr40N2M1")
         ]]
         reply_markup=InlineKeyboardMarkup(buttons)
         await bot.send_message(
@@ -118,7 +117,7 @@ async def disable_chat(bot, message):
     await message.reply('Chat Successfully Disabled')
     try:
         buttons = [[
-            InlineKeyboardButton('Support', url=f'https://t.me/{SUPPORT_CHAT}')
+            InlineKeyboardButton('Support', url="https://t.me/+1YR5aYuCdr40N2M1")
         ]]
         reply_markup=InlineKeyboardMarkup(buttons)
         await bot.send_message(
