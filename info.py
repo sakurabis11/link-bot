@@ -36,3 +36,9 @@ SPOTIFY_CLIENT_SECRET = os.environ.get('SPOTIFY_CLIENT_SECRET', 'e39d1705e35c47e
 PIC = (environ.get('PICS', 'https://telegra.ph/file/67a238112341dc2da77d9.jpg')).split()
 LOG_CHANNEL = int(environ.get('LOG_CHANNEL', '-1002084798134'))
 
+#
+# Welcome area
+MELCOW_IMG = environ.get('MELCOW_IMG',"https://telegra.ph/file/67a238112341dc2da77d9.jpg")
+MELCOW_VID = environ.get('MELCOW_VID',"https://telegra.ph/file/c3d0547a2cbd37abfe04b.mp4")
+MELCOW_NEW_USERS = is_enabled((environ.get('MELCOW_NEW_USERS', "True")), True)
+
