@@ -59,7 +59,8 @@ async def help_command(client, message):
          InlineKeyboardButton('sᴛɪᴄᴋᴇʀ', callback_data='sticker'),
          InlineKeyboardButton('sᴘᴏᴛɪғʏ', callback_data='spotify')
          ],[
-         InlineKeyboardButton('ʀᴇᴘᴏ sᴇᴀʀᴄʜ', callback_data='repo')
+         InlineKeyboardButton('ʀᴇᴘᴏ sᴇᴀʀᴄʜ', callback_data='repo'),
+         InlineKeyboardButton('stats', callback_data='stats')
          ],[
          InlineKeyboardButton('🏠 ʜᴏᴍᴇ', callback_data='start')
     ]]
@@ -97,7 +98,8 @@ async def callback_handler(client, callback_query):
          InlineKeyboardButton('sᴛɪᴄᴋᴇʀ', callback_data='sticker'),
          InlineKeyboardButton('sᴘᴏᴛɪғʏ', callback_data='spotify')
          ],[
-         InlineKeyboardButton('ʀᴇᴘᴏ sᴇᴀʀᴄʜ', callback_data='repo')
+         InlineKeyboardButton('ʀᴇᴘᴏ sᴇᴀʀᴄʜ', callback_data='repo'),
+         InlineKeyboardButton('stats', callback_data='stats')
          ],[
          InlineKeyboardButton('🏠 ʜᴏᴍᴇ', callback_data='start')
         ]]
@@ -152,6 +154,21 @@ async def callback_handler(client, callback_query):
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text("/repo ᴛᴏ sᴇᴀʀᴄʜ ᴛʜᴇ ʀᴇᴘᴏsɪᴛᴏʀʏ", reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
+
+    if query.data == "stats":
+        buttons = [[
+            InlineKeyboardButton('ʙᴀᴄᴋ', callback_data='help')
+        ]]
+        
+        reply_markup = InlineKeyboardMarkup(buttons)
+        total = await Media.count_documents()
+        users = await db.total_users_count()
+        chats = await db.total_chat_count()
+        monsize = await db.get_db_size()
+        free = 536870912 - monsize
+        monsize = get_size(monsize)
+        free = get_size(free)
+        await query.message.edit_text(text=script.STATUS_TXT.format(total, users, chats, monsize, free),reply_markup=reply_markup,parse_mode=enums.ParseMode.HTML)
     
     if query.data == "about":
         buttons = [[
