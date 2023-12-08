@@ -180,12 +180,7 @@ async def callback_handler(client, callback_query):
         
         reply_markup = InlineKeyboardMarkup(buttons)
         users = await db.total_users_count()
-        chats = await db.total_chat_count()
-        monsize = await db.get_db_size()
-        free = 536870912 - monsize
-        monsize = get_size(monsize)
-        free = get_size(free)
-        await query.message.edit_text(text=script.STATUS_TXT.format(users, chats, monsize, free),reply_markup=reply_markup,parse_mode=enums.ParseMode.HTML)
+        await query.message.edit_text(text=script.STATUS_TXT.format(users),reply_markup=reply_markup,parse_mode=enums.ParseMode.HTML)
     
     if query.data == "about":
         buttons = [[
