@@ -90,15 +90,29 @@ async def re_enable_chat(bot, message):
 
 
 @Client.on_message(filters.command('stats') & filters.incoming)
-async def get_ststs(bot, message):
-    rju = await message.reply('Fetching stats..')
+async def get_stats(bot, message):
+    """
+    Get bot statistics.
+    """
+    rju = await message.reply('Fetching stats...')
+
+    # Count total users
     total_users = await db.total_users_count()
-    totl_chats = await db.total_chat_count()
-    size = await db.get_db_size()
-    free = 536870912 - size
+
+    # Count chats where bot is added
+    bot_added_chats = await db.get_chats_with_bot()
+    totl_chats_with_bot = len(bot_added_chats)
+
+    # Get database size and free space
+    size, free = await db.get_db_usage()
+
+    # Convert sizes to human-readable format
     size = get_size(size)
     free = get_size(free)
-    await rju.edit(script.STATUS_TXT.format(total_users, totl_chats, size, free))
+
+    # Edit the reply message with stats
+    await rju.edit(script.STATUS_TXT.format(total_users, totl_chats_with_bot, size, free))
+
 
 
 # a function for trespassing into others groups, Inspired by a Vazha
