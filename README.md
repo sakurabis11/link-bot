@@ -3,7 +3,24 @@
 </p>
 
 <a href="https://t.me/mrtgcoderbot">
-  <img src="https://img.shields.io/badge/DEMOʙᴏᴛ-blue?logo=telegram" width="80">
+  <img src="https://img.shields.io/badge/DEMO ʙᴏᴛ-blue?logo=telegram" width="80">
+
+## Credits
+<details>
+
+<a href="https://t.me/MrTG_Coder">
+  <img src="https://img.shields.io/badge/ᴏᴡɴᴇʀ-blue?logo=telegram" width="80">
+
+
+<a href="https://t.me/masterolic">
+  <img src="https://img.shields.io/badge/ᴛʜᴀɴᴋs ᴛᴏ-blue?logo=telegram" width="80">
+
+
+<a href="https://t.me/Sunrises_24">
+  <img src="https://img.shields.io/badge/ᴛʜᴀɴᴋs ᴛᴏ-blue?logo=telegram" width="80">
+
+</details>
+
 
 ## Features
 
