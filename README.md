@@ -3,7 +3,7 @@
 </p>
 
 <a href="https://t.me/mrtgcoderbot">
-  <img src="https://img.shields.io/badge/DEMO ʙᴏᴛ-blue?logo=telegram" width="80">
+  <img src="https://img.shields.io/badge/ʙᴏᴛ-blue?logo=telegram" width="80">
 
 ## Credits
 <details>
@@ -98,35 +98,14 @@ We are constantly working on improving our bot and would love to hear your feedb
 Thank you for choosing our Telegram Bot for all your music and messaging needs! Enjoy your experience with our bot and don't forget to share it with your friends and family. 🎶❤️
       
 
-## Credits
-<details>
-
-<a href="https://t.me/MrTG_Coder">
-  <img src="https://img.shields.io/badge/ᴏᴡɴᴇʀ-blue?logo=telegram" width="80">
-
-
-<a href="https://t.me/masterolic">
-  <img src="https://img.shields.io/badge/ᴛʜᴀɴᴋs ᴛᴏ-blue?logo=telegram" width="80">
-
-
-<a href="https://t.me/Sunrises_24">
-  <img src="https://img.shields.io/badge/ᴛʜᴀɴᴋs ᴛᴏ-blue?logo=telegram" width="80">
-
-</details>
-
-
-
 ## Acknowledgements
 
  - [BASE_REPO](https://github.com/Devil-Botz/Elsa)
 
 
-## Badges
+## License
 
-Add badges from somewhere like: [shields.io](https://shields.io/)
+[![GPLv3 License](https://img.shields.io/badge/License-GPL%20v3-yellow.svg)](https://github.com/master-code-r/coder)
 
-[![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://choosealicense.com/licenses/mit/)
-[![GPLv3 License](https://img.shields.io/badge/License-GPL%20v3-yellow.svg)](https://opensource.org/licenses/)
-[![AGPL License](https://img.shields.io/badge/license-AGPL-blue.svg)](http://www.gnu.org/licenses/agpl-3.0)
 
 
