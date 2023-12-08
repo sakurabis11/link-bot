@@ -257,14 +257,3 @@ async def get_stats(bot, message):
     total_users = await db.total_users_count()
     await rju.edit(script.STATUS_TXT.format(total_users))
 
-@Client.on_message(filters.command('logs') & filters.user(ADMINS))
-async def log_file(bot, message):
-  try:
-    with open('TelegramBot.log', 'rb') as f:
-      await message.reply_document(f)
-  except FileNotFoundError:
-    await message.reply("Log file not found.")
-  except Exception as e:
-    await message.reply(str(e))
-
-
