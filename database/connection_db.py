@@ -1,6 +1,6 @@
 import pymongo
 
-from info import DB_URI, DB_NAME
+from info import DATABASE_NAME, DATABASE_URI
 
 import logging
 logger = logging.getLogger(__name__)
