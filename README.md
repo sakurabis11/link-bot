@@ -36,12 +36,6 @@
 - [x] sᴛᴀᴛs
 - [x] ɪᴅ ᴀɴᴅ ᴜsᴇʀ ɪɴғᴏ
 - [x] ᴏᴛʜᴇʀ ᴀᴅᴍɪɴ ᴄᴏᴍᴍᴀɴᴅs
-- [x] 
-- [x] 
-- [x] 
-- [x] 
-- [x] 
-
 
 ## CMD
 
@@ -105,7 +99,7 @@ Thank you for choosing our Telegram Bot for all your music and messaging needs! 
 
 ## License
 
-[![GPLv3 License](https://img.shields.io/badge/License-GPL%20v3-yellow.svg)](https://github.com/master-code-r/coder)
+[![GPLv3 License](https://img.shields.io/badge/License-GPL%20v3-yellow.svg)](https://github.com/master-code-r/coder/blob/main/LICENSE)
 
 
 
