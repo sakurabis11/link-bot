@@ -5,12 +5,11 @@ from info import DATABASE_NAME, DATABASE_URI
 
 MONGO_URI = DATABASE_URI
 
+    client = MongoClient(MONGO_URI)
+    db = client["mrtg"]
 
 @Client.on_message(filters.command(["stats"]))
 async def stats(client, message):
-
-    client = MongoClient(MONGO_URI)
-    db = client["mrtg"]
   
     user_count = await db.users.count_documents({})
     group_count = await db.groups.count_documents({})
