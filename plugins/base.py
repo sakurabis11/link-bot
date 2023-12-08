@@ -19,7 +19,7 @@ async def save_group(bot, message):
             await db.add_chat(message.chat.id, message.chat.title)
         if message.chat.id in temp.BANNED_CHATS:
             buttons = [[
-                InlineKeyboardButton('Group Support', url=S_GROUP)
+                InlineKeyboardButton('Group Support', url=(S_GROUP))
             ]]
             reply_markup=InlineKeyboardMarkup(buttons)
             k = await message.reply(
@@ -34,7 +34,7 @@ async def save_group(bot, message):
             await bot.leave_chat(message.chat.id)
             return
         buttons = [[
-            InlineKeyboardButton('ℹ️ 𝖧𝖤𝖫𝖯', url=(BOT_U)?start),
+            InlineKeyboardButton('ℹ️ 𝖧𝖤𝖫𝖯', url=(BOT_U)),
             InlineKeyboardButton('📢 𝖴𝖯𝖣𝖠𝖳𝖤𝖲', url=(S_CHANNEL))
         ]]
         reply_markup=InlineKeyboardMarkup(buttons)
@@ -259,7 +259,6 @@ async def get_stats(bot, message):
 
 @Client.on_message(filters.command('logs') & filters.user(ADMINS))
 async def log_file(bot, message):
-  """Send log file, only if the deploy is done in the heroku like platform"""
   try:
     with open('TelegramBot.log', 'rb') as f:
       await message.reply_document(f)
