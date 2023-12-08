@@ -59,7 +59,7 @@ async def start(client, message):
         InlineKeyboardButton("🕸️ Hᴇʟᴩ", callback_data="help"),
         InlineKeyboardButton("✨ Aʙᴏᴜᴛ", callback_data="about")
     ]]
-    reply_markup = InlineKeyboardMarkup(buttons)
+    reply_markup = InlineKeyboardMarkup(button)
     await message.reply_text("ʜɪ ✨, ᴡᴇʟᴄᴏᴍᴇ ᴛᴏ ᴍʏ ʙᴏᴛ 🤖🎉", reply_markup=reply_markup)
 
     
@@ -88,7 +88,7 @@ async def about_command(client, message):
     button = [[
         InlineKeyboardButton("ʙᴀᴄᴋ ᴛᴏ sᴛᴀʀᴛ", callback_data='start')
     ]]
-    reply_markup = InlineKeyboardMarkup(buttons)
+    reply_markup = InlineKeyboardMarkup(button)
     await message.reply_text(ABOUT_TXT, reply_markup=reply_markup)
 
 @Client.on_callback_query()
