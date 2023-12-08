@@ -4,7 +4,7 @@ import random
 import asyncio
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery
 from pyrogram import enums, filters, Client
-from info import API_ID, API_HASH, BOT_TOKEN, PORT, ADMINS, LOG_CHANNEL, DB_NAME, DB_URL
+from info import API_ID, API_HASH, BOT_TOKEN, PORT, ADMINS, LOG_CHANNEL, DATABASE_NAME, DATABASE_URI
 from Script import script
 from utils import temp
 from pyrogram.errors import FloodWait
@@ -37,14 +37,30 @@ async def support_command(client, message):
     reply_markup = InlineKeyboardMarkup(button)
     await message.reply_text("ᴛʜᴇsᴇ ᴀʀᴇ ᴍʏ sᴜᴘᴘᴏʀᴛ ᴄʜᴀɴɴᴇʟ ᴀɴᴅ ɢʀᴏᴜᴘ. ɪғ ᴀɴʏ ᴘʀᴏʙʟᴇᴍ, ʀᴇᴘᴏʀᴛ ᴛᴏ ᴛʜᴇ ᴀᴅᴍɪɴ ", reply_markup=reply_markup)
 
-@Client.on_message(filters.command("start"))
-async def start_command(client, message):
-    button = [[
+@Client.on_message(filters.command("start") & filters.incoming)
+async def start(client, message):
+    if message.chat.type in [enums.ChatType.GROUP, enums.ChatType.SUPERGROUP]:
+        button = [[
+                InlineKeyboardButton('ʜᴇʟᴘ', url=f"https://t.me/mrtgcoderbot?start=help"),
+            ]]
+        reply_markup = InlineKeyboardMarkup(button)
+        await message.reply("ʜɪ ✨, ᴡᴇʟᴄᴏᴍᴇ ᴛᴏ ᴍʏ ʙᴏᴛ 🤖🎉", reply_markup=reply_markup)
+        await asyncio.sleep(2) 
+        if not await db.get_chat(message.chat.id):
+            total=await client.get_chat_members_count(message.chat.id)
+            await client.send_message(LOG_CHANNEL, script.LOG_TEXT_G.format(message.chat.title, message.chat.id, total, "Unknown"))       
+            await db.add_chat(message.chat.id, message.chat.title)
+        return 
+    if not await db.is_user_exist(message.from_user.id):
+        await db.add_user(message.from_user.id, message.from_user.first_name)
+        await client.send_message(LOG_CHANNEL, script.LOG_TEXT_P.format(message.from_user.id, message.from_user.mention))
+    if len(message.command) != 2:
+        button = [[
         InlineKeyboardButton("🕸️ Hᴇʟᴩ", callback_data="help"),
         InlineKeyboardButton("✨ Aʙᴏᴜᴛ", callback_data="about")
     ]]
     reply_markup = InlineKeyboardMarkup(button)
-    await message.reply_text("ʜɪ {message.from_user.mention} ✨, ᴡᴇʟᴄᴏᴍᴇ ᴛᴏ ᴍʏ ʙᴏᴛ 🤖🎉", reply_markup=reply_markup)
+    await message.reply_text("ʜɪ ✨, ᴡᴇʟᴄᴏᴍᴇ ᴛᴏ ᴍʏ ʙᴏᴛ 🤖🎉", reply_markup=reply_markup)
 
     
 @Client.on_message(filters.command("help"))
