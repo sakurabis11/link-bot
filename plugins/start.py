@@ -131,15 +131,15 @@ async def callback_handler(client, callback_query):
         await query.message.edit_text("Hᴇʀᴇ Mꜱ Mʏ Hᴇʟᴩ.\n /support", reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
 
     if query.data == "admin":
-    buttons = [[
-        InlineKeyboardButton('🏠 ʜᴏᴍᴇ', callback_data='help')
-    ]]
-    reply_markup = InlineKeyboardMarkup(buttons)
+        buttons = [[
+            InlineKeyboardButton('🏠 ʜᴏᴍᴇ', callback_data='help')
+        ]]
+        reply_markup = InlineKeyboardMarkup(buttons)
 
     if query.from_user.id in ADMINS:
         await query.message.edit_text(ADMIN_COMMANDS, reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML) 
         return 
-    await query.message.edit_text("IT IS ONLY FOR ADMINS", reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
+        await query.message.edit_text("IT IS ONLY FOR ADMINS", reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
 
 
 
