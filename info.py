@@ -22,7 +22,7 @@ CACHE_TIME = int(environ.get('CACHE_TIME', 300))
 ADMINS = [int(admin) if id_pattern.search(admin) else admin for admin in environ.get('ADMINS', '1342641151').split()]
 
 # important information for your bot
-BOT_U = environ.get('BOT_U', "https://t.me/mrtgcoderbot?start"")
+BOT_U = environ.get('BOT_U', "https://t.me/mrtgcoderbot")
 S_GROUP = environ.get('S_GROUP', "https://t.me/+1YR5aYuCdr40N2M1")
 S_CHANNEL = environ.get('S_CHANNEL', "https://t.me/amal_nath_05")
 
