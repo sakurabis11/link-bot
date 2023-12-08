@@ -13,13 +13,18 @@ def is_enabled(value, default):
     elif value.strip().lower() in ["off", "false", "no", "0", "disable", "n"]: return False
     else: return default
 
-
+# basic information
 API_ID = int(os.environ.get('API_ID', '8914119'))
 API_HASH = os.environ.get('API_HASH', '652bae601b07c928b811bdb310fdb4b0')
 BOT_TOKEN = os.environ.get('BOT_TOKEN', '6645084082:AAEvdcfTZ0uFS_Gu6KvVPVBMNlrlWiESPiM')
 PORT = os.environ.get("PORT", "8080")
 CACHE_TIME = int(environ.get('CACHE_TIME', 300))
 ADMINS = [int(admin) if id_pattern.search(admin) else admin for admin in environ.get('ADMINS', '1342641151').split()]
+
+# important information for your bot
+BOT_U = environ.get('BOT_U', "https://t.me/mrtgcoderbot")
+S_GROUP = environ.get('S_GROUP', "https://t.me/+1YR5aYuCdr40N2M1")
+S_CHANNEL = environ.get('S_CHANNEL', "https://t.me/amal_nath_05")
 
 # for mongodb
 DATABASE_NAME = os.environ.get("DB_NAME", "mrtg")     
