@@ -92,3 +92,10 @@ Thank you for choosing our Telegram Bot for all your music and messaging needs! 
   <img src="https://img.shields.io/badge/ᴛʜᴀɴᴋs ᴛᴏ-blue?logo=telegram" width="80">
 
 </details>
+
+
+
+## Acknowledgements
+
+ - [BASE_REPO](https://github.com/Devil-Botz/Elsa)
+
