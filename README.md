@@ -47,7 +47,6 @@
 * `BOT_TOKEN`: Create a bot using [@BotFather](https://telegram.dog/BotFather), and get the Telegram API token.
 * `API_ID`: Get this value from [telegram.org](https://my.telegram.org/apps)
 * `API_HASH`: Get this value from [telegram.org](https://my.telegram.org/apps)
-* `BOT_U` : I think you know that where this value get (add in this form eg:- "https://t.me/{ur_bot_username}")
 * `S_GROUP` : Add the link of your support group (add in this form eg:- "https://t.me/{ur_support_group_link}")
 * `S_CHANNEL` : Add the link of your support channel (add in this form eg:- "https://t.me/{ur_support_channel_link}")
 * `ADMINS`: Username or ID of Admin. Separate multiple Admins by space
