@@ -38,6 +38,7 @@
 * /sticker_id - to get the sticker id
 * /spotify - to get the details of song from spotify
 * /repo - to search repo from github
+* /broadcast - to broadcast a message to all bot users
 ```
 
 ## CMD USAGE
@@ -50,6 +51,7 @@
 * /sticker_id reply to a sticker
 * /spotify {song_name}
 * /repo {repo_name}
+* /broadcast - reply to your message 
 ```
 
 ## Telegram Bot - Music Downloader and More!
