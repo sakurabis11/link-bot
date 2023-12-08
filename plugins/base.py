@@ -1,7 +1,7 @@
 from pyrogram import Client, filters, enums
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from pyrogram.errors.exceptions.bad_request_400 import MessageTooLong, PeerIdInvalid
-from info import ADMINS, LOG_CHANNEL, DATABASE_NAME, DATABASE_URI
+from info import ADMINS, LOG_CHANNEL, DATABASE_NAME, DATABASE_URI, BOT_U, S_GROUP, S_CHANNEL
 from database.users_db import db
 from utils import get_size, temp, get_settings
 from Script import script
@@ -19,7 +19,7 @@ async def save_group(bot, message):
             await db.add_chat(message.chat.id, message.chat.title)
         if message.chat.id in temp.BANNED_CHATS:
             buttons = [[
-                InlineKeyboardButton('Support', url="https://t.me/+1YR5aYuCdr40N2M1")
+                InlineKeyboardButton('Group Support', url=S_GROUP)
             ]]
             reply_markup=InlineKeyboardMarkup(buttons)
             k = await message.reply(
@@ -34,8 +34,8 @@ async def save_group(bot, message):
             await bot.leave_chat(message.chat.id)
             return
         buttons = [[
-            InlineKeyboardButton('ℹ️ 𝖧𝖤𝖫𝖯', url=f"https://t.me/mrtgcoderbot?start=help"),
-            InlineKeyboardButton('📢 𝖴𝖯𝖣𝖠𝖳𝖤𝖲', url='https://t.me/amal_nath_05')
+            InlineKeyboardButton('ℹ️ 𝖧𝖤𝖫𝖯', url=(BOT_U)),
+            InlineKeyboardButton('📢 𝖴𝖯𝖣𝖠𝖳𝖤𝖲', url=(S_CHANNEL))
         ]]
         reply_markup=InlineKeyboardMarkup(buttons)
         await message.reply_text(
@@ -61,7 +61,7 @@ async def leave_a_chat(bot, message):
         chat = chat
     try:
         buttons = [[
-            InlineKeyboardButton('Support', url="https://t.me/+1YR5aYuCdr40N2M1")
+            InlineKeyboardButton('Group Support', url=(S_GROUP))
         ]]
         reply_markup=InlineKeyboardMarkup(buttons)
         await bot.send_message(
@@ -100,7 +100,7 @@ async def disable_chat(bot, message):
     await message.reply('Chat Successfully Disabled')
     try:
         buttons = [[
-            InlineKeyboardButton('Support', url="https://t.me/+1YR5aYuCdr40N2M1")
+            InlineKeyboardButton('Group Support', url=(S_GROUP))
         ]]
         reply_markup=InlineKeyboardMarkup(buttons)
         await bot.send_message(
@@ -216,14 +216,6 @@ async def unban_a_user(bot, message):
         temp.BANNED_USERS.remove(k.id)
         await message.reply(f"Successfully unbanned {k.mention}")
 
-@Client.on_message(filters.command('stats'))
-async def stats(bot, message):
-    total_users = await db.total_users_count()
-    # Define user_count after total_users is retrieved
-    user_count = len(total_users)
-    await message.reply(f"**Stats:**\n\n"
-                        f"Users: {user_count}")
-    
 @Client.on_message(filters.command('users') & filters.user(ADMINS))
 async def list_users(bot, message):
     # https://t.me/GetTGLink/4184
@@ -263,11 +255,7 @@ async def list_chats(bot, message):
 async def get_stats(bot, message):
     rju = await message.reply('Fetching stats..')
     total_users = await db.total_users_count()
-    size = await db.get_db_size()
-    free = 536870912 - size
-    size = get_size(size)
-    free = get_size(free)
-    await rju.edit(script.STATUS_TXT.format(total_users, size, free))
+    await rju.edit(script.STATUS_TXT.format(total_users))
 
 @Client.on_message(filters.command('logs') & filters.user(ADMINS))
 async def log_file(bot, message):
