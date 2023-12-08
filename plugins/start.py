@@ -138,7 +138,7 @@ async def callback_handler(client, callback_query):
 
     if query.from_user.id not in ADMINS:
             return 
-        await query.message.edit_text("ADMIN_COMMANDS", reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
+        await query.message.edit_text(ADMIN_COMMANDS, reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
 
     if query.data == "telegraph":
         buttons = [[
