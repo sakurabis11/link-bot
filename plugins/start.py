@@ -43,7 +43,7 @@ async def support_command(client, message):
 async def start(client, message):
     if message.chat.type in [enums.ChatType.GROUP, enums.ChatType.SUPERGROUP]:
         button = [[
-            InlineKeyboardButton("ʜᴇʟᴘ", url=(BOT_U)),
+            InlineKeyboardButton("ʜᴇʟᴘ", url=f"https://t.me/{temp.U_NAME}?start=help"),
         ]]
         reply_markup = InlineKeyboardMarkup(button)
         await message.reply("ʜɪ ✨, ᴡᴇʟᴄᴏᴍᴇ ᴛᴏ ᴍʏ ʙᴏᴛ ", reply_markup=reply_markup)
@@ -128,7 +128,7 @@ async def callback_handler(client, callback_query):
          InlineKeyboardButton('🏠 ʜᴏᴍᴇ', callback_data='start')
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
-        await query.message.edit_text("Hᴇʀᴇ Mꜱ Mʏ Hᴇʟᴩ.\n /support", reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
+        await query.message.edit_text("Hᴇʀᴇ.\n/support", reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
 
     if query.data == "admin":
         buttons = [[
