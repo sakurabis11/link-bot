@@ -1,5 +1,6 @@
 from pyrogram import Client, filters
 from utils import temp
+from info import S_GROUP
 from pyrogram.types import Message
 from database.users_db import db
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
@@ -25,7 +26,7 @@ async def ban_reply(bot, message):
 @Client.on_message(filters.group & disabled_group & filters.incoming)
 async def grp_bd(bot, message):
     buttons = [[
-        InlineKeyboardButton('Support', url=f'https://t.me/mrtgbot_support')
+        InlineKeyboardButton('Group Support', url=(S_GROUP))
     ]]
     reply_markup=InlineKeyboardMarkup(buttons)
     vazha = await db.get_chat(message.chat.id)
