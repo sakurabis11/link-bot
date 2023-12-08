@@ -32,8 +32,8 @@ ADMIN_COMMANDS = """/broadcast ᴛᴏ ʙʀᴏᴀᴅᴄᴀsᴛ ᴀ ᴍᴇssɢᴇ 
 async def support_command(client, message):
     button = [
         [
-            InlineKeyboardButton("📢 Support Group", url="https://t.me/+1YR5aYuCdr40N2M1"),
-            InlineKeyboardButton("📢 Support Channel", url="https://t.me/amal_nath_05")
+            InlineKeyboardButton("📢 Support Group", url=S_GROUP),
+            InlineKeyboardButton("📢 Support Channel", url=S_CHANNEL)
         ]
     ]
     reply_markup = InlineKeyboardMarkup(button)
@@ -60,8 +60,12 @@ async def start(client, message):
     # Fix: Check for command length after checking user existence
     if len(message.command) != 2:
         button = [[
+            InlineKeyboardButton("➕️ Aᴅᴅ Mᴇ Tᴏ Yᴏᴜʀ Cʜᴀᴛ ", url=f"http://t.me/{temp.U_NAME}?startgroup=true")
+            ],[
             InlineKeyboardButton("️ Hᴇʟᴩ", callback_data="help"),
             InlineKeyboardButton("✨ Aʙᴏᴜᴛ", callback_data="about"),
+            ],[
+            InlineKeyboardButton("Repo", url="https://t.me/Unni0240"),
         ]]
         reply_markup = InlineKeyboardMarkup(button)
         await message.reply_text("ʜɪ ✨, ᴡᴇʟᴄᴏᴍᴇ ᴛᴏ ᴍʏ ʙᴏᴛ ", reply_markup=reply_markup)
@@ -103,8 +107,12 @@ async def callback_handler(client, callback_query):
 
     if query.data == "start":
         buttons = [[
-            InlineKeyboardButton("🕸️ Hᴇʟᴩ", callback_data="help"),
-            InlineKeyboardButton("✨ Aʙᴏᴜᴛ", callback_data="about")
+            InlineKeyboardButton("➕️ Aᴅᴅ Mᴇ Tᴏ Yᴏᴜʀ Cʜᴀᴛ ", url=f"http://t.me/{temp.U_NAME}?startgroup=true")
+            ],[
+            InlineKeyboardButton("️ Hᴇʟᴩ", callback_data="help"),
+            InlineKeyboardButton("✨ Aʙᴏᴜᴛ", callback_data="about"),
+            ],[
+            InlineKeyboardButton("Repo", url="https://t.me/Unni0240"),
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text("ʜɪ {message.from_user.mention} ✨, ᴡᴇʟᴄᴏᴍᴇ ᴛᴏ ᴍʏ ʙᴏᴛ 🤖🎉", reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
