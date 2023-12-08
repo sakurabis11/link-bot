@@ -24,7 +24,7 @@
 ## Language
 
 [![Pyrogram Version](https://img.shields.io/badge/Pyrogram-%3E%3D1.3.7-orange)](https://docs.pyrogram.org/)
-[![Python Version](https://img.shields.io/badge/Python-%3E%3D3.6-green)](https://www.python.org/)
+[![Python Version](https://img.shields.io/badge/Python-%3E%3D3.6-blue)](https://www.python.org/)
 
 ## Features
 
