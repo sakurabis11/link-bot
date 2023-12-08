@@ -133,8 +133,15 @@ async def callback_handler(client, callback_query):
             InlineKeyboardButton('🏠 ʜᴏᴍᴇ', callback_data='help')
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
-        if query.from_user.id not in ADMINS:
+           if query.data == "admin":
+        buttons = [[
+            InlineKeyboardButton(' ʜᴏᴍᴇ', callback_data='help')
+        ]]
+        reply_markup = InlineKeyboardMarkup(buttons)
+
+    if query.from_user.id not in ADMINS:
             return await query.answer("Sᴏʀʀʏ Tʜɪs Mᴇɴᴜ Oɴʟʏ Fᴏʀ Mʏ Aᴅᴍɪɴs ⚒️", show_alert=True)
+
         await query.message.edit_text("/broadcast to broadcast a message to all users\n\leave to leave from a group\n/ban to ban a user\n/unban to unban the banned user\n/users to get the list of users\n.ping for the pong", reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
 
     if query.data == "telegraph":
