@@ -41,7 +41,7 @@ async def support_command(client, message):
 async def start(client, message):
     if message.chat.type in [enums.ChatType.GROUP, enums.ChatType.SUPERGROUP]:
         button = [[
-            InlineKeyboardButton('ʜᴇʟᴘ', url=f"https://t.me/mrtgcoderbot?start=help"),
+            InlineKeyboardButton("ʜᴇʟᴘ", url=f"https://t.me/mrtgcoderbot?start=help"),
         ]]
         reply_markup = InlineKeyboardMarkup(button)
         await message.reply("ʜɪ ✨, ᴡᴇʟᴄᴏᴍᴇ ᴛᴏ ᴍʏ ʙᴏᴛ ", reply_markup=reply_markup)
@@ -55,16 +55,14 @@ async def start(client, message):
         await db.add_user(message.from_user.id, message.from_user.first_name)
         await client.send_message(LOG_CHANNEL, script.LOG_TEXT_P.format(message.from_user.id, message.from_user.mention))
 
-    # Add code to handle the case where command length is not 2
+    # Fix: Check for command length after checking user existence
     if len(message.command) != 2:
         button = [[
             InlineKeyboardButton("️ Hᴇʟᴩ", callback_data="help"),
             InlineKeyboardButton("✨ Aʙᴏᴜᴛ", callback_data="about"),
         ]]
-    reply_markup = InlineKeyboardMarkup(button)
-    await message.reply_text("ʜɪ ✨, ᴡᴇʟᴄᴏᴍᴇ ᴛᴏ ᴍʏ ʙᴏᴛ 🤖🎉", reply_markup=reply_markup)
-
-
+        reply_markup = InlineKeyboardMarkup(button)
+        await message.reply_text("ʜɪ ✨, ᴡᴇʟᴄᴏᴍᴇ ᴛᴏ ᴍʏ ʙᴏᴛ ", reply_markup=reply_markup)
 
     
 @Client.on_message(filters.command("help"))
