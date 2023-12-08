@@ -9,7 +9,7 @@ from Script import script
 from utils import temp
 from pyrogram.errors import FloodWait
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery
-from database.database import db
+from database.users_db import db
 import re
 import json
 import base64
