@@ -6,6 +6,7 @@ import spotipy
 import spotdl
 import requests
 import base64
+from info import SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET
 
 # just ignore this add the value in the info.py 
 client_id = SPOTIFY_CLIENT_ID
