@@ -176,9 +176,11 @@ async def unban_a_user(bot, message):
 
 @Client.on_message(filters.command('stats'))
 async def stats(bot, message):
-    total_users = await self.total_users_count()
+    total_users = await bot.total_users_count()
+    # Define user_count after total_users is retrieved
+    user_count = len(total_users)
     await message.reply(f"**Stats:**\n\n"
-                       f"Users: {user_count}\n"
+                        f"Users: {user_count}")
     
 @Client.on_message(filters.command('users') & filters.user(ADMINS))
 async def list_users(bot, message):
