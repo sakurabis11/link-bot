@@ -68,6 +68,8 @@ async def start(client, message):
 @Client.on_message(filters.command("help"))
 async def help_command(client, message):
     buttons = [[
+         InlineKeyboardButton('admin', callback_data='admin')
+         ],[
          InlineKeyboardButton('ᴛᴇʟᴇɢʀᴀᴘʜ', callback_data='telegraph'),
          InlineKeyboardButton('ᴏᴘᴇɴᴀɪ', callback_data='openai')            
          ],[
@@ -107,6 +109,8 @@ async def callback_handler(client, callback_query):
 
     if query.data == "help":
         buttons = [[
+         InlineKeyboardButton('admin', callback_data='admin')
+         ],[
          InlineKeyboardButton('ᴛᴇʟᴇɢʀᴀᴘʜ', callback_data='telegraph'),
          InlineKeyboardButton('ᴏᴘᴇɴᴀɪ', callback_data='openai')            
          ],[
@@ -123,6 +127,15 @@ async def callback_handler(client, callback_query):
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text("Hᴇʀᴇ Mꜱ Mʏ Hᴇʟᴩ.\n /support", reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
+
+    if query.data == "admin":
+        buttons = [[
+            InlineKeyboardButton('🏠 ʜᴏᴍᴇ', callback_data='help')
+        ]]
+        reply_markup = InlineKeyboardMarkup(buttons)
+        if query.from_user.id not in ADMINS:
+            return await query.answer("Sᴏʀʀʏ Tʜɪs Mᴇɴᴜ Oɴʟʏ Fᴏʀ Mʏ Aᴅᴍɪɴs ⚒️", show_alert=True)
+        await query.message.edit_text("/broadcast to broadcast a message to all users\n\leave to leave from a group\n/ban to ban a user\n/unban to unban the banned user\n/users to get the list of users\n.ping for the pong", reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
 
     if query.data == "telegraph":
         buttons = [[
