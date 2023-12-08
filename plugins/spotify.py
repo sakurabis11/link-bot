@@ -29,11 +29,33 @@ def get_access_token():
 
 async def download_and_upload_song(client, message, song_id):
     # Get the song's audio URL
-    url = f'https://api.spotify.com/v1/tracks/{song_id}/audio-features'
+    url = f'https://api.spotify.com/v1/tracks/{song_id}'
     headers = {"Authorization": f"Bearer {access_token}"}
     response = requests.get(url, headers=headers)
     data = response.json()
-    audio_url = data["track_href"]
+    audio_url = data["preview_url"]
+
+    # Use youtube-dl for better download options
+    ydl_opts = {
+        'format': 'bestaudio/best',
+        'postprocessors': [{
+            'key': 'FFmpegExtractAudio',
+            'preferredcodec': 'mp3',
+            'preferredquality':
+ 
+'192',
+        }],
+        'outtmpl': os.path.join("downloads", f"{song_id}.mp3")
+    }
+    with youtube_dl.YoutubeDL(ydl_opts) as ydl:
+        ydl.download([audio_url])
+
+    # Upload the audio file to Telegram
+    await message.reply_audio(
+        audio=os.path.join("downloads", f"{song_id}.mp3")
+    )
+    # Delete the downloaded audio file
+    os.remove(os.path.join("downloads", f"{song_id}.mp3"))
 
 @Client.on_message(filters.command("spotify"))
 async def spotify(client, message):
