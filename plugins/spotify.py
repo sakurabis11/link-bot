@@ -27,6 +27,14 @@ def get_access_token():
     response = requests.post(url, headers=headers, data=data)
     return response.json()['access_token']
 
+async def download_and_upload_song(client, message, song_id):
+    # Get the song's audio URL
+    url = f'https://api.spotify.com/v1/tracks/{song_id}/audio-features'
+    headers = {"Authorization": f"Bearer {access_token}"}
+    response = requests.get(url, headers=headers)
+    data = response.json()
+    audio_url = data["track_href"]
+
 @Client.on_message(filters.command("spotify"))
 async def spotify(client, message):
     # Get the access token
@@ -35,7 +43,6 @@ async def spotify(client, message):
     # Get the song name or Spotify URL from the command
     song_name_or_url = message.command[1:]
     song_name_or_url = " ".join(song_name_or_url)
-
     # Check if the command argument is a Spotify URL
     match = re.match(r'https://open\.spotify\.com/track/([a-zA-Z0-9]+)', song_name_or_url)
     if match:
@@ -72,15 +79,6 @@ async def spotify(client, message):
 
     # Send the song thumbnail and details to the user
     await message.reply_photo(photo=thumbnail_url, caption=f"ʜᴇʏ {message.from_user.mention}\n\n ᴛɪᴛʟᴇ: <code>{name}</code>\nᴀʀᴛɪsᴛ: <code>{artist}</code>\nᴀʟʙᴜᴍ: <code>{album}</code>\nʀᴇʟᴇᴀsᴇ ᴅᴀᴛᴇ: <code>{release_date}</code>\n")
-
-# Define a function to download the song
-async def download_and_upload_song(client, message, song_id):
-    # Get the song's audio URL
-    url = f'https://api.spotify.com/v1/tracks/{song_id}/audio-features'
-    headers = {"Authorization": f"Bearer {access_token}"}
-    response = requests.get(url, headers=headers)
-    data = response.json()
-    audio_url = data["track_href"]
 
     # Download the audio file
     download_options = {
