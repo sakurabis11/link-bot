@@ -15,10 +15,10 @@
 - [x] sᴘᴏᴛɪғʏ (ɴᴏᴡ ᴏɴʟʏ ғɪɴᴅ ᴛʜᴇ ᴅᴇᴛᴀɪʟs ᴏғ sᴏɴɢ)
 - [x] ʀᴇᴘᴏ sᴇᴀʀᴄʜ
 - [x] ᴘɪɴɢ(ᴀᴅᴍɪɴs) ᴄᴏᴍᴍᴀɴᴅ ʜᴀɴᴅʟᴇʀ "."
-- [x] 
-- [x] 
-- [x] 
-- [x] 
+- [x] ʙƦᴏᴀᴅᴄᴀsᴛ (ᴀᴅᴍɪɴs)
+- [x] sᴛᴀᴛs
+- [x] ɪᴅ ᴀɴᴅ ᴜsᴇʀ ɪɴғᴏ
+- [x] ᴏᴛʜᴇʀ ᴀᴅᴍɪɴ ᴄᴏᴍᴍᴀɴᴅs
 - [x] 
 - [x] 
 - [x] 
@@ -39,6 +39,8 @@
 * /spotify - to get the details of song from spotify
 * /repo - to search repo from github
 * /broadcast - to broadcast a message to all bot users
+* /stats - to get the users of the bot
+* /
 ```
 
 ## CMD USAGE
