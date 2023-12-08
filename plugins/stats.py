@@ -12,13 +12,11 @@ async def stats(client, message):
   db = client[DATABASE_NAME]
 
   user_count = await db.users.count_documents({})
-  group_count = await db.groups.count_documents({})
   free_space = psutil.disk_usage('/').free
   db_stats = await db.command("dbStats")
   db_size = db_stats['dataSize']
 
   await message.reply(f"**Stats:**\n\n"
                        f"Users: {user_count}\n"
-                       f"Groups: {group_count}\n"
                        f"Free Space: {free_space / 1024 ** 3:.2f} GB\n"
                        f"Mongo Space: {db_size / 1024 ** 3:.2f} GB")
