@@ -41,7 +41,7 @@ async def support_command(client, message):
 async def start(client, message):
     if message.chat.type in [enums.ChatType.GROUP, enums.ChatType.SUPERGROUP]:
         button = [[
-            InlineKeyboardButton("ʜᴇʟᴘ", url=(BOT_U)?start=help),
+            InlineKeyboardButton("ʜᴇʟᴘ", url=(BOT_U)),
         ]]
         reply_markup = InlineKeyboardMarkup(button)
         await message.reply("ʜɪ ✨, ᴡᴇʟᴄᴏᴍᴇ ᴛᴏ ᴍʏ ʙᴏᴛ ", reply_markup=reply_markup)
