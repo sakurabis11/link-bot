@@ -177,11 +177,8 @@ async def unban_a_user(bot, message):
 @Client.on_message(filters.command('stats'))
 async def stats(bot, message):
     total_users = await self.total_users_count()
-    db_size = await self.get_db_size()
     await message.reply(f"**Stats:**\n\n"
                        f"Users: {user_count}\n"
-                       f"Free Space: {free_space / 1024 ** 3:.2f} GB\n"
-                       f"Mongo Space: {db_size / 1024 ** 3:.2f} GB")
     
 @Client.on_message(filters.command('users') & filters.user(ADMINS))
 async def list_users(bot, message):
