@@ -1,7 +1,7 @@
 from pyrogram import Client, filters, enums
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from pyrogram.errors.exceptions.bad_request_400 import MessageTooLong, PeerIdInvalid
-from info import ADMINS, LOG_CHANNEL
+from info import ADMINS, LOG_CHANNEL, DATABASE_NAME, DATABASE_URI
 from database.users_db import db
 from utils import get_size, temp, get_settings
 from Script import script
@@ -89,29 +89,19 @@ async def re_enable_chat(bot, message):
     await message.reply("Chat Successfully re-enabled")
 
 
-@Client.on_message(filters.command('stats') & filters.incoming)
-async def get_stats(bot, message):
-    """
-    Get bot statistics.
-    """
-    rju = await message.reply('Fetching stats...')
+@Client.on_message(filters.command(["stats"]))
+async def stats(client, message):
+  user_count = await db.users.count_documents({})
+  group_count = await db.groups.count_documents({})
+  free_space = psutil.disk_usage('/').free
+  db_stats = await db.command("dbStats")
+  db_size = db_stats['dataSize']
+  await message.reply(f"**Stats:**\n\n"
+           f"Users: {user_count}\n"
+           f"Groups: {group_count}\n"
+           f"Free Space: {free_space / 1024 ** 3:.2f} GB\n"
+           f"Mongo Space: {db_size / 1024 ** 3:.2f} GB")
 
-    # Count total users
-    total_users = await db.total_users_count()
-
-    # Count chats where bot is added
-    bot_added_chats = await db.get_chats_with_bot()
-    totl_chats_with_bot = len(bot_added_chats)
-
-    # Get database size and free space
-    size, free = await db.get_db_usage()
-
-    # Convert sizes to human-readable format
-    size = get_size(size)
-    free = get_size(free)
-
-    # Edit the reply message with stats
-    await rju.edit(script.STATUS_TXT.format(total_users, totl_chats_with_bot, size, free))
 
 
 
