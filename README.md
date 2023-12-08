@@ -21,14 +21,10 @@
 
 </details>
 
-# Your Project Name
+## Language
 
 [![Pyrogram Version](https://img.shields.io/badge/Pyrogram-%3E%3D1.3.7-blue)](https://docs.pyrogram.org/)
 [![Python Version](https://img.shields.io/badge/Python-%3E%3D3.6-blue)](https://www.python.org/)
-[![Forks](https://img.shields.io/github/forks/master-code-r/coder)](https://github.com/master-code-r/coder/network/members)
-[![Repo Size](https://img.shields.io/github/repo-size/master-code-r/coder)](https://github.com/master-code-r/coder)
-[![Contributions](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](CONTRIBUTING.md)
-
 
 ## Features
 
