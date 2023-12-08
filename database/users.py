@@ -1,7 +1,8 @@
 
 # https://github.com/odysseusmax/animated-lamp/blob/master/bot/database/database.py
 import motor.motor_asyncio
-from info import DB_NAME, DB_URI
+from info import DATABASE_NAME, DATABASE_URI
+
 class Database:
     
     def __init__(self, uri, database_name):
@@ -43,8 +44,31 @@ class Database:
     async def total_users_count(self):
         count = await self.col.count_documents({})
         return count
-
     
+    async def remove_ban(self, id):
+        ban_status = dict(
+            is_banned=False,
+            ban_reason=''
+        )
+        await self.col.update_one({'id': id}, {'$set': {'ban_status': ban_status}})
+    
+    async def ban_user(self, user_id, ban_reason="No Reason"):
+        ban_status = dict(
+            is_banned=True,
+            ban_reason=ban_reason
+        )
+        await self.col.update_one({'id': user_id}, {'$set': {'ban_status': ban_status}})
+
+    async def get_ban_status(self, id):
+        default = dict(
+            is_banned=False,
+            ban_reason=''
+        )
+        user = await self.col.find_one({'id':int(id)})
+        if not user:
+            return default
+        return user.get('ban_status', default)
+
     async def get_all_users(self):
         return self.col.find({})
     
@@ -82,6 +106,31 @@ class Database:
     async def update_settings(self, id, settings):
         await self.grp.update_one({'id': int(id)}, {'$set': {'settings': settings}})
         
+    
+    async def get_settings(self, id):
+        default = {
+            'button': SINGLE_BUTTON,
+            'botpm': P_TTI_SHOW_OFF,
+            'file_secure': PROTECT_CONTENT,
+            'imdb': IMDB,
+            'spell_check': SPELL_CHECK_REPLY,
+            'welcome': MELCOW_NEW_USERS,
+            'auto_delete': AUTO_DELETE,
+            'template': IMDB_TEMPLATE
+        }
+        chat = await self.grp.find_one({'id':int(id)})
+        if chat:
+            return chat.get('settings', default)
+        return default
+    
+
+    async def disable_chat(self, chat, reason="No Reason"):
+        chat_status=dict(
+            is_disabled=True,
+            reason=reason,
+            )
+        await self.grp.update_one({'id': int(chat)}, {'$set': {'chat_status': chat_status}})
+    
 
     async def total_chat_count(self):
         count = await self.grp.count_documents({})
@@ -96,4 +145,4 @@ class Database:
         return (await self.db.command("dbstats"))['dataSize']
 
 
-db = Database(DB_URI, DB_NAME)
+db = Database(DATABASE_URI, DATABASE_NAME)
