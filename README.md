@@ -40,7 +40,6 @@
 * /repo - to search repo from github
 * /broadcast - to broadcast a message to all bot users
 * /stats - to get the users of the bot
-* /
 ```
 
 ## CMD USAGE
@@ -53,7 +52,8 @@
 * /sticker_id reply to a sticker
 * /spotify {song_name}
 * /repo {repo_name}
-* /broadcast - reply to your message 
+* /broadcast - reply to your message
+* /stats - to get the stats of the bot 
 ```
 
 ## Telegram Bot - Music Downloader and More!
