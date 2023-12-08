@@ -268,3 +268,16 @@ async def get_stats(bot, message):
     size = get_size(size)
     free = get_size(free)
     await rju.edit(script.STATUS_TXT.format(total_users, size, free))
+
+@Client.on_message(filters.command('logs') & filters.user(ADMINS))
+async def log_file(bot, message):
+  """Send log file, only if the deploy is done in the heroku like platform"""
+  try:
+    with open('TelegramBot.log', 'rb') as f:
+      await message.reply_document(f)
+  except FileNotFoundError:
+    await message.reply("Log file not found.")
+  except Exception as e:
+    await message.reply(str(e))
+
+
