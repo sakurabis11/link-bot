@@ -74,7 +74,7 @@ Welcome to our Telegram Bot for downloading songs from YouTube, download ringtun
 
 ## How to Use
 
-Simply add our bot (@mrtgcoderbot) on Telegram and start using its amazing features. You can either type commands or use the buttons provided for each feature. Our bot is user-friendly and easy to use, even for beginners.
+Simply add our bot (https://t.me/mrtgcoderbot) on Telegram and start using its amazing features. You can either type commands or use the buttons provided for each feature. Our bot is user-friendly and easy to use, even for beginners.
 
 ## Why use our bot?
 
