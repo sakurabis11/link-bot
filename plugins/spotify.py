@@ -71,3 +71,26 @@ async def spotify(client, message):
 
     # Send the song thumbnail and details to the user
     await message.reply_photo(photo=thumbnail_url, caption=f"ᴛɪᴛʟᴇ: <code>{name}</code>\nᴀʀᴛɪsᴛ: <code>{artist}</code>\nᴀʟʙᴜᴍ: <code>{album}</code>\nʀᴇʟᴇᴀsᴇ ᴅᴀᴛᴇ: <code>{release_date}</code>\n")
+
+    try:
+        # Send a request to the Deezer API with the search query
+        response = requests.get(f"https://api.deezer.com/search?q={song_name}")
+
+        # Check if the request was successful
+        response.raise_for_status()
+
+        # Convert the response to JSON format
+        result = response.json()
+
+        # Check if there are any search results
+        if "data" not in result or not result["data"]:
+            await client.send_message(message.chat.id, "ɴᴏ ʀᴇsᴜʟᴛs ғᴏᴜɴᴅ ғᴏʀ ᴛʜᴇ ɢɪᴠᴇɴ {query}.")
+            return
+
+        await client.send_chat_action(message.chat.id, "upload_audio")
+
+        await client.send_audio(message.chat.id, song_info['preview_url'], title=song_info['title'], performer=song_info['artist'], reply_to_message_id=message.id)
+    except requests.RequestException as e:
+        # Handle HTTP request errors
+        logging.error(f"Error fetching song information: {e}")
+        await client.send_message(message.chat.id, "An error occurred while fetching the song information. Please try again later.")
