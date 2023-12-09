@@ -30,14 +30,16 @@ def get_deezer_track_url(access_token, song_name_or_url):
         track_id = match.group(1)
     else:
         search_url = f"https://api.deezer.com/v1/search?q={song_name_or_url}"
-        headers = {"Authorization": f"Bearer {access_token}"}
+        headers = {"Authorization": f"Bearer {access_token}" if access_token else None}
         response = requests.get(search_url, headers=headers)
         data = response.json()
         try:
             track_id = data["tracks"]["data"][0]["id"]
+            thumbnail_url = data["tracks"]["data"][0]["album"]["cover_medium"]
+            song_details = f"Artist: {data['tracks']['data'][0]['artist']['name']}\nAlbum: {data['tracks']['data'][0]['album']['title']}"
         except:
-            return None
-    return f"https://api.deezer.com/v1/track/{track_id}/download"
+            return None, None, None
+    return f"https://api.deezer.com/v1/track/{track_id}/download", thumbnail_url, song_details
 
 # Deezer Downloader
 def download_song_deezer(song_url):
@@ -59,19 +61,25 @@ async def download_music(client, message):
     # Check for Spotify or Deezer command
     if command == "spotify":
         access_token = get_access_token()
-        song_url = get_deezer_track_url(access_token, song_name_or_url)
+        song_url, thumbnail_url, song_details = get_deezer_track_url(access_token, song_name_or_url)
     elif command == "deezer":
-        song_url = song_name_or_url
+        song_url, thumbnail_url, song_details = get_deezer_track_url(None, song_name_or_url)
 
     # Download the song
     if song_url:
         downloaded_song_path = download_song_deezer(song_url)
         if downloaded_song_path:
-            # Send the downloaded song as an audio file instead of a document
-            await client.send_audio(
+            # Prepare the data for sending
+            media = [
+                InputMediaAudio(media=open(downloaded_song_path, "rb")),
+                InputMediaPhoto(media=thumbnail_url),
+                InputMediaDocument(media=song_details)
+            ]
+
+            # Send the audio file, thumbnail and song details
+            await client.send_media_group(
                 chat_id=message.chat.id,
-                audio=open(downloaded_song_path, "rb"),
-                caption=f"Here is your song: {song.title}.mp3"
+                media=media
             )
             os.remove(downloaded_song_path)
         else:
