@@ -38,7 +38,7 @@ async def download_song(song_id):
       'preferredquality': '192',
     }],
   }
-  with yt_dlp.YoutubeDL(ydl_opts)
+  with yt_dlp.YoutubeDL(ydl_opts):
  
 as ydl:
     info = ydl.extract_info(f"https://open.spotify.com/track/{song_id}", download=False)
