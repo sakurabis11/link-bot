@@ -6,11 +6,11 @@ import requests
 import base64
 import yt_dlp
 from mutagen.mp3 import MP3
-from info import SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECERT
+from info import SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET
 
 # Ignore this add the value to the info.py
 client_id = SPOTIFY_CLIENT_ID
-client_secret = SPOTIFY_CLIENT_SECERT
+client_secret = SPOTIFY_CLIENT_SECRET
 
 # Encode the client id and client secret
 credentials = base64.b64encode(f'{client_id}:{client_secret}'.encode('utf-8')).decode('utf-8')
