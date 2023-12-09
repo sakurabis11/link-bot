@@ -41,6 +41,9 @@ async def removethumb(client, message):
 	
 @Client.on_message(filters.private & filters.command(set_thumb))
 async def addthumbs(client, message):
-    mkn = await message.reply_text("Please Wait ...")
-    await db.set_thumbnail(message.from_user.id, file_id=message.photo.file_id)                
-    await mkn.edit("✅️ __**Tʜᴜᴍʙɴᴀɪʟ Sᴀᴠᴇᴅ**__")
+  if not message.photo:
+    await message.reply_text("Please send a photo to set as your thumbnail.")
+    return
+  mkn = await message.reply_text("Please Wait ...")
+  await db.set_thumbnail(message.from_user.id, file_id=message.photo.file_id)
+  await mkn.edit("✅️ __**Tʜᴜᴍʙɴᴀɪl Sᴀᴠᴇᴅ**__")
