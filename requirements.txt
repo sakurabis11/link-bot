@@ -6,7 +6,7 @@ requests
 openai==0.28
 bs4==0.0.1
 pytz
-motor==3.1.2
+beautifulsoup4
 hachoir==3.2.0
 telegraph==2.2.0
 pymongo==4.4.1
@@ -14,6 +14,7 @@ dnspython==2.3.0
 marshmallow==3.20.1
 umongo==3.1.0
 motor
+
 psutil==5.9.4
 asyncio
 spotdl
