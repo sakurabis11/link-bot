@@ -38,24 +38,24 @@ async def download_song(song_id):
       'preferredquality': '192',
     }],
   }
-  with yt_dlp.YoutubeDL(ydl_opts):
- 
-as ydl:
+
+  with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+    # Extract info and download song
     info = ydl.extract_info(f"https://open.spotify.com/track/{song_id}", download=False)
     audio_url = info['formats'][0]['url']
     ydl.download([audio_url])
-  
-  # Extract song title and artist from audio metadata
-  audio_filename = f"{info['title']}.mp3"
-  audio_data = MP3(audio_filename)
-  artist = audio_data['TPE1'].text[0]
-  title = audio_data['TIT2'].text[0]
 
-  # Send the downloaded song to the user
-  await client.send_audio(chat_id=message.chat.id, audio=audio_filename, performer=artist, title=title)
+    # Extract song title and artist from audio metadata
+    audio_filename = f"{info['title']}.mp3"
+    audio_data = MP3(audio_filename)
+    artist = audio_data['TPE1'].text[0]
+    title = audio_data['TIT2'].text[0]
 
-  # Delete the downloaded song after sending
-  os.remove(audio_filename)
+    # Send the downloaded song to the user
+    await client.send_audio(chat_id=message.chat.id, audio=audio_filename, performer=artist, title=title)
+
+    # Delete the downloaded song after sending
+    os.remove(audio_filename)
 
 @Client.on_message(filters.command("spotify"))
 async def spotify(client, message):
