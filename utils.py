@@ -6,6 +6,7 @@ from pyrogram import enums
 from typing import Union
 import re
 import os
+from Script import script
 from datetime import datetime
 from typing import List
 from database.users_db import db
@@ -309,7 +310,7 @@ async def progress_for_pyrogram(current, total, ud_type, message, start):
             ''.join(["⬢" for i in range(math.floor(percentage / 5))]),
             ''.join(["⬡" for i in range(20 - math.floor(percentage / 5))])
         )            
-        tmp = progress + Txt.PROGRESS_BAR.format( 
+        tmp = progress + script.PROGRESS_BAR.format( 
             round(percentage, 2),
             humanbytes(current),
             humanbytes(total),
