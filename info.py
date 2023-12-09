@@ -20,9 +20,10 @@ BOT_TOKEN = os.environ.get('BOT_TOKEN', '6645084082:AAEvdcfTZ0uFS_Gu6KvVPVBMNlrl
 PORT = os.environ.get("PORT", "8080")
 CACHE_TIME = int(environ.get('CACHE_TIME', 300))
 ADMINS = [int(admin) if id_pattern.search(admin) else admin for admin in environ.get('ADMINS', '1342641151').split()]
+LOG_CHANNEL = int(environ.get('LOG_CHANNEL', '-1002084798134'))
+
 
 # important information for your bot
-BOT_U = environ.get('BOT_U', "https://t.me/mrtgcoderbot")
 S_GROUP = environ.get('S_GROUP', "https://t.me/+1YR5aYuCdr40N2M1")
 S_CHANNEL = environ.get('S_CHANNEL', "https://t.me/amal_nath_05")
 
@@ -39,7 +40,5 @@ OPENAI_API_KEY = os.environ.get('OPENAI_API_KEY', 'sk-OAhx2ooadTrvjqUOuNnDT3Blbk
 SPOTIFY_CLIENT_ID = os.environ.get('SPOTIFY_CLIENT_ID', 'd3a0f15a75014999945b5628dca40d0a')
 SPOTIFY_CLIENT_SECRET = os.environ.get('SPOTIFY_CLIENT_SECRET', 'e39d1705e35c47e6a0baf50ff3bb587f')
 
-# optional
-PIC = (environ.get('PICS', 'https://telegra.ph/file/67a238112341dc2da77d9.jpg')).split()
-LOG_CHANNEL = int(environ.get('LOG_CHANNEL', '-1002084798134'))
-
+# for render users
+RENDER_API_TOKEN = os.environ.get('RENDER_API_TOKEN', 'rnd_w6qKxyJIMA8KlnxTDVxJPUhJdGVe')
