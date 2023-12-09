@@ -141,13 +141,7 @@ async def callback_handler(client, callback_query):
             InlineKeyboardButton('🏠 ʜᴏᴍᴇ', callback_data='help')
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
-
-    if query.from_user.id in ADMINS:
         await query.message.edit_text(text=script.ADMIN_COMMANDS, reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML) 
-        return 
-        await query.message.edit_text("IT IS ONLY FOR ADMINS", reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
-
-
 
     if query.data == "telegraph":
         buttons = [[
