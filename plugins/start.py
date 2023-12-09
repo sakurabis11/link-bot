@@ -194,11 +194,9 @@ async def callback_handler(client, callback_query):
 
     if query.data == "stats":
         buttons = [[
-            InlineKeyboardButton('ʙᴀᴄᴋ', callback_data='help')
+            InlineKeyboardButton('🏠 ʜᴏᴍᴇ', callback_data='help')
         ]]
-        
         reply_markup = InlineKeyboardMarkup(buttons)
-        users = await db.total_users_count() 
         await query.message.edit_text(text=script.STATUS_TXT.format(total_users),reply_markup=reply_markup,parse_mode=enums.ParseMode.HTML)
     
     if query.data == "about":
