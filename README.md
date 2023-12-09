@@ -26,6 +26,19 @@
 [![Pyrogram Version](https://img.shields.io/badge/Pyrogram-%3E%3D2.0.30-orange)](https://docs.pyrogram.org/)
 [![Python Version](https://img.shields.io/badge/Python-%3E%3D3.10.8-blue)](https://www.python.org/)
 
+## Acknowledgements
+
+ - [BASE_REPO](https://github.com/Devil-Botz/Elsa)
+
+
+## License
+
+[![GPLv3 License](https://img.shields.io/badge/License-GPL%20v3-yellow.svg)](https://github.com/master-code-r/coder/blob/main/LICENSE)
+
+
+
+
+
 ## Features
 
 - [x] ᴛᴇʟᴇɢʀᴀᴘʜ
@@ -111,15 +124,3 @@ We are constantly working on improving our bot and would love to hear your feedb
 
 Thank you for choosing our Telegram Bot for all your music and messaging needs! Enjoy your experience with our bot and don't forget to share it with your friends and family. 🎶❤️
       
-
-## Acknowledgements
-
- - [BASE_REPO](https://github.com/Devil-Botz/Elsa)
-
-
-## License
-
-[![GPLv3 License](https://img.shields.io/badge/License-GPL%20v3-yellow.svg)](https://github.com/master-code-r/coder/blob/main/LICENSE)
-
-
-
