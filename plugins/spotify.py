@@ -4,11 +4,12 @@ from pyrogram.types import *
 import os
 import requests
 import base64
-from spotdl import SpotifyOAuth
+from spotipy import Spotify
+from spotipy.oauth2 import SpotifyClientCredentials
 from info import SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET
 from pyrogram import Client, filters
 from yt_dlp import YoutubeDL
-from spotipy import Spotify
+
 
 # Replace with your Spotify API credentials
 spotify_client_id = SPOTIFY_CLIENT_ID
