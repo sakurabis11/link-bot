@@ -5,7 +5,7 @@ import os
 import requests
 import base64
 import deezer
-from mutagen import mp3
+from mutagen.mp3 import MP3  # Corrected import statement for MP3
 from info import SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET
 
 # Ignore this add the value to the info.py
@@ -29,44 +29,6 @@ def get_access_token():
     return response.json()['access_token']
 
 # Define a function to download the song
-def download_song(track_id):
-    # Create a Deezer session
-    session = deezer.Session()
-
-    # Get the song information
-    song = session.get_track(track_id)
-
-    # Check if the song is available
-    if not song.is_available:
-        return None
-
-    # Get the song download URL
-    download_url = session.get_download_url(song)
-
-    # Download the song
-    response = requests.get(download_url)
-
-    # Check for successful download
-    if response.status_code == 200:
-        # Save the song to a temporary file
-        with open(f"temp_song_{track_id}.mp3", "wb") as f:
-            f.write(response.content)
-
-        # Add ID3 tags to the song
-        metadata = mp3.MP3(f"temp_song_{track_id}.mp3")
-        metadata["title"] = song.title
-        metadata["artist"] = song.artist.name
-        metadata.save()
-
-async def send_downloaded_song(client, message, track_id):
-    # Download the song
-    download_song(track_id)
-
-    # Send the downloaded song
-    await message.reply_audio(audio=f"temp_song_{track_id}.mp3", caption=f"Downloading {song.title} completed!")
-
-    # Delete the temporary file
-    os.remove(f"temp_song_{track_id}.mp3")
 
 @Client.on_message(filters.command("spotify"))
 async def spotify(client, message):
@@ -113,3 +75,42 @@ async def spotify(client, message):
 
     # Send the song thumbnail and details to the user
     await message.reply_photo(photo=thumbnail_url, caption=f"ᴛɪᴛʟᴇ: <code>{name}</code>\nᴀʀᴛɪsᴛ: <code>{artist}</code>\nᴀʟʙᴜᴍ: <code>{album}</code>\nʀᴇʟᴇᴀsᴇ ᴅᴀᴛᴇ: <code>{release_date}</code>\n")
+
+def download_song(track_id):
+    # Create a Deezer session
+    session = deezer.Session()
+
+    # Get the song information
+    song = session.get_track(track_id)  # Corrected variable name from song_name to song
+
+    # Check if the song is available
+    if not song.is_available:
+        return None
+
+    # Get the song download URL
+    song_url = session.get_download_url(song)  # Corrected variable name from song_name to song_url
+
+    # Download the song
+    response = requests.get(song_url)  # Corrected variable name from song_name to song_url
+
+    # Check for successful download
+    if response.status_code == 200:
+        # Save the song to a temporary file
+        with open(f"temp_song_{track_id}.mp3", "wb") as f:
+            f.write(response.content)
+
+        # Add ID3 tags to the song
+        metadata = MP3(f"temp_song_{track_id}.mp3")  # Corrected class name from mp3.MP3 to MP3
+        metadata["title"] = song.title
+        metadata["artist"] = song.artist.name
+        metadata.save()
+
+async def send_downloaded_song(client, message, track_id):  # Corrected parameter name from song_name to track_id
+    # Download the song
+    download_song(track_id)
+
+    # Send the downloaded song
+    await message.reply_audio(audio=f"temp_song_{track_id}.mp3", caption=f"Downloading {song.title} completed!")  # Corrected variable name from song_name to track_id
+
+    # Delete the temporary file
+    os.remove(f"temp_song_{track_id}.mp3")  # Corrected variable name from song_name to track_id
