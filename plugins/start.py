@@ -60,7 +60,7 @@ async def start(client, message):
         button = [[
             InlineKeyboardButton("➕️ Aᴅᴅ Mᴇ Tᴏ Yᴏᴜʀ Cʜᴀᴛ ", url=f"http://t.me/{temp.U_NAME}?startgroup=true")
             ],[
-            InlineKeyboardButton("️ Hᴇʟᴩ", callback_data="help"),
+            InlineKeyboardButton("️🕸️ Hᴇʟᴩ", callback_data="help"),
             InlineKeyboardButton("✨ Aʙᴏᴜᴛ", callback_data="about"),
             ],[
             InlineKeyboardButton("Repo", url="https://t.me/Unni0240"),
@@ -107,7 +107,7 @@ async def callback_handler(client, callback_query):
         buttons = [[
             InlineKeyboardButton("➕️ Aᴅᴅ Mᴇ Tᴏ Yᴏᴜʀ Cʜᴀᴛ ", url=f"http://t.me/{temp.U_NAME}?startgroup=true")
             ],[
-            InlineKeyboardButton("️ Hᴇʟᴩ", callback_data="help"),
+            InlineKeyboardButton("️🕸️ Hᴇʟᴩ", callback_data="help"),
             InlineKeyboardButton("✨ Aʙᴏᴜᴛ", callback_data="about"),
             ],[
             InlineKeyboardButton("Repo", url="https://t.me/Unni0240"),
@@ -199,7 +199,11 @@ async def callback_handler(client, callback_query):
         
         reply_markup = InlineKeyboardMarkup(buttons)
         users = await db.total_users_count()
-        await query.message.edit_text(text=script.STATUS_TXT.format(users),reply_markup=reply_markup,parse_mode=enums.ParseMode.HTML)
+        monsize = await db.get_db_size()
+        free = 536870912 - monsize
+        monsize = get_size(monsize)
+        free = get_size(free)        
+        await query.message.edit_text(text=script.STATUS_TXT.format(users, monsize, free),reply_markup=reply_markup,parse_mode=enums.ParseMode.HTML)
     
     if query.data == "about":
         buttons = [[
