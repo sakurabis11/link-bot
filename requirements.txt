@@ -18,6 +18,7 @@ deezer-py
 psutil==5.9.4
 asyncio
 spotdl
+yt_dlp
 scdl
 tqdm
 ujson
