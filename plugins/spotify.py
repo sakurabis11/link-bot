@@ -6,7 +6,7 @@ import requests
 import base64
 from info import SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET
 
-# Define your client id and client secret
+# ignore this and add the variable in info.py
 client_id = SPOTIFY_CLIENT_ID
 client_secret = SPOTIFY_CLIENT_SECRET
 
