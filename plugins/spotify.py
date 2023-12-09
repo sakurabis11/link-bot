@@ -6,7 +6,7 @@ import requests
 import base64
 from info import SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET
 from pyrogram import Client, filters
-from spotdl import SpotifyDownloader
+from spotdl 
 from yt_dlp import YoutubeDL
 from spotipy import Spotify
 
