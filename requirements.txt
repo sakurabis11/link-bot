@@ -6,6 +6,8 @@ requests
 openai==0.28
 bs4==0.0.1
 pytz
+motor==3.1.2
+hachoir==3.2.0
 telegraph==2.2.0
 pymongo==4.4.1
 dnspython==2.3.0
