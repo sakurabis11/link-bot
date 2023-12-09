@@ -199,11 +199,8 @@ async def callback_handler(client, callback_query):
         
         reply_markup = InlineKeyboardMarkup(buttons)
         users = await db.total_users_count()
-        size = await db.get_db_size()
-        free = 536870912 - size
-        size = get_size(size)
-        free = get_size(free)     
-        await query.message.edit_text(text=script.STATUS_TXT.format(total_users, size, free),reply_markup=reply_markup,parse_mode=enums.ParseMode.HTML)
+        size = await db.get_db_size()   
+        await query.message.edit_text(text=script.STATUS_TXT.format(total_users, size),reply_markup=reply_markup,parse_mode=enums.ParseMode.HTML)
     
     if query.data == "about":
         buttons = [[
