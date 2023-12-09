@@ -13,7 +13,7 @@ pymongo==4.4.1
 dnspython==2.3.0
 marshmallow==3.20.1
 umongo==3.1.0
-motor==3.0.0
+motor
 psutil==5.9.4
 asyncio
 spotdl
