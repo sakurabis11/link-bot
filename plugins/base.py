@@ -255,5 +255,9 @@ async def list_chats(bot, message):
 async def get_stats(bot, message):
     rju = await message.reply('Fetching stats..')
     total_users = await db.total_users_count()
-    await rju.edit(script.STATUS_TXT.format(total_users))
+    size = await db.get_db_size()
+    free = 536870912 - size
+    size = get_size(size)
+    free = get_size(free)    
+    await rju.edit(script.STATUS_TXT.format(total_users, size, free))
 
