@@ -4,17 +4,14 @@ from pyrogram.types import *
 import os
 import requests
 import base64
+from deezer import Deezer
 from info import SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET
 
-# ignore this and add the variable in info.py
 client_id = SPOTIFY_CLIENT_ID
 client_secret = SPOTIFY_CLIENT_SECRET
-
-
-# Encode the client id and client secret
 credentials = base64.b64encode(f'{client_id}:{client_secret}'.encode('utf-8')).decode('utf-8')
 
-# Define a function to get the access token
+# Define functions to handle Spotify and Deezer
 def get_access_token():
     url = 'https://accounts.spotify.com/api/token'
     headers = {
@@ -27,48 +24,57 @@ def get_access_token():
     response = requests.post(url, headers=headers, data=data)
     return response.json()['access_token']
 
-@Client.on_message(filters.command("spotify"))
-async def spotify(client, message):
-    # Get the access token
-    access_token = get_access_token()
-
-    # Get the song name or Spotify URL from the command
-    song_name_or_url = message.command[1:]
-    song_name_or_url = " ".join(song_name_or_url)
-
-    # Check if the command argument is a Spotify URL
-    match = re.match(r'https://open\.spotify\.com/track/([a-zA-Z0-9]+)', song_name_or_url)
+def get_deezer_track_url(access_token, song_name_or_url):
+    match = re.match(r'https://deezer.com/track/([0-9]+)', song_name_or_url)
     if match:
-        # If it is a Spotify URL, extract the song ID from the URL
-        song_id = match.group(1)
+        track_id = match.group(1)
     else:
-        # If it is not a Spotify URL, search for the song on Spotify
-        song_name = song_name_or_url
-        url = f'https://api.spotify.com/v1/search?q={song_name}&type=album,track'
+        search_url = f"https://api.deezer.com/v1/search?q={song_name_or_url}"
         headers = {"Authorization": f"Bearer {access_token}"}
-        response = requests.get(url, headers=headers)
+        response = requests.get(search_url, headers=headers)
         data = response.json()
+        try:
+            track_id = data["tracks"]["data"][0]["id"]
+        except:
+            return None
+    return f"https://api.deezer.com/v1/track/{track_id}/download"
 
-        # Get the first search result
-        item = data["tracks"]["items"][0]
+# Deezer Downloader
+def download_song_deezer(song_url):
+    # Use deezer-py library to download
 
-        # Get the song ID
-        song_id = item["id"]
+    client = Deezer()
+    song = client.get_track(song_url)
+    filename = f"{song.title}.mp3"
+    with open(filename, "wb") as f:
+        f.write(song.download_link(quality=Deezer.QUALITY_MP3))
+    return filename
 
-    # Get the song thumbnail and details from Spotify
-    url = f'https://api.spotify.com/v1/tracks/{song_id}'
-    headers = {"Authorization": f"Bearer {access_token}"}
-    response = requests.get(url, headers=headers)
-    data = response.json()
+@Client.on_message(filters.command("spotify") | filters.command("deezer"))
+async def download_music(client, message):
+    # Get the command
+    command, *args = message.command
+    song_name_or_url = " ".join(args)
 
-    # Get the song thumbnail
-    thumbnail_url = data["album"]["images"][0]["url"]
+    # Check for Spotify or Deezer command
+    if command == "spotify":
+        access_token = get_access_token()
+        song_url = get_deezer_track_url(access_token, song_name_or_url)
+    elif command == "deezer":
+        song_url = song_name_or_url
 
-    # Get the song details
-    artist = data["artists"][0]["name"]
-    name = data["name"]
-    album = data["album"]["name"]
-    release_date = data["album"]["release_date"]
-
-    # Send the song thumbnail and details to the user
-    await message.reply_photo(photo=thumbnail_url, caption=f"ᴛɪᴛʟᴇ: <code>{name}</code>\nᴀʀᴛɪsᴛ: <code>{artist}</code>\nᴀʟʙᴜᴍ: <code>{album}</code>\nʀᴇʟᴇᴀsᴇ ᴅᴀᴛᴇ: <code>{release_date}</code>\n")
+    # Download the song
+    if song_url:
+        downloaded_song_path = download_song_deezer(song_url)
+        if downloaded_song_path:
+            # Send the downloaded song as an audio file instead of a document
+            await client.send_audio(
+                chat_id=message.chat.id,
+                audio=open(downloaded_song_path, "rb"),
+                caption=f"Here is your song: {song.title}.mp3"
+            )
+            os.remove(downloaded_song_path)
+        else:
+            await message.reply_text("Song not found")
+    else:
+        await message.reply_text("Invalid command or song not found")
