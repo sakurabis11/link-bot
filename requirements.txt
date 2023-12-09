@@ -16,7 +16,9 @@ motor
 deezer-py
 psutil==5.9.4
 asyncio
-mutagen
+yt_dlp
+spotipy
+spotdl
 scdl
 tqdm
 ujson
