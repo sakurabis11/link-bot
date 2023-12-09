@@ -5,12 +5,11 @@ RUN  pip install --upgrade pip
 
 RUN pip install ffmpeg
 RUN pip install openai==0.28
-RUN pip install spotipy
-RUN pip install spotdl
+RUN pip install deezer-py
 RUN pip instalL pafy
 RUN pip install pytube 
 RUN pip install youtube-search
-RUN pip install spotdl
+
 
 COPY requirements.txt /requirements.txt
 
