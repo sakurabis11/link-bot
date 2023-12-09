@@ -197,7 +197,8 @@ async def callback_handler(client, callback_query):
             InlineKeyboardButton('🏠 ʜᴏᴍᴇ', callback_data='help')
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
-        await query.message.edit_text(text=script.STATUS_TXT.format(total_users),reply_markup=reply_markup,parse_mode=enums.ParseMode.HTML)
+        users = await db.total_users_count()
+        await query.message.edit_text(text=script.STATUS_TXT.format(users),reply_markup=reply_markup,parse_mode=enums.ParseMode.HTML)
     
     if query.data == "about":
         buttons = [[
