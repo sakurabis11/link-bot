@@ -58,13 +58,15 @@ def download_song(track_id):
         metadata["artist"] = song.artist.name
         metadata.save()
 
-        # Send the downloaded song to the user
-        await message.reply_audio(audio=f"temp_song_{track_id}.mp3", caption=f"Downloading {song.title} completed!")
+async def send_downloaded_song(client, message, track_id):
+    # Download the song
+    download_song(track_id)
 
-        # Delete the temporary file
-        os.remove(f"temp_song_{track_id}.mp3")
-    else:
-        await message.reply_text(f"Error downloading the song. Please try again later.")
+    # Send the downloaded song
+    await message.reply_audio(audio=f"temp_song_{track_id}.mp3", caption=f"Downloading {song.title} completed!")
+
+    # Delete the temporary file
+    os.remove(f"temp_song_{track_id}.mp3")
 
 @Client.on_message(filters.command("spotify"))
 async def spotify(client, message):
