@@ -113,7 +113,7 @@ async def callback_handler(client, callback_query):
             InlineKeyboardButton("Repo", url="https://t.me/Unni0240"),
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
-        await query.message.edit_text("ʜɪ {message.from_user.mention} ✨, ᴡᴇʟᴄᴏᴍᴇ ᴛᴏ ᴍʏ ʙᴏᴛ 🤖🎉", reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
+        await query.message.edit_text("ʜɪ ✨, ᴡᴇʟᴄᴏᴍᴇ ᴛᴏ ᴍʏ ʙᴏᴛ 🤖🎉", reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
 
     if query.data == "help":
         buttons = [[
