@@ -4,113 +4,54 @@ from pyrogram.types import *
 import os
 import requests
 import base64
-import deezer
-from mutagen.mp3 import MP3  # Corrected import statement for MP3
 from info import SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET
+from pyrogram import Client, filters
+from spotdl import SpotifyDownloader
+from yt_dlp import YoutubeDL
+from spotipy import Spotify
 
-# Ignore this add the value to the info.py
-client_id = SPOTIFY_CLIENT_ID
-client_secret = SPOTIFY_CLIENT_SECRET
+# Replace with your Spotify API credentials
+spotify_client_id = SPOTIFY_CLIENT_ID
+spotify_client_secret = SPOTIFY_CLIENT_SECRET
 
-# Encode the client id and client secret
-credentials = base64.b64encode(f'{client_id}:{client_secret}'.encode('utf-8')).decode('utf-8')
+# Configure your preferred yt-dlp options
+ydl_opts = {
+    "format": "bestaudio/best",
+    "postprocessors": [
+        {
+            "key": "FFmpegExtractAudio",
+            "preferredcodec": "mp3",
+            "preferredquality": "192",
+        }
+    ],
+}
 
-# Define a function to get the access token
-def get_access_token():
-    url = 'https://accounts.spotify.com/api/token'
-    headers = {
-        'Authorization': f'Basic {credentials}',
-        'Content-Type': 'application/x-www-form-urlencoded'
-    }
-    data = {
-        'grant_type': 'client_credentials'
-    }
-    response = requests.post(url, headers=headers, data=data)
-    return response.json()['access_token']
-
-# Define a function to download the song
+# Create Pyrogram client and Spotify objects
+spotify_api = Spotify(auth_manager=SpotifyOAuth(client_id=spotify_client_id, client_secret=spotify_client_secret))
+spotify_downloader = SpotifyDownloader(spotify_api)
 
 @Client.on_message(filters.command("spotify"))
-async def spotify(client, message):
-    # Get the access token
-    access_token = get_access_token()
+async def process_message(client, message):
+        song_name = message.content.split()[1]
+    
+        # Try searching for song on Spotify
+        try:
+            song = spotify_api.search(q=song_name, type="track", limit=1)["tracks"]["items"][0]
+        except Exception as e:
+            await message.reply_text(f"Error searching for song: {e}")
+            return
 
-    # Get the song name or Spotify URL from the command
-    song_name_or_url = message.command[1:]
-    song_name_or_url = " ".join(song_name_or_url)
+        # Send song details and thumbnail
+        await message.reply_photo(song["album"]["images"][0]["url"])
+        await message.reply_text(f"Title: {song['name']}\nArtist: {song['artists'][0]['name']}")
 
-    # Check if the command argument is a Spotify URL
-    match = re.match(r'https://open\.spotify\.com/track/([a-zA-Z0-9]+)', song_name_or_url)
-    if match:
-        # If it is a Spotify URL, extract the song ID from the URL
-        song_id = match.group(1)
-    else:
-        # If it is not a Spotify URL, search for the song on Spotify
-        song_name = song_name_or_url
-        url = f'https://api.spotify.com/v1/search?q={song_name}&type=album,track'
-        headers = {"Authorization": f"Bearer {access_token}"}
-        response = requests.get(url, headers=headers)
-        data = response.json()
+        # Download song from YouTube Music
+        try:
+            filename = await spotify_downloader.download_track(song["uri"], filename_template="%(title)s.%(ext)s")
+        except Exception as e:
+            await message.reply_text(f"Error downloading song: {e}")
+            return
 
-        # Get the first search result
-        item = data["tracks"]["items"][0]
-
-        # Get the song ID
-        song_id = item["id"]
-
-    # Get the song thumbnail and details from Spotify
-    url = f'https://api.spotify.com/v1/tracks/{song_id}'
-    headers = {"Authorization": f"Bearer {access_token}"}
-    response = requests.get(url, headers=headers)
-    data = response.json()
-
-    # Get the song thumbnail
-    thumbnail_url = data["album"]["images"][0]["url"]
-
-    # Get the song details
-    artist = data["artists"][0]["name"]
-    name = data["name"]
-    album = data["album"]["name"]
-    release_date = data["album"]["release_date"]
-
-    # Send the song thumbnail and details to the user
-    await message.reply_photo(photo=thumbnail_url, caption=f"ᴛɪᴛʟᴇ: <code>{name}</code>\nᴀʀᴛɪsᴛ: <code>{artist}</code>\nᴀʟʙᴜᴍ: <code>{album}</code>\nʀᴇʟᴇᴀsᴇ ᴅᴀᴛᴇ: <code>{release_date}</code>\n")
-
-def download_song(track_id):
-    # Create a Deezer session
-    session = deezer.Session()
-
-    # Get the song information
-    song = session.get_track(track_id)  # Corrected variable name from song_name to song
-
-    # Check if the song is available
-    if not song.is_available:
-        return None
-
-    # Get the song download URL
-    song_url = session.get_download_url(song)  # Corrected variable name from song_name to song_url
-
-    # Download the song
-    response = requests.get(song_url)  # Corrected variable name from song_name to song_url
-
-    # Check for successful download
-    if response.status_code == 200:
-        # Save the song to a temporary file
-        with open(f"temp_song_{track_id}.mp3", "wb") as f:
-            f.write(response.content)
-
-        # Add ID3 tags to the song
-        metadata = MP3(f"temp_song_{track_id}.mp3")  # Corrected class name from mp3.MP3 to MP3
-        metadata["title"] = song.title
-        metadata["artist"] = song.artist.name
-        metadata.save()
-
-async def send_downloaded_song(client, message, track_id):  # Corrected parameter name from song_name to track_id
-    # Download the song
-    download_song(track_id)
-
-    # Send the downloaded song
-    await message.reply_audio(audio=f"temp_song_{track_id}.mp3", caption=f"Downloading {song.title} completed!")  # Corrected variable name from song_name to track_id
-
-    # Delete the temporary file
-    os.remove(f"temp_song_{track_id}.mp3")  # Corrected variable name from song_name to track_id
+        # Upload downloaded song with thumbnail
+        await message.reply_audio(filename, caption=f"{song['name']} by {song['artists'][0]['name']}")
+        os.remove(filename) # Delete downloaded file after uploading
