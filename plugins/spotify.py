@@ -4,6 +4,8 @@ from pyrogram.types import *
 import os
 import requests
 import base64
+import deezer
+from mutagen import mp3
 from info import SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET
 
 # Ignore this add the value to the info.py
@@ -25,6 +27,44 @@ def get_access_token():
     }
     response = requests.post(url, headers=headers, data=data)
     return response.json()['access_token']
+
+# Define a function to download the song
+def download_song(track_id):
+    # Create a Deezer session
+    session = deezer.Session()
+
+    # Get the song information
+    song = session.get_track(track_id)
+
+    # Check if the song is available
+    if not song.is_available:
+        return None
+
+    # Get the song download URL
+    download_url = session.get_download_url(song)
+
+    # Download the song
+    response = requests.get(download_url)
+
+    # Check for successful download
+    if response.status_code == 200:
+        # Save the song to a temporary file
+        with open(f"temp_song_{track_id}.mp3", "wb") as f:
+            f.write(response.content)
+
+        # Add ID3 tags to the song
+        metadata = mp3.MP3(f"temp_song_{track_id}.mp3")
+        metadata["title"] = song.title
+        metadata["artist"] = song.artist.name
+        metadata.save()
+
+        # Send the downloaded song to the user
+        await message.reply_audio(audio=f"temp_song_{track_id}.mp3", caption=f"Downloading {song.title} completed!")
+
+        # Delete the temporary file
+        os.remove(f"temp_song_{track_id}.mp3")
+    else:
+        await message.reply_text(f"Error downloading the song. Please try again later.")
 
 @Client.on_message(filters.command("spotify"))
 async def spotify(client, message):
