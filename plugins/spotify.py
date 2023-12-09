@@ -4,6 +4,8 @@ from pyrogram.types import *
 import os
 import requests
 import base64
+import yt_dlp
+from mutagen.mp3 import MP3
 from info import SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECERT
 
 # Ignore this add the value to the info.py
@@ -25,6 +27,35 @@ def get_access_token():
     }
     response = requests.post(url, headers=headers, data=data)
     return response.json()['access_token']
+
+async def download_song(song_id):
+  # Use yt-dlp to download the song
+  ydl_opts = {
+    'format': 'bestaudio/best',
+    'postprocessors': [{
+      'key': 'FFmpegExtractAudio',
+      'preferredcodec': 'mp3',
+      'preferredquality': '192',
+    }],
+  }
+  with yt_dlp.YoutubeDL(ydl_opts)
+ 
+as ydl:
+    info = ydl.extract_info(f"https://open.spotify.com/track/{song_id}", download=False)
+    audio_url = info['formats'][0]['url']
+    ydl.download([audio_url])
+  
+  # Extract song title and artist from audio metadata
+  audio_filename = f"{info['title']}.mp3"
+  audio_data = MP3(audio_filename)
+  artist = audio_data['TPE1'].text[0]
+  title = audio_data['TIT2'].text[0]
+
+  # Send the downloaded song to the user
+  await client.send_audio(chat_id=message.chat.id, audio=audio_filename, performer=artist, title=title)
+
+  # Delete the downloaded song after sending
+  os.remove(audio_filename)
 
 @Client.on_message(filters.command("spotify"))
 async def spotify(client, message):
@@ -71,3 +102,7 @@ async def spotify(client, message):
 
     # Send the song thumbnail and details to the user
     await message.reply_photo(photo=thumbnail_url, caption=f"ᴛɪᴛʟᴇ: <code>{name}</code>\nᴀʀᴛɪsᴛ: <code>{artist}</code>\nᴀʟʙᴜᴍ: <code>{album}</code>\nʀᴇʟᴇᴀsᴇ ᴅᴀᴛᴇ: <code>{release_date}</code>\n")
+
+ # Download the song and send it to the user
+    await download_song(song_id)
+
