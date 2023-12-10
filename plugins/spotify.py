@@ -1,6 +1,6 @@
 import re
 from pyrogram import Client, filters
-from pyrogram.types import Message, InputFile
+from pyrogram.types import Message
 import os
 import requests
 import base64
