@@ -7,9 +7,10 @@ from info import SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET
 # Spotify client ID and client secret
 client_id = SPOTIFY_CLIENT_ID
 client_secret = SPOTIFY_CLIENT_SECRET
+redirect_uri = None
 
 # Initialize Spotify OAuth
-sp = spotipy.Spotify(auth_manager=SpotifyOAuth(client_id, client_secret))
+sp = spotipy.Spotify(auth_manager=SpotifyOAuth(client_id, client_secret, redirect_uri))
 
 # Download options
 ydl_opts = {
