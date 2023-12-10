@@ -1,6 +1,7 @@
 from pyrogram import Client, filters
 from spotipy.oauth2 import SpotifyOAuth
 from yt_dlp import YoutubeDL
+import spotipy
 from info import SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET
 
 # Spotify client ID and client secret
