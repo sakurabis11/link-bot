@@ -1,5 +1,5 @@
 from pyrogram import Client, filters
-from ffmpy import ffmpeg
+import ffmpeg
 
 @Client.on_message(filters.command("convert") & ~filters.edited)
 async def convert_video_to_audio(client, message):
