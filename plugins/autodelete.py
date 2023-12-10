@@ -4,7 +4,7 @@ from datetime import datetime, timedelta
 # Define a dictionary to store deletion times for each chat
 chat_deletion_times = {}
 
-@Client.on_message(filters.command("set_time") & filters.chat_admins)
+@Client.on_message(filters.command("set_time") & filters.user(filters.user_filter.is_admin))
 async def set_delete_time(client, message):
     global chat_deletion_times
 
