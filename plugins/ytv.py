@@ -2,10 +2,6 @@ from pyrogram import Client, filters
 from pytube import YouTube
 import os
 
-def update_message(client, message, bytes_remaining):
-    # Update download progress message
-    remaining_mb = round(bytes_remaining / 1048576, 2)
-    await client.edit_message_text(chat_id=message.chat.id, message_id=message.message_id, text=f"Downloading... (Remaining: {remaining_mb} MB)")
 
 @Client.on_message(filters.command("ytv"))
 async def download_video(client, message):
@@ -38,4 +34,10 @@ async def download_video(client, message):
             await client.send_message(message.chat.id, f"Error writing video file.")
         else:
             await client.send_message(message.chat.id, f"Error downloading video: {e}")
+
+def update_message(client, message, bytes_remaining):
+    # Update download progress message
+    remaining_mb = round(bytes_remaining / 1048576, 2)
+    await client.edit_message_text(chat_id=message.chat.id, message_id=message.message_id, text=f"Downloading... (Remaining: {remaining_mb} MB)")
+
 
