@@ -19,6 +19,7 @@ asyncio
 yt_dlp
 spotipy
 spotdl
+ffmpy
 scdl
 tqdm
 ujson
