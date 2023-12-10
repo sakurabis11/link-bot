@@ -19,7 +19,7 @@ asyncio
 yt_dlp
 spotipy
 spotdl
-ffmpy
+instaloader
 scdl
 tqdm
 ujson
