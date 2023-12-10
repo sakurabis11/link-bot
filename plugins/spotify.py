@@ -1,6 +1,6 @@
 import re
 from pyrogram import Client, filters
-from pyrogram.types import *
+from pyrogram.types import Message, InputFile
 import os
 import requests
 import base64
@@ -26,7 +26,7 @@ def get_access_token():
     return response.json()['access_token']
 
 @Client.on_message(filters.command("spotify"))
-async def spotify(client, message):
+async def spotify(client, message: Message):
     # Get the access token
     access_token = get_access_token()
 
@@ -70,3 +70,27 @@ async def spotify(client, message):
 
     # Send the song thumbnail and details to the user
     await message.reply_photo(photo=thumbnail_url, caption=f"ᴛɪᴛʟᴇ: <code>{name}</code>\nᴀʀᴛɪsᴛ: <code>{artist}</code>\nᴀʟʙᴜᴍ: <code>{album}</code>\nʀᴇʟᴇᴀsᴇ ᴅᴀᴛᴇ: <code>{release_date}</code>\n")
+
+    # Download song from YouTube Music
+    youtube_music_url = f"https://music.youtube.com/watch?v={song_id}"
+    try:
+        youtube_music_response = requests.get(youtube_music_url)
+        youtube_music_response.raise_for_status()
+    except requests.exceptions.RequestException:
+        await message.reply_text("An error occurred while downloading the song.")
+        return
+
+    # Save downloaded song to a temporary file
+    song_path = f"{name}.mp3"
+    with open(song_path, "wb") as f:
+        f.write(youtube_music_response.content)
+
+    # Upload downloaded song to Telegram
+    song_file = InputFile(song_path)
+    await message.reply_audio(song_file)
+
+    # Delete temporary song file
+    os.remove(song_path)
+
+    # Inform user about the successful download
+    await message.reply_text(f"Downloaded song: '{name}' by '{artist}' from the album '{album}'")
