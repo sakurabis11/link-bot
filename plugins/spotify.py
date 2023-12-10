@@ -32,7 +32,7 @@ async def handle_spotify_command(client, message):
         spotify_url = message.text.split(" ", 1)[1]
         try:
             # Extract song information from Spotify URL
-            track_info = sp.track(spotify_url)
+            track_info = track(spotify_url)
 
             # Send song information and thumbnail
             thumbnail = track_info["album"]["images"][0]["url"]
@@ -53,7 +53,7 @@ async def handle_spotify_command(client, message):
         query = message.text.split(" ", 1)[1]
         try:
             # Search for songs on Spotify
-            results = sp.search(q=query, type="track", limit=5)
+            results = search(q=query, type="track", limit=5)
             if len(results["tracks"]["items"]) == 0:
                 # Inform user if no results found
                 client.send_message(message.chat.id, "No results found.")
