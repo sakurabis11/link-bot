@@ -68,10 +68,7 @@ async def spotify(client, message: Message):
     album = data["album"]["name"]
     release_date = data["album"]["release_date"]
 
-    # Send the song thumbnail and details to the user
-    await message.reply_photo(photo=thumbnail_url, caption=f"ᴛɪᴛʟᴇ: <code>{name}</code>\nᴀʀᴛɪsᴛ: <code>{artist}</code>\nᴀʟʙᴜᴍ: <code>{album}</code>\nʀᴇʟᴇᴀsᴇ ᴅᴀᴛᴇ: <code>{release_date}</code>\n")
-
-    # Download song from YouTube Music
+        # Download song from YouTube Music
     youtube_music_url = f"https://music.youtube.com/watch?v={song_id}"
     try:
         youtube_music_response = requests.get(youtube_music_url)
@@ -92,5 +89,6 @@ async def spotify(client, message: Message):
     # Delete temporary song file
     os.remove(song_path)
 
-    # Inform user about the successful download
-    await message.reply_text(f"Downloaded song: '{name}' by '{artist}' from the album '{album}'")
+    # Send the song thumbnail and details to the user
+    await message.reply_photo(photo=thumbnail_url, caption=f"ᴛɪᴛʟᴇ: <code>{name}</code>\nᴀʀᴛɪsᴛ: <code>{artist}</code>\nᴀʟʙᴜᴍ: <code>{album}</code>\nʀᴇʟᴇᴀsᴇ ᴅᴀᴛᴇ: <code>{release_date}</code>\n")
+
