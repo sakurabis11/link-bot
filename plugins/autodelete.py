@@ -4,7 +4,16 @@ from datetime import datetime, timedelta
 # Define a dictionary to store deletion times for each chat
 chat_deletion_times = {}
 
-@Client.on_message(filters.command("set_time") & filters.user(filters.user_filter.is_admin))
+async def is_admin(client, message):
+    """
+    Check if the user is an admin of the chat.
+    """
+    chat_id = message.chat.id
+    member = await client.get_chat_member(chat_id, message.from_user.id)
+    return member.status in ("administrator", "creator")
+
+
+@Client.on_message(filters.command("set_time") & filters.user(is_admin))
 async def set_delete_time(client, message):
     global chat_deletion_times
 
@@ -23,32 +32,32 @@ async def set_delete_time(client, message):
         return
 
     # Convert time to timedelta based on unit
-    if time_unit == "seconds":
-        delete_time = timedelta(seconds=time_value)
-    elif time_unit == "minutes":
-        delete_time = timedelta(minutes=time_value)
-    elif time_unit == "hours":
-        delete_time = timedelta(hours=time_value)
-    elif time_unit == "days":
-        delete_time = timedelta(days=time_value)
-    elif time_unit == "months":
-        delete_time = timedelta(days=time_value * 30)  # Approximate months as 30 days
-    else:
+    time_units = {
+        "seconds": timedelta(seconds=time_value),
+        "minutes": timedelta(minutes=time_value),
+        "hours": timedelta(hours=time_value),
+        "days": timedelta(days=time_value),
+        "months": timedelta(days=time_value * 30)  # Approximate months as 30 days
+    }
+
+    if time_unit not in time_units:
         await message.reply_text(f"Invalid time unit. Supported units are seconds, minutes, hours, days, and months.")
         return
 
+    delete_time = time_units[time_unit]
+
     chat_deletion_times[chat_id] = datetime.utcnow() + delete_time
     await message.reply_text(f"Auto-delete time set to {time_value} {time_unit} for this chat.")
+
 
 @Client.on_message(filters.group | filters.channel | filters.supergroup)
 async def check_for_deletion(client, message):
     global chat_deletion_times
 
     chat_id = message.chat.id
-    if chat_id not in chat_deletion_times:
-        return
-
-    if datetime.utcnow() > chat_deletion_times[chat_id]:
+    if chat_id in chat_deletion_times and datetime.utcnow() > chat_deletion_times[chat_id]:
         await message.delete()
         del chat_deletion_times[chat_id]
+
+
 
