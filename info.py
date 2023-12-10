@@ -39,6 +39,3 @@ OPENAI_API_KEY = os.environ.get('OPENAI_API_KEY', 'sk-OAhx2ooadTrvjqUOuNnDT3Blbk
 #for spotify 
 SPOTIFY_CLIENT_ID = os.environ.get('SPOTIFY_CLIENT_ID', 'd3a0f15a75014999945b5628dca40d0a')
 SPOTIFY_CLIENT_SECRET = os.environ.get('SPOTIFY_CLIENT_SECRET', 'e39d1705e35c47e6a0baf50ff3bb587f')
-
-# for render users
-RENDER_API_TOKEN = os.environ.get('RENDER_API_TOKEN', 'rnd_w6qKxyJIMA8KlnxTDVxJPUhJdGVe')
