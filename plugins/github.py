@@ -11,10 +11,10 @@ async def repo(client, message):
             if data['total_count'] > 0:
                 repo = data['items'][0]  # Get the first result
                 reply = f"**{repo['name']}**\n\n" \
-                        f"**ᴅᴇsᴄʀɪᴘᴛɪᴏɴ:** <code>{repo['description']}</code>\n" \
-                        f"**ᴜʀʟ:** {repo['html_url']}\n" \
-                        f"**sᴛᴀʀs:** <code>{repo['stargazers_count']}</code>\n" \
-                        f"**ғᴏʀᴋs:** <code>{repo['forks_count']}</code>"
+                        f"**🔖 ᴅᴇsᴄʀɪᴘᴛɪᴏɴ:** <code>{repo['description']}</code>\n" \
+                        f"**🔗 ᴜʀʟ:** {repo['html_url']}\n" \
+                        f"**✨ sᴛᴀʀs:** <code>{repo['stargazers_count']}</code>\n" \
+                        f"**📡 ғᴏʀᴋs:** <code>{repo['forks_count']}</code>"
 
                 # Await the coroutine here
                 await message.reply_text(reply)
