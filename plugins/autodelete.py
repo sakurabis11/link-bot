@@ -13,7 +13,7 @@ async def is_admin(client, message):
     return member.status in ("administrator", "creator")
 
 
-@Client.on_message(filters.command("set_time") & filters.user(is_admin))
+@Client.on_message(filters.command("set_time") & filters.user(is_admin) & (filters.channel | filters.supergroup))
 async def set_delete_time(client, message):
     global chat_deletion_times
 
@@ -50,7 +50,7 @@ async def set_delete_time(client, message):
     await message.reply_text(f"Auto-delete time set to {time_value} {time_unit} for this chat.")
 
 
-@Client.on_message(filters.group | filters.channel | filters.supergroup)
+@Client.on_message(filters.channel | filters.supergroup)
 async def check_for_deletion(client, message):
     global chat_deletion_times
 
