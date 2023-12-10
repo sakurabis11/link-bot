@@ -1,16 +1,15 @@
 from pyrogram import Client, filters
-from spotipy.oauth2 import SpotifyOAuth
 from yt_dlp import YoutubeDL
 import spotipy
 from info import SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET
+import base64
 
-# Spotify client ID and client secret
+# Define your client id and client secret
 client_id = SPOTIFY_CLIENT_ID
 client_secret = SPOTIFY_CLIENT_SECRET
-redirect_uri = None
 
-# Initialize Spotify OAuth
-sp = spotipy.Spotify(auth_manager=SpotifyOAuth(client_id, client_secret, redirect_uri))
+# Encode the client id and client secret
+credentials = base64.b64encode(f'{client_id}:{client_secret}'.encode('utf-8')).decode('utf-8')
 
 # Download options
 ydl_opts = {
