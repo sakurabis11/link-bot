@@ -82,6 +82,5 @@ async def handle_spotify_command(client, message):
                 ydl.download([info["id"]])
                 client.send_audio(message.chat.id, f"{info['title']}.mp3")
         except Exception as e:
-            # Handle any errors during search or download
-        await client.send_message(message.chat.id, f"Error: {e}")
-
+            # Make sure this line is indented one level further
+            await client.send_message(message.chat.id, f"Error: {e}")
