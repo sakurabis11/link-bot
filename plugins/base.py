@@ -261,3 +261,10 @@ async def get_stats(bot, message):
     free = get_size(free)    
     await rju.edit(script.STATUS_TXT.format(total_users))
 
+@Client.on_message(filters.command('logs') & filters.user(ADMINS))
+async def log_file(bot, message):
+    try:
+        await message.reply_document('TelegramBot.log')
+    except Exception as e:
+        await message.reply(str(e))
+
