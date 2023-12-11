@@ -10,8 +10,8 @@ class script(object):
 ◉ ᴜꜱᴇʀ-ɪᴅ: <code>{}</code>
 ◉ ᴀᴄᴄ-ɴᴀᴍᴇ: {}"""
 
-    START_TXT = """<b>Hᴇʟʟᴏ {}.
-Mʏ Nᴀᴍᴇ Is <a href=https://t.me/{}>{}</a>. ɪ ᴀᴍ ᴀ sᴘᴇᴄɪᴀʟ ʙᴏᴛ</b>"""
+    START_TXT = """Hᴇʟʟᴏ {}.
+Mʏ Nᴀᴍᴇ Is <a href=https://t.me/{}>{}</a>. ɪ ᴀᴍ ᴀ sᴘᴇᴄɪᴀʟ ʙᴏᴛ"""
 
     HELP_TXT = """Hᴇʀᴇ ɪs Mʏ Hᴇʟᴩ.
 ᴄʟɪᴄᴋ ᴛʜɪs /support"""
