@@ -30,6 +30,7 @@
 
  - [BASE_REPO](https://github.com/Devil-Botz/Elsa)
 
+ᴡᴇ ᴡɪʟʟ ᴛʀʏ ᴛᴏ ᴀᴅᴅ ᴅᴏɴᴡʟᴏᴀᴅ ғʀᴏᴍ sᴏɴɢ ғʀᴏᴍ sᴘᴏᴛɪғʏ.
 
 ## License
 
