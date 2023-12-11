@@ -10,11 +10,11 @@ class script(object):
 ◉ ᴜꜱᴇʀ-ɪᴅ: <code>{}</code>
 ◉ ᴀᴄᴄ-ɴᴀᴍᴇ: {}"""
 
-    START_TXT = """<b>Hᴇʟʟᴏ .
-Mʏ Nᴀᴍᴇ Is <a <^ ~ ^> ᴍʀ.ʙᴏᴛ ᵀᴳ </> </a>. ɪ ᴀᴍ ᴀ sᴘᴇᴄɪᴀʟ ʙᴏᴛ"""
+    START_TXT = """<b>Hᴇʟʟᴏ {}.
+Mʏ Nᴀᴍᴇ Is {}. ɪ ᴀᴍ ᴀ sᴘᴇᴄɪᴀʟ ʙᴏᴛ"""
 
     HELP_TXT = """Hᴇʀᴇ ɪs Mʏ Hᴇʟᴩ.
-    ᴄʟɪᴄᴋ ᴛʜɪs /support"""
+ᴄʟɪᴄᴋ ᴛʜɪs /support"""
 
     ABOUT_TXT = """<b>✯ Mʏ ɴᴀᴍᴇ ɪS <^ ~ ^> ᴍʀ.ʙᴏᴛ ᵀᴳ </>
 ✯ Dᴇᴠᴇʟᴏᴩᴇʀ: <a href='https://t.me/MrTG_Coder'>ᴍʀ.ʙᴏᴛ ᴛɢ</a>
