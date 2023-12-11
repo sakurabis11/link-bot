@@ -130,88 +130,79 @@ async def callback_handler(client, callback_query):
 
     if query.data == "admin":
         buttons = [[
-            InlineKeyboardButton('ʜᴏᴍᴇ', callback_data='help'),
-            InlineKeyboardButton("ʙᴀᴄᴋ ᴛᴏ sᴛᴀʀᴛ", callback_data='start')
+            InlineKeyboardButton('ʜᴏᴍᴇ', callback_data='help')
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(text=script.ADMIN_CMD_TXT, reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML) 
 
     if query.data == "telegraph":
-        buttons = [[
-            InlineKeyboardButton('ʜᴏᴍᴇ', callback_data='help'),
-            InlineKeyboardButton("ʙᴀᴄᴋ ᴛᴏ sᴛᴀʀᴛ", callback_data='start')
+        buttons = buttons = [[
+            InlineKeyboardButton('ʜᴏᴍᴇ', callback_data='help')
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(text=script.TELEGRAGH_TXT, reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
 
     if query.data == "openai":
-        buttons = [[
-            InlineKeyboardButton('ʜᴏᴍᴇ', callback_data='help'),
-            InlineKeyboardButton("ʙᴀᴄᴋ ᴛᴏ sᴛᴀʀᴛ", callback_data='start')
+        buttons = buttons = [[
+            InlineKeyboardButton('ʜᴏᴍᴇ', callback_data='help')
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(text=script.OPENAI_TXT, reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
 
     if query.data == "song":
-        buttons = [[
-            InlineKeyboardButton('ʜᴏᴍᴇ', callback_data='help'),
-            InlineKeyboardButton("ʙᴀᴄᴋ ᴛᴏ sᴛᴀʀᴛ", callback_data='start')
+        buttons = buttons = [[
+            InlineKeyboardButton('ʜᴏᴍᴇ', callback_data='help')
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(text=script.SONG_TXT, reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
 
     if query.data == "ringtune":
-        buttons = [[
-            InlineKeyboardButton('ʜᴏᴍᴇ', callback_data='help'),
-            InlineKeyboardButton("ʙᴀᴄᴋ ᴛᴏ sᴛᴀʀᴛ", callback_data='start')
+        buttons = buttons = [[
+            InlineKeyboardButton('ʜᴏᴍᴇ', callback_data='help')
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(text=script.RINGTUNE_TXT, reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
 
     if query.data == "sticker":
-        buttons = [[
-            InlineKeyboardButton('ʜᴏᴍᴇ', callback_data='help'),
-            InlineKeyboardButton("ʙᴀᴄᴋ ᴛᴏ sᴛᴀʀᴛ", callback_data='start')
+        buttons = buttons = [[
+            InlineKeyboardButton('ʜᴏᴍᴇ', callback_data='help')
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(text=script.STICKER_TXT, reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
 
     if query.data == "spotify":
-        buttons = [[
-            InlineKeyboardButton('ʜᴏᴍᴇ', callback_data='help'),
-            InlineKeyboardButton("ʙᴀᴄᴋ ᴛᴏ sᴛᴀʀᴛ", callback_data='start')
+        buttons = buttons = [[
+            InlineKeyboardButton('ʜᴏᴍᴇ', callback_data='help')
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(text=script.SPOTIFY_TXT, reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
 
     if query.data == "repo":
-        buttons = [[
-            InlineKeyboardButton('ʜᴏᴍᴇ', callback_data='help'),
-            InlineKeyboardButton("ʙᴀᴄᴋ ᴛᴏ sᴛᴀʀᴛ", callback_data='start')
+        buttons = buttons = [[
+            InlineKeyboardButton('ʜᴏᴍᴇ', callback_data='help')
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(text=script.REPO_TXT, reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
 
     if query.data == "stats":
-        buttons = [[
-            InlineKeyboardButton('ʜᴏᴍᴇ', callback_data='help'),
-            InlineKeyboardButton("ʙᴀᴄᴋ ᴛᴏ sᴛᴀʀᴛ", callback_data='start')
+        buttons = buttons = [[
+            InlineKeyboardButton('ʜᴏᴍᴇ', callback_data='help')
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         users = await db.total_users_count()
         await query.message.edit_text(text=script.STATUS_TXT.format(users),reply_markup=reply_markup,parse_mode=enums.ParseMode.HTML)
     
     if query.data == "about":
-        buttons = [[
-           InlineKeyboardButton('ʜᴏᴍᴇ', callback_data='start'),
+        buttons = buttons = [[
+            InlineKeyboardButton('ʜᴏᴍᴇ', callback_data='start')
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(text=script.ABOUT_TXT.format(temp.B_NAME), reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
 
     if query.data == "rrb":
         buttons = [[
-            InlineKeyboardButton("🌿 Repo", url="https://t.me/Unni0240"),
-            InlineKeyboardButton("🐞 ʀᴇᴘᴏʀᴛ ʙᴜɢs", url="https://t.me/Unni0240")
+            InlineKeyboardButton("🌿 Repo", url="https://github.com/MrTG-CodeBot/Obanai"),
+            InlineKeyboardButton("🐞 ʀᴇᴘᴏʀᴛ ʙᴜɢs", url="https://t.me/MrTG_Coder")
             ],[
             InlineKeyboardButton('ʜᴏᴍᴇ', callback_data='start')
         ]]
