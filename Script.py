@@ -11,7 +11,7 @@ class script(object):
 ◉ ᴀᴄᴄ-ɴᴀᴍᴇ: {}"""
 
     START_TXT = """<b>Hᴇʟʟᴏ {}.
-Mʏ Nᴀᴍᴇ Is <a href=https://t.me/{}>{}</a>. ɪ ᴀᴍ ᴀ sᴘᴇᴄɪᴀʟ ʙᴏᴛ"""
+Mʏ Nᴀᴍᴇ Is <a href=https://t.me/{}>{}</a>. ɪ ᴀᴍ ᴀ sᴘᴇᴄɪᴀʟ ʙᴏᴛ</b>"""
 
     HELP_TXT = """Hᴇʀᴇ ɪs Mʏ Hᴇʟᴩ.
 ᴄʟɪᴄᴋ ᴛʜɪs /support"""
