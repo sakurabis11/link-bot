@@ -58,7 +58,7 @@ async def start(client, message):
             InlineKeyboardButton("🌿 Repo", url="https://t.me/Unni0240"),
         ]]
         reply_markup = InlineKeyboardMarkup(button)
-        await message.reply_text(text=script.START_TXT, reply_markup=reply_markup)
+        await message.reply_text(text=script.START_TXT.format{message.from_user.mention}, reply_markup=reply_markup)
 
     
 @Client.on_message(filters.command("help"))
