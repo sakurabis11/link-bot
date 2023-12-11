@@ -23,7 +23,7 @@ async def delete_all_messages(chat_id, time_delta):
   messages = await app.get_chat_history(chat_id)
 
   # Check if the user is owner or admin
-  if not await is_owner_or_admin(app, message):
+  if not await is_owner_or_admin(client, message):
     await message.reply_text("Only group and channel owners or admins can use this command.")
     return
 
