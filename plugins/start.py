@@ -58,7 +58,7 @@ async def start(client, message):
             InlineKeyboardButton("🌿 Repo", url="https://t.me/Unni0240"),
         ]]
         reply_markup = InlineKeyboardMarkup(button)
-        await message.reply_text(text=script.START_TXT.format{message.from_user.mention}, reply_markup=reply_markup)
+        await message.reply_text(text=script.START_TXT.format(query.from_user.mention, temp.U_NAME, temp.B_NAME), reply_markup=reply_markup)
 
     
 @Client.on_message(filters.command("help"))
@@ -105,7 +105,7 @@ async def callback_handler(client, callback_query):
             InlineKeyboardButton("🌿 Repo", url="https://t.me/Unni0240"),
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
-        await query.message.edit_text(text=script.START_TXT, reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
+        await query.message.edit_text(text=script.START_TXT.format(query.from_user.mention, temp.U_NAME, temp.B_NAME), reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
 
     if query.data == "help":
         buttons = [[
@@ -197,5 +197,5 @@ async def callback_handler(client, callback_query):
             InlineKeyboardButton('🏠 ʜᴏᴍᴇ', callback_data='start')
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
-        await query.message.edit_text(text=script.ABOUT_TXT, reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
+        await query.message.edit_text(text=script.ABOUT_TXT.format(temp.U_NAME, temp.B_NAME), reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
 
