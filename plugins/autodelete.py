@@ -1,63 +1,68 @@
 from pyrogram import Client, filters
-from datetime import datetime, timedelta
+from datetime import timedelta
 
-# Define a dictionary to store deletion times for each chat
-chat_deletion_times = {}
+# Function to delete all messages in a chat
+async def delete_all_messages(chat_id, time_delta):
+    # Get all messages in the chat
+    messages = await app.get_chat_history(chat_id)
 
-async def is_admin(client, message):
-    """
-    Check if the user is an admin of the chat.
-    """
-    chat_id = message.chat.id
-    member = await client.get_chat_member(chat_id, message.from_user.id)
-    return member.status in ("administrator", "creator")
+    # Check if the bot is instructed to stop auto-deletion
+    if auto_delete_enabled:
+        # Delete messages in batches
+        for message in messages:
+            await app.delete_messages(chat_id, message.message_id)
 
+        # Wait for the specified time
+        await asyncio.sleep(time_delta.total_seconds())
 
-@Client.on_message(filters.command("set_time") & filters.user(is_admin) & (filters.channel | filters.supergroup))
-async def set_delete_time(client, message):
-    global chat_deletion_times
+# Global variable to track auto-deletion status
+auto_delete_enabled = True
 
-    if not message.reply_to_message:
-        await message.reply_text("Please reply to a message in the chat you want to set the auto-delete time for.")
+# Command handler for setting the time
+@Client.on_message(filters.command(["set_time"]))
+async def set_time(client, message):
+    # Check if arguments are provided
+    if len(message.command) < 2:
+        await message.reply_text("Please provide the time in seconds, minutes, hours, or days.")
         return
 
-    chat_id = message.chat.id
+    time_str = message.command[1]
 
+    # Parse the time string
     try:
-        # Extract time and unit
-        time_value, time_unit = message.text.split()[1:3]
-        time_value = int(time_value)
+        time_delta = parse_time(time_str)
     except ValueError:
-        await message.reply_text("Invalid time format. Please specify the time and unit (e.g., 5 minutes, 3 hours).")
+        await message.reply_text("Invalid time format.")
         return
 
-    # Convert time to timedelta based on unit
-    time_units = {
-        "seconds": timedelta(seconds=time_value),
-        "minutes": timedelta(minutes=time_value),
-        "hours": timedelta(hours=time_value),
-        "days": timedelta(days=time_value),
-        "months": timedelta(days=time_value * 30)  # Approximate months as 30 days
-    }
+    await message.reply_text(f"Time set to {time_delta}")
 
-    if time_unit not in time_units:
-        await message.reply_text(f"Invalid time unit. Supported units are seconds, minutes, hours, days, and months.")
-        return
+@Client.on_message(filters.command(["delete_all"]))
+async def delete_all(client, message):
+    # Delete messages in the chat
+    await delete_all_messages(message.chat.id, time_delta)
 
-    delete_time = time_units[time_unit]
+    await message.reply_text("Deleted all messages.")
 
-    chat_deletion_times[chat_id] = datetime.utcnow() + delete_time
-    await message.reply_text(f"Auto-delete time set to {time_value} {time_unit} for this chat.")
+@Client.on_message(filters.command(["autodelete_off"]))
+async def autodelete_off(client, message):
+    # Disable auto-deletion
+    global auto_delete_enabled
+    auto_delete_enabled = False
 
+    await message.reply_text("Auto-deletion is now disabled.")
 
-@Client.on_message(filters.channel | filters.supergroup)
-async def check_for_deletion(client, message):
-    global chat_deletion_times
-
-    chat_id = message.chat.id
-    if chat_id in chat_deletion_times and datetime.utcnow() > chat_deletion_times[chat_id]:
-        await message.delete()
-        del chat_deletion_times[chat_id]
-
+# Function to parse the time string
+def parse_time(time_str):
+    if time_str.endswith("s"):
+        return timedelta(seconds=int(time_str[:-1]))
+    elif time_str.endswith("m"):
+        return timedelta(minutes=int(time_str[:-1]))
+    elif time_str.endswith("h"):
+        return timedelta(hours=int(time_str[:-1]))
+    elif time_str.endswith("d"):
+        return timedelta(days=int(time_str[:-1]))
+    else:
+        raise ValueError("Invalid time format.")
 
 
