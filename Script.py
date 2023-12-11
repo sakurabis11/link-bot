@@ -11,12 +11,12 @@ class script(object):
 ◉ ᴀᴄᴄ-ɴᴀᴍᴇ: {}"""
 
     START_TXT = """<b>Hᴇʟʟᴏ {}.
-Mʏ Nᴀᴍᴇ Is {}. ɪ ᴀᴍ ᴀ sᴘᴇᴄɪᴀʟ ʙᴏᴛ"""
+Mʏ Nᴀᴍᴇ Is <a href=https://t.me/{}>{}</a>. ɪ ᴀᴍ ᴀ sᴘᴇᴄɪᴀʟ ʙᴏᴛ"""
 
     HELP_TXT = """Hᴇʀᴇ ɪs Mʏ Hᴇʟᴩ.
 ᴄʟɪᴄᴋ ᴛʜɪs /support"""
 
-    ABOUT_TXT = """<b>✯ Mʏ ɴᴀᴍᴇ ɪS <^ ~ ^> ᴍʀ.ʙᴏᴛ ᵀᴳ </>
+    ABOUT_TXT = """<b>✯ Mʏ ɴᴀᴍᴇ ɪ {} </>
 ✯ Dᴇᴠᴇʟᴏᴩᴇʀ: <a href='https://t.me/MrTG_Coder'>ᴍʀ.ʙᴏᴛ ᴛɢ</a>
 ✯ Lɪʙʀᴀʀʏ: <a href='https://docs.pyrogram.org/'>Pʏʀᴏɢʀᴀᴍ</a>
 ✯ Lᴀɴɢᴜᴀɢᴇ: <a href='https://www.python.org/download/releases/3.0/'>Pʏᴛʜᴏɴ 3</a>
