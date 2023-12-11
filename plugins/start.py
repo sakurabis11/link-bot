@@ -78,7 +78,7 @@ async def help_command(client, message):
          InlineKeyboardButton('ʀᴇᴘᴏ sᴇᴀʀᴄʜ', callback_data='repo'),
          InlineKeyboardButton('stats', callback_data='stats')
          ],[
-         InlineKeyboardButton('ʜᴏᴍᴇ', callback_data='start')
+         InlineKeyboardButton("ʜᴏᴍᴇ", callback_data="start")
     ]]
     reply_markup = InlineKeyboardMarkup(buttons)
     await message.reply_text(text=script.HELP_TXT, reply_markup=reply_markup)
@@ -123,7 +123,7 @@ async def callback_handler(client, callback_query):
          InlineKeyboardButton('ʀᴇᴘᴏ sᴇᴀʀᴄʜ', callback_data='repo'),
          InlineKeyboardButton('stats', callback_data='stats')
          ],[
-         InlineKeyboardButton('ʜᴏᴍᴇ', callback_data="start")
+         InlineKeyboardButton("ʜᴏᴍᴇ", callback_data="start")
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(text=script.HELP_TXT, reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
@@ -194,7 +194,7 @@ async def callback_handler(client, callback_query):
     
     if query.data == "about":
         buttons = buttons = [[
-            InlineKeyboardButton('ʜᴏᴍᴇ', callback_data="start")
+            InlineKeyboardButton("ʜᴏᴍᴇ", callback_data="start")
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(text=script.ABOUT_TXT.format(temp.B_NAME), reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
@@ -204,7 +204,7 @@ async def callback_handler(client, callback_query):
             InlineKeyboardButton("🌿 Repo", url="https://github.com/MrTG-CodeBot/Obanai"),
             InlineKeyboardButton("🐞 ʀᴇᴘᴏʀᴛ ʙᴜɢs", url="https://t.me/MrTG_Coder")
             ],[
-            InlineKeyboardButton('ʜᴏᴍᴇ', callback_data="start")
+            InlineKeyboardButton("ʜᴏᴍᴇ", callback_data="start")
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(text=script.RRB_TXT, reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
