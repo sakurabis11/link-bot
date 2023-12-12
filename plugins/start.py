@@ -95,7 +95,7 @@ async def about_command(client, message):
 async def callback_handler(client, callback_query):
     query = callback_query
 
-    if query.data == "start":
+    if query.data == 'start':
         buttons = [[
             InlineKeyboardButton("🍂 Aᴅᴅ Mᴇ Tᴏ Yᴏᴜʀ Cʜᴀᴛ ", url=f"http://t.me/{temp.U_NAME}?startgroup=true")
             ],[
