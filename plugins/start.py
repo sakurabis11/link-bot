@@ -48,7 +48,8 @@ async def start(client, message):
         await client.send_message(LOG_CHANNEL, script.LOG_TEXT_P.format(message.from_user.id, message.from_user.mention))
 
     # Fix: Check for command length after checking user existence
-    if len(message.command) != 2:
+@Client.on_message(filters.command("start") & filters.private)
+async def start_cmd(client, message):
         button = [[
             InlineKeyboardButton("🍂 Aᴅᴅ Mᴇ Tᴏ Yᴏᴜʀ Cʜᴀᴛ ", url=f"http://t.me/{temp.U_NAME}?startgroup=true")
             ],[
