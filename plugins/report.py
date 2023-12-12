@@ -1,7 +1,7 @@
 from pyrogram import Client, filters
 CMD = '@'
 
-@Client.on_message(filters.reply & filters.command("admins",CMD))
+@Client.on_message(filters.reply & filters.command("admins" ,CMD))
 async def report_to_admins(client, message):
     # Get the replied message
     replied_message = message.reply_to_message
