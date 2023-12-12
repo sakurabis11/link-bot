@@ -1,6 +1,7 @@
 from pyrogram import filters
 from aiohttp import ClientSession
-from pyrogram import Client as bot
+from pyrogram import Client 
+from info import S_GROUP
 from plugins.helper_function.c_function import make_carbon
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 aiohttpsession = ClientSession()
@@ -15,7 +16,7 @@ F = InlineKeyboardMarkup(
 
 
 
-@bot.on_message(filters.command("carbon"))
+@Client.on_message(filters.command("carbon"))
 async def carbon_func(_, message):
     if not message.reply_to_message:
         return await message.reply_text(
