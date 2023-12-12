@@ -14,6 +14,7 @@ marshmallow==3.20.1
 umongo==3.1.0
 motor
 speedtest
+python-dateutil
 datetime>=4.4
 psutil==5.9.4
 asyncio
