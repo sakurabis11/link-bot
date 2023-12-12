@@ -53,9 +53,7 @@ async def start(client, message):
             InlineKeyboardButton("🍂 Aᴅᴅ Mᴇ Tᴏ Yᴏᴜʀ Cʜᴀᴛ ", url=f"http://t.me/{temp.U_NAME}?startgroup=true")
             ],[
             InlineKeyboardButton("️🍃 Hᴇʟᴩ", callback_data="help"),
-            InlineKeyboardButton("🍁 Aʙᴏᴜᴛ", callback_data="about"),
-            ],[
-            InlineKeyboardButton("🌿 Repo & ʀᴇᴘᴏʀᴛ ʙᴜɢs", callback_data="rrb")
+            InlineKeyboardButton("🍁 Aʙᴏᴜᴛ", callback_data="about")
         ]]
         reply_markup = InlineKeyboardMarkup(button)
         await message.reply_text(text=script.START_TXT.format(message.from_user.mention, temp.U_NAME, temp.B_NAME), reply_markup=reply_markup)
@@ -77,6 +75,8 @@ async def help_command(client, message):
          ],[
          InlineKeyboardButton('ʀᴇᴘᴏ sᴇᴀʀᴄʜ', callback_data='repo'),
          InlineKeyboardButton('stats', callback_data='stats')
+         ],[
+         InlineKeyboardButton("🌿 Repo & ʀᴇᴘᴏʀᴛ ʙᴜɢs", callback_data="rrb")
          ],[
          InlineKeyboardButton('ʜᴏᴍᴇ', callback_data='start')
     ]]
@@ -101,8 +101,6 @@ async def callback_handler(client, callback_query):
             ],[
             InlineKeyboardButton("️🍃 Hᴇʟᴩ", callback_data="help"),
             InlineKeyboardButton("🍁 Aʙᴏᴜᴛ", callback_data="about"),
-            ],[
-            InlineKeyboardButton("🌿 Repo & ʀᴇᴘᴏʀᴛ ʙᴜɢs", callback_data="rrb")
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(text=script.START_TXT.format(message.from_user.mention, temp.U_NAME, temp.B_NAME), reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
@@ -122,6 +120,9 @@ async def callback_handler(client, callback_query):
          ],[
          InlineKeyboardButton('ʀᴇᴘᴏ sᴇᴀʀᴄʜ', callback_data='repo'),
          InlineKeyboardButton('stats', callback_data='stats')
+         ],[
+         ],[
+         InlineKeyboardButton("🌿 Repo & ʀᴇᴘᴏʀᴛ ʙᴜɢs", callback_data="rrb")
          ],[
          InlineKeyboardButton('ʜᴏᴍᴇ', callback_data='start')
         ]]
@@ -191,6 +192,16 @@ async def callback_handler(client, callback_query):
         reply_markup = InlineKeyboardMarkup(buttons)
         users = await db.total_users_count()
         await query.message.edit_text(text=script.STATUS_TXT.format(users),reply_markup=reply_markup,parse_mode=enums.ParseMode.HTML)
+
+    elif query.data == "rrb":
+        buttons = [[
+            InlineKeyboardButton("🌿 Repo", url="https://github.com/MrTG-CodeBot/Obanai"),
+            InlineKeyboardButton("🐞 ʀᴇᴘᴏʀᴛ ʙᴜɢs", url="https://t.me/MrTG_Coder")
+            ],[
+            InlineKeyboardButton('𝖡𝖺𝖼𝗄', callback_data='help')
+        ]]
+        reply_markup = InlineKeyboardMarkup(buttons)
+        await query.message.edit_text(text=script.RRB_TXT, reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
     
     elif query.data == "about":
         buttons = buttons = [[
@@ -199,26 +210,5 @@ async def callback_handler(client, callback_query):
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(text=script.ABOUT_TXT.format(temp.B_NAME), reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
 
-    elif query.data == "rrb":
-        buttons = [[
-            InlineKeyboardButton("🌿 Repo", url="https://github.com/MrTG-CodeBot/Obanai"),
-            InlineKeyboardButton("🐞 ʀᴇᴘᴏʀᴛ ʙᴜɢs", url="https://t.me/MrTG_Coder")
-            ],[
-            InlineKeyboardButton('𝖡𝖺𝖼𝗄', callback_data='start')
-        ]]
-        reply_markup = InlineKeyboardMarkup(buttons)
-        await query.message.edit_text(text=script.RRB_TXT, reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
-
-    elif query.data == 'start':
-        buttons = [[
-            InlineKeyboardButton("🍂 Aᴅᴅ Mᴇ Tᴏ Yᴏᴜʀ Cʜᴀᴛ ", url=f"http://t.me/{temp.U_NAME}?startgroup=true")
-            ],[
-            InlineKeyboardButton("️🍃 Hᴇʟᴩ", callback_data="help"),
-            InlineKeyboardButton("🍁 Aʙᴏᴜᴛ", callback_data="about"),
-            ],[
-            InlineKeyboardButton("🌿 Repo & ʀᴇᴘᴏʀᴛ ʙᴜɢs", callback_data="rrb")
-        ]]
-        reply_markup = InlineKeyboardMarkup(buttons)
-        await query.message.edit_text(text=script.START_TXT.format(message.from_user.mention, temp.U_NAME, temp.B_NAME), reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
-
+  
 
