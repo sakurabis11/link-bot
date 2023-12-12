@@ -204,7 +204,7 @@ async def callback_handler(client, callback_query):
             InlineKeyboardButton("🌿 Repo", url="https://github.com/MrTG-CodeBot/Obanai"),
             InlineKeyboardButton("🐞 ʀᴇᴘᴏʀᴛ ʙᴜɢs", url="https://t.me/MrTG_Coder")
             ],[
-            InlineKeyboardButton('🌿 ʜᴏᴍᴇ', callback_data='start')
+            InlineKeyboardButton('𝖡𝖺𝖼𝗄', callback_data='start')
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(text=script.RRB_TXT, reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
