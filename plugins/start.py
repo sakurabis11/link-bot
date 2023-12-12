@@ -36,7 +36,7 @@ async def start(client, message):
             InlineKeyboardButton("ʜᴇʟᴘ", url=f"https://t.me/{temp.U_NAME}?start=help"),
         ]]
         reply_markup = InlineKeyboardMarkup(button)
-        await message.reply(text=script.START_TXT, reply_markup=reply_markup)
+        await message.reply(text=script.START_TXT.format(message.from_user.mention, temp.U_NAME, temp.B_NAME), reply_markup=reply_markup)
         await asyncio.sleep(2)
         if not await db.get_chat(message.chat.id):
             total = await client.get_chat_members_count(message.chat.id)
@@ -48,8 +48,7 @@ async def start(client, message):
         await client.send_message(LOG_CHANNEL, script.LOG_TEXT_P.format(message.from_user.id, message.from_user.mention))
 
     # Fix: Check for command length after checking user existence
-@Client.on_message(filters.command("start") & filters.private)
-async def start_cmd(client, message):
+    if len(message.command) != 2:
         button = [[
             InlineKeyboardButton("🍂 Aᴅᴅ Mᴇ Tᴏ Yᴏᴜʀ Cʜᴀᴛ ", url=f"http://t.me/{temp.U_NAME}?startgroup=true")
             ],[
