@@ -46,23 +46,3 @@ Mʏ Nᴀᴍᴇ Is <a href=https://t.me/{}>{}</a>. ɪ ᴀᴍ ᴀ sᴘᴇᴄɪᴀ�
 
     SPOTIFY_TXT = """/spotify {song_name}\nɴᴏᴡ ᴡᴇ ᴏɴʟʏ ᴀᴅᴅ ғɪɴᴅ ᴛʜᴇ sᴏɴɢ ᴅᴇᴛᴀɪʟs ʙʏ ᴜʀ ʀᴇǫᴜᴇsᴛ.
 ᴄʀᴇᴅɪᴛs @MrTG_Coder"""
-
-    REPO_TXT = """/repo ᴛᴏ sᴇᴀʀᴄʜ ᴛʜᴇ ʀᴇᴘᴏsɪᴛᴏʀʏ
-ᴄʀᴇᴅɪᴛs @MrTG_Coder"""
-
-    CREATOR_REQUIRED = """❗<b>You have To Be The Group Creator To Do That.</b>"""
-      
-    INPUT_REQUIRED = "❗ **Arguments Required**"
-      
-    KICKED = """✔️ Successfully Kicked {} Members According To The Arguments Provided."""
-      
-    START_KICK = """🚮 Removing Inactive Members This May Take A While..."""
-      
-    ADMIN_REQUIRED = """❗<b>എന്നെ Admin ആക്കത്ത സ്ഥലത്ത് ഞാൻ നിക്കില്ല പോകുവാ Bii..Add Me Again with all admin rights.</b>"""
-      
-    DKICK = """✔️ Kicked {} Deleted Accounts Successfully."""
-      
-    FETCHING_INFO = """<b>ഇപ്പൊ എല്ലാം അടിച്ചുമാറ്റി തരാം...</b>"""
-
-    STATUS = """{}\n<b>Chat Member Status</b>**\n\n```<i>Recently``` - {}\n```Within Week``` - {}\n```Within Month``` - {}\n```Long Time Ago``` - {}\nDeleted Account - {}\nBot - {}\nUnCached - {}</i>
-"""
