@@ -1,6 +1,6 @@
 from pyrogram import Client, filters
 from spotipy import Spotify
-from yt_dl import YoutubeDL
+from yt_dlp import YoutubeDL
 from info import SPOTIFY_CLIENT_ID
 
 # Replace with your Spotify credentials
