@@ -1,5 +1,5 @@
 from pyrogram import Client, filters
-from spotdl 
+import spotdl 
 import ffmpeg
 
 @client.on_message(filters.command("spotifyin"))
