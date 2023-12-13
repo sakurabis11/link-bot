@@ -90,9 +90,8 @@ async def about_command(client, message):
     await message.reply_text(ABOUT_TXT(temp.B_NAME), reply_markup=reply_markup)
 
 @Client.on_callback_query()
-async def callback_handler(client, callback_query):
-    query = callback_query
-
+async def callback_handle(client, query):
+    print(query.data)
     if query.data == 'start':
         buttons = [[
             InlineKeyboardButton("🍂 Aᴅᴅ Mᴇ Tᴏ Yᴏᴜʀ Cʜᴀᴛ ", url=f"http://t.me/{temp.U_NAME}?startgroup=true")
