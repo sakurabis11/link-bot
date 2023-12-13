@@ -10,6 +10,7 @@ from pyrogram.errors import ChatAdminRequired
 import asyncio
 import pytz
 
+tz = pytz.timezone('Asia/Kolkata')
 today = date.today()
 now = datetime.now(tz)
 time = now.strftime("%H:%M:%S %p")
