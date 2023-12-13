@@ -8,7 +8,7 @@ from utils import get_size, temp, get_settings
 from Script import script
 from pyrogram.errors import ChatAdminRequired
 import asyncio
-
+import pytz
 
 today = date.today()
 now = datetime.now(tz)
