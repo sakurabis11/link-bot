@@ -1,8 +1,6 @@
 from pyrogram import Client, filters
-from spotdl import Spotify
-import os
-
-spotify = Spotify()
+from spotdl 
+import ffmpeg
 
 @client.on_message(filters.command("spotifyin"))
 async def spotify_download(client, message):
