@@ -91,6 +91,7 @@ async def about_command(client, message):
 
 @Client.on_callback_query()
 async def callback_handle(client, query):
+    await query.message.reply(query.data)
     print(query.data)
     if query.data == 'start':
         buttons = [[
