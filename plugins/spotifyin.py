@@ -2,7 +2,7 @@ from pyrogram import Client, filters
 import spotdl 
 import ffmpeg
 
-@client.on_message(filters.command("spotifyin"))
+@Client.on_message(filters.command("spotifyin"))
 async def spotify_download(client, message):
     if len(message.command) < 2:
         await message.reply("Please provide a Spotify song URL or search term.")
