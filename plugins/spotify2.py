@@ -1,7 +1,7 @@
 from pyrogram import Client, filters
 from spotipy import Spotify
 from yt_dlp import YoutubeDL
-from info import SPOTIFY_CLIENT_ID
+from info import SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET
 
 # Replace with your Spotify credentials
 CLIENT_ID = SPOTIFY_CLIENT_ID
