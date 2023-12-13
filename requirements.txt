@@ -19,6 +19,10 @@ datetime>=4.4
 psutil==5.9.4
 asyncio
 yt_dlp
+youtube-dl
+chardet
+pycryptodomex
+six
 spotipy
 spotdl
 instaloader
