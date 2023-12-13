@@ -49,13 +49,13 @@ async def start(client, message):
 
     # Fix: Check for command length after checking user existence
     if len(message.command) != 2:
-        button = [[
+        buttons = [[
             InlineKeyboardButton("🍂 Aᴅᴅ Mᴇ Tᴏ Yᴏᴜʀ Cʜᴀᴛ ", url=f"http://t.me/{temp.U_NAME}?startgroup=true")
             ],[
             InlineKeyboardButton("️🍃 Hᴇʟᴩ", callback_data="help"),
             InlineKeyboardButton("🍁 Aʙᴏᴜᴛ", callback_data="about")
         ]]
-        reply_markup = InlineKeyboardMarkup(button)
+        reply_markup = InlineKeyboardMarkup(buttons)
         await message.reply_text(text=script.START_TXT.format(message.from_user.mention, temp.U_NAME, temp.B_NAME), reply_markup=reply_markup)
 
     
@@ -85,10 +85,10 @@ async def help_command(client, message):
 
 @Client.on_message(filters.command("about"))
 async def about_command(client, message):
-    button = [[
+    buttons = [[
         InlineKeyboardButton('🌿 ʜᴏᴍᴇ', callback_data="start")
     ]]
-    reply_markup = InlineKeyboardMarkup(button)
+    reply_markup = InlineKeyboardMarkup(buttons)
     await message.reply_text(ABOUT_TXT(temp.B_NAME), reply_markup=reply_markup)
 
 @Client.on_callback_query()
