@@ -196,7 +196,7 @@ async def callback_handler(client, callback_query):
     elif query.data == "rrb":
         buttons = [[
             InlineKeyboardButton("🌿 Repo", url="https://github.com/MrTG-CodeBot/Obanai"),
-            InlineKeyboardButton("🐞 ʀᴇᴘᴏʀᴛ ʙᴜɢs", url="https://t.me/MrTG_Coder")
+            InlineKeyboardButton("🐞 ʀᴇᴘᴏʀᴛ ʙᴜɢs", url=S_GROUP)
             ],[
             InlineKeyboardButton('𝖡𝖺𝖼𝗄', callback_data='help')
         ]]
@@ -205,7 +205,7 @@ async def callback_handler(client, callback_query):
     
     elif query.data == "about":
         buttons = buttons = [[
-            InlineKeyboardButton('ʜᴏᴍᴇ', callback_data='start')
+            InlineKeyboardButton('ʜᴏᴍᴇ', callback_data="start")
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(text=script.ABOUT_TXT.format(temp.B_NAME), reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
