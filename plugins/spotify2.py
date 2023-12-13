@@ -1,6 +1,7 @@
 from pyrogram import Client, filters
 from spotipy import Spotify
 from yt_dlp import YoutubeDL
+from spotipy.oauth2 import SpotifyClientCredentials
 from info import SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET
 
 # Replace with your Spotify credentials
@@ -8,8 +9,11 @@ CLIENT_ID = SPOTIFY_CLIENT_ID
 CLIENT_SECRET = SPOTIFY_CLIENT_SECRET
 
 # Spotify and Youtube-DL instances
-spotify = Spotify(client_id=CLIENT_ID, client_secret=CLIENT_SECRET, cache_path=".cache")
-sp = spotipy.Spotify(auth_manager=spotify)
+from spotipy.oauth2 import SpotifyClientCredentials
+
+auth_manager = SpotifyClientCredentials(client_id=CLIENT_ID, client_secret=CLIENT_SECRET)
+sp = spotipy.Spotify(auth_manager=auth_manager)
+
 ydl_opts = {
     "format": "bestaudio/best",
     "postprocessors": [{
