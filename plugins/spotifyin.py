@@ -3,6 +3,12 @@ import spotdl
 import ffmpeg
 import re
 from spotipy import Spotify
+from info import SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET
+
+from spotipy import Spotify
+
+# Initialize the Spotify client
+spotify = Spotify(auth_manager=SpotifyOAuth(client_id= SPOTIFY_CLIENT_ID, client_secret= SPOTIFY_CLIENT_SECRET, redirect_uri=None))
 
 
 @Client.on_message(filters.command("spotifyin"))
