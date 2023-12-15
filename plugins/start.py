@@ -55,7 +55,6 @@ async def start(client, message):
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await message.reply_text(text=script.START_TXT.format(message.from_user.mention, temp.U_NAME, temp.B_NAME), reply_markup=reply_markup)
-
     
 @Client.on_message(filters.command("help"))
 async def help_command(client, message):
@@ -63,35 +62,27 @@ async def help_command(client, message):
          InlineKeyboardButton('ᴀᴅᴍɪɴ', callback_data='admin')
          ],[
          InlineKeyboardButton('ᴛᴇʟᴇɢʀᴀᴘʜ', callback_data='telegraph'),
-         InlineKeyboardButton('ᴏᴘᴇɴᴀɪ', callback_data='openai')            
+         InlineKeyboardButton('ᴏᴘᴇɴᴀɪ', callback_data='openai'),
+         InlineKeyboardButton('ʀᴇᴘᴏ sᴇᴀʀᴄʜ', callback_data='repos')
          ],[
          InlineKeyboardButton('sᴏɴɢ', callback_data='song'),
-         InlineKeyboardButton('ʀɪɴɢᴛᴜɴᴇ', callback_data='ringtune') 
-         ],[
-         InlineKeyboardButton('sᴛɪᴄᴋᴇʀ', callback_data='sticker'),
+         InlineKeyboardButton('ʀɪɴɢᴛᴜɴᴇ', callback_data='ringtune'),
          InlineKeyboardButton('sᴘᴏᴛɪғʏ', callback_data='spotify')
          ],[
-         InlineKeyboardButton('ʀᴇᴘᴏ sᴇᴀʀᴄʜ', callback_data='repo'),
+         InlineKeyboardButton('sᴛɪᴄᴋᴇʀ', callback_data='sticker'),
+         InlineKeyboardButton('sᴘᴏᴛɪғʏ', callback_data='spotify'),
          InlineKeyboardButton('stats', callback_data='stats')
          ],[
          InlineKeyboardButton("🌿 Repo & ʀᴇᴘᴏʀᴛ ʙᴜɢs", callback_data="rrb")
          ],[
-         InlineKeyboardButton('ʜᴏᴍᴇ', callback_data='btn_start')
+         InlineKeyboardButton('close', callback_data='close')
     ]]
     reply_markup = InlineKeyboardMarkup(buttons)
     await message.reply_text(text=script.HELP_TXT, reply_markup=reply_markup)
 
-@Client.on_message(filters.command("about"))
-async def about_command(client, message):
-    buttons = [[
-        InlineKeyboardButton('🌿 ʜᴏᴍᴇ', callback_data='btn_start')
-    ]]
-    reply_markup = InlineKeyboardMarkup(buttons)
-    await message.reply_text(ABOUT_TXT(temp.B_NAME), reply_markup=reply_markup)
-
 @Client.on_callback_query()
 async def callback_handle(client, query):
-    if query.data == 'btn_start':
+    if query.data == 'start':
         buttons = [[
             InlineKeyboardButton("🍂 Aᴅᴅ Mᴇ Tᴏ Yᴏᴜʀ Cʜᴀᴛ ", url=f"http://t.me/{temp.U_NAME}?startgroup=true")
             ],[
@@ -106,21 +97,20 @@ async def callback_handle(client, query):
          InlineKeyboardButton('ᴀᴅᴍɪɴ', callback_data='admin')
          ],[
          InlineKeyboardButton('ᴛᴇʟᴇɢʀᴀᴘʜ', callback_data='telegraph'),
-         InlineKeyboardButton('ᴏᴘᴇɴᴀɪ', callback_data='openai')            
+         InlineKeyboardButton('ᴏᴘᴇɴᴀɪ', callback_data='openai'),
+         InlineKeyboardButton('ʀᴇᴘᴏ sᴇᴀʀᴄʜ', callback_data='repos')
          ],[
          InlineKeyboardButton('sᴏɴɢ', callback_data='song'),
-         InlineKeyboardButton('ʀɪɴɢᴛᴜɴᴇ', callback_data='ringtune') 
-         ],[
-         InlineKeyboardButton('sᴛɪᴄᴋᴇʀ', callback_data='sticker'),
+         InlineKeyboardButton('ʀɪɴɢᴛᴜɴᴇ', callback_data='ringtune'),
          InlineKeyboardButton('sᴘᴏᴛɪғʏ', callback_data='spotify')
          ],[
-         InlineKeyboardButton('ʀᴇᴘᴏ sᴇᴀʀᴄʜ', callback_data='repo'),
+         InlineKeyboardButton('sᴛɪᴄᴋᴇʀ', callback_data='sticker'),
+         InlineKeyboardButton('sᴘᴏᴛɪғʏ', callback_data='spotify'),
          InlineKeyboardButton('stats', callback_data='stats')
-         ],[
          ],[
          InlineKeyboardButton("🌿 Repo & ʀᴇᴘᴏʀᴛ ʙᴜɢs", callback_data="rrb")
          ],[
-         InlineKeyboardButton('ʜᴏᴍᴇ', callback_data='btn_start')
+         InlineKeyboardButton('close', callback_data='close')
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(text=script.HELP_TXT, reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
@@ -174,7 +164,7 @@ async def callback_handle(client, query):
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(text=script.SPOTIFY_TXT, reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
 
-    elif query.data == "repo":
+    elif query.data == "repos":
         buttons = buttons = [[
             InlineKeyboardButton('ʜᴏᴍᴇ', callback_data='help')
         ]]
@@ -201,10 +191,13 @@ async def callback_handle(client, query):
     
     elif query.data == "about":
         buttons = buttons = [[
-            InlineKeyboardButton('ʜᴏᴍᴇ', callback_data='btn_start')
+            InlineKeyboardButton('close', callback_data='close')
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(text=script.ABOUT_TXT.format(temp.B_NAME), reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
 
-  
-
+    elif query.data == "close":
+        await query.message.delete()
+        edited_keyboard = InlineKeyboardMarkup([])
+        await query.answer()
+        await query.message.edit_reply_markup(edited_keyboard)
