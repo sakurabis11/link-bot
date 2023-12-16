@@ -73,8 +73,6 @@ async def help_command(client, message):
          InlineKeyboardButton('sᴘᴏᴛɪғʏ', callback_data='spotify'),
          InlineKeyboardButton('stats', callback_data='stats')
          ],[
-         InlineKeyboardButton("🌿 Repo & ʀᴇᴘᴏʀᴛ ʙᴜɢs", callback_data="rrb")
-         ],[
          InlineKeyboardButton('close', callback_data='close')
     ]]
     reply_markup = InlineKeyboardMarkup(buttons)
@@ -107,8 +105,6 @@ async def callback_handle(client, query):
          InlineKeyboardButton('sᴛɪᴄᴋᴇʀ', callback_data='sticker'),
          InlineKeyboardButton('sᴘᴏᴛɪғʏ', callback_data='spotify'),
          InlineKeyboardButton('stats', callback_data='stats')
-         ],[
-         InlineKeyboardButton("🌿 Repo & ʀᴇᴘᴏʀᴛ ʙᴜɢs", callback_data="rrb")
          ],[
          InlineKeyboardButton('close', callback_data='close')
         ]]
@@ -178,24 +174,26 @@ async def callback_handle(client, query):
         reply_markup = InlineKeyboardMarkup(buttons)
         users = await db.total_users_count()
         await query.message.edit_text(text=script.STATUS_TXT.format(users),reply_markup=reply_markup,parse_mode=enums.ParseMode.HTML)
-
-    elif query.data == "rrb":
-        buttons = [[
-            InlineKeyboardButton("🌿 Repo", url="https://github.com/MrTG-CodeBot/Obanai"),
-            InlineKeyboardButton("🐞 ʀᴇᴘᴏʀᴛ ʙᴜɢs", url=S_GROUP)
-            ],[
-            InlineKeyboardButton('𝖡𝖺𝖼𝗄', callback_data='help')
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(text=script.RRB_TXT, reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
     
     elif query.data == "about":
         buttons = buttons = [[
+            InlineKeyboardButton("🌿 Repo & ʀᴇᴘᴏʀᴛ ʙᴜɢs", callback_data="rrb")
+            ],[
             InlineKeyboardButton('close', callback_data='close')
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(text=script.ABOUT_TXT.format(temp.B_NAME), reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
-
+        
+    elif query.data == "rrb":
+        buttons = [[
+            InlineKeyboardButton("🌿 Repo", url="https://github.com/MrTG-CodeBot/Obanai"),
+            InlineKeyboardButton("🐞 ʀᴇᴘᴏʀᴛ ʙᴜɢs", url=S_GROUP)
+            ],[
+            InlineKeyboardButton('𝖡𝖺𝖼𝗄', callback_data='about')
+        
     elif query.data == "close":
         await query.message.delete()
         edited_keyboard = InlineKeyboardMarkup([])
