@@ -1,6 +1,7 @@
 from pyrogram import Client, filters
 from pyrogram.types import Message
 from youtube_dl import YoutubeDL
+import yt-dl
 import ffmpeg
 
 # Function to download a single song from YouTube URL
