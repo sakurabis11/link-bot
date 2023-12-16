@@ -20,12 +20,12 @@ def check_activity():
       for fork in repo.get_forks()[:new_forks]:
         # Modified message to include fork URL instead of file link
         message = f"✨ New fork by [@{fork.owner.login}]({fork.url}) on {REPO_URL}!"
-        Client.send_message(CHAT_ID, message)
+        Client.send_message(SUPPORT_GROUP_ID, message)
     if new_commits:
       committer = new_commits[0].commit.author.name
       # Modified message to include commit URL instead of file link
       message = f"️ {committer} contributed to {REPO_URL}! See commit details here: {new_commits[0].url}"
-      Client.send_message(CHAT_ID, message)
+      Client.send_message(SUPPORT_GROUP_ID, message)
     last_fork_count = current_fork_count
     last_commit_sha = new_commits[0].sha if new_commits else last_commit_sha
     time.sleep(60)
