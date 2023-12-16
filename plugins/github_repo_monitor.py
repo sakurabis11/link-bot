@@ -1,3 +1,5 @@
+# "if anyone forks or contribute your repo bot will send message to your required support group"
+
 from pyrogram import Client
 from github import Github
 from info import GITHUB_TOKEN, REPO_URL, SUPPORT_GROUP_ID
