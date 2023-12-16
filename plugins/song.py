@@ -22,19 +22,18 @@ async def download_song(client, message):
         search_results = YoutubeSearch(input_text, max_results=1).to_dict()
         song_url = search_results[0]["url_suffix"]
         song_title = search_results[0]["title"]
-        download_from_url(client, message, f"https://www.youtube.com{song_url}", song_title)
+        await download_from_url(client, message, f"https://www.youtube.com{song_url}", song_title)
     elif input_text.startswith("https://www.youtube.com/"):
         # Assume it's a YouTube video link
-        download_from_url(client, message, input_text, None)
+        await download_from_url(client, message, input_text, None)
     elif input_text.startswith("https://music.youtube.com/"):
         # Assume it's a YouTube playlist link
-        download_playlist(client, message, input_text)
+        await download_playlist(client, message, input_text)
     else:
         await message.reply("Invalid input. Please provide a valid song name, video link, or playlist link.")
 
 
-def download_from_url(client, message, url, title=None):
-    # Download and send the song
+async def download_from_url(client, message, url, title=None):
     try:
         yt = YouTube(url)
         audio_streams = yt.streams.filter(only_audio=True)
@@ -43,20 +42,23 @@ def download_from_url(client, message, url, title=None):
         video = audio_streams.first()
         filename = f"{title or yt.title}.mp3"
         video.download(filename=filename)
-        await message.reply(f"**Song downloaded: {filename}**")
-        await message.reply_audio(filename)
-        os.remove(filename)
+        await send_download_message(client, message, filename, title)
     except Exception as e:
         await message.reply(f"Error downloading song: {e}")
 
 
-def download_playlist(client, message, playlist_url):
-    # Download all songs in the playlist
+async def download_playlist(client, message, playlist_url):
     try:
         playlist = YouTube(playlist_url).playlist
         for item in playlist.videos:
-            download_from_url(client, message, item.url, item.title)
+            await download_from_url(client, message, item.url, item.title)
         await message.reply("Playlist downloaded successfully!")
     except Exception as e:
         await message.reply(f"Error downloading playlist: {e}")
+
+
+async def send_download_message(client, message, filename, title):
+    await message.reply(f"**Song downloaded: {filename}**")
+    await message.reply_audio(filename)
+    os.remove(filename)
 
