@@ -174,9 +174,6 @@ async def callback_handle(client, query):
         reply_markup = InlineKeyboardMarkup(buttons)
         users = await db.total_users_count()
         await query.message.edit_text(text=script.STATUS_TXT.format(users),reply_markup=reply_markup,parse_mode=enums.ParseMode.HTML)
-        ]]
-        reply_markup = InlineKeyboardMarkup(buttons)
-        await query.message.edit_text(text=script.RRB_TXT, reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
     
     elif query.data == "about":
         buttons = buttons = [[
@@ -193,6 +190,9 @@ async def callback_handle(client, query):
             InlineKeyboardButton("🐞 ʀᴇᴘᴏʀᴛ ʙᴜɢs", url=S_GROUP)
             ],[
             InlineKeyboardButton('𝖡𝖺𝖼𝗄', callback_data='about')
+        ]]
+        reply_markup = InlineKeyboardMarkup(buttons)
+        await query.message.edit_text(text=script.RRB_TXT, reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
         
     elif query.data == "close":
         await query.message.delete()
