@@ -1,5 +1,6 @@
 from pyrogram import Client, Message, filters
 from youtube_dl import YoutubeDL
+import ffmpeg
 
 # Function to download a single song from YouTube URL
 def download_song(url, format="bestaudio/best", chat_id=None):
