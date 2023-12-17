@@ -1,64 +1,49 @@
-import os
-import logging
-import re
 from pyrogram import Client, filters
-from youtube_dl import YoutubeDL
+from pytube import YouTube
+from youtube_search import YoutubeSearch
 
-# Configure logging
-logging.basicConfig(level=logging.INFO)
-
-# Define file path for temporary downloads
-DOWNLOAD_DIR = "downloads"
-
-# Download options for youtube-dl
-ydl_opts = {
-    "format": "bestaudio/best",
-    "postprocessors": [{
-        "key": "FFmpegExtractAudio",
-        "preferredcodec": "mp3",
-        "preferredquality": "192",
-    }],
-    "outtmpl": f"{DOWNLOAD_DIR}/%(title)s.%(ext)s",
-}
-
-
-@Client.on_message(filters.command("download"))
-async def handle_download(client, message):
-    # Extract YouTube link from the message
-    link = message.text.split()[1]
-
-    # Check if it's a video or playlist link
-    is_playlist = bool(re.search("^https://www.youtube.com/playlist", link))
+@Client.on_message(filters.command("yt"))
+async def download_handler(client, message):
+    # Extract URL and split by space for playlist handling
+    url = message.text.split()[1]
 
     try:
-        # Download song(s) using youtube-dl
-        with YoutubeDL(ydl_opts) as ydl:
-            if is_playlist:
-                playlist_info = ydl.extract_info(link, download=False)
-                for entry in playlist_info["entries"]:
-                    await download_and_send_song(client, message, entry["id"])
-            else:
-                song_info = ydl.extract_info(link, download=False)
-                await download_and_send_song(client, message, song_info["id"])
+        if "playlist" in url:
+            # Download from playlist
+            download_playlist(url, message.chat.id)
+        else:
+            # Download single video
+            download_video(url, message.chat.id)
     except Exception as e:
-        logging.error(f"Error downloading song: {e}")
-        await message.reply_text(f"Error downloading song: {e}")
+        bot.send_message(message.chat.id, f"Error: {e}")
 
-
-async def download_and_send_song(client, message, video_id):
-    # Download and extract audio
+def download_video(url, chat_id):
     try:
-        ydl_opts["outtmpl"] = f"{DOWNLOAD_DIR}/{video_id}.%(ext)s"
-        with YoutubeDL(ydl_opts) as ydl:
-            ydl.extract_info(f"https://www.youtube.com/watch?v={video_id}", download=True)
-        audio_path = f"{DOWNLOAD_DIR}/{video_id}.mp3"
+        # Get audio stream as an mp3 file
+        youtube = YouTube(url)
+        audio_stream = youtube.streams.filter(only_audio=True).desc("mp3").first()
+        filename = f"{youtube.title}.mp3"
 
-        # Send audio file to chat
-        await client.send_audio(message.chat.id, audio_path, caption=f"Here's your song!")
+        # Send download progress message
+        bot.send_message(chat_id, f"Downloading: {filename}")
 
-        # Clean up downloaded file
-        os.remove(audio_path)
+        # Download and send file
+        audio_stream.download(filename=filename)
+        bot.send_document(chat_id, open(filename, "rb"))
+        os.remove(filename)
+        bot.send_message(chat_id, f"Downloaded: {filename}")
     except Exception as e:
-        logging.error(f"Error sending song: {e}")
-        await message.reply_text(f"Error sending song: {e}")
+        bot.send_message(chat_id, f"Error: {e}")
+
+def download_playlist(url, chat_id):
+    try:
+        # Get videos from playlist
+        playlist = YoutubeSearch(url, max_results=10).results[0]
+        videos = playlist.get("playlist")
+
+        # Download each video
+        for video in videos:
+            download_video(video["link"], chat_id)
+    except Exception as e:
+        bot.send_message(chat_id, f"Error: {e}")
 
