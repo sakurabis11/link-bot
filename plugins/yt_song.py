@@ -1,5 +1,5 @@
 from pyrogram import Client, filters
-from youtube_dl import YoutubeDL
+from youtube-dl2 import YoutubeDL
 import ffmpeg
 
 @Client.on_message(filters.command("yt_song"))
