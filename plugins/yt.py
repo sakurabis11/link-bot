@@ -2,7 +2,6 @@ import os
 import logging
 import re
 from pyrogram import Client, filters
-from dotenv import load_dotenv
 from youtube_dl import YoutubeDL
 
 
