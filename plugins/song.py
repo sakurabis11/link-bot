@@ -1,45 +1,68 @@
-import asyncio
-import os
-import re
 from pyrogram import Client, filters
 from pytube import YouTube
 from youtube_search import YoutubeSearch
+from info import ADMINS
 
 
-@Client.on_message(filters.command(["song"]))
+@Client.on_message(filters.command("yt"))
 async def download_song(client, message):
-    # Check if the user has provided a song name
-    if len(message.text.split()) < 2:
-        await message.reply("Please provide the song name you want to download")
+    # Get the chat and text
+    chat_id = message.chat.id
+    text = message.text.replace("yt", "")
+
+    # Check if link provided
+    if not text:
+        message.reply("Please provide a YouTube video or playlist link!")
         return
 
-    song_name = message.text.split()[1:]  # Extract the song name from the message
-    song_name = " ".join(song_name)  # Combine the song name parts into a single string
-
-    # Search for the song on YouTube
-    search_results = YoutubeSearch(song_name, max_results=1).to_dict()
-    song_url = search_results[0]["url_suffix"]
-    song_title = search_results[0]["title"]
-
-    # Download the song using pytube
-    yt = YouTube(f"https://www.youtube.com{song_url}")
-    audio_streams = yt.streams.filter(only_audio=True)
-
-    if not audio_streams:
-        await client.send_message(message.chat.id, "No audio stream found for the specified video")
-        return
-
-    video = audio_streams.first()
-    audio_filename = f"{song_title}.mp3"
-
+    # Try extracting video information
     try:
-        video.download(filename=audio_filename)
-        await message.reply(f"**Song downloaded: {audio_filename}**")
-
-        # Send the downloaded song to the user
-        await message.reply_audio(audio_filename)
-
-        # Delete the downloaded song after sending it
-        os.remove(audio_filename)
+        if "playlist" in text:
+            # Download from playlist
+            playlist = YoutubeSearch(text).get_playlist()
+            download_playlist(client, chat_id, playlist)
+        else:
+            # Download single video
+            video = YouTube(text)
+            download_video(client, chat_id, video)
     except Exception as e:
-        await message.reply(f"Error downloading song: {e}")
+        message.reply(f"Error: {e}")
+
+def download_video(client, chat_id, video):
+    # Send info and ask for format
+    message = client.send_message(chat_id, f"Downloading '{video.title}'... Choose format (audio/video):")
+    client.register_filters([
+        filters.text(matches="(audio|video)")
+    ])
+
+    @client.on_message(filters.text & filters.chat(chat_id))
+    def choose_format(client, message):
+        format = message.text
+        download_stream(client, chat_id, video, format)
+
+def download_playlist(client, chat_id, playlist):
+    # Send playlist info and ask for confirmation
+    message = client.send_message(chat_id, f"Found playlist '{playlist.title}' with {len(playlist.videos)} songs. Download all? (y/n)")
+    client.register_filters([
+        filters.text(matches="(y|n)")
+    ])
+
+@Client.on_message(filters.text & filters.chat(chat_id))
+async def confirm_playlist(client, message):
+        if message.text == "y":
+            for video in playlist.videos:
+                download_video(client, chat_id, video)
+        else:
+            message.reply("Download cancelled.")
+
+def download_stream(client, chat_id, video, format):
+    # Download and send file
+    if format == "audio":
+        stream = video.streams.filter(only_audio=True).order_by('abr').desc().first()
+        file_path = stream.download()
+    else:
+        stream = video.streams.first()
+        file_path = stream.download()
+
+    client.send_audio(chat_id, file_path, progress=True)
+
