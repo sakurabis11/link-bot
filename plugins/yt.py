@@ -15,7 +15,7 @@ async def download_handler(client, message):
             # Download single video
             download_video(url, message.chat.id)
     except Exception as e:
-        bot.send_message(message.chat.id, f"Error: {e}")
+        client.send_message(message.chat.id, f"Error: {e}")
 
 def download_video(url, chat_id):
     try:
@@ -25,15 +25,15 @@ def download_video(url, chat_id):
         filename = f"{youtube.title}.mp3"
 
         # Send download progress message
-        bot.send_message(chat_id, f"Downloading: {filename}")
+        client.send_message(chat_id, f"Downloading: {filename}")
 
         # Download and send file
         audio_stream.download(filename=filename)
-        bot.send_document(chat_id, open(filename, "rb"))
+        client.send_document(chat_id, open(filename, "rb"))
         os.remove(filename)
-        bot.send_message(chat_id, f"Downloaded: {filename}")
+        client.send_message(chat_id, f"Downloaded: {filename}")
     except Exception as e:
-        bot.send_message(chat_id, f"Error: {e}")
+        client.send_message(chat_id, f"Error: {e}")
 
 def download_playlist(url, chat_id):
     try:
@@ -45,5 +45,5 @@ def download_playlist(url, chat_id):
         for video in videos:
             download_video(video["link"], chat_id)
     except Exception as e:
-        bot.send_message(chat_id, f"Error: {e}")
+        client.send_message(chat_id, f"Error: {e}")
 
