@@ -4,10 +4,6 @@ import re
 from pyrogram import Client, filters
 from youtube_dl import YoutubeDL
 
-
-# Load environment variables (bot token, etc.)
-load_dotenv()
-
 # Configure logging
 logging.basicConfig(level=logging.INFO)
 
