@@ -21,7 +21,6 @@ psutil==5.9.4
 asyncio
 yt_dlp
 youtube-dl
-dotenv
 tqdm
 chardet
 pycryptodomex
