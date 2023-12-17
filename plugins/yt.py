@@ -22,7 +22,7 @@ ydl_opts = {
 }
 
 
-@client.on_message(filters.text & filters.command("download"))
+@Client.on_message(filters.command("download"))
 async def handle_download(client, message):
     # Extract YouTube link from the message
     link = message.text.split()[1]
