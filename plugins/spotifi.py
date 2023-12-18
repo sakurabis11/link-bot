@@ -1,5 +1,5 @@
 # Import necessary libraries
-import pyrogram
+from pyrogram import filters, Client
 from pyrogram.types import Message
 from spotipy import Spotify
 import ffmpeg
@@ -10,7 +10,7 @@ spotify = Spotify()
 
 # Define command handler for "/spotifi"
 @Client.on_message(filters.command("spotifi"))
-async def handle_spotify_command(client: pyrogram.Client, message: Message):
+async def handle_spotify_command(client: Client, message: Message):
         # Extract link and song name from message
         link, song_name = message.text.split()[1:]
 
