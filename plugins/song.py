@@ -7,7 +7,9 @@ from youtube_search import YoutubeSearch
 import spotipy
 from info import SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET 
 
-sp = spotipy.Spotify(auth_manager=spotipy.oauth2.SpotifyOAuth(SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET))
+REDIRECT_URI = "http://localhost:8888/callback"
+
+sp = spotipy.Spotify(auth_manager=spotipy.oauth2.SpotifyOAuth(SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET, REDIRECT_URI))
 
 @Client.on_message(filters.command(["song"]))
 async def download_song(client, message):
