@@ -45,7 +45,5 @@ async def handle_message(client, message):
 
         # Download audio from video link
         # Existing code for downloading and sending audio remains unchanged
-
-    except as e:
-        message.reply(f"❌ Error: {e}")
-
+    except Exception as e:
+        await message.reply(f"Error downloading song: {e}")
