@@ -2,17 +2,15 @@
 import pyrogram
 from pyrogram.types import Message
 from spotipy import Spotify
-import subprocess
 import ffmpeg
-from spotipy.oauth2 import SpotifyOAuth
+import subprocess
 
-
-spotify = Spotify(auth_manager=SpotifyOAuth())
+spotify = Spotify()
 
 
 # Define command handler for "/spotifi"
 @Client.on_message(filters.command("spotifi"))
-async def handle_spotify_command(client: Client, message: Message):
+async def handle_spotify_command(client: pyrogram.Client, message: Message):
         # Extract link and song name from message
         link, song_name = message.text.split()[1:]
 
@@ -35,3 +33,4 @@ async def handle_spotify_command(client: Client, message: Message):
                 client.send_message(message.chat.id, "Error downloading song!")
         except Exception as e:
             client.send_message(message.chat.id, f"Error: {e}")
+
