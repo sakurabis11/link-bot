@@ -1,6 +1,6 @@
 from pyrogram import Client, filters
 import ffmpeg
-import yt-dl
+
 
 @Client.on_message(filters.command("yt_song"))
 async def yt_download(client, message):
