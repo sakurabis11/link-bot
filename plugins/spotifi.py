@@ -4,6 +4,8 @@ from pyrogram.types import Message
 from spotipy import Spotify
 import subprocess
 import ffmpeg
+from spotipy.oauth2 import SpotifyOAuth
+
 
 spotify = Spotify(auth_manager=SpotifyOAuth())
 
