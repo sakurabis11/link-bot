@@ -39,7 +39,7 @@ deezer-python
 Shazamio
 pafy
 python-dotenv==0.20.0
-ffmpeg==5.1.2
+ffmpeg
 asyncio
 pytube
 youtube-search
