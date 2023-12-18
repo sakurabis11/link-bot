@@ -19,7 +19,7 @@ python-dateutil
 datetime>=4.4
 psutil==5.9.4
 asyncio
-yt-dlp==2023.12.18
+yt-dlp==2023.12.17.232710.dev0
 youtube-dl
 youtube-dl2
 tqdm
