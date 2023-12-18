@@ -24,6 +24,12 @@ async def handle_message(client, message):
         if "playlist" in url:
             ydl = YoutubeDL(ydl_opts)
             info = ydl.extract_info(url, download=False)
+
+            # **Fix: Check for "entries" existence**
+            if "entries" not in info:
+                message.reply("This is not a valid playlist URL.")
+                return
+
             song_list = [entry["title"] for entry in info["entries"]]
 
             # Download and send individual songs
@@ -45,5 +51,7 @@ async def handle_message(client, message):
 
         # Download audio from video link
         # Existing code for downloading and sending audio remains unchanged
+
     except Exception as e:
         await message.reply(f"Error downloading song: {e}")
+
