@@ -1,4 +1,3 @@
-git+https://yt-dlp/yt-dlp.git
 pyrogram==2.0.30
 tgcrypto==1.2.5
 aiofiles==22.1.0
@@ -20,7 +19,7 @@ python-dateutil
 datetime>=4.4
 psutil==5.9.4
 asyncio
-yt_dlp
+yt-dlp==2023.12.18
 youtube-dl
 youtube-dl2
 tqdm
