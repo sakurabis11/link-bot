@@ -2,7 +2,7 @@ from pyrogram import Client, filters
 from pyrogram.types import Message, Chat
 
 # Define a message handler for any text message
-@Clientt.on_message(filters.text)
+@Client.on_message(filters.text)
 async def handle_text_message(client: Client, message: Message):
     chat = message.chat
     text = message.text
