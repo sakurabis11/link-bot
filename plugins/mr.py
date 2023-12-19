@@ -5,8 +5,10 @@ import spotipy
 from spotipy.oauth2 import SpotifyOAuth
 from info import SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET
 
+REDIRECT_URI = "http://localhost:8888/callback"
+
 # Create Spotify auth object
-auth = SpotifyOAuth(SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET)
+auth = SpotifyOAuth(SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET, REDIRECT_URI)
 sp = spotipy.Spotify(auth_manager=auth)
 
 # Define the command handler for /song
