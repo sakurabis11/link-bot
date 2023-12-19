@@ -1,53 +1,56 @@
-from pyrogram import Client, filters
-from yt_dlp import YoutubeDL
+from pyrogram import Client, InlineKeyboardMarkup, InlineKeyboardButton
+from pytube import YouTube
 
+# Audio qualities and corresponding bitrates
+audio_qualities = {
+    "Highest (320 kbps)": "320",
+    "High (256 kbps)": "256",
+    "Medium (192 kbps)": "192",
+    "Low (128 kbps)": "128",
+}
 
 @Client.on_message(filters.command("yt"))
-async def youtube_to_audio(client, message):
-    # Extract YouTube link from message
+async def handle_message(client, message):
+        video_link = message.text.split(" ")[1]
+
+        # Validate link
+        if not YouTube.is_valid_url(video_link):
+            await message.reply("Invalid YouTube link!")
+            return
+
+        # Get video information
+        try:
+            video = YouTube(video_link)
+        except Exception as e:
+            await message.reply(f"Error fetching video: {e}")
+            return
+
+        # Create inline keyboard with audio quality options
+        keyboard = InlineKeyboardMarkup()
+        for name, bitrate in audio_qualities.items():
+            button = InlineKeyboardButton(name, f"download_{bitrate}")
+            keyboard.add_button(button)
+
+        # Send message with keyboard
+        await message.reply(f"Choose audio quality for '{video.title}':", reply_markup=keyboard)
+
+@Client.on_callback_query()
+async def handle_callback_query(client, query):
+    # Get callback data and split into command and bitrate
+    command, bitrate = query.data.split("_")
+
+    # Download audio with selected bitrate
     try:
-        video_url = message.text.split()[1]
-    except IndexError:
-        await message.reply("Please provide a YouTube link! (e.g., /yt https://www.youtube.com/watch?v=...)")
+        audio_stream = video.streams.filter(only_audio=True, bitrate=bitrate).first().download()
+        downloaded_file = f"{video.title}_{bitrate}.mp3"
+        audio_stream.to_file(downloaded_file)
+    except Exception as e:
+        await query.answer(f"Error downloading audio: {e}")
         return
 
-    # Download audio using yt-dlp with preferred codec and quality
-    ydl_opts = {
-        "format": "bestaudio/best",
-        "postprocessors": [{
-            "key": "FFmpegExtractAudio",
-            "preferredcodec": "mp3",
-            "preferredquality": "192",
-        }],
-    }
-    try:
-        with YoutubeDL(ydl_opts) as ydl:
-            # Extract info and prepare filename
-            info = ydl.extract_info(video_url, download=False)
-            audio_file = ydl.prepare_filename(info)
+    # Send downloaded audio file
+    await query.answer("Download successful!")
+    await client.send_audio(query.message.chat.id, downloaded_file)
 
-            # Download audio data directly using callback
-            def callback(data):
-                with open(audio_file, "wb") as file:
-                    file.write(data)
-
-            ydl.download_to_callback(url=video_url, callback=callback)
-
-            # Extract artist and thumbnail (optional)
-            artist = info.get("artist")
-            thumbnail_url = info["thumbnails"][0]["url"] if info["thumbnails"] else None
-
-            # Send downloaded audio directly with info
-            await message.reply_audio(
-                audio_file=audio_file,
-                title=info["title"],
-                duration=info["duration"],
-                performer=artist,
-                thumb=thumbnail_url,
-            )
-
-            # Delete temporary audio file
-            os.remove(audio_file)
-    except Exception as e:
-        await message.reply(f"Error downloading audio: {e}")
-
+    # Delete downloaded file
+    os.remove(downloaded_file)
