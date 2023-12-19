@@ -26,9 +26,12 @@ async def youtube_to_audio(client, message):
             info = ydl.extract_info(video_url, download=False)
             audio_file = ydl.prepare_filename(info)
 
-            # Download audio data directly
-            with open(audio_file, "wb") as file:
-                ydl.process_video(video_url, download=False, callback=lambda data: file.write(data))
+            # Download audio data directly using callback
+            def callback(data):
+                with open(audio_file, "wb") as file:
+                    file.write(data)
+
+            ydl.download_to_callback(url=video_url, callback=callback)
 
             # Extract artist and thumbnail (optional)
             artist = info.get("artist")
