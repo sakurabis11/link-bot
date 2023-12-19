@@ -10,7 +10,7 @@ from info import SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET
 sp = Spotify(auth_manager=SpotifyOAuth())
 
 # Define the command handler for /song
-@Client.on_message(filters.command("song"))
+@Client.on_message(filters.command("s"))
 async def music(client, message):
     # Extract query from the command
     query = " ".join(message.command[1:])
