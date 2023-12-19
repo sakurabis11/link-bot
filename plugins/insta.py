@@ -1,22 +1,13 @@
+import pyrogram 
 from pyrogram import Client, filters
 
 @Client.on_message(filters.command("insta"))
-async def handle_insta_command(client, message):
-    # Check if there is text after the command
-    if len(message.text) == 5:
-        await message.reply_text("Please provide an Instagram Reels link after the /insta command.")
-        return
+async def insta(client, message):
+    if len(message.command) < 2:
+        await message.reply("Please provide the Instagram reel ID.")
+    else:
+        query = " ".join(message.command[1:])
 
-    # Extract the text after the command
-    insta_link = message.text[5:]
+        reels = f"https://www.ddinstagram.com/reel/{query}"
 
-    # Check if the link starts with "https://www.instagram.com/reel/"
-    if not insta_link.startswith("https://www.instagram.com/reel/"):
-        await message.reply_text("Invalid Instagram Reels link. Please provide a proper link.")
-        return
-
-    # Extract the Reels ID after "reel/"
-    reels_id = insta_link[len("https://www.instagram.com/reel/"):]
-
-    # Reply with the extracted Reels ID
-    await message.reply_text(f"https://www.ddinstagram.com/reel/{reels_id}")
+        await message.reply(reels)
