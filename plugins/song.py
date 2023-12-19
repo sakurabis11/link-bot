@@ -44,9 +44,9 @@ async def download_song(client, message):
         video.download(filename=audio_filename)
 
         # Prepare message caption with title, duration, and YouTube link
-        caption = f"**{song_title}**\n" + \
+        caption = f"**🎧 {song_title}**\n" + \
                     f"🕛 ᴅᴜʀᴀᴛɪᴏɴ: {duration}\n" + \
-                    f"<a href='https://www.youtube.com{song_url}'>ʏᴏᴜ ᴛᴜʙᴇ</a>"
+                    f"🌿 ʏᴏᴜ ᴛᴜʙᴇ: <a href='https://www.youtube.com{song_url}'>ʏᴏᴜ ᴛᴜʙᴇ</a>"
 
         # Send downloaded song with caption
         await message.reply_audio(audio_filename, caption=caption)
