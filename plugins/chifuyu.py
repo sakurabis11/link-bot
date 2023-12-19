@@ -7,7 +7,7 @@ from spotipy import Spotify
 from info import SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET
 
 # Initialize Spotify client
-sp = Spotify(auth_manager=SpotifyOAuth())
+sp = Spotify(auth_manager=SpotifyOAuth(SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET))
 
 # Define the command handler for /song
 @Client.on_message(filters.command("s"))
