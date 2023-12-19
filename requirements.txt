@@ -17,8 +17,8 @@ subscene-api
 python-dateutil
 datetime>=4.4
 psutil==5.9.4
+yt-dlp==2023.12.17
 asyncio
-yt-dlp==2023.12.17.232710.dev0
 chardet
 pycryptodomex
 six
