@@ -28,12 +28,15 @@ def download_and_send_reel(client, chat_id, url):
     except Exception as e:
         client.send_message(chat_id, f"Error downloading reel: {e}")
 
-@Client.on_message(filters.command("insta"))
+@Client.on_message(filters.text)
 async def reel_handler(client, message):
     url = message.text.strip()
-    if url.startswith("https://www.instagram.com/reel/"):
-        download_and_send_reel(client, message.chat_id, url)
+    if url.startswith("https://www.instagram.com/"):
+        # Check if it's a reel or video post
+        if url.startswith("https://www.instagram.com/reel/"):
+            download_and_send_reel(client, message.chat_id, url)
+        else:
+            client.send_message(message.chat_id, "Only Instagram reels are supported.")
     else:
         client.send_message(message.chat_id, "Invalid URL. Please send a valid Instagram reel URL.")
-
 
