@@ -6,7 +6,7 @@ RUN  pip install --upgrade pip
 RUN pip install ffmpeg
 RUN pip install openai==0.28
 RUN pip install spotipy
-RUN pip install yt_dlp
+RUN pip install thumbnail
 RUN pip instalL pafy
 RUN pip install youtube-dl2
 RUN pip install pytube 
