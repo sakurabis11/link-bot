@@ -21,6 +21,7 @@ yt-dlp==2023.11.14
 asyncio
 chardet
 pycryptodomex
+instaloader
 six
 spotipy
 scdl
