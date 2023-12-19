@@ -7,4 +7,7 @@ async def insta(client, message):
         await message.reply("Please provide the Instagram reel ID.")
     else:
         query = " ".join(message.command[1:])
-        await message.reply(f"https://www.ddinstagram.com/reel/{query}")
+
+        reels = https://www.ddinstagram.com/reel/{query}
+            
+        await message.reply(reels)
