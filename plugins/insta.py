@@ -19,4 +19,4 @@ async def handle_insta_command(client, message):
     reels_id = insta_link[len("https://www.instagram.com/reel/"):]
 
     # Reply with the extracted Reels ID
-    message.reply_text(f"https://www.ddinstagram.com/reel/{reels_id}")
+    await message.reply_text(f"https://www.ddinstagram.com/reel/{reels_id}")
