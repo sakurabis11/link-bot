@@ -4,7 +4,7 @@ import re
 from pyrogram import Client, filters
 from pytube import YouTube
 from youtube_search import YoutubeSearch
-from thumbnail import download_thumbnail
+
 
 
 @Client.on_message(filters.command(["song"]))
