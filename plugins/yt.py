@@ -1,4 +1,5 @@
-from pyrogram import Client, InlineKeyboardMarkup, InlineKeyboardButton
+from pyrogram import Client, filters
+from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery
 from pytube import YouTube
 
 # Audio qualities and corresponding bitrates
