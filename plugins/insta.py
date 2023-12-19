@@ -8,6 +8,6 @@ async def insta(client, message):
     else:
         query = " ".join(message.command[1:])
 
-        reels = f"https://www.ddinstagram.com/reel/{query}"
+        reels = f"<a href='https://www.ddinstagram.com/reel/{query}'>https://www.instagram.com/reel/{query}</a>"
 
         await message.reply(reels)
