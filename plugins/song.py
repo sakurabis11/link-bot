@@ -21,6 +21,9 @@ async def download_song(client, message):
     song_url = search_results[0]["url_suffix"]
     song_title = search_results[0]["title"]
 
+    # Add the hourglass emoji before searching
+    await message.reply(f"⏳ Searching for your song... Please wait!")
+
     # Download the song using pytube
     yt = YouTube(f"https://www.youtube.com{song_url}")
     audio_streams = yt.streams.filter(only_audio=True)
@@ -33,13 +36,21 @@ async def download_song(client, message):
     audio_filename = f"{song_title}.mp3"
 
     try:
+        # Download the song
         video.download(filename=audio_filename)
-        await message.reply(f"**Song downloaded: {audio_filename}**")
 
-        # Send the downloaded song to the user
-        await message.reply_audio(audio_filename)
+        # Remove the hourglass emoji after 6 seconds
+        await asyncio.sleep(6)
+        await message.edit_text(None)
+
+        # Send the downloaded song with details
+        await message.reply_audio(
+            audio_filename,
+            caption=f"** Downloaded: {song_title}**\n⏱️ Duration: {int(video.duration / 60)}:{int(video.duration % 60)} minutes\n YouTube Link: https://www.youtube.com{song_url}",
+        )
 
         # Delete the downloaded song after sending it
         os.remove(audio_filename)
     except Exception as e:
         await message.reply(f"Error downloading song: {e}")
+
