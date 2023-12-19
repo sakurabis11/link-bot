@@ -1,57 +1,43 @@
 from pyrogram import Client, filters
-from pyrogram.errors import *
-from pytube import YouTube
 from yt_dlp import YoutubeDL
 
 
-# Download options
-ydl_opts = {
-    "format": "bestaudio/best",
-    "postprocessors": [{
-        "key": "FFmpegExtractAudio",
-        "preferredcodec": "mp3",
-        "preferredquality": "192",
-    }],
-}
-
-
 @Client.on_message(filters.command("yt"))
-async def handle_message(client, message):
-    url = message.text.split(" ")[1]
+async def youtube_to_audio(client, message):
+    # Extract YouTube link from message
+    video_url = message.text.split()[1]
 
-    try:
-        # Check if it's a playlist link
-        if "playlist" in url:
-            ydl = YoutubeDL(ydl_opts)
-            info = ydl.extract_info(url, download=False)
+    # Download audio using yt_dlp with preferred codec and quality
+    ydl_opts = {
+        "format": "bestaudio/best",
+        "postprocessors": [{
+            "key": "FFmpegExtractAudio",
+            "preferredcodec": "mp3",
+            "preferredquality": "192",
+        }],
+    }
+    with YoutubeDL(ydl_opts) as ydl:
+        # Extract info and prepare filename
+        info = ydl.extract_info(video_url, download=False)
+        audio_file = ydl.prepare_filename(info)
 
-            # **Fix: Check for "entries" existence**
-            if "entries" not in info:
-                message.reply("This is not a valid playlist URL.")
-                return
+        # Download audio data directly
+        with open(audio_file, "wb") as file:
+            ydl.process_video(video_url, download=False, callback=lambda data: file.write(data))
 
-            song_list = [entry["title"] for entry in info["entries"]]
+    # Extract artist and thumbnail (optional)
+    artist = info.get("artist")
+    thumbnail_url = info["thumbnails"][0]["url"] if info["thumbnails"] else None
 
-            # Download and send individual songs
-            for song_title, song_info in info["entries"].items():
-                song_url = song_info["url"]
-                filename = f"{song_title}.mp3"
+    # Send downloaded audio directly with info
+    await message.reply_audio(
+        audio_file=audio_file,
+        title=info["title"],
+        duration=info["duration"],
+        performer=artist,
+        thumb=thumbnail_url,
+    )
 
-                try:
-                    ydl.download([song_url])
-                    with open(filename, "rb") as f:
-                        audio = File(f)
-                        message.reply_audio(audio)
-                finally:
-                    os.remove(filename)
-
-            text = f"Downloaded songs from playlist: {', '.join(song_list)}"
-            message.reply(text)
-            return
-
-        # Download audio from video link
-        # Existing code for downloading and sending audio remains unchanged
-
-    except Exception as e:
-        await message.reply(f"Error downloading song: {e}")
+    # Delete temporary audio file
+    os.remove(audio_file)
 
