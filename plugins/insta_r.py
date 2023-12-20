@@ -1,5 +1,5 @@
 import pyrogram
-from pyrogram import Client, Filters
+from pyrogram import Client, filters
 import requests
 
 app = Client("your_app_name")  # Replace with your app name
