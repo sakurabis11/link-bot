@@ -19,7 +19,7 @@ BOT_TOKEN = os.environ.get('BOT_TOKEN', '6645084082:AAEBSY-LiHUhMKvMY9Tp5YY0wzer
 PORT = os.environ.get("PORT", "8080")
 ADMINS = [int(admin) if id_pattern.search(admin) else admin for admin in environ.get('ADMINS', '1342641151').split()]
 LOG_CHANNEL = int(environ.get('LOG_CHANNEL', '-1002084798134'))
-CHAT_ID = os.environ.get('CHAT_ID', '-1002002636126')
+ADMIN_CHANNEL_ID = int(os.environ.get("-1002079640571"))
 
 
 # important information for your bot
