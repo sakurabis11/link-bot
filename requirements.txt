@@ -21,7 +21,7 @@ yt-dlp==2023.11.14
 asyncio
 chardet
 pycryptodomex
-instaloader==4.10.2
+graphql
 six
 spotipy
 scdl
