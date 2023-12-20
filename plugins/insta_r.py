@@ -1,6 +1,3 @@
-@Client.on_message(filters.regex(r"https://www\.instagram\.com/reel/(.*)"))
-
-
 import pyrogram
 from pyrogram import Client, Filters
 import requests
