@@ -1,7 +1,8 @@
 import pyrogram
+import re
 from pyrogram import Client, filters
 
-@Client.on_message(filters.command(filters.regex(r"https://www\.instagram\.com/reel/(.*)"))
+@Client.on_message(filters.command(filters.regex(r"https://www\.instagram\.com/reel/(.*)")))
 async def extract_reel_link(client, message):
     link = message.text
 
