@@ -13,7 +13,6 @@ marshmallow==3.20.1
 umongo==3.1.0
 motor
 speedtest
-thumbnail
 python-dateutil
 datetime>=4.4
 psutil==5.9.4
@@ -22,6 +21,7 @@ asyncio
 chardet
 pycryptodomex
 graphql
+wheel
 six
 spotipy
 scdl
@@ -30,10 +30,7 @@ ujson
 wget
 pytz
 spotipy
-deezer-python 
-Shazamio
 pafy
-python-dotenv==0.20.0
 ffmpeg
 asyncio
 pytube
