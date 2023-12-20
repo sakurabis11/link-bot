@@ -19,8 +19,7 @@ BOT_TOKEN = os.environ.get('BOT_TOKEN', '6645084082:AAEBSY-LiHUhMKvMY9Tp5YY0wzer
 PORT = os.environ.get("PORT", "8080")
 ADMINS = [int(admin) if id_pattern.search(admin) else admin for admin in environ.get('ADMINS', '1342641151').split()]
 LOG_CHANNEL = int(environ.get('LOG_CHANNEL', '-1002084798134'))
-ADMIN_CHANNEL_ID = int(os.environ.get("-1002079640571"))
-
+ADMIN_CHANNEL_ID = int(os.environ.get("ADMIN_CHANNEL_ID", "-1002079640571"))
 
 # important information for your bot
 S_GROUP = environ.get('S_GROUP', "https://t.me/+1YR5aYuCdr40N2M1")
