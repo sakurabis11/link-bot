@@ -20,7 +20,7 @@ yt-dlp==2023.11.14
 asyncio
 chardet
 pycryptodomex
-graphql
+graphql==0.0.4
 wheel
 six
 spotipy
