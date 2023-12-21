@@ -73,6 +73,7 @@ async def help_command(client, message):
          InlineKeyboardButton('sᴘᴏᴛɪғʏ', callback_data='spotify'),
          InlineKeyboardButton('stats', callback_data='stats')
          ],[
+         InlineKeyboardButton('Home', callback_data='start'),
          InlineKeyboardButton('close', callback_data='close')
     ]]
     reply_markup = InlineKeyboardMarkup(buttons)
@@ -80,6 +81,7 @@ async def help_command(client, message):
 
 @Client.on_callback_query()
 async def callback_handle(client, query):
+    
     if query.data == 'start':
         buttons = [[
             InlineKeyboardButton("🍂 Aᴅᴅ Mᴇ Tᴏ Yᴏᴜʀ Cʜᴀᴛ ", url=f"http://t.me/{temp.U_NAME}?startgroup=true")
@@ -106,6 +108,7 @@ async def callback_handle(client, query):
          InlineKeyboardButton('sᴘᴏᴛɪғʏ', callback_data='spotify'),
          InlineKeyboardButton('stats', callback_data='stats')
          ],[
+         InlineKeyboardButton('Home', callback_data='start'),
          InlineKeyboardButton('close', callback_data='close')
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
@@ -179,6 +182,7 @@ async def callback_handle(client, query):
         buttons = buttons = [[
             InlineKeyboardButton("🌿 Repo & ʀᴇᴘᴏʀᴛ ʙᴜɢs", callback_data="rrb")
             ],[
+            InlineKeyboardButton('Home', callback_data='start'),
             InlineKeyboardButton('close', callback_data='close')
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
