@@ -18,6 +18,7 @@ datetime>=4.4
 psutil==5.9.4
 yt-dlp==2023.11.14
 asyncio
+snapinsta
 chardet
 pycryptodomex
 wheel
