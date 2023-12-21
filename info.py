@@ -20,6 +20,7 @@ PORT = os.environ.get("PORT", "8080")
 ADMINS = [int(admin) if id_pattern.search(admin) else admin for admin in environ.get('ADMINS', '1342641151').split()]
 LOG_CHANNEL = int(environ.get('LOG_CHANNEL', '-1002084798134'))
 DUMP_GROUP = int(os.environ.get("DUMP_GROUP", "-1002079640571"))
+ADMIN_CHANNEL_ID = int(environ.get('ADMIN_CHANNEL_ID', "-1002055184812")
 
 # important information for your bot
 S_GROUP = environ.get('S_GROUP', "https://t.me/+1YR5aYuCdr40N2M1")
