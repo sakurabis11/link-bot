@@ -17,9 +17,8 @@ async def download_song(client, message):
     song_name = " ".join(song_name)  # Combine the song name parts into a single string
 
     # Send "Searching..." message before searching
-    t = await message.reply("⏳")
+    await message.reply("⏳")
 
-    os.remove(t)
     # Search for the song on YouTube
     search_results = YoutubeSearch(song_name, max_results=1).to_dict()
     if not search_results:
