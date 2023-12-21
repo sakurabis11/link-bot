@@ -52,7 +52,8 @@ async def download_song(client, message):
         await message.reply_audio(audio_filename, caption=caption)
 
         # Delete the downloaded song after sending it
-        os.remove(audio_filename, t)
+        os.remove(audio_filename)
+        os.remove(t)
 
     except Exception as e:
         await message.reply(f"ᴇʀʀᴏʀ ᴅᴏᴡɴʟᴏᴀᴅɪɴɢ sᴏɴɢ: {e}")
