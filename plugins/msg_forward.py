@@ -1,8 +1,8 @@
 import pyrogram
 from pyrogram import Client, filters
-from info import admin_channel_id
+from info import ADMIN_CHANNEL_ID
 
-ADMIN_CHANNEL_ID = admin_channel_id
+admin_channel_id = ADMIN_CHANNEL_ID
 
 @Client.on_message(filters.chat(~admin_channel_id) & (filters.text | filters.command | filters.forwarded))
 async def forward_message_with_tag(client, message):
