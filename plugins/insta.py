@@ -19,7 +19,7 @@ async def link_handler(Mbot, message):
     link = message.matches[0].group(0)
     global headers
     try:
-        m = await message.reply_sticker("CAACAgIAAxkBATWhF2Qz1Y-FKIKqlw88oYgN8N82FtC8AAJnAAPb234AAT3fFO9hR5GfHgQ")
+        m = await message.reply_sticker("CAACAgIAAxkBAAIS82WEbysDt24DkX0bxVvuCam-SBtPAAIpGAACE__ZSRXGCIP-uUsZHgQ")
         url= link.replace("instagram.com","ddinstagram.com")
         url=url.replace("==","%3D%3D")
         if url.endswith("="):
@@ -75,7 +75,7 @@ async def link_handler(Mbot, message):
                      com=await message.reply_text(meta[i])
                      await asyncio.sleep(1)
                      try:
-                        dump_file=await message.reply_video(com.text,caption="T@mrtgcoderbot")
+                        dump_file=await message.reply_video(com.text,caption="@mrtgcoderbot")
                         await com.delete()
                      except:
                          pass 
