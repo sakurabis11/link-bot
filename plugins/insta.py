@@ -19,7 +19,7 @@ async def link_handler(Mbot, message):
     link = message.matches[0].group(0)
     global headers
     try:
-        m = await message.reply_sticker("CAACAgIAAxkBAAIS82WEbysDt24DkX0bxVvuCam-SBtPAAIpGAACE__ZSRXGCIP-uUsZHgQ")
+        m = await message.reply_sticker("⌛️")
         url= link.replace("instagram.com","ddinstagram.com")
         url=url.replace("==","%3D%3D")
         if url.endswith("="):
