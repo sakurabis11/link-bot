@@ -1,13 +1,14 @@
-import pyrogram 
+import pyrogram
+import re
 from pyrogram import Client, filters
 
-@Client.on_message(filters.command("insta"))
-async def insta(client, message):
-    if len(message.command) < 2:
-        await message.reply("Please provide the Instagram reel ID.")
+@Client.on_message(filters.regex(r"https://www\.instagram\.com/reel/(.*)"))
+async def extract_reel_link(client, message):
+    link = message.text
+
+    if "https://www.instagram.com/reel/" in link:
+        reel_id = link.replace("https://www.instagram.com/reel/", "").split("reel/")[0]
+        reels = f"<a href='https://www.ddinstagram.com/reel/{reel_id}'>https://www.instagram.com/reel/{reel_id}</a>"
+        await message.reply_text(f"{reels}")
     else:
-        query = " ".join(message.command[1:])
-
-        reels = f"<a href='https://www.ddinstagram.com/reel/{query}'>https://www.instagram.com/reel/{query}</a>"
-
-        await message.reply(reels)
+        await message.reply_text("Invalid link format. Please provide a valid Instagram reel link.")
