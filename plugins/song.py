@@ -19,6 +19,7 @@ async def download_song(client, message):
     # Send "Searching..." message before searching
     t = await message.reply("⏳")
 
+    os.remove(t)
     # Search for the song on YouTube
     search_results = YoutubeSearch(song_name, max_results=1).to_dict()
     if not search_results:
@@ -53,7 +54,6 @@ async def download_song(client, message):
 
         # Delete the downloaded song after sending it
         os.remove(audio_filename)
-        os.remove(t)
 
     except Exception as e:
         await message.reply(f"ᴇʀʀᴏʀ ᴅᴏᴡɴʟᴏᴀᴅɪɴɢ sᴏɴɢ: {e}")
