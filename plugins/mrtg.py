@@ -1,6 +1,6 @@
 import pyrogram
 from pyrogram import filters, Client
-import requests
+import aiohttp  # Import aiohttp for asynchronous requests
 from bs4 import BeautifulSoup
 import os
 
@@ -24,14 +24,15 @@ async def download_track(track_url):
     # Replace with your preferred Spotify download method
     # Ensure it complies with Spotify's Terms of Service
 
-    response = await requests.get(track_url)
-    soup = BeautifulSoup(response.content, "html.parser")
-    # ... (Extract download link from the HTML using appropriate methods)
+    async with aiohttp.ClientSession() as session:  # Create an asynchronous session
+        response = await session.get(track_url)  # Await the asynchronous response
+        soup = BeautifulSoup(await response.text(), "html.parser")  # Parse the HTML
 
-    download_response = requests.get(download_link)
-    song_file = open("downloaded_song.mp3", "wb")
-    song_file.write(download_response.content)
-    song_file.close()
+        # ... (Extract download link from the HTML using appropriate methods)
+
+        download_response = await session.get(download_link)  # Await the download response
+        song_file = open("downloaded_song.mp3", "wb")
+        song_file.write(await download_response.read())  # Write the content to the file
+        song_file.close()
 
     return song_file
-
