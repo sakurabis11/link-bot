@@ -167,7 +167,7 @@ async def callback_handle(client, query):
         await query.message.edit_text(text=script.STICKER_TXT, reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
 
     elif query.data == "insta":
-        button = buttons = [[
+        buttons = buttons = [[
             InlineKeyboardButton('ʜᴏᴍᴇ', callback_data='home')
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
