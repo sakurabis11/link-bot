@@ -61,19 +61,18 @@ async def help_command(client, message):
     buttons = [[
          InlineKeyboardButton('ᴀᴅᴍɪɴ', callback_data='admin')
          ],[
-         InlineKeyboardButton('ᴛᴇʟᴇɢʀᴀᴘʜ', callback_data='telegraph'),
+         InlineKeyboardButton('ᴛᴇʟᴇɢʀᴘʜ', callback_data='telegraph'),
          InlineKeyboardButton('ᴏᴘᴇɴᴀɪ', callback_data='openai'),
          InlineKeyboardButton('ʀᴇᴘᴏ sᴇᴀʀᴄʜ', callback_data='repos')
          ],[
          InlineKeyboardButton('sᴏɴɢ', callback_data='song'),
-         InlineKeyboardButton('ʀɪɴɢᴛᴜɴᴇ', callback_data='ringtune'),
+         InlineKeyboardButton('ʀɪɢᴛᴜɴᴇ', callback_data='ringtune'),
          InlineKeyboardButton('sᴘᴏᴛɪғʏ', callback_data='spotify')
          ],[
          InlineKeyboardButton('sᴛɪᴄᴋᴇʀ', callback_data='sticker'),
-         InlineKeyboardButton('sᴘᴏᴛɪғʏ', callback_data='spotify'),
+         InlineKeyboardButton('ɪɴsᴛᴀ', callback_data='insta'),
          InlineKeyboardButton('stats', callback_data='stats')
          ],[
-         InlineKeyboardButton('Home', callback_data='start'),
          InlineKeyboardButton('close', callback_data='close')
     ]]
     reply_markup = InlineKeyboardMarkup(buttons)
@@ -105,7 +104,7 @@ async def callback_handle(client, query):
          InlineKeyboardButton('sᴘᴏᴛɪғʏ', callback_data='spotify')
          ],[
          InlineKeyboardButton('sᴛɪᴄᴋᴇʀ', callback_data='sticker'),
-         InlineKeyboardButton('sᴘᴏᴛɪғʏ', callback_data='spotify'),
+         InlineKeyboardButton('ɪɴsᴛᴀ', callback_data='insta'),
          InlineKeyboardButton('stats', callback_data='stats')
          ],[
          InlineKeyboardButton('Home', callback_data='start'),
@@ -149,6 +148,13 @@ async def callback_handle(client, query):
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(text=script.RINGTUNE_TXT, reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
 
+    elif query.data == "spotify":
+        buttons = buttons = [[
+            InlineKeyboardButton('ʜᴏᴍᴇ', callback_data='help')
+        ]]
+        reply_markup = InlineKeyboardMarkup(buttons)
+        await query.message.edit_text(text=script.SPOTIFY_TXT, reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)    
+
     elif query.data == "sticker":
         buttons = buttons = [[
             InlineKeyboardButton('ʜᴏᴍᴇ', callback_data='help')
@@ -156,12 +162,12 @@ async def callback_handle(client, query):
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(text=script.STICKER_TXT, reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
 
-    elif query.data == "spotify":
-        buttons = buttons = [[
-            InlineKeyboardButton('ʜᴏᴍᴇ', callback_data='help')
+    elif query.data == "insta":
+        button = buttons = [[
+            InlineKeyboardButton('ʜᴏᴍᴇ', callback_data='home')
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
-        await query.message.edit_text(text=script.SPOTIFY_TXT, reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
+        await query.message.edit_text(text=script.INSTA_TXT, reply_markup=reply_markup, parse_mode=enums.ParseModr.HTML)
 
     elif query.data == "repos":
         buttons = buttons = [[
