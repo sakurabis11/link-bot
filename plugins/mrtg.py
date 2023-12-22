@@ -2,7 +2,7 @@ import pyrogram
 from pyrogram import filters, Client
 import aiohttp 
 import re
-import request
+import requests
 from bs4 import BeautifulSoup
 import os
 
