@@ -1,6 +1,5 @@
 import pyrogram
-from pyrogram import Client, Filters
-import spotifydownload
+from pyrogram import Client, filters
 
 # Function to download and send song
 async def download_song(link, chat_id):
@@ -12,7 +11,7 @@ async def download_song(link, chat_id):
         await client.send_message(chat_id, f"Error downloading song: {e}")
 
 # Handle Spotify links
-@Client.on_message(Filters.regex(r"https://open.spotify.com/(track|album|playlist)/(\w+)"))
+@Client.on_message(filters.regex(r"https://open.spotify.com/(track|album|playlist)/(\w+)"))
 async def handle_spotify_link(client, message):
     await download_song(message.text, message.chat.id)
 
