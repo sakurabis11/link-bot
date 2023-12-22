@@ -22,8 +22,8 @@ LOG_CHANNEL = int(environ.get('LOG_CHANNEL', '-1002084798134'))
 DUMP_GROUP = int(os.environ.get("DUMP_GROUP", "-1002079640571"))
 
 # important information for your bot
-S_GROUP = environ.get('S_GROUP', "https://t.me/+1YR5aYuCdr40N2M1")
-S_CHANNEL = environ.get('S_CHANNEL', "https://t.me/amal_nath_05")
+S_GROUP = environ.get('S_GROUP', "https://t.me/sdbots_support")
+S_CHANNEL = environ.get('S_CHANNEL', "https://t.me/sd_bots")
 
 # for mongodb
 DATABASE_NAME = os.environ.get("DB_NAME", "mrtg")     
@@ -32,7 +32,7 @@ COLLECTION_NAME = environ.get('COLLECTION_NAME', 'Telegram_files')
 MONGO_URL = os.environ.get('MONGO_URL', "")
 
 # for openai 
-OPENAI_API_KEY = os.environ.get('OPENAI_API_KEY', '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')
+OPENAI_API_KEY = os.environ.get('OPENAI_API_KEY', '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')
 
 #for spotify 
 SPOTIFY_CLIENT_ID = os.environ.get('SPOTIFY_CLIENT_ID', 'd3a0f15a75014999945b5628dca40d0a')
