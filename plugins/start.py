@@ -168,10 +168,10 @@ async def callback_handle(client, query):
 
     elif query.data == "insta":
         buttons = buttons = [[
-            InlineKeyboardButton('ʜᴏᴍᴇ', callback_data='home')
+            InlineKeyboardButton('ʜᴏᴍᴇ', callback_data='help')
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
-        await query.message.edit_text(text=script.INSTA_TXT, reply_markup=reply_markup, parse_mode=enums.ParseModr.HTML)
+        await query.message.edit_text(text=script.INSTA_TXT, reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
 
     elif query.data == "repos":
         buttons = buttons = [[
