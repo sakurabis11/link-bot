@@ -3,16 +3,16 @@ import yt_dlp
 
 @Client.on_message(filters.command("yt"))
 async def download_video(client, message):
- try:
-   command_parts = message.text.split(" ", 1) 
+    try:
+        command_parts = message.text.split(" ", 1)
 
-   if len(command_parts) == 1:
-     await message.reply_text("Please provide a YouTube video URL after the command.")
-     return
+        if len(command_parts) == 1:
+            await message.reply_text("Please provide a YouTube video URL after the command.")
+            return
 
-   url = command_parts[1]
+        url = command_parts[1]
 
-        ydl_opts = {
+        ydl_opts = {  # Removed extra indentation here
             'outtmpl': '%(title)s.%(ext)s',
             'format': 'bestvideo[height<=?720][ext=mp4]+bestaudio[ext=m4a]/best[height<=?720][ext=mp4]/best',  # Prioritize 720p
             'postprocessors': [{
