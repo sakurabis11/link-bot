@@ -19,25 +19,21 @@ async def download_video(client, message):
             info_dict = ydl.extract_info(url, download=False)
             video_title = info_dict.get('title', None)
 
-            # Send the "Downloading..." message with scheduled deletion:
-            downloading_message = await message.reply_text(f"Downloading {video_title}...")
-            try:
-                await downloading_message.delete(delay=10)  # Schedule deletion after 10 seconds
-            except Exception as e:
-                print(f"Failed to delete message: {e}")  # Log any deletion errors
+            if video_title:               
+                downloading_message = await message.reply_text(f"Downloading {video_title}...")
+                try:
+                    await downloading_message.delete(delay=10)  
+                except Exception as e:
+                    print(f"Failed to delete message: {e}")  
 
-            ydl.download([url])
+                ydl.download([url])
 
-            # Send the downloaded video with the caption:
-            await message.reply_video(video=f"{video_title}.mp4", caption=video_title)  # Added caption
+               
+                await message.reply_video(video=f"{video_title}.mp4", caption=video_title)
 
-            await message.reply_text("Video downloaded and sent with caption!")
-
-         else: 
-            await message.reply_text("Please provide a YouTube video URL after the /yt command.")
-
-    except Exception as e:
-        await message.reply_text(f"Error: {e}")
+                await message.reply_text("Video downloaded and sent with caption!")
+            else:
+                await message.reply_text("Unable to retrieve video title. Please check the URL and try again.")
 
     except Exception as e:
         await message.reply_text(f"Error: {e}")
