@@ -4,9 +4,9 @@ import re
 import requests
 import yt_dlp
 
-@Client.on_message(regex("/download (.*)"))
+@Client_on.message(filters.regex(r"https?://(?:www\.)?youtube\.com/watch\?v=(\w+)"))
 async def download_video(client, message):
-    link = message.matches[0].group(1)
+    link = message.text
 
     try:
         # Download the video using yt-dlp
