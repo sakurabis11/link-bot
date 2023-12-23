@@ -7,7 +7,7 @@ async def download_video(client, message):
         command_parts = message.text.split(" ", 1)
 
         if len(command_parts) == 1:
-            await message.reply_text("Please provide a YouTube video URL after the command.")
+            await message.reply_text("ᴘʟᴇᴀsᴇ ᴘʀᴏᴠɪᴅᴇ ʏᴏᴜᴛᴜʙᴇ ᴠɪᴅᴇᴏ ᴜʀʟ (ᴇɢ:- /yt https://www.youtube.com/watch?v=2Vv-BfVoq4g&pp=ygUHcGVyZmVjdA%3D%3D)")
             return
 
         url = command_parts[1]
@@ -27,7 +27,7 @@ async def download_video(client, message):
 
             if video_title:  # Check if title is available
                 # Send the "Downloading..." message with scheduled deletion:
-                downloading_message = await message.reply_text(f"Downloading {video_title}...")
+                downloading_message = await message.reply_text(f"**Downloading {video_title}...**")
                 try:
                     await downloading_message.delete(delay=10)  # Schedule deletion after 10 seconds
                 except Exception as e:
@@ -38,9 +38,9 @@ async def download_video(client, message):
                 # Send the downloaded video with the caption:
                 await message.reply_video(video=f"{video_title}.mp4", caption=video_title)  # Added caption
 
-                await message.reply_text("Video downloaded and sent with caption!")
+                await message.reply_text("ᴜᴘʟᴏᴀᴅ ᴄᴏᴍᴘʟᴇᴛᴇᴅ")
             else:
-                await message.reply_text("Unable to retrieve video title. Please check the URL and try again.")
+                await message.reply_text("ᴜɴᴀʙʟᴇ ᴛᴏ ʀᴇᴛʀɪᴇᴠᴇ ᴠɪᴅᴇᴏ ᴛɪᴛʟᴇ. ᴘʟᴇᴀsᴇ ᴄʜᴇᴄᴋ ᴛʜᴇ ᴠɪᴅᴇᴏ ᴜʀʟ ᴀɴᴅ ᴛʀʏ ᴀɢᴀɪɴ.")
 
     except Exception as e:
-        await message.reply_text(f"Error: {e}")
+        await message.reply_text(f"ᴇʀʀᴏʀ: {e}")
