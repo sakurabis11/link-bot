@@ -53,20 +53,26 @@ async def spotify(client, message):
         # Get the song ID
         song_id = item["id"]
 
-    # Get the song thumbnail and details from Spotify
     url = f'https://api.spotify.com/v1/tracks/{song_id}'
     headers = {"Authorization": f"Bearer {access_token}"}
     response = requests.get(url, headers=headers)
     data = response.json()
+    preview_url = data["preview_url"]
 
-    # Get the song thumbnail
-    thumbnail_url = data["album"]["images"][0]["url"]
+    # Download the song
+    try:
+        response = requests.get(preview_url, stream=True)
+        response.raise_for_status()  # Raise an exception for error status codes
 
-    # Get the song details
-    artist = data["artists"][0]["name"]
-    name = data["name"]
-    album = data["album"]["name"]
-    release_date = data["album"]["release_date"]
+        # Create a unique filename with .mp3 extension
+        filename = f"{song_id}.mp3"
 
-    # Send the song thumbnail and details to the user
-    await message.reply_photo(photo=thumbnail_url, caption=f"🎧 ᴛɪᴛʟᴇ: <code>{name}</code>\n🎼 ᴀʀᴛɪsᴛ: <code>{artist}</code>\n🎤 ᴀʟʙᴜᴍ: <code>{album}</code>\n🗓️ ʀᴇʟᴇᴀsᴇ ᴅᴀᴛᴇ: <code>{release_date}</code>\n")
+        with open(filename, "wb") as f:
+            for chunk in response.iter_content(1024):
+                f.write(chunk)
+
+        await message.reply_audio(audio=filename, caption=f" ᴛɪᴛᴛʟᴇ: <code>{name}</code>\n ᴀʀᴛɪsᴛ: <code>{artist}</code>\n ᴀʟʙᴜᴍ: <code>{album}</code>\n️ ʀᴇʟᴇᴀsᴇ ᴅᴀᴛᴇ: <code>{release_date}</code>\n")
+        os.remove(filename)  # Remove the downloaded file after sending
+
+    except requests.exceptions.RequestException as e:
+        await message.reply_text(f"Error downloading song: {e}")
