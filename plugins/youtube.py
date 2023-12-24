@@ -2,13 +2,14 @@ from pyrogram import Client, filters
 import yt_dlp
 from yt_dlp import YoutubeDL
 import requests
+import re
 
-yt = r"^(https?://)?(www\.)?(youtube|youtu|youtube-nocookie)\.(com|be)/(?:watch\?v=|embed/|v/|.+\?v=)?([^&=\n%\?]{11})"
+regex = r"^(https?://)?(www\.)?(youtube|youtu|youtube-nocookie)\.(com|be)/(?:watch\?v=|embed/|v/|.+\?v=)?([^&=\n%\?]{11})" 
 
-@Client.on_message(filters.regex(yt))
+@Client.on_message(filters.regex(regex))
 async def download_video(client, message):
   try:
-    url = message.text.strip()
+    url = message.text
 
     ydl_opts = {
       'outtmpl': '%(title)s.%(ext)s',
