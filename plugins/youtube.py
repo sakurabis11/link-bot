@@ -1,7 +1,5 @@
 from pyrogram import Client, filters
 import yt_dlp
-from info import S_CHANNEL
-from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 import requests
 
 @Client.on_message(filters.command("yt"))
@@ -41,17 +39,9 @@ async def download_video(client, message):
         # Convert duration to minutes
         duration_minutes = int(duration) // 60
 
-        # Create inline keyboard for support channel
-        support_button = [
-          InlineKeyboardButton("Support Channel", url=S_CHANNEL)
-        ]
-        reply_markup = InlineKeyboardMarkup(build_menu(support_button, n_cols=1))  # Adjust n_cols as needed
-
-        # Send the downloaded video with caption and inline keyboard
         await message.reply_video(
           video=f"{video_title}.mp4",
           caption=f"**Title:** {video_title}\n**Duration:** {duration_minutes} minutes\n",
-          reply_markup=reply_markup
         )
 
         await message.reply_text("Upload completed")
