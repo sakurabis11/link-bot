@@ -51,7 +51,7 @@ async def download_video(client, message):
           await client.send_video(
             chat_id=message.chat.id,
             video=f"{video_title}.mp4",
-            caption=f"ᴛɪᴛʟᴇ:**{video_title}**\n**ᴅᴜʀᴀᴛɪᴏɴ:** {duration_minutes} ᴍɪɴᴜᴛᴇs\nSupport: <a href='https://t.me/sd_bots'> ᴛᴇᴀᴍ sᴅ ʙᴏᴛs </a>",
+            caption=f"🌿 ᴛɪᴛʟᴇ: **{video_title}**\n⌛️ ᴅᴜʀᴀᴛɪᴏɴ: {duration_minutes} ᴍɪɴᴜᴛᴇs\n 🍁sᴜᴘᴘᴏʀᴛ: <a href='https://t.me/sd_bots'> ᴛᴇᴀᴍ sᴅ ʙᴏᴛs </a>",
             thumb="thumbnail.jpg"  
           )
           await message.reply_text("ᴜᴘʟᴏᴀᴅ ᴄᴏᴍᴘʟᴇᴛᴇᴅ")
