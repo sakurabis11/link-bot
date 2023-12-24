@@ -1,6 +1,5 @@
 from pyrogram import Client, filters
 import yt_dlp
-from PIL import Image  
 
 @Client.on_message(filters.command("yt"))
 async def download_video(client, message):
@@ -13,9 +12,9 @@ async def download_video(client, message):
 
     url = command_parts[1]
 
-    ydl_opts = {
+    ydl_opts = { # Removed extra indentation here
       'outtmpl': '%(title)s.%(ext)s',
-      'format': 'bestvideo[height<=?720][ext=mp4]+bestaudio[ext=m4a]/best[height<=?720][ext=mp4]/best',
+      'format': 'bestvideo[height<=?720][ext=mp4]+bestaudio[ext=m4a]/best[height<=?720][ext=mp4]/best', # Prioritize 720p
       'postprocessors': [{
         'key': 'FFmpegVideoConvertor',
         'preferedformat': 'mp4'
@@ -26,21 +25,18 @@ async def download_video(client, message):
       info_dict = ydl.extract_info(url, download=False)
       video_title = info_dict.get('title', None)
 
-      if video_title:
+      if video_title: # Check if title is available
+        # Send the "Downloading..." message with scheduled deletion:
         downloading_message = await message.reply_text(f"**Downloading {video_title}...**")
         try:
-          await downloading_message.delete(delay=10)
+          await downloading_message.delete(delay=10) # Schedule deletion after 10 seconds
         except Exception as e:
-          print(f"Failed to delete message: {e}")
+          print(f"Failed to delete message: {e}") # Log any deletion errors
 
         ydl.download([url])
 
-        # Generate thumbnail from the downloaded video:
-        thumbnail_file = f"{video_title}_thumb.jpg"
-        Image.open(f"{video_title}.mp4").save(thumbnail_file, "JPEG") 
-
-        # Send the video with the generated thumbnail:
-        await message.reply_video(video=f"{video_title}.mp4", thumb=thumbnail_file, caption=video_title)
+        # Send the downloaded video with the caption:
+        await message.reply_video(video=f"{video_title}.mp4", caption=video_title) # Added caption
 
         await message.reply_text("ᴜᴘʟᴏᴀᴅ ᴄᴏᴍᴘʟᴇᴛᴇᴅ")
       else:
