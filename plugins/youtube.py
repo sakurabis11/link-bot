@@ -1,6 +1,7 @@
 from pyrogram import Client, filters
 import yt_dlp
 from info import S_CHANNEL
+from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 import requests
 
 @Client.on_message(filters.command("yt"))
