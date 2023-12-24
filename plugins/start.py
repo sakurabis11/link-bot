@@ -74,6 +74,7 @@ async def help_command(client, message):
          ],[
          InlineKeyboardButton('ʀᴇᴘoʀᴛ', callback_data='rport')
          ],[
+         InlineKeyboardButton('Home', callback_data='hlp'),
          InlineKeyboardButton('close', callback_data='close')
     ]]
     reply_markup = InlineKeyboardMarkup(buttons)
@@ -110,11 +111,21 @@ async def callback_handle(client, query):
          ],[
          InlineKeyboardButton('ʀᴇᴘoʀᴛ', callback_data='rport')
          ],[
-         InlineKeyboardButton('Home', callback_data='start'),
+         InlineKeyboardButton('Home', callback_data='hlp'),
          InlineKeyboardButton('close', callback_data='close')
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(text=script.HELP_TXT, reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
+
+    elif query.data == "hlp"
+        buttons = [[
+            InlineKeyboardButton("🍂 Aᴅᴅ Mᴇ Tᴏ Yᴏᴜʀ Cʜᴀᴛ ", url=f"http://t.me/{temp.U_NAME}?startgroup=true")
+            ],[
+            InlineKeyboardButton("️🍃 Hᴇʟᴩ", callback_data="help"),
+            InlineKeyboardButton("🍁 Aʙᴏᴜᴛ", callback_data="about"),
+        ]]
+        reply_markup = InlineKeyboardMarkup(buttons)
+        await query.message.edit_text(text=script.START_TXT.format(message.from_user.mention, temp.U_NAME, temp.B_NAME), reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
 
     elif query.data == "admin":
         buttons = [[
@@ -199,7 +210,7 @@ async def callback_handle(client, query):
         buttons = buttons = [[
             InlineKeyboardButton("🌿 Repo & ʀᴇᴘᴏʀᴛ ʙᴜɢs", callback_data="rrb")
             ],[
-            InlineKeyboardButton('Home', callback_data='start'),
+            InlineKeyboardButton('Home', callback_data='hlp'),
             InlineKeyboardButton('close', callback_data='close')
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
