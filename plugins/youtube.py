@@ -3,16 +3,12 @@ import yt_dlp
 from yt_dlp import YoutubeDL
 import requests
 
-@Client.on_message(filters.command("yt"))
+yt = r"^(https?://)?(www\.)?(youtube|youtu|youtube-nocookie)\.(com|be)/(?:watch\?v=|embed/|v/|.+\?v=)?([^&=\n%\?]{11})"
+
+@Client.on_message(filters.regex(yt))
 async def download_video(client, message):
   try:
-    command_parts = message.text.split(" ", 1)
-
-    if len(command_parts) == 1:
-      await message.reply_text("Please provide YouTube video URL (e.g., /yt https://www.youtube.com/watch?v=2Vv-BfVoq4g&pp=ygUHcGVyZmVjdA%3D%3D)")
-      return
-
-    url = command_parts[1]
+    url = message.text.strip()
 
     ydl_opts = {
       'outtmpl': '%(title)s.%(ext)s',
