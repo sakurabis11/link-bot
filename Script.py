@@ -2,7 +2,7 @@ class script(object):
     LOG_TEXT_G = """<b>#ɴᴇᴡ_ɢʀᴏᴜᴩ
 
 ◉ ɢʀᴏᴜᴩ: {}(<code>{}</code>)
-◉ ᴀᴅᴅᴇᴅ ʙʏ: {}"""
+◉ ᴍᴇᴍʙᴇʀꜱ: <code>{d}</code>"""
     
     LOG_TEXT_P = """#ɴᴇᴡ_ᴜꜱᴇʀ
     
