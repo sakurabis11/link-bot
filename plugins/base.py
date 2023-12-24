@@ -264,11 +264,12 @@ async def list_chats(bot, message):
 async def get_stats(bot, message):
     rju = await message.reply('Fetching stats..')
     total_users = await db.total_users_count()
+    total_chats = await db.total_chat_count()
     size = await db.get_db_size()
     free = 536870912 - size
     size = get_size(size)
     free = get_size(free)    
-    await rju.edit(script.STATUS_TXT.format(total_users))
+    await rju.edit(script.STATUS_TXT.format(total_users, total_chats))
 
 @Client.on_message(filters.command('logs') & filters.user(ADMINS))
 async def log_file(bot, message):
