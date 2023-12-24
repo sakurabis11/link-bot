@@ -1,69 +1,65 @@
 from pyrogram import Client, filters
-from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery
 import yt_dlp
+from info import S_CHANNEL
+import requests
 
 @Client.on_message(filters.command("yt"))
 async def download_video(client, message):
-   try:
-       command_parts = message.text.split(" ", 1)
+    try:
+        command_parts = message.text.split(" ", 1)
 
-       if len(command_parts) == 1:
-           await message.reply_text("ᴘʟᴇᴀsᴇ ᴘʀᴏᴠɪᴅᴇ ʏᴏᴜᴛᴜʙᴇ ᴠɪᴅᴇᴏ ᴜʀʟ (ᴇɢ:- /yt https://www.youtube.com/watch?v=2Vv-BfVoq4g&pp=ygUHcGVyZmVjdA%3D%3D)")
-           return
+        if len(command_parts) == 1:
+            await message.reply_text("Please provide YouTube video URL (e.g., /yt https://www.youtube.com/watch?v=2Vv-BfVoq4g&pp=ygUHcGVyZmVjdA%3D%3D)")
+            return
 
-       url = command_parts[1]
+        url = command_parts[1]
 
-       ydl_opts = {
-           'outtmpl': '%(title)s.%(ext)s',
-           'format': 'bestvideo[height<=?720][ext=mp4]+bestaudio[ext=m4a]/best[height<=?720][ext=mp4]/best',
-           'postprocessors': [{
-               'key': 'FFmpegVideoConvertor',
-               'preferedformat': 'mp4'
-           }],
-       }
+        ydl_opts = {
+            'outtmpl': '%(title)s.%(ext)s',
+            'format': 'bestvideo[height<=?720][ext=mp4]+bestaudio[ext=m4a]/best[height<=?720][ext=mp4]/best',  # Prioritize 720p
+            'postprocessors': [{
+                'key': 'FFmpegVideoConvertor',
+                'preferedformat': 'mp4'
+            }],
+        }
 
-       with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-           info_dict = ydl.extract_info(url, download=False)
-           video_title = info_dict.get('title', None)
-           duration = info_dict.get('duration', None)  # Retrieve video duration
+        with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+            info_dict = ydl.extract_info(url, download=False)
+            video_title = info_dict.get('title', None)
+            duration = info_dict.get('duration', None)
 
-           if video_title:
-               downloading_message = await message.reply_text(f"**Downloading {video_title}...**")
-               try:
-                   await downloading_message.delete(delay=10)
-               except Exception as e:
-                   print(f"Failed to delete message: {e}")
+            if video_title:
+                downloading_message = await message.reply_text(f"**Downloading {video_title}...**")
+                try:
+                    await downloading_message.delete(delay=10)
+                except Exception as e:
+                    print(f"Failed to delete message: {e}")
 
-               ydl.download([url])
+                ydl.download([url])  # Download the video
 
-               video_path = f"{video_title}.mp4"
-               caption = f"**Title:** {video_title}\n**Duration:** {duration}"
+                # Download thumbnail
+                thumbnail = ydl.thumbnails[0]["url"]  # Access thumbnail URL directly
+                thumb_name = f'thumb{title}.jpg'
+                thumb = requests.get(thumbnail, allow_redirects=True)
+                open(thumb_name, 'wb').write(thumb.content)
 
-               if message.chat.type == "group":  # Handle group requests
-                   keyboard = InlineKeyboardMarkup(
-                       [
-                           [
-                               InlineKeyboardButton(
-                                   text="Get Video in PM",
-                                   callback_data="send_video_pm"
-                               )
-                           ]
-                       ]
-                   )
-                   await message.reply_video(video=video_path, caption=caption, reply_markup=keyboard)
-               else:  # Send directly in private chats
-                   await message.reply_video(video=video_path, caption=caption)
+                # Create inline keyboard for support channel
+                support_button = [
+                    InlineKeyboardButton("Support Channel", url=S_CHANNEL)
+                ]
+                reply_markup = InlineKeyboardMarkup(build_menu(support_button, n_cols=1))
 
-               await message.reply_text("ᴜᴘʟᴏᴀᴅ ᴄᴏᴍᴘʟᴇᴛᴇᴅ")
-           else:
-               await message.reply_text("ᴜɴᴀʙʟᴇ ᴛᴏ ʀᴇᴛʀɪᴇᴠᴇ ᴠɪᴅᴇᴏ ᴛɪᴛʟᴇ. ᴘʟᴇᴀsᴇ ᴄʜᴇᴄᴋ ᴛʜᴇ ᴠɪᴅᴇᴏ ᴜʀʟ ᴀɴᴅ ᴛʀʏ ᴀɢᴀɪɴ.")
+                # Send the downloaded video with caption, inline keyboard, and thumbnail
+                await message.reply_video(
+                    video=f"{video_title}.mp4",
+                    caption=f"**Title:** {video_title}\n**Duration:** {duration}\n",
+                    reply_markup=reply_markup,
+                    thumb=thumb_name
+                )
 
-   except Exception as e:
-       await message.reply_text(f"ᴇʀʀᴏʀ: {e}")
+                await message.reply_text("Upload completed")
+            else:
+                await message.reply_text("Unable to retrieve video title. Please check the video URL and try again.")
 
-   @Client.on_callback_query()
-   async def handle_callback(client, callback_query):
-       if callback_query.data == "send_video_pm":
-           video_path = f"{callback_query.message.caption.splitlines()[1].split('**Title:** ')[1]}.mp4"
-           await client.send_video(callback_query.from_user.id, video=video_path, caption=callback_query.message.caption)
-           await callback_query.answer("Video sent to your PM!")
+    except Exception as e:
+        await message.reply_text(f"Error: {e}")
