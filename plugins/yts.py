@@ -27,7 +27,7 @@ async def download_song(client, message):
             ydl.download([url])
 
             song_path = ydl.prepare_filename(info_dict)
-            await app.send_audio(message.chat.id, audio=song_path)
+            await client.send_audio(message.chat.id, audio=song_path)
 
             await message.reply_text(f"Song sent successfully!")
 
