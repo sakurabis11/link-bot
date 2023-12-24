@@ -52,10 +52,10 @@ async def download_video(client, message):
           await client.send_video(
             chat_id=message.chat.id,
             video=f"{video_title}.mp4",
-            caption=f" Title: **{video_title}**\n⌛️ Duration: {duration_minutes} minutes\n Support: <a href='https://t.me/sd_bots'> Team SD Bots </a>",
+            caption=f"🍃 ᴛɪᴛʟᴇ: **{video_title}**\n⌛️ Duration: {duration_minutes} minutes\n🍁 sᴜᴘᴘᴏʀᴛ: <a href='https://t.me/sd_bots'> Team SD Bots </a>",
             thumb="thumbnail.jpg"
           )
-          await message.reply_text("Upload completed")
+          await message.reply_text("ᴜᴘʟᴏᴀᴅᴇᴅ ᴄᴏᴍᴘʟᴇᴛᴇᴅ")
         except Exception as e:
           print(f"Error sending video: {e}")
 
