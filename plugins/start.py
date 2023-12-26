@@ -83,7 +83,7 @@ async def help_command(client, message):
 @Client.on_callback_query()
 async def callback_handle(client, query):
     
-    elif query.data == 'start':
+    if query.data == 'start':
         buttons = [[
             InlineKeyboardButton("🍂 Aᴅᴅ Mᴇ Tᴏ Yᴏᴜʀ Cʜᴀᴛ ", url=f"http://t.me/{temp.U_NAME}?startgroup=true")
             ],[
