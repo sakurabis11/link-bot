@@ -42,21 +42,19 @@ async def download_song(client, message):
     try:
         video.download(filename=audio_filename)
 
-        # Prepare the thumbnail for use as both caption and photo
+        # Prepare the thumbnail caption
         thumbnail_caption = f"**{song_title}**\n" + \
                             f"Duration: {duration}\n" + \
                             f"YouTube: <a href='https://www.youtube.com{song_url}'>YouTube</a>"
 
-        # Send the thumbnail as a photo with the caption
-        await message.reply_photo(
-            thumbnail_url,
+        # Send the audio with the thumbnail set as its preview
+        await message.reply_audio(
+            audio_filename,
+            thumb=thumbnail_url,
             caption=thumbnail_caption
         )
 
-        # Send the downloaded song without an explicit caption (it's already in the photo)
-        await message.reply_audio(audio_filename)
-
-        # Delete the downloaded song after sending it
+        # Delete the downloaded song
         os.remove(audio_filename)
 
     except Exception as e:
