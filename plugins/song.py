@@ -53,7 +53,7 @@ async def download_song(client, message):
       caption=thumbnail_caption
     )
 
-    song_caption = f"**{song_title}**\n" + \
+    song_caption = f"**{song_title}**\n"
 
     # Send the downloaded song without an explicit caption (it's already in the photo)
     await message.reply_audio(
