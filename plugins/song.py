@@ -42,9 +42,9 @@ async def download_song(client, message):
     video.download(filename=audio_filename)
 
     # Prepare the thumbnail for use as both caption and photo
-    thumbnail_caption = f"**{song_title}**\n" + \
-              f"ᴅᴜʀᴛɪᴏɴ: {duration}\n" + \
-              f"ʏᴏᴜ ᴛᴜʙᴇ: <a href='https://www.youtube.com{song_url}'>ʏᴏᴜ ᴛᴜʙᴇ</a>"
+    thumbnail_caption = f"**🍃 {song_title}**\n" + \
+              f"🕛 ᴅᴜʀᴛɪᴏɴ: {duration}\n" + \
+              f"🍂 ʏᴏᴜ ᴛᴜʙᴇ: <a href='https://www.youtube.com{song_url}'>ʏᴏᴜ ᴛᴜʙᴇ</a>"
 
     # Send the thumbnail as a photo with the caption
     await message.reply_photo(
@@ -52,7 +52,7 @@ async def download_song(client, message):
       caption=thumbnail_caption
     )
 
-    song_caption = f"**{song_title}**\n"
+    song_caption = f"**🎧 {song_title}**\n"
 
     # Send the downloaded song without an explicit caption (it's already in the photo)
     await message.reply_audio(
