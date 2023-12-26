@@ -1,12 +1,9 @@
 import asyncio
 import os
 import re
-from info import S_CHANNEL
-from pyrogram import Client, filters
-from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
+from pyrogram import Client, filters, InlineKeyboardMarkup, InlineKeyboardButton
 from pytube import YouTube
 from youtube_search import YoutubeSearch
-
 
 @Client.on_message(filters.command(["song"]))
 async def download_song(client, message):
@@ -31,7 +28,6 @@ async def download_song(client, message):
     song_title = search_results[0]["title"]
     duration = search_results[0]["duration"]
 
-    # Download the song using pytube
     try:
         yt = YouTube(f"https://www.youtube.com{song_url}")
         audio_streams = yt.streams.filter(only_audio=True)
@@ -43,10 +39,14 @@ async def download_song(client, message):
         video = audio_streams.first()
         audio_filename = f"{song_title}.mp3"
 
-        # Download the song and try to send with thumbnail and inline button
         try:
             video.download(filename=audio_filename)
             thumbnail_url = yt.thumbnail_url
+
+            caption = f"** {song_title}**\n" + \
+                       f" ᴅᴜʀᴀᴛɪᴏɴ: {duration}\n" + \
+                       f" ʏᴏᴜ ᴛᴜʙᴇ: <a href='https://www.youtube.com{song_url}'>ʏᴏᴜ ᴛᴜʙᴇ</a>"
+
             await message.reply_audio(
                 audio_filename,
                 caption=caption,
@@ -55,7 +55,7 @@ async def download_song(client, message):
                     [
                         [
                             InlineKeyboardButton(
-                                text="sᴜᴘᴘᴘᴏʀᴛ", url=S_CHANNEL
+                                text="sᴜᴘᴘᴏʀᴛ", url=S_CHANNEL
                             )
                         ]
                     ]
@@ -70,4 +70,3 @@ async def download_song(client, message):
 
     except Exception as e:
         await message.reply(f"Error downloading song: {e}")
-
