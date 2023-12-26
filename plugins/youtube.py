@@ -18,8 +18,6 @@ async def download_video(client, message):
         'key': 'FFmpegVideoConvertor',
         'preferedformat': 'mp4'
       }],
-      'max_duration': 3300  # Download videos less than 55 minutes (55 * 60 = 3300 seconds)
-    }
 
     with yt_dlp.YoutubeDL(ydl_opts) as ydl:
       info_dict = ydl.extract_info(url, download=False)
