@@ -1,9 +1,7 @@
 import asyncio
 import os
 import re
-from info import S_CHANNEL
-from pyrogram import Client, filters 
-from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
+from pyrogram import Client, filters
 from pytube import YouTube
 from youtube_search import YoutubeSearch
 
@@ -14,8 +12,7 @@ async def download_song(client, message):
         await message.reply("Please provide the song name you want")
         return
 
-    song_name = message.text.split()[1:]  # Extract the song name parts into a list
-    song_name = " ".join(song_name)  # Combine the song name parts into a single string
+    song_name = " ".join(message.text.split()[1:])  # Extract and combine song name parts
 
     # Send "Searching..." message before searching
     await message.reply("⏳")
@@ -30,45 +27,34 @@ async def download_song(client, message):
     song_title = search_results[0]["title"]
     duration = search_results[0]["duration"]
 
+    # Download the song using pytube
+    yt = YouTube(f"https://www.youtube.com{song_url}")
+    thumbnail_url = yt.thumbnail_url  # Extract thumbnail URL
+
+    audio_streams = yt.streams.filter(only_audio=True)
+    if not audio_streams:
+        await message.reply("No audio stream found for the specified video")
+        return
+
+    video = audio_streams.first()
+    audio_filename = f"{song_title}.mp3"
+
     try:
-        yt = YouTube(f"https://www.youtube.com{song_url}")
-        audio_streams = yt.streams.filter(only_audio=True)
+        video.download(filename=audio_filename)
 
-        if not audio_streams:
-            await message.reply("No audio stream found for the specified video")
-            return
+        # Prepare message caption with title, duration, and YouTube link
+        caption = f"** {song_title}**\n" + \
+                  f" Duration: {duration}\n" + \
+                  f" YouTube: <a href='https://www.youtube.com{song_url}'>YouTube</a>"
 
-        video = audio_streams.first()
-        audio_filename = f"{song_title}.mp3"
+        # Send thumbnail as a separate message
+        await message.reply_photo(thumbnail_url)
 
-        try:
-            video.download(filename=audio_filename)
-            thumbnail_url = yt.thumbnail_url
+        # Send downloaded song with caption
+        await message.reply_audio(audio_filename, caption=caption)
 
-            caption = f"** {song_title}**\n" + \
-                       f" ᴅᴜʀᴀᴛɪᴏɴ: {duration}\n" + \
-                       f" ʏᴏᴜ ᴛᴜʙᴇ: <a href='https://www.youtube.com{song_url}'>ʏᴏᴜ ᴛᴜʙᴇ</a>"
-
-            await message.reply_audio(
-                audio_filename,
-                caption=caption,
-                thumb=thumbnail_url,
-                reply_markup=InlineKeyboardMarkup(
-                    [
-                        [
-                            InlineKeyboardButton(
-                                text="sᴜᴘᴘᴏʀᴛ", url=S_CHANNEL
-                            )
-                        ]
-                    ]
-                )
-            )
-        except Exception as e:
-            await message.reply(f"Failed to send with thumbnail and button: {e}")
-            await message.reply_audio(audio_filename, caption=caption)  # Send without thumbnail/button
-
-        finally:
-            os.remove(audio_filename)  # Delete the downloaded song
+        # Delete the downloaded song after sending it
+        os.remove(audio_filename)
 
     except Exception as e:
         await message.reply(f"Error downloading song: {e}")
