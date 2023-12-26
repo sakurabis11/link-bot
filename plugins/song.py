@@ -9,7 +9,7 @@ from youtube_search import YoutubeSearch
 async def download_song(client, message):
   # Check if the user has provided a song name
   if len(message.text.split()) < 2:
-    await message.reply("Please provide the song name you want")
+    await message.reply("ᴘʟᴇᴀsᴇ ᴘʀᴏᴠɪᴅᴇ ᴛʜᴇ sᴏɴɢ ʏᴏᴜ ᴡᴀɴᴛ ᴇɢ:- /song lover")
     return
 
   song_name = " ".join(message.text.split()[1:]) # Extract and combine song name parts
@@ -20,8 +20,7 @@ async def download_song(client, message):
   # Search for the song on YouTube
   search_results = YoutubeSearch(song_name, max_results=1).to_dict()
   if not search_results:
-    await message.reply("No song found with that name")
-    return
+    await message.reply("ɴᴏ sᴏɴɢ ғᴏᴜɴᴅ ᴡɪᴛʜ ᴛʜᴀᴛ ɴᴀᴍᴇ ᴡɪᴛʜ ᴛʜᴀᴛ")
 
   song_url = search_results[0]["url_suffix"]
   song_title = search_results[0]["title"]
@@ -33,7 +32,7 @@ async def download_song(client, message):
 
   audio_streams = yt.streams.filter(only_audio=True)
   if not audio_streams:
-    await message.reply("No audio stream found for the specified video")
+    await message.reply("ɴᴏ ᴀᴜᴅɪᴏ sᴛᴇᴇᴀᴍ ғᴏᴜɴᴅ ғᴏʀ ᴛʜᴇ sᴘᴇᴄɪғɪᴇᴅ ᴠɪᴅᴇᴏs")
     return
 
   video = audio_streams.first()
@@ -44,8 +43,8 @@ async def download_song(client, message):
 
     # Prepare the thumbnail for use as both caption and photo
     thumbnail_caption = f"**{song_title}**\n" + \
-              f"Duration: {duration}\n" + \
-              f"YouTube: <a href='https://www.youtube.com{song_url}'>YouTube</a>"
+              f"ᴅᴜʀᴛɪᴏɴ: {duration}\n" + \
+              f"ʏᴏᴜ ᴛᴜʙᴇ: <a href='https://www.youtube.com{song_url}'>ʏᴏᴜ ᴛᴜʙᴇ</a>"
 
     # Send the thumbnail as a photo with the caption
     await message.reply_photo(
@@ -65,4 +64,4 @@ async def download_song(client, message):
     os.remove(audio_filename)
 
   except Exception as e:
-    await message.reply(f"Error downloading song: {e}")
+    await message.reply(f"ᴇʀʀᴏʀ sᴏɴɢ ᴅᴏᴡɴʟᴏᴀᴅɪɴɢ: {e}")
