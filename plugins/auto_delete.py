@@ -1,7 +1,7 @@
 import pyrogram
 from pyrogram import Client, filters
 
-@Client.on_message(filters.command("clear", prefixes="/") & (filters.chat_type.supergroup | filters.chat_type.channel) & filters.me)
+@Client.on_message(filters.command("clear") & (filters.chat_type.supergroup | filters.chat_type.channel) & filters.me)
 async def handle_clear_command(client, message):
     try:
         chat_id = message.chat.id
