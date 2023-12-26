@@ -1,6 +1,7 @@
 import asyncio
 import os
 import re
+from info import S_CHANNEL
 from pyrogram import Client, filters 
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from pytube import YouTube
