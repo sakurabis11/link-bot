@@ -83,15 +83,12 @@ async def help_command(client, message):
 @Client.on_callback_query()
 async def callback_handle(client, query):
    if query.data == 'start':
-        buttons = [
-            [
+        buttons = [[
                 InlineKeyboardButton("🍂 Aᴅᴅ Mᴇ Tᴏ Yᴏᴜʀ Cʜᴀᴛ ", url=f"http://t.me/{temp.U_NAME}?startgroup=true")
-            ],
-            [
+                ],[
                 InlineKeyboardButton("️🍃 Hᴇʟᴩ", callback_data="help"),
                 InlineKeyboardButton("🍁 Aʙᴏᴜᴛ", callback_data="about"),
-            ]
-        ]
+        ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(text=script.START_TXT.format(query.from_user.mention, temp.U_NAME, temp.B_NAME), reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
         
