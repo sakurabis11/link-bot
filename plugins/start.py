@@ -123,12 +123,11 @@ async def callback_handle(client, query):
         ]]
         user_id = query.from_user.id
 
-        if user_id in ADMINS:
+        if user_id not in ADMINS:
+           return await query.answer("You are not authorized to access this feature.", show_alert=True)
+            
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(text=script.ADMIN_CMD_TXT, reply_markup=reply_markup, parse_mode="HTML")
-    else:
-        # User is not an admin, you can handle this case as needed
-        await query.answer("You are not authorized to access this feature.", show_alert=True)
 
     elif query.data == 'telegraph':
         buttons = buttons = [[
