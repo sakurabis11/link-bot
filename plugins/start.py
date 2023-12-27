@@ -127,7 +127,6 @@ async def callback_handle(client, query):
         await query.message.edit_text(text=script.ADMIN_CMD_TXT, reply_markup=reply_markup, parse_mode="HTML")
         return await query.answer("You are not authorized to access this feature.", show_alert=True)
 
-
     elif query.data == 'telegraph':
         buttons = buttons = [[
             InlineKeyboardButton('ʜᴏᴍᴇ', callback_data='help')
