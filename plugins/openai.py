@@ -8,7 +8,7 @@ openai.api_key = OPENAI_API_KEY
 @Client.on_message(filters.command('openai'))
 async def openai_command(client, message):
     if not message.text:
-        await client.send_message(message.chat.id, "Please provide ur request")
+        await client.send_message(message.chat.id, "ᴘʟᴇᴀsᴇ ᴘʀᴏᴠɪᴅᴇ ᴜʀ ʀᴇǫᴜᴇsᴛ ")
         return
 
     try:
@@ -23,5 +23,5 @@ async def openai_command(client, message):
         await message.reply_text(response.choices[0].text)
 
     except Exception as e:
-        error_message = f"Sorry, an error occurred: {str(e)}"
+        error_message = f"sᴏʀʀʏ, ᴀɴ ᴇʀʀᴏʀ  ᴏᴄᴄᴜʀᴇᴅ: {str(e)}"
         await message.reply_text(error_message)
