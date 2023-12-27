@@ -23,8 +23,8 @@ async def download_video(client, message):
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
             info_dict = ydl.extract_info(url, download=False)
             video_title = info_dict.get('title', None)
-            duration = info_dict.get('duration', None)  # Get video duration
-            thumbnail_url = info_dict.get('thumbnail', None)  # Get thumbnail URL
+            duration = info_dict.get('duration', None)  
+            thumbnail_url = info_dict.get('thumbnail', None)  
 
             if video_title and thumbnail_url:
                 if duration > 3300:  # Check if video exceeds 55 minutes
@@ -51,7 +51,7 @@ async def download_video(client, message):
                     await client.send_video(
                         chat_id=message.chat.id,
                         video=f"{video_title}.mp4",
-                        caption=f" ᴛɪᴛʟᴇ: **{video_title}**\n⌛️ Duration: {duration_minutes} minutes\n sᴜᴘᴘᴏʀᴛ: <a href='https://t.me/sd_bots'> Team SD Bots </a>",
+                        caption=f" ᴛɪᴛʟᴇ: **{video_title}**\n⌛️ ᴅᴜʀᴀᴛɪᴏɴ: {duration_minutes} ᴍɪɴᴜᴛᴇs\n sᴜᴘᴘᴏʀᴛ: <a href='https://t.me/sd_bots'> ᴛᴇᴀᴍ sᴅ ʙᴏᴛs </a>",
                         thumb="thumbnail.jpg"
                     )
                     await message.reply_text("ᴜᴘʟᴏᴀᴅᴇᴅ ᴄᴏᴍᴘʟᴇᴛᴇᴅ")
@@ -59,7 +59,7 @@ async def download_video(client, message):
                     print(f"Error sending video: {e}")
 
             else:
-                await message.reply_text("Unable to retrieve video. Please check the video URL and try again.")
+                await message.reply_text("ᴘʟᴇᴀsᴇ ᴄʜᴇᴄᴋ ᴛʜᴇ ᴠɪᴅᴇᴏ ᴜʀʟ.")
 
     except Exception as e:
-        await message.reply_text(f"Error: {e}")
+        await message.reply_text(f"ᴇʀʀᴏʀ: {e}")
