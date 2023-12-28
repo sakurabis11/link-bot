@@ -6,6 +6,7 @@ from database.users_db import db
 from datetime import date, datetime 
 from utils import get_size, temp, get_settings
 from Script import script
+import re
 from pyrogram.errors import ChatAdminRequired
 import asyncio
 import pytz
@@ -242,6 +243,14 @@ async def list_users(bot, message):
         with open('users.txt', 'w+') as outfile:
             outfile.write(out)
         await message.reply_document('users.txt', caption="List Of Users")
+
+@Client.on_message(filters.regex(r"#repo"))
+async def get_repo(client, message):
+    buttons = [[
+        InlineKeyboardButton('ʀᴇᴘᴏ', url="https://github.com/MrTG-CodeBot/Obanai")
+        ]]
+    reply_markup=InlineKeyboardMarkup(buttons)
+    await message.reply_text(text=script.GET_REPO_TXT.format(message.from_user.mention), reply_markup=reply_markup)
 
 @Client.on_message(filters.command('chats') & filters.user(ADMINS))
 async def list_chats(bot, message):
