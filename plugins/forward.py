@@ -1,10 +1,10 @@
 import pyrogram
 from pyrogram import Client, filters
-from info jmport ADMINS
+from info import ADMINS
 
 # Replace with the chat IDs of the source and destination channels/groups
-SOURCE_CHAT_ID = -1001234567890  # Example source channel ID
-DESTINATION_CHAT_ID = -1111222233334444  # Example destination channel ID
+SOURCE_CHAT_ID = -1001818278903 # Example source channel ID
+DESTINATION_CHAT_ID = -1001860592004  # Example destination channel ID
 
 @Client.on_message(filters.chat(SOURCE_CHAT_ID) & filters.command("forward") & filters.user(ADMINS))
 async def forward_command(client, message):
