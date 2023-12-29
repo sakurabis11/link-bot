@@ -2,6 +2,7 @@ import pyrogram
 from pyrogram import filters, Client
 import aiohttp
 import os
+from bs4 import BeautifulSoup  
 
 @Client.on_message(filters.regex(r"https://open.spotify.com/track/(.*)"))
 async def download_and_send(client, message):
@@ -12,7 +13,7 @@ async def download_and_send(client, message):
         song_file = await download_track(track_url)
         try:
             await client.send_audio(user_id, audio=song_file, caption="Downloaded from Spotify")
-            os.remove(song_file)  # Optional: Delete the file after sending
+            os.remove(song_file) 
         except Exception as e:
             await client.send_message(user_id, "Failed to send audio: {}".format(e))
     except Exception as e:
@@ -21,10 +22,9 @@ async def download_and_send(client, message):
 async def download_track(track_url):
     async with aiohttp.ClientSession() as session:
         response = await session.get(track_url)
-        soup = BeautifulSoup(await response.text(), "html.parser")
+        soup = BeautifulSoup(await response.text(), "html.parser")  
 
-        # Extract download link from HTML (replace with your specific logic)
-        download_link = soup.find("a", class_="track-download-link").get("href")  # Example placeholder
+        download_link = soup.find("a", class_="track-download-link").get("href")  
 
         download_response = await session.get(download_link)
         song_file = open("downloaded_song.mp3", "wb")
