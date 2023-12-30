@@ -3,21 +3,20 @@ from pyrogram import Client, filters
 import requests
 from bs4 import BeautifulSoup
 
-@Client.on_message(filters.command(["search"]))
-async def search_movie_or_series(client, message):
-    query = message.text.split(" ", 1)[1] 
+@Client.on_message(filters.command("search"))
+async def search_movie(client, message):
+    search_query = message.text.split(" ", 1)[1]  
 
-    url = f"https://www.google.com/search?q={query}_release_date_platform"  
-    response = requests.get(url)
-    
-    if response.status_code == 200:
-        soup = BeautifulSoup(response.text, 'html.parser')
+    search_url = f"https://www.google.com/search?q={search_query} release date site:imdb.com"
+    response = requests.get(search_url)
+    soup = BeautifulSoup(response.content, "html.parser")
 
-        try:
-            release_date = soup.find('div', {'class': 'BNeawe iBp4i AP7Wnd'}).get_text(strip=True)
-            platform = "OTT platform information not available"  # Replace with logic to fetch platform
-            await message.reply_text(f"{query} was released on {release_date}. It's available on {platform}")
-        except AttributeError:
-            await message.reply_text(f"Movie/series '{query}' not found.")
+    release_date = soup.find("div", class_="BNeawe s3v9rd AP7Wnd").text.strip()
+    platform = soup.find("div", class_="BNeawe s3v9rd AP7Wnd").find_next("div").text.strip()
+
+    if release_date and platform:
+        await message.reply_text(f"**{search_query}** is available on **{platform}**.\nRelease Date: **{release_date}**")
     else:
-        await message.reply_text(f"An error occurred while searching for '{query}'. Please try again.")
+        await message.reply_text(f"I couldn't find release information for **{search_query}** on any OTT platforms.")
+
+
