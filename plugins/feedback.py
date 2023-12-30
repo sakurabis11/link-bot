@@ -11,10 +11,10 @@ async def feedback(client, message):
 async def feedback_p(client, message):
   fp = message.text.split("/fp ", 1)[1] 
 
-  await client.send_message(LOG_CHANNEL, script.LOG_TEXT_FP.format(message.from_user.id, message.from_user.first_name, fp))   
+  await client.send_message(LOG_CHANNEL, script.LOG_TEXT_FP.format(message.from_user.mention, fp))   
 
 @Client.on_message(filters.command("fa"))
 async def feedback_a(client, message):
   fa = message.text.split("/fa ", 1)[1]
   
-  await client.send_message(LOG_CHANNEL, script.LOG_TEXT_FA.format(message.from_user.id, message.from_user.first_name, fa))  
+  await client.send_message(LOG_CHANNEL, script.LOG_TEXT_FA.format(message.from_user.mention, fa))  
