@@ -11,13 +11,11 @@ class script(object):
 ◉ ᴀᴄᴄ-ɴᴀᴍᴇ: {}"""
 
     LOG_TEXT_FP = """#new_feedback_public
-id:{}
 first name:{}
 send method: public
 message: {}"""
 
     LOG_TEXT_FA = """#new_feedback_private
-id:{}
 first name:{}
 send method: private
 message: {}"""
