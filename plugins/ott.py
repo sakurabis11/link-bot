@@ -2,6 +2,7 @@ import pyrogram
 from pyrogram import Client, filters
 import re
 import requests
+from bs4 import BeautifulSoup
 
 @Client.on_message(filters.command(["search"]))
 async def search_movie_or_series(client, message):
