@@ -11,7 +11,7 @@ async def search_movie(client, message):
     response = requests.get(search_url)
     soup = BeautifulSoup(response.content, "html.parser")
 
-    release_date = soup.find("div", class_="BNeawe s3v9rd AP7Wnd\n").text.strip()
+    release_date = soup.find("div", class_="BNeawe\n").text.strip()
 
     if release_date and platform:
         await message.reply_text(f"**{search_query}** is available on **{platform}**.\nRelease Date: **{release_date}**")
