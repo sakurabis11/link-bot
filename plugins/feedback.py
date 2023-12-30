@@ -1,17 +1,20 @@
-import pyrogram
 from pyrogram import Client, filters
-from info import LOG_CHANNEL 
+from info import LOG_CHANNEL
+
+feedback = []
 
 @Client.on_message(filters.command("feedback"))
-async def handle_feedback(client, message):
-    user_feedback = message.text.split(" ", 1)[1]  
+async def feedback(client, message):
+  await message.reply_text("/fp - to send your feedback by publically\n /fa - to send your feedback anonymously")
 
-    await message.reply_text("Thank you for your feedback!")
+@Client.on_message(filters.command("fp"))
+async def feedback_p(client, message):
+  fp = message.text.split("/fp ", 1)[1] 
 
-    await client.forward_messages(
-        LOG_CHANNEL,
-        message.chat.id,
-        message_ids=message.message_id,
-        caption=f"**Feedback from {message.from_user.first_name}** (@{message.from_user.username})",
-    )
+  await client.send_message(LOG_CHANNEL, script.LOG_TEXT_FP.format(message.from_user.id, message.from_user.first_name, fp))   
 
+@Client.on_message(filters.command("fa"))
+async def feedback_a(client, message):
+  fa = message.text.split("/fa ", 1)[1]
+  
+  await client.send_message(LOG_CHANNEL, script.LOG_TEXT_FA.format(message.from_user.id, message.from_user.first_name, fa))  
