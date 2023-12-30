@@ -3,18 +3,6 @@ from pyrogram import Client, filters
 import requests
 from bs4 import BeautifulSoup
 
-async def check_imdb_validity(query):
-    url = f"https://www.imdb.com/find?q={query}"
-
-    try:
-        response = requests.get(url)
-        soup = BeautifulSoup(response.content, "html.parser")
-        results = soup.find_all("td", class_="result_text")
-        return len(results) > 0 
-    except Exception as e:
-        print(f"Error checking IMDb validity: {e}")
-        return False
-
 async def get_release_info(query):
     url = f"https://www.google.com/search?q={query}_release_date_platform"
 
@@ -35,11 +23,6 @@ async def search_movie_or_series(client, message):
     query = message.text.split(" ", 1)[1]
 
     try:
-        is_valid_imdb = await check_imdb_validity(query)
-        if not is_valid_imdb:
-            await message.reply("Movie or series not found on IMDb.")
-            return
-
         release_date, platform = await get_release_info(query)
         if release_date and platform:
             await message.reply(f"Release Date: {release_date}\nPlatform: {platform}")
