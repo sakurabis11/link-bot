@@ -7,7 +7,7 @@ from bs4 import BeautifulSoup
 async def search_movie(client, message):
     search_query = message.text.split(" ", 1)[1]  
 
-    search_url = f"https://www.google.com/search?q={search_query} release date site:imdb.com"
+    search_url = f"https://www.google.com/search?q={search_query}_release_date_and_platform"
     response = requests.get(search_url)
     soup = BeautifulSoup(response.content, "html.parser")
 
