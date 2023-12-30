@@ -1,6 +1,5 @@
 import pyrogram
 from pyrogram import Client, filters
-import re
 import requests
 from bs4 import BeautifulSoup
 
@@ -10,15 +9,15 @@ async def search_movie_or_series(client, message):
 
     url = f"https://www.google.com/search?q={query}_release_date_platform"  
     response = requests.get(url)
-    data = response.json()
+    
+    if response.status_code == 200:
+        soup = BeautifulSoup(response.text, 'html.parser')
 
-    if data["Response"] == "True":
         try:
-            release_date = data["Search"][0]["Year"]
+            release_date = soup.find('div', {'class': 'BNeawe iBp4i AP7Wnd'}).get_text(strip=True)
             platform = "OTT platform information not available"  # Replace with logic to fetch platform
-            await message.reply_text(f"{query} was released in {release_date}. It's available on {platform}")
-        except IndexError:
+            await message.reply_text(f"{query} was released on {release_date}. It's available on {platform}")
+        except AttributeError:
             await message.reply_text(f"Movie/series '{query}' not found.")
     else:
         await message.reply_text(f"An error occurred while searching for '{query}'. Please try again.")
-
