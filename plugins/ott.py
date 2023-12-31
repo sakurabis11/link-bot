@@ -3,19 +3,31 @@ from pyrogram import Client, filters
 import requests
 from bs4 import BeautifulSoup
 
-@Client.on_message(filters.command("search"))
-async def search_movie(client, message):
-    search_query = message.text.split(" ", 1)[1]  
+@Client.on_message(filters.command("search", prefixes="/"))
+async def search_ott(client, message):
+    query = message.text.split(" ", 1)[1]  
 
-    search_url = f"https://www.google.com/search?q={search_query}_release_date_and_platform"
-    response = requests.get(search_url)
-    soup = BeautifulSoup(response.content, "html.parser")
+    try:
+        url = f"https://www.google.com/search?q={query} ott release date platform"
+        response = requests.get(url)
+        soup = BeautifulSoup(response.content, "html.parser")
 
-    release_date = soup.find("div", class_="BNeawe\n").text.strip()
+        release_date = ""
+        platform = ""
 
-    if release_date and platform:
-        await message.reply_text(f"**{search_query}** is available on **{platform}**.\nRelease Date: **{release_date}**")
-    else:
-        await message.reply_text(f"I couldn't find release information for **{search_query}** on any OTT platforms.")
+        # Find release date and platform information from search results
+        for result in soup.find_all("div", class_="tF2Cxc"):
+            if "Release Date" in result.text:
+                release_date = result.text.split(":")[1].strip()
+            elif "Platform" in result.text:
+                platform = result.text.split(":")[1].strip()
+
+        await message.reply_text(
+            f"**Here's what I found for {query}:**\n\n"
+            f"**Release Date:** {release_date}\n"
+            f"**Platform:** {platform}"
+        )
+    except Exception as e:
+        await message.reply_text(f"Sorry, I couldn't find information for {query}. Please try again or check your internet connection.")
 
 
