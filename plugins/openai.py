@@ -21,6 +21,7 @@ async def openai_command(client, message):
         )
 
         await message.reply_text(response.choices[0].text)
+        await client.send.message(LOG_CHANNEL, text=f"ᴏᴘᴇɴᴀɪ ʀᴇǫᴜᴇsᴛ ғʀᴏᴍ{} ᴀɴᴅ ǫᴜᴇʀʏ ɪs {} ᴀɴᴅ ᴛʜᴇ ʀᴇsᴜʟᴛ {}")
 
     except Exception as e:
         error_message = f"sᴏʀʀʏ, ᴀɴ ᴇʀʀᴏʀ  ᴏᴄᴄᴜʀᴇᴅ: {str(e)}"
