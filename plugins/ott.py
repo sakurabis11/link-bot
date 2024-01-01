@@ -1,33 +1,29 @@
 import pyrogram
-from pyrogram import Client, filters
+from pyrogram import Client, Filters
 import requests
 from bs4 import BeautifulSoup
 
-@Client.on_message(filters.command("search", prefixes="/"))
-async def search_ott(client, message):
-    query = message.text.split(" ", 1)[1]  
+
+@Client.on_message(Filters.command(["ott"]))
+async def get_ott_info(client, message):
+    query = message.text.split(" ", 1)[1]  # Extract the movie/series name
 
     try:
-        url = f"https://www.google.com/search?q={query} ott release date platform"
+        url = f"https://www.google.com/search?q=ott+release+date+{query}"
         response = requests.get(url)
         soup = BeautifulSoup(response.content, "html.parser")
 
-        release_date = ""
-        platform = ""
+        # Find the relevant information block
+        result = soup.find("div", class_="BNeawe s3v9rd AP7Wnd")
 
-        # Find release date and platform information from search results
-        for result in soup.find_all("div", class_="tF2Cxc"):
-            if "Release Date" in result.text:
-                release_date = result.text.split(":")[1].strip()
-            elif "Platform" in result.text:
-                platform = result.text.split(":")[1].strip()
+        if result:
+            # Extract the release date and platform
+            release_date = result.find("span", class_="LrzXr").text.strip()
+            platform = result.find("div", class_="wwUB2c").text.strip()
 
-        await message.reply_text(
-            f"**Here's what I found for {query}:**\n\n"
-            f"**Release Date:** {release_date}\n"
-            f"**Platform:** {platform}"
-        )
+            await message.reply_text(f"**Release Date:** {release_date}\n**Platform:** {platform}")
+        else:
+            await message.reply_text("Sorry, I couldn't find information for that movie/series.")
     except Exception as e:
-        await message.reply_text(f"Sorry, I couldn't find information for {query}. Please try again or check your internet connection.")
-
+        await message.reply_text("An error occurred while searching. Please try again later.")
 
