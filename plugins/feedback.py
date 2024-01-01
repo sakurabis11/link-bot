@@ -10,7 +10,7 @@ async def feedback_p(client, message):
   fp = message.text.split(" ", 1)[1]
   await message.reply_text(f"ʜɪ {message.from_user.mention},\n ᴛʜᴀɴᴋ ᴜ ғᴏʀ ᴛʜᴇ ғᴇᴇᴅʙᴀᴄᴋ")
 
-  await client.send_message(LOG_CHANNEL, text=f"#ɴᴇᴡ_ғᴇᴇᴅʙᴀᴄᴋ_ᴘᴜʙʟɪᴄ\nғᴇᴇᴅʙᴀᴄᴋ ғʀᴏᴍ {message.from_user.mention}\n ᴛʜᴇ ᴛᴇxᴛ ɪs : <code>{fp}</code>")
+  await client.send_message(LOG_CHANNEL, text=script.LOG_TEXT_FP.format(message.from_user.mention, fp))
 
 
 @Client.on_message(filters.command("fa"))
@@ -18,5 +18,4 @@ async def feedback_a(client, message):
   fa = message.text.split(" ", 1)[1]
   await message.reply_text(f"ʜɪ {message.from_user.mention},\n ᴛʜᴀɴᴋ ᴜ ғᴏʀ ᴛʜᴇ ғᴇᴇᴅʙᴀᴄᴋ")
 
-  await client.send_message(LOG_CHANNEL, text=f"#ɴᴇᴡ_ғᴇᴇᴅʙᴀᴄᴋ_ᴀɴᴏɴʏᴍᴏᴜsʟʏ\nғᴇᴇᴅʙᴀᴄᴋ ғʀᴏᴍ {message.from_user.mention}</b>\n ᴛʜᴇ ᴛᴇxᴛ ɪs : <code>{fa}</code>")
-  
+  await client.send_message(LOG_CHANNEL, text=script.LOG_TEXT_FA.format(message.from_user.mention, fa))
