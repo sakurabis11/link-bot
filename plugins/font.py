@@ -20,7 +20,9 @@ async def callback_handler(client, callback_query):
 
     if data == "sd":
         stylized_text = font_class.SD(text)
-
-    await callback_query.message.reply_text(stylized_text)
-    await callback_query.answer()
-
+    
+        buttons = buttons = [[
+            InlineKeyboardButton('ʜᴏᴍᴇ', callback_data='help')
+        ]]
+        reply_markup = InlineKeyboardMarkup(buttons)
+        await query.message.edit_text(text=f"{stylized_text}", reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
