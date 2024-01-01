@@ -215,7 +215,7 @@ async def callback_handle(client, query):
             InlineKeyboardButton('ʜᴏᴍᴇ', callback_data='help')
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
-        await query.message.edit_text(text=script.FEEDBACK_TXT, reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
+        await query.message.edit_text(text=script.FONT_TXT, reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
     
     elif query.data == 'about':
         buttons = buttons = [[
