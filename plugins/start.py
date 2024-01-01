@@ -73,7 +73,8 @@ async def help_command(client, message):
          InlineKeyboardButton('stats', callback_data='stats')
          ],[
          InlineKeyboardButton('ʀᴇᴘoʀᴛ', callback_data='rport'),
-         InlineKeyboardButton('ғᴇᴇᴅʙᴀᴄᴋ', callback_data='feedback')
+         InlineKeyboardButton('ғᴇᴇᴅʙᴀᴄᴋ', callback_data='feedback'),
+         InlineKeyboardButton('ғᴏɴᴛ', callback_data='font')
          ],[
          InlineKeyboardButton('Home', callback_data='start'),
          InlineKeyboardButton('close', callback_data='close')
@@ -110,7 +111,8 @@ async def callback_handle(client, query):
          InlineKeyboardButton('stats', callback_data='stats')
          ],[
          InlineKeyboardButton('ʀᴇᴘoʀᴛ', callback_data='rport'),
-         InlineKeyboardButton('ғᴇᴇᴅʙᴀᴄᴋ', callback_data='feedback')
+         InlineKeyboardButton('ғᴇᴇᴅʙᴀᴄᴋ', callback_data='feedback'),
+         InlineKeyboardButton('ғᴏɴᴛ', callback_data='font')
          ],[
          InlineKeyboardButton('Home', callback_data='start'),
          InlineKeyboardButton('close', callback_data='close')
@@ -202,6 +204,13 @@ async def callback_handle(client, query):
         await query.message.edit_text(text=script.REPORT_TXT, reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
 
     elif query.data == 'feedback':
+        buttons = buttons = [[
+            InlineKeyboardButton('ʜᴏᴍᴇ', callback_data='help')
+        ]]
+        reply_markup = InlineKeyboardMarkup(buttons)
+        await query.message.edit_text(text=script.FEEDBACK_TXT, reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
+
+    elif query.data == 'font':
         buttons = buttons = [[
             InlineKeyboardButton('ʜᴏᴍᴇ', callback_data='help')
         ]]
