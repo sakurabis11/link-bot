@@ -38,3 +38,7 @@ class Font
             '9':'𝟿',
             '0':'𝟶'          
           }
+          stylized_text = ""
+          for char in text:
+              stylized_text += style.get(char, char)
+          return stylized_text
