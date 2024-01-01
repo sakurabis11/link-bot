@@ -6,22 +6,14 @@ import yt_dlp
 async def download_video(client, message):
     try:
         url = message.text
-        ydl_opts = {
-            'outtmpl': '%(title)s.%(ext)s',
-            'writethumbnail': True
-        }
 
-        with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-            info_dict = ydl.extract_info(url, download=False)
-            video_file = ydl.prepare_filename(info_dict)
+        with yt_dlp.YoutubeDL({'outtmpl': '%(id)s.%(ext)s'}) as ydl:
             ydl.download([url])
 
-            await message.reply_video(video_file, thumb=info_dict.get("thumbnail"))
+        video_file = ydl.extract_info(url, download=False)['title'] + ".mp4"  # Get filename
 
-        # Remove downloaded file
-        os.remove(video_file)
+        await message.reply_video(video_file)
 
     except Exception as e:
-        await message.reply_text(f"Error downloading video: {str(e)}")
-
+        await message.reply_text(f"Error downloading video: {e}")
 
