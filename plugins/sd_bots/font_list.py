@@ -1,4 +1,4 @@
-class Font
+class Font:
      def SD(text)
           style = {
             'a':'ᴀ',
