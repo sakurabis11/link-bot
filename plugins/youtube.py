@@ -1,6 +1,7 @@
 import asyncio
 from pyrogram import Client, filters
-from pyrogram.errors import FloodWaitError
+from pyrogram.errors import FloodWait
+import re
 from yt_dlp import YoutubeDL
 
 ydl_opts = {
