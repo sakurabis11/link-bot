@@ -42,7 +42,7 @@ async def download_video(client, message):
                 # Delete downloaded files
                 os.remove(video_file)
                 os.remove(thumbnail_file)
-            except FloodWaitError as e:
+            except FloodWait as e:
                 await asyncio.sleep(e.ttl)
                 await message.reply_text(f"Please try again later.")
             except Exception as e:
