@@ -7,9 +7,10 @@ regex = r"^(https?://)?(www\.)?(youtube|youtu|youtube-nocookie)\.(com|be)/(?:wat
 
 @Client.on_message(filters.regex(regex))
 async def download_video(client, message):
-    url = message.text
-
     try:
+        
+    url = message.text
+    
         ydl_opts = {
             'outtmpl': '%(id)s.%(ext)s',
             'quiet': True,
