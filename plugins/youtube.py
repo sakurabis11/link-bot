@@ -8,9 +8,8 @@ regex = r"^(https?://)?(www\.)?(youtube|youtu|youtube-nocookie)\.(com|be)/(?:wat
 @Client.on_message(filters.regex(regex))
 async def download_video(client, message):
     try:
-        
-    url = message.text
-    
+        url = message.text  # Indent this line correctly
+
         ydl_opts = {
             'outtmpl': '%(id)s.%(ext)s',
             'quiet': True,
@@ -42,5 +41,7 @@ async def download_video(client, message):
 
     except Exception as e:
         await message.reply_text(f"An error occurred: {e}")
+
+
 
 
