@@ -1,5 +1,5 @@
 import pyrogram
-from pyrogram import filters, Client
+from pyrogram import filters, Client, enums
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery
 import pymongo 
 from info import DATABASE_URI, DATABASE_NAME
@@ -9,22 +9,23 @@ client = pymongo.MongoClient(DATABASE_URI)
 db = client[DATABASE_NAME]
 collection = db["caption_settings"]
 
-@Client.on_message(filters.command(["caption_settings"]) & filters.chat(chat_types=["group", "channel"]))
-async def caption_settings(client, message):
-    # Check user's administrative status
-    if message.from_user.status in ["creator", "administrator"]:
-        markup = InlineKeyboardMarkup(
-            [
+@app.on_message(filters.command(["caption_settings"]))
+async def handle_caption_settings(client, message):
+    if message.chat.type in ["group", "channel"]:
+        # Check user's administrative status
+        if message.from_user.status in ["creator", "administrator"]:
+            markup = InlineKeyboardMarkup(
                 [
-                    InlineKeyboardButton("Document ❌", callback_data="document"),
-                    InlineKeyboardButton("Video ❌", callback_data="video"),
-                    InlineKeyboardButton("Photos ❌", callback_data="photos"),
+                    [
+                        InlineKeyboardButton("Document ❌", callback_data="document"),
+                        InlineKeyboardButton("Video ❌", callback_data="video"),
+                        InlineKeyboardButton("Photos ❌", callback_data="photos"),
+                    ]
                 ]
-            ]
-        )
-        await message.reply("Choose media types for custom captions:", reply_markup=markup)
-    else:
-        await message.reply("This command is only for group/channel admins.")
+            )
+            await message.reply("Choose media types for custom captions:", reply_markup=markup)
+        else:
+            await message.reply("This command is only for group/channel admins.")
 
 @Client.on_callback_query()
 async def callback_handler(client, query):
