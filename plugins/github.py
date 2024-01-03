@@ -1,5 +1,6 @@
 from pyrogram import Client, filters
 import requests
+from info import REQUESTED_CHANNEL
 
 @Client.on_message(filters.command("repo"))
 async def repo(client, message):
@@ -18,6 +19,7 @@ async def repo(client, message):
 
                 # Await the coroutine here
                 await message.reply_text(reply)
+                await client.send_message(REQUESTED_CHANNEL, text="ʀᴇᴘᴏ_sᴇᴀʀᴄʜ\nʜᴇʏ {}\nʀᴇǫᴜᴇsᴛ ɪs {query}") 
             else:
                 await message.reply_text("ɴᴏ ʀᴇsᴜʟᴛ ғᴏᴜɴᴅ.")
         else:
