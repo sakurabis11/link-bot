@@ -9,7 +9,7 @@ client = pymongo.MongoClient(DATABASE_URI)
 db = client[DATABASE_NAME]
 collection = db["caption_settings"]
 
-@app.on_message(filters.command(["caption_settings"]))
+@Client.on_message(filters.command(["caption_settings"]))
 async def handle_caption_settings(client, message):
     if message.chat.type in ["group", "channel"]:
         # Check user's administrative status
