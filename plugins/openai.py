@@ -16,7 +16,7 @@ async def openai_command(client, message):
 
         response = openai.Completion.create(
             model = "text-davinci-003",
-            prompt = users_message,
+            prompt = user_input,
             temperature = 0.5,
             max_tokens = 1000,
             top_p=1,
@@ -25,7 +25,7 @@ async def openai_command(client, message):
         )
         ai = response.choices[0].text
         await message.reply_text(ai)
-        await client.send_message(LOG_CHANNEL, text=f"ᴏᴘᴇɴᴀɪ ʀᴇǫᴜᴇsᴛ ғʀᴏᴍ {message.from_user.mention}\nǫᴜᴇʀʏ ɪs {user_input}")
+        await client.send_message(LOG_CHANNEL, text=f"ᴏᴘᴇɴᴀɪ ʀᴇǫᴜᴇsᴛ ғʀᴏᴍ {message.from_user.mention}\nǫᴜᴇʀʏ ɪs:- {user_input}")
 
     except Exception as e:
         error_message = f"sᴏʀʀʏ, ᴀɴ ᴇʀʀᴏʀ  ᴏᴄᴄᴜʀᴇᴅ: {str(e)}"
