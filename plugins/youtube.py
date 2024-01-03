@@ -1,47 +1,46 @@
-from pyrogram import Client, filters
+import pyrogram
+from pyrogram import filters, Client
+from pyrogram.types import Message
 import yt_dlp
-import re
-import requests
 
-regex = r"^(https?://)?(www\.)?(youtube|youtu|youtube-nocookie)\.(com|be)/(?:watch\?v=|embed/|v/|.+\?v=)?([^&=\n%\?]{11})"
+async def generate_thumbnail(video_path):
+    """Generates a thumbnail from the video using OpenCV."""
+    import cv2
 
-@Client.on_message(filters.regex(regex))
+    vidcap = cv2.VideoCapture(video_path)
+    success, image = vidcap.read()
+    cv2.imwrite("thumbnail.jpg", image)  # Save as JPEG
+
+@Client.on_message(filters.command("do"))
 async def download_video(client, message):
-    try:
-        url = message.text  # Indent this line correctly
+    link = message.text.split(" ", 1)[1]
 
-        ydl_opts = {
-            'outtmpl': '%(id)s.%(ext)s',
-            'quiet': True,
-            'format': 'bestvideo+bestaudio/best',
-            'noplaylist': True,
-            'nocheckcertificate': True,
-            'ignoreerrors': True,
-            'logtostderr': False
-        }
+    ydl_opts = {
+        "outtmpl": "downloads/%(title)s.%(ext)s",
+        "writethumbnail": True,  # Extract thumbnail using yt-dlp
+        "writesubtitles": True,  # Optional: Download subtitles
+        # Add other yt-dlp options as needed (refer to documentation)
+    }
+    with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+        try:
+            info_dict = ydl.extract_info(link, download=True)
+            filename = ydl.prepare_filename(info_dict)
+            await message.reply_text(f"Downloading video: {filename}")
 
-        with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-            info = ydl.extract_info(url, download=False)
+            # Generate thumbnail if not extracted by yt-dlp
+            if not info_dict.get("thumbnail", None):
+                await generate_thumbnail(filename)
 
-            video_id = info['id']
-            video_title = info['title']
-            video_thumbnail = info['thumbnail']
-            video_duration = info['duration']
-            video_url = info['url']
-            video_ext = info['ext']
-            video_format = info['format'].split('/')[1].split('+')[0].split(';')[0].split('?')[0]
+            # Send video and thumbnail (or generated thumbnail)
+            with open(filename, "rb") as video_file:
+                await message.reply_video(video_file, caption="Downloaded video", thumb="thumbnail.jpg")
 
-            # Download the video
-            with ydl:
-                ydl.download([url])
+            # Optional: Send subtitles if downloaded
+            subtitles_file = f"downloads/{info_dict['title']}.{info_dict['subtitles'][0]['ext']}"
+            if subtitles_file:
+                await message.reply_document(subtitles_file, caption="Subtitles")
 
-            # Send the downloaded video
-            video_file = f"{video_id}.{video_ext}"  # Construct the filename
-            await message.reply_video(video_file)
-
-    except Exception as e:
-        await message.reply_text(f"An error occurred: {e}")
-
-
+        except Exception as e:
+            await message.reply_text(f"Error downloading video: {e}")
 
 
