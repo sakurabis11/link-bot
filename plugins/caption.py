@@ -2,6 +2,7 @@ import pyrogram
 from pyrogram import filters, Client, enums
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery
 import pymongo 
+from plugins.sd_bots.admin_check import admin_check
 from info import DATABASE_URI, DATABASE_NAME
 
 # MongoDB setup (replace with your credentials)
@@ -11,7 +12,6 @@ collection = db["caption_settings"]
 
 @Client.on_message(filters.command(["caption_settings"]))
 async def handle_caption_settings(client, message):
-        if message.from_user.status in ["creator", "administrator"]:
             markup = InlineKeyboardMarkup(
                 [
                     [
@@ -22,8 +22,6 @@ async def handle_caption_settings(client, message):
                 ]
             )
             await message.reply("Choose media types for custom captions:", reply_markup=markup)
-        else:
-            await message.reply("This command is only for group/channel admins.")
 
 @Client.on_callback_query()
 async def callback_handler(client, query):
