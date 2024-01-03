@@ -1,7 +1,7 @@
 from pyrogram import Client, filters
 from pyrogram.types import Message
 import openai
-from info import OPENAI_API_KEY, LOG_CHANNEL
+from info import OPENAI_API_KEY, REQUESTED_CHANNEL
 
 openai.api_key = OPENAI_API_KEY
 
@@ -25,7 +25,7 @@ async def openai_command(client, message):
         )
         ai = response.choices[0].text
         await message.reply_text(ai)
-        await client.send_message(LOG_CHANNEL, text=f"ᴏᴘᴇɴᴀɪ ʀᴇǫᴜᴇsᴛ ғʀᴏᴍ {message.from_user.mention}\nǫᴜᴇʀʏ ɪs:- {user_input}")
+        await client.send_message(REQUESTED_CHANNEL, text=f"ᴏᴘᴇɴᴀɪ ʀᴇǫᴜᴇsᴛ ғʀᴏᴍ {message.from_user.mention}\nǫᴜᴇʀʏ ɪs:- {user_input}")
 
     except Exception as e:
         error_message = f"sᴏʀʀʏ, ᴀɴ ᴇʀʀᴏʀ  ᴏᴄᴄᴜʀᴇᴅ: {str(e)}"
