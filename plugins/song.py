@@ -3,6 +3,7 @@ import os
 import re
 from pyrogram import Client, filters
 from pytube import YouTube
+from info import REQUESTED_CHANNEL
 from youtube_search import YoutubeSearch
 
 @Client.on_message(filters.command(["song"]))
@@ -59,6 +60,7 @@ async def download_song(client, message):
       audio_filename,
       caption=song_caption
     )
+    await client.send_message(REQUESTED_CHANNEL, text="#sᴏɴɢ\nʀᴇǫᴜᴇsᴛᴇᴅ ғʀᴏᴍ {message.from_user.mention}\nʀᴇǫᴜᴇsᴛ ɪs {song_name}")
 
     # Delete the downloaded song after sending it
     os.remove(audio_filename)
