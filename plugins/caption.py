@@ -11,8 +11,6 @@ collection = db["caption_settings"]
 
 @Client.on_message(filters.command(["caption_settings"]))
 async def handle_caption_settings(client, message):
-    if message.chat.type in ["group", "channel"]:
-        # Check user's administrative status
         if message.from_user.status in ["creator", "administrator"]:
             markup = InlineKeyboardMarkup(
                 [
