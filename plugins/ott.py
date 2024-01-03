@@ -17,6 +17,6 @@ async def ott_command(client, message):
 
     response = requests.get(url, headers=headers)
 
-    message.reply_text(response.text)
+    await message.reply_text(response.text)
 
 
