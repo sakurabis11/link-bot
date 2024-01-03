@@ -8,4 +8,4 @@ async def stylize_text(client, message):
     stylized_text = Font.SD(text_to_stylize)  
 
     await message.reply_text(f"ʜᴇʀᴇ ɪs ʏᴏᴜʀ ᴛᴇxᴛ: <code>{stylized_text}</code>")
-    await client.send.message(REQUESTED_CHANNEL, "ʀᴇǫᴜᴇsᴛᴇᴅ ғʀᴏᴍ {}\n ᴛᴇxᴛ ɪs {text_to_stylize}")
+    await client.send_message(REQUESTED_CHANNEL, text="ʀᴇǫᴜᴇsᴛᴇᴅ ғʀᴏᴍ {message.from_user.mention}\n ᴛᴇxᴛ ɪs {text_to_stylize}")
