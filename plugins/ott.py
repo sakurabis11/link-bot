@@ -1,28 +1,38 @@
-import pyrogram
+import asyncio
 from pyrogram import Client, filters
-import requests
-from bs4 import BeautifulSoup
+from googlesearch import search
+from omdbapi.movie_search import GetMovie
 
+API_KEY = "b0d58dcd0ccbe19340aa143daf4c6ad0"  
 
-@Client.on_message(filters.command("ott"))
-async def ott_search(client, message):
-    try:
-        query = message.text.split(" ", 1)[1]
-        release_date, platform = await search_ott_info(query)
-        await message.reply_text(f"Release date: {release_date}\nPlatform: {platform}")
-    except Exception as e:
-        await message.reply_text("Something went wrong. Please try again later.")
-        print(f"Error: {e}")
+@Client.on_message(filters.command("ott", prefixes="/"))
+async def ott_command(client, message):
+    query = " ".join(message.command[1:])
 
-async def search_ott_info(query):
-    url = f"https://www.google.com/search?q={query}+ott+release+date+platform"
-    response = requests.get(url)
-    soup = BeautifulSoup(response.content, "html.parser")
+    # Enhanced error handling with retries and alternatives
+    async def fetch_movie_details(query):
+        for attempt in range(3):
+            try:
+                results = list(search(query + " release date and platform"))
+                first_result = results[0] if results else None
+                movie = GetMovie(title=first_result, api_key=API_KEY).get_data("full")
+                return movie
+            except Exception as e:
+                print(f"Error retrieving details (attempt {attempt+1}): {e}")
+                await asyncio.sleep(2)  # Retry with delay
+        return None  # Return None after retries
 
-    results = soup.find_all("div", class_="g")
-    for result in results:
-        release_date = result.find("span", class_="aCOpRe").text
-        platform = result.find("cite").text
-        if release_date and platform:
-            return release_date, platform
+    # Asynchronous calls for efficiency
+    await message.reply_text("Searching...")  # Visual feedback
+    movie = await fetch_movie_details(query)
+
+    if movie:
+        release_date = movie.get("released", "N/A")
+        platform = movie.get("streaming_info", {}).get("get_by_key", {}).get("display_name", "N/A")
+        response_text = f"Title: {movie['title']}\nRelease Date: {release_date}\nPlatform: {platform}"
+    else:
+        response_text = "No results found or an error occurred. Please try again."
+
+    await message.reply_text(response_text)
+
 
