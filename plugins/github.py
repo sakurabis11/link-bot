@@ -19,7 +19,7 @@ async def repo(client, message):
 
                 # Await the coroutine here
                 await message.reply_text(reply)
-                await client.send_message(REQUESTED_CHANNEL, text="#ʀᴇᴘᴏ_sᴇᴀʀᴄʜ\nʜᴇʏ {message.from_user.mention}\nʀᴇǫᴜᴇsᴛ ɪs {query}") 
+                await client.send_message(REQUESTED_CHANNEL, text=f"#ʀᴇᴘᴏ_sᴇᴀʀᴄʜ\nʜᴇʏ {message.from_user.mention}\nʀᴇǫᴜᴇsᴛ ɪs {query}") 
             else:
                 await message.reply_text("ɴᴏ ʀᴇsᴜʟᴛ ғᴏᴜɴᴅ.")
         else:
