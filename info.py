@@ -19,7 +19,7 @@ BOT_TOKEN = os.environ.get('BOT_TOKEN', '6645084082:AAH6KAE6RtPoheRXNwwADCgUPhFS
 PORT = os.environ.get("PORT", "8080")
 ADMINS = [int(admin) if id_pattern.search(admin) else admin for admin in environ.get('ADMINS', '1342641151').split()]
 LOG_CHANNEL = int(environ.get('LOG_CHANNEL', '-1002084798134'))
-DUMP_GROUP = int(os.environ.get("DUMP_GROUP", "-1002079640571"))
+REQUESTED_CHANNEL = int(os.environ.get("REQUESTED_CHANNEL", "-1002079640571"))
 
 # important information for your bot
 S_GROUP = environ.get('S_GROUP', "https://t.me/sdbots_support")
