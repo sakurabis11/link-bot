@@ -8,6 +8,6 @@ from bs4 import BeautifulSoup
 async def get_ott_info(client, message):
     query = message.text.split(" ", 1)[1]  # Extract the movie/series name
 
-        url = f"https://www.google.com/search?q=ott+release+date+{query}"
+    url = f"https://www.google.com/search?q=ott+release+date+{query}"
         
-        await message.reply_text(url)
+    await message.reply_text(url)
