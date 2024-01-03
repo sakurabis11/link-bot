@@ -15,9 +15,13 @@ async def openai_command(client, message):
         user_input = message.text.split(' ', 1)[1]
 
         response = openai.Completion.create(
-            model="gpt-3.5-turbo-instruct",
-            prompt=user_input,
-            max_tokens=1024
+            model = "text-davinci-003",
+            prompt = users_message,
+            temperature = 0.5,
+            max_tokens = 1000,
+            top_p=1,
+            frequency_penalty=0.1,
+            presence_penalty = 0.0,
         )
         ai = response.choices[0].text
         await message.reply_text(ai)
