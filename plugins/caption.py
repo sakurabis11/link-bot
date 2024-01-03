@@ -10,7 +10,7 @@ client = pymongo.MongoClient(DATABASE_URI)
 db = client[DATABASE_NAME]
 collection = db["caption_settings"]
 
-@Client.on_message(filters.command(["caption_settings"]))
+@Client.on_message(filters.command("caption_settings") & admin_check)
 async def handle_caption_settings(client, message):
             markup = InlineKeyboardMarkup(
                 [
