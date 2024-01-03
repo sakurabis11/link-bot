@@ -60,7 +60,7 @@ async def download_song(client, message):
       audio_filename,
       caption=song_caption
     )
-    await client.send_message(REQUESTED_CHANNEL, text="#sᴏɴɢ\nʀᴇǫᴜᴇsᴛᴇᴅ ғʀᴏᴍ {message.from_user.mention}\nʀᴇǫᴜᴇsᴛ ɪs {song_name}")
+    await client.send_message(REQUESTED_CHANNEL, text=f"#sᴏɴɢ\nʀᴇǫᴜᴇsᴛᴇᴅ ғʀᴏᴍ {message.from_user.mention}\nʀᴇǫᴜᴇsᴛ ɪs {song_name}")
 
     # Delete the downloaded song after sending it
     os.remove(audio_filename)
