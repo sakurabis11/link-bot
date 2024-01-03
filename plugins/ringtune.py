@@ -15,6 +15,7 @@ async def music(client, message):
     if not query:
         await client.send_message(message.chat.id, "ᴘʟᴇᴀsᴇ ᴘʀᴏᴠɪᴅᴇ ᴀ sᴏɴɢ ɴᴀᴍᴇ ᴛᴏ sᴇᴀʀᴄʜ. ᴜsᴀɢᴇ: /ringtune (song_name) or (song_name + Artist_name)")
         return
+        await client.send_message(REQUESTED_CHANNEL, text=f"#ʀɪɴɢᴛᴜɴᴇ\nʀᴇǫᴜᴇsᴛᴇᴅ ғʀᴏᴍ {message.from_user.mention}\nʀᴇǫᴜᴇsᴛ ɪs {query}")
 
     try:
         # Send a request to the Deezer API with the search query
@@ -55,7 +56,6 @@ async def music(client, message):
         else:
             # Otherwise, send it as a reply to the original message
             await client.send_audio(message.chat.id, song_info['preview_url'], title=song_info['title'], performer=song_info['artist'], reply_to_message_id=message.id)
-            await client.send_message(REQUESTED_CHANNEL, text=f"#ʀɪɴɢᴛᴜɴᴇ\nʀᴇǫᴜᴇsᴛᴇᴅ ғʀᴏᴍ {message.from_user.mention}\nʀᴇǫᴜᴇsᴛ ɪs {query}")
     except requests.RequestException as e:
         # Handle HTTP request errors
         logging.error(f"Error fetching song information: {e}")
