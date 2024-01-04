@@ -8,7 +8,7 @@ RUN pip install openai==0.28
 RUN pip install spotipy
 RUN pip install yt-dlp
 RUN pip instalL pafy
-RUN pip install youtube-dl2
+RUN pip install mutagen
 RUN pip install pytube 
 RUN pip install youtube-search
 
