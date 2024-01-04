@@ -13,7 +13,7 @@ async def ott_search(client, message):
     try:
         response = requests.get(url)
 
-        await message.reply_text(response = requests.get(url))
+        await message.reply_text(response)
 
     except Exception as e:
         await message.reply_text(f"Error: {e}")
