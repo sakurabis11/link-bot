@@ -11,7 +11,7 @@ client_credentials_manager = SpotifyClientCredentials(client_id=SPOTIFY_CLIENT_I
 sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
 
 # Define the command handler for /song
-@Client.on_message(filters.command("ringtune"))
+@Client.on_message(filters.command("ring"))
 async def music(client, message):
     # Extract the query from the command message
     query = " ".join(message.command[1:])
