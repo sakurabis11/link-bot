@@ -25,7 +25,7 @@ async def download_video(client, message):
             ydl.download([text])  # No need to specify output_filename here
 
             # Send the downloaded video as a video message
-            client.send_video(  # Use client.send_video to send the video file
+            await client.send_video(  # Use client.send_video to send the video file
                 message.chat.id,
                 video_filename,
                 caption=info.get("title", "YouTube Video"),
