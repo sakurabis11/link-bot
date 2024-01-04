@@ -1,4 +1,5 @@
 from pyrogram import Client, filters
+from pyrogram.types import Message
 from info import ADMINS
 
 # Replace with your bot's API token
