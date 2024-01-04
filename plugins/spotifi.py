@@ -10,29 +10,19 @@ from spotipy.oauth2 import SpotifyClientCredentials
 client_credentials_manager = SpotifyClientCredentials(client_id=SPOTIFY_CLIENT_ID, client_secret=SPOTIFY_CLIENT_SECRET)
 sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
 
-# Define the command handler for /song
-@Client.on_message(filters.command("ring"))
+# Define the regular expression pattern for matching Spotify track URLs
+spotify_url_regex = r"https://open\.spotify\.com/track/(.+?)"
+
+# Define the command handler using a regular expression filter
+@Client.on_message(filters.regex(spotify_url_regex))
 async def music(client, message):
-    # Extract the query from the command message
-    query = " ".join(message.command[1:])
+    # Extract the track ID from the URL
+    track_id = message.matches[0].group(1)
 
-    # Check if a query is provided
-    if not query:
-        await client.send_message(message.chat.id, "ᴘʟᴇᴀsᴇ ᴘʀᴏᴠɪᴅᴇ ᴀ sᴏɴɢ ɴᴀᴍᴇ ᴛᴏ sᴇᴀʀᴄʜ. ᴜsᴀɢᴇ: /ringtune (song_name) or (song_name + Artist_name)")
-        return
-    await client.send_message(REQUESTED_CHANNEL, text=f"#ʀɪɴɢᴛᴜɴᴇ\nʀᴇǫᴜᴇsᴛᴇᴅ ғʀᴏᴍ {message.from_user.mention}\nʀᴇǫᴜᴇsᴛ ɪs {query}")
-
+    # Fetch song information using the track ID
     try:
-        # Search for the song on Spotify
-        results = sp.search(q=query, type="track")
-        tracks = results['tracks']['items']
-
-        if not tracks:
-            await client.send_message(message.chat.id, "ɴᴏ ʀᴇsᴜʟᴛs ғᴏᴜɴᴅ ғᴏʀ ᴛʜᴇ ɢɪᴠᴇɴ {query}.")
-            return
-
-        # Get the first result
-        song = tracks[0]
+        results = sp.track(track_id)
+        song = results['tracks'][0]
 
         # Extract song information
         song_info = {
@@ -43,7 +33,7 @@ async def music(client, message):
         }
 
         # Send a message to the user with the song details and a download link
-        await client.send_message(message.chat.id, f"ʜᴇʏ {message.from_user.mention},\n\nʏᴏᴜʀ ʀᴇǫᴜᴇsᴛ {query}\n\n ᴀʀᴛɪsᴛ: {song_info['artist']}\n ᴛɪᴛʟᴇ: {song_info['title']}\n⌛ ᴅᴜʀᴀᴛɪᴏɴ: {song_info['duration'] // 1000} sᴇᴄᴏɴᴅs\n\nʏᴏᴜ ᴄᴀɴ ᴅᴏᴡɴʟᴏᴀᴅ ᴛʜɪs sᴏɴɢ ғʀᴏᴍ ᴄʜʀᴏᴍᴇ: {song_info['preview_url']}")
+        await client.send_message(message.chat.id, f"Hey {message.from_user.mention},\n\nYour request:\n\nArtist: {song_info['artist']}\nTitle: {song_info['title']}\n⏳ Duration: {song_info['duration'] // 1000} seconds\n\nYou can download this song from Chrome: {song_info['preview_url']}")
 
         # Send chat action to indicate that the bot is uploading audio
         await client.send_chat_action(message.chat.id, "upload_audio")
