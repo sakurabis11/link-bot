@@ -3,11 +3,10 @@ from yt_dlp import YoutubeDL
 import re
 
 ydl_opts = {
-    "format": "bestvideo[ext=mp4]",
-    "postprocessors": [{
-        "key": "FFmpegExtractVideo",
-        "preferredcodec": "mp4",
-        "preferredquality": "192",
+    "format": 'bestvideo[height<=?720][ext=mp4]+bestaudio[ext=m4a]/best[height<=?720][ext=mp4]/best',
+    'postprocessors': [{
+        'key': 'FFmpegVideoConvertor',
+        'preferedformat': 'mp4'
     }],
 }
 
