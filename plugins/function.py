@@ -8,7 +8,7 @@ from pyrogram import Client, filters, enums
 from pyrogram.errors import FloodWait, InputUserDeactivated, UserIsBlocked, PeerIdInvalid
 from info import API_ID, API_HASH, BOT_TOKEN, PORT, LOG_CHANNEL, ADMINS, DATABASE_NAME, DATABASE_URI
 import logging, re, asyncio, time, shutil, psutil, os, sys
-from utils import get_size, temp, extract_user, get_file_id, humanbytes
+from utils import get_size, temp, extract_user, get_file_id, humanbytes, 
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.ERROR)
@@ -62,6 +62,10 @@ async def show_id(client, message):
                 f"<code>{file_info.file_id}</code>\n"
             )
         await message.reply_text(_id, quote=True)
+
+@Client.on_message(filters.command("donate"))
+async def donate(client, message):
+    await message
             
 
 @Client.on_message(filters.command(["info"]))
