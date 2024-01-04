@@ -76,8 +76,10 @@ async def help_command(client, message):
          InlineKeyboardButton('ғᴇᴇᴅʙᴀᴄᴋ', callback_data='feedback'),
          InlineKeyboardButton('ғᴏɴᴛ', callback_data='font')
          ],[
-         InlineKeyboardButton('Home', callback_data='start'),
-         InlineKeyboardButton('close', callback_data='close')
+         InlineKeyboardButton('ᴅᴏɴᴀᴛᴇ', callback_data='donate')
+         ],[
+         InlineKeyboardButton('ʜᴏᴍᴇ', callback_data='start'),
+         InlineKeyboardButton('ᴄʟᴏsᴇ', callback_data='close')
     ]]
     reply_markup = InlineKeyboardMarkup(buttons)
     await message.reply_text(text=script.HELP_TXT, reply_markup=reply_markup)
@@ -114,8 +116,10 @@ async def callback_handle(client, query):
          InlineKeyboardButton('ғᴇᴇᴅʙᴀᴄᴋ', callback_data='feedback'),
          InlineKeyboardButton('ғᴏɴᴛ', callback_data='font')
          ],[
-         InlineKeyboardButton('Home', callback_data='start'),
-         InlineKeyboardButton('close', callback_data='close')
+         InlineKeyboardButton('ᴅᴏɴᴀᴛᴇ', callback_data='donate')
+         ],[
+         InlineKeyboardButton('ʜᴏᴍᴇ', callback_data='start'),
+         InlineKeyboardButton('ᴄʟᴏsᴇ', callback_data='close')
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(text=script.HELP_TXT, reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
@@ -216,6 +220,13 @@ async def callback_handle(client, query):
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(text=script.FONT_TXT, reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
+
+    elif query.data == 'donate':
+        buttons = buttons = [[
+            InlineKeyboardButton('ʜᴏᴍᴇ', callback_data='help')
+        ]]
+        reply_markup = InlineKeyboardMarkup(buttons)
+        await query.messag.edit_text(text=f"ʜᴇʏ {message.from_user.mention}\nᴅᴏɴᴀᴛᴇ ɪғ ʏᴏᴜ ᴄᴀɴ, ᴜᴘɪ ɪᴅ:- <code>zenistu@ibl</code>")
     
     elif query.data == 'about':
         buttons = buttons = [[
