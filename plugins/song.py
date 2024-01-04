@@ -1,6 +1,8 @@
 import asyncio
 import os
 import re
+import mutagen  # Import mutagen for thumbnail embedding
+
 from pyrogram import Client, filters
 from pytube import YouTube
 from info import REQUESTED_CHANNEL
@@ -8,62 +10,60 @@ from youtube_search import YoutubeSearch
 
 @Client.on_message(filters.command(["song"]))
 async def download_song(client, message):
-  # Check if the user has provided a song name
-  if len(message.text.split()) < 2:
-    await message.reply("ᴘʟᴇᴀsᴇ ᴘʀᴏᴠɪᴅᴇ ᴛʜᴇ sᴏɴɢ ʏᴏᴜ ᴡᴀɴᴛ ᴇɢ:- /song lover")
-    return
+    # Check for song name in command
+    if len(message.text.split()) < 2:
+        await message.reply("Please provide the song name you want. Example: /song lover")
+        return
 
-  song_name = " ".join(message.text.split()[1:]) # Extract and combine song name parts
+    song_name = " ".join(message.text.split()[1:])  # Extract song name
 
-  # Send "Searching..." message before searching
-  await message.reply("⏳")
+    await message.reply("Searching...")  # Send searching message
 
-  # Search for the song on YouTube
-  search_results = YoutubeSearch(song_name, max_results=1).to_dict()
-  if not search_results:
-    await message.reply("ɴᴏ sᴏɴɢ ғᴏᴜɴᴅ ᴡɪᴛʜ ᴛʜᴀᴛ ɴᴀᴍᴇ ᴡɪᴛʜ ᴛʜᴀᴛ")
+    # Search for the song on YouTube
+    search_results = YoutubeSearch(song_name, max_results=1).to_dict()
+    if not search_results:
+        await message.reply("No song found with that name.")
+        return
 
-  song_url = search_results[0]["url_suffix"]
-  song_title = search_results[0]["title"]
-  duration = search_results[0]["duration"]
+    song_url = search_results[0]["url_suffix"]
+    song_title = search_results[0]["title"]
+    duration = search_results[0]["duration"]  # Extract duration for potential use
+    thumbnail_url = search_results[0]["thumbnails"][0]["url"]
 
-  # Download the song using pytube
-  yt = YouTube(f"https://www.youtube.com{song_url}")
-  thumbnail_url = yt.thumbnail_url # Extract thumbnail URL
+    # Download the song using pytube
+    yt = YouTube(f"https://www.youtube.com{song_url}")
+    audio_streams = yt.streams.filter(only_audio=True)
+    if not audio_streams:
+        await message.reply("No audio stream found for the specified video.")
+        return
 
-  audio_streams = yt.streams.filter(only_audio=True)
-  if not audio_streams:
-    await message.reply("ɴᴏ ᴀᴜᴅɪᴏ sᴛᴇᴇᴀᴍ ғᴏᴜɴᴅ ғᴏʀ ᴛʜᴇ sᴘᴇᴄɪғɪᴇᴅ ᴠɪᴅᴇᴏs")
-    return
+    video = audio_streams.first()
+    audio_filename = f"{song_title}.mp3"
 
-  video = audio_streams.first()
-  audio_filename = f"{song_title}.mp3"
+    try:
+        video.download(filename=audio_filename)
 
-  try:
-    video.download(filename=audio_filename)
+        # Embed thumbnail into audio file
+        audio = mutagen.File(audio_filename)
+        audio.add_tags()  # Create tags if they don't exist
+        audio["artwork"] = open(thumbnail_url, "rb").read()
+        audio.save()
 
-    # Prepare the thumbnail for use as both caption and photo
-    thumbnail_caption = f"**🍃 {song_title}**\n" + \
-              f"🕛 ᴅᴜʀᴛɪᴏɴ: {duration}\n" + \
-              f"🍂 ʏᴏᴜ ᴛᴜʙᴇ: <a href='https://www.youtube.com{song_url}'>ʏᴏᴜ ᴛᴜʙᴇ</a>"
+        # Prepare audio caption (incorporate duration if needed)
+        song_caption = f"** {song_title}**\n Duration: {duration}\n"  # Include duration
 
-    # Send the thumbnail as a photo with the caption
-    await message.reply_photo(
-      thumbnail_url,
-      caption=thumbnail_caption
-    )
+        # Send audio with embedded thumbnail
+        await message.reply_audio(
+            audio_filename,
+            caption=song_caption,
+            thumb=thumbnail_url  # Use 'thumb' parameter for embedded thumbnail
+        )
 
-    song_caption = f"**🎧 {song_title}**\n"
+        await client.send_message(REQUESTED_CHANNEL, text=f"#song\nRequested from {message.from_user.mention}\nRequest is {song_name}")
 
-    # Send the downloaded song without an explicit caption (it's already in the photo)
-    await message.reply_audio(
-      audio_filename,
-      caption=song_caption
-    )
-    await client.send_message(REQUESTED_CHANNEL, text=f"#sᴏɴɢ\nʀᴇǫᴜᴇsᴛᴇᴅ ғʀᴏᴍ {message.from_user.mention}\nʀᴇǫᴜᴇsᴛ ɪs {song_name}")
+        # Delete the downloaded song after sending
+        os.remove(audio_filename)
 
-    # Delete the downloaded song after sending it
-    os.remove(audio_filename)
-
-  except Exception as e:
-    await message.reply(f"ᴇʀʀᴏʀ sᴏɴɢ ᴅᴏᴡɴʟᴏᴀᴅɪɴɢ: {e}")
+    except Exception as e:
+        # Consider more specific error handling if needed
+        await message.reply(f"An error occurred during song download: {e}")
