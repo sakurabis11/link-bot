@@ -3,9 +3,9 @@ import logging
 from pyrogram import Client, filters, enums
 import requests
 import json
-from info import REQUESTED_CHANNEL, 
+from info import REQUESTED_CHANNEL, SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET
 import spotipy
-from spotipy.oauth2 import SpotifyClientCredentials,SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET
+from spotipy.oauth2 import SpotifyClientCredentials
 
 client_credentials_manager = SpotifyClientCredentials(client_id=SPOTIFY_CLIENT_ID, client_secret=SPOTIFY_CLIENT_SECRET)
 sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
