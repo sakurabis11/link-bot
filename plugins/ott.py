@@ -1,25 +1,29 @@
+import pyrogram
+from pyrogram import Client, Filters
+from googlesearch import search
 import requests
 from bs4 import BeautifulSoup
-from pyrogram import Client, filters
 
-@Client.on_message(filters.command("check"))
-async def search(client, message):
-    query = message.text.split(" ", 1)[1]
-    url = f"https://www.google.com/search?q={query}+ott+release+date+platform"
+@Client.on_message(Filters.command(["ott"]))
+async def ott_search(client, message):
+    query = message.text.split(" ", 1)[1]  
+    results = search(query + " release date platform", tld="com", lang="en", num=1, stop=1)
+    url = results[0]
 
     try:
         response = requests.get(url)
-        response.raise_for_status()  # Raise an exception for non-200 status codes
+        response.raise_for_status()
 
-        soup = BeautifulSoup(response.text, "html.parser")
-        # Use BeautifulSoup to extract the desired information from the parsed HTML
-        # (replace this with appropriate logic for your specific needs)
-        result = soup.find("h3", class_="r").text
+        soup = BeautifulSoup(response.content, "html.parser")
 
-        await message.reply_text(result)
+        release_date = soup.find("meta", itemprop="datePublished").get("content")
+        platform = soup.find("meta", itemprop="url").get("content")  
+        imdb_poster_url = soup.find("meta", property="og:image").get("content")
+        
+        poster_file = await client.download_media(imdb_poster_url)
+        await message.reply_photo(photo=poster_file, caption=f"**Title:** {query}\n**Release Date:** {release_date}\n**Platform:** {platform}")
 
-    except requests.exceptions.RequestException as e:
-        await message.reply_text("An error occurred: " + str(e))
+    except Exception as e:
+        await message.reply_text(f"Error: {e}")
 
-    except AttributeError:
-        await message.reply_text("No relevant result found")
+
