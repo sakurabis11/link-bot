@@ -13,10 +13,7 @@ async def ott_search(client, message):
     try:
         response = requests.get(url)
 
-        release_date = soup.find("meta", itemprop="datePublished").get("content")
-        platform = soup.find("meta", itemprop="url").get("content")  
-
-        await message.reply_text(f"**Title:** {query}\n**Release Date:** {release_date}\n**Platform:** {platform}")
+        await message.reply_text(response = requests.get(url))
 
     except Exception as e:
         await message.reply_text(f"Error: {e}")
