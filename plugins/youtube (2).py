@@ -13,11 +13,11 @@ async def download_video(client, message):
 
         ydl_opts = {
             'outtmpl': '%(title)s.%(ext)s',
-            'format': 'bestvideo[height<=?720][ext=mp4]+bestaudio[ext=m4a]/best[height<=?720][ext=mp4]/best',  # Prioritize 720p
+            'format': 'bestvideo[height<=?720][ext=mp4]+bestaudio[ext=m4a]/best[height<=?720][ext=mp4]/best',  
             'postprocessors': [{
                 'key': 'FFmpegVideoConvertor',
                 'preferedformat': 'mp4'
-            }],  # Added closing parenthesis
+            }],  
         }
 
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
@@ -27,7 +27,7 @@ async def download_video(client, message):
             thumbnail_url = info_dict.get('thumbnail', None)  
 
             if video_title and thumbnail_url:
-                if duration > 3300:  # Check if video exceeds 55 minutes
+                if duration > 3300:  
                     await message.reply_text("Video duration exceeds 55 minutes. Downloading videos longer than 55 minutes is not supported.")
                     return
 
