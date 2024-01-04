@@ -12,14 +12,11 @@ async def ott_search(client, message):
 
     try:
         response = requests.get(url)
-        response.raise_for_status()
-
-        soup = BeautifulSoup(response.content, "html.parser")
 
         release_date = soup.find("meta", itemprop="datePublished").get("content")
         platform = soup.find("meta", itemprop="url").get("content")  
 
-        await message.reply_text(photo=poster_file, caption=f"**Title:** {query}\n**Release Date:** {release_date}\n**Platform:** {platform}")
+        await message.reply_text(f"**Title:** {query}\n**Release Date:** {release_date}\n**Platform:** {platform}")
 
     except Exception as e:
         await message.reply_text(f"Error: {e}")
