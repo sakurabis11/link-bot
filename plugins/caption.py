@@ -4,7 +4,7 @@ from info import ADMINS
 
 # Replace with your bot's API token
 CHANNEL_ID = -1001717634274 
-message.caption = "@mrtgcoderbot"
+CAPTION = "@mrtgcoderbot"
 
 auto_caption_enabled = False
 
@@ -28,6 +28,6 @@ async def handle_document(client, message):
     if auto_caption_enabled:
         file_name = message.document.file_name
         file_size = f"{message.document.file_size} bytes"
-        new_caption = f"{file_name}\n{file_size}\n{message.caption}"
+        new_caption = f"{file_name}\n{file_size}\nCAPTION"
         await message.edit_caption(new_caption)
 
