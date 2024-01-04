@@ -12,10 +12,10 @@ sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
 
 @Client.on_message(filters.command("spoti"))
 async def music(client, message):
-    # Extract the track ID from the URL
-    track_id = " ".join(message.command[1:])
-    # Fetch song information using the track ID
     try:
+        track_id = " ".join(message.command[1:])
+
+        # Fetch song information
         results = sp.track(track_id)
         song = results['tracks'][0]
 
@@ -23,19 +23,34 @@ async def music(client, message):
         song_info = {
             "artist": song["artists"][0]["name"],
             "title": song["name"],
-            "duration": song["duration_ms"],  # Spotify uses milliseconds
+            "duration": song["duration_ms"],
             "preview_url": song["preview_url"],
+            "album_cover": song["album"]["images"][0]["url"]  # Get album cover URL
         }
 
-        # Send a message to the user with the song details and a download link
-        await client.send_message(message.chat.id, f"Hey {message.from_user.mention},\n\nYour request:\n\nArtist: {song_info['artist']}\nTitle: {song_info['title']}\n⏳ Duration: {song_info['duration'] // 1000} seconds\n\nYou can download this song from Chrome: {song_info['preview_url']}")
+        # Send thumbnail and details
+        await client.send_photo(
+            message.chat.id,
+            song_info['album_cover'],
+            caption=f"**Artist:** {song_info['artist']}\n**Title:** {song_info['title']}\n**Duration:** {song_info['duration'] // 1000} seconds",
+            reply_to_message_id=message.id
+        )
 
-        # Send chat action to indicate that the bot is uploading audio
+        # Send chat action to indicate audio uploading
         await client.send_chat_action(message.chat.id, "upload_audio")
 
-        # Send the audio preview
-        await client.send_audio(message.chat.id, song_info['preview_url'], title=song_info['title'], performer=song_info['artist'], reply_to_message_id=message.id)
+        # Fetch full audio (replace with your method for obtaining full audio)
+        full_audio_url = await fetch_full_audio(track_id)  # Assuming you have a function for this
+
+        # Send the full audio
+        await client.send_audio(
+            message.chat.id,
+            full_audio_url,
+            title=song_info['title'],
+            performer=song_info['artist'],
+            reply_to_message_id=message.id
+        )
 
     except Exception as e:
-        logging.error(f"Error fetching song information: {e}")
-        await client.send_message(message.chat.id, "An error occurred while fetching the song information. Please try again later.")
+        logging.error(f"Error fetching song information or audio: {e}")
+        await client.send_message(message.chat.id, "An error occurred. Please try again later.")
