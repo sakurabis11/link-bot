@@ -1,10 +1,10 @@
 import pyrogram
-from pyrogram import Client, Filters
+from pyrogram import Client, filters
 from googlesearch import search
 import requests
 from bs4 import BeautifulSoup
 
-@Client.on_message(Filters.command(["ott"]))
+@Client.on_message(filters.command(["ott"]))
 async def ott_search(client, message):
     query = message.text.split(" ", 1)[1]  
     results = search(query + " release date platform", tld="com", lang="en", num=1, stop=1)
