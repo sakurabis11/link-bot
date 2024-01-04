@@ -17,7 +17,7 @@ spotify_url_regex = r"https://open\.spotify\.com/track/(.+?)"
 @Client.on_message(filters.regex(spotify_url_regex))
 async def music(client, message):
     # Extract the track ID from the URL
-    track_id = message.matches[0].group(1)
+    track_id = message.text
 
     # Fetch song information using the track ID
     try:
