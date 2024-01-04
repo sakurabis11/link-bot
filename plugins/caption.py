@@ -2,7 +2,8 @@ from pyrogram import Client, filters
 from info import ADMINS
 
 # Replace with your bot's API token
-CHANNEL_ID = -100123456789  # Replace with your channel's ID
+CHANNEL_ID = -1001717634274 
+message.caption = "@mrtgcoderbot"
 
 auto_caption_enabled = False
 
@@ -29,4 +30,3 @@ async def handle_document(client, message):
         new_caption = f"{file_name}\n{file_size}\n{message.caption}"
         await message.edit_caption(new_caption)
 
-app.run()
