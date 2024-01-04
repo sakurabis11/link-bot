@@ -33,4 +33,4 @@ async def download_video(client, message):
                 thumb=info.get("thumbnail", ""),
             )
     except Exception as e:
-        message.reply_text(f"Error downloading video: {e}")
+        await message.reply_text(f"Error downloading video: {e}")
