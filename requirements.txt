@@ -23,6 +23,7 @@ mutagen
 pycryptodomex
 wheel
 six
+googlesearch-python
 spotipy
 scdl
 tqdm
