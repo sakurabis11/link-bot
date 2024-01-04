@@ -15,12 +15,11 @@ motor
 speedtest
 yt-dlp
 python-dateutil
-googlesearch-python
-omdbapi
 datetime>=4.4
 psutil==5.9.4
 asyncio
 chardet
+mutagen
 pycryptodomex
 wheel
 six
