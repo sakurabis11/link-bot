@@ -10,15 +10,10 @@ from spotipy.oauth2 import SpotifyClientCredentials
 client_credentials_manager = SpotifyClientCredentials(client_id=SPOTIFY_CLIENT_ID, client_secret=SPOTIFY_CLIENT_SECRET)
 sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
 
-# Define the regular expression pattern for matching Spotify track URLs
-spotify_url_regex = r"https://open\.spotify\.com/track/(.+?)"
-
-# Define the command handler using a regular expression filter
-@Client.on_message(filters.regex(spotify_url_regex))
+@Client.on_message(filters.command("spoti"))
 async def music(client, message):
     # Extract the track ID from the URL
-    track_id = message.text
-
+    track_id = " ".join(message.command[1:])
     # Fetch song information using the track ID
     try:
         results = sp.track(track_id)
