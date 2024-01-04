@@ -9,8 +9,6 @@ async def ott_search(client, message):
     query = message.text.split(" ", 1)[1]  
     results = f"https://www.google.com/search?q={query}+ott+release+date+platform"
     url = results[0]
-
-    try:
         response = requests.get(url)
 
         await message.reply_text(response)
