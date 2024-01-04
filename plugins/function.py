@@ -65,7 +65,7 @@ async def show_id(client, message):
 
 @Client.on_message(filters.command("donate"))
 async def donate(client, message):
-    await message.reply_text("ʜᴇʏ {message.from_user.mention}\nᴅᴏɴᴀᴛᴇ ɪғ ʏᴏᴜ ᴄᴀɴ, ᴜᴘɪ ɪᴅ:- <code>zenistu@ibl</code>
+    await message.reply_text(f"ʜᴇʏ {message.from_user.mention}\nᴅᴏɴᴀᴛᴇ ɪғ ʏᴏᴜ ᴄᴀɴ, ᴜᴘɪ ɪᴅ:- <code>zenistu@ibl</code>")
             
 
 @Client.on_message(filters.command(["info"]))
