@@ -1,64 +1,32 @@
-import pyrogram
-from pyrogram import filters, Client, enums
-from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery
-import pymongo 
-from plugins.sd_bots.admin_check import admin_check
-from info import DATABASE_URI, DATABASE_NAME
+from pyrogram import Client, filters
+from info import ADMINS
 
-# MongoDB setup (replace with your credentials)
-client = pymongo.MongoClient(DATABASE_URI)
-db = client[DATABASE_NAME]
-collection = db["caption_settings"]
+# Replace with your bot's API token
+CHANNEL_ID = -100123456789  # Replace with your channel's ID
 
-@Client.on_message(filters.command("caption_settings") & admin_check)
-async def handle_caption_settings(client, message):
-            markup = InlineKeyboardMarkup(
-                [
-                    [
-                        InlineKeyboardButton("Document ❌", callback_data="document"),
-                        InlineKeyboardButton("Video ❌", callback_data="video"),
-                        InlineKeyboardButton("Photos ❌", callback_data="photos"),
-                    ]
-                ]
-            )
-            await message.reply("Choose media types for custom captions:", reply_markup=markup)
+auto_caption_enabled = False
 
-@Client.on_callback_query()
-async def callback_handler(client, query):
-    data = query.data
-    chat_id = query.message.chat.id
+@Client.on_message(filters.command(["auto_caption"]))
+async def handle_auto_caption(client, message):
+    global auto_caption_enabled
+    if message.from_user.id == ADMINS:
+        status = message.command[1].lower()
+        if status == "on":
+            auto_caption_enabled = True
+            await message.reply("Auto caption enabled")
+        elif status == "off":
+            auto_caption_enabled = False
+            await message.reply("Auto caption disabled")
+        else:
+            await message.reply("Invalid command. Use /auto_caption on or /auto_caption off")
 
-    # Retrieve current settings from MongoDB
-    settings = collection.find_one({"chat_id": chat_id}) or {}
+@Client.on_message(filters.document & filters.chat(CHANNEL_ID))
+async def handle_document(client, message):
+    global auto_caption_enabled
+    if auto_caption_enabled:
+        file_name = message.document.file_name
+        file_size = f"{message.document.file_size} bytes"
+        new_caption = f"{file_name}\n{file_size}\n{message.caption}"
+        await message.edit_caption(new_caption)
 
-    if data in ["document", "video", "photos"]:
-        # Toggle setting and update button
-        settings[data] = not settings.get(data, False)
-        markup = await create_caption_settings_markup(settings)
-        await query.edit_message_reply_markup(markup)
-
-        # Save updated settings to MongoDB
-        collection.update_one({"chat_id": chat_id}, {"$set": settings}, upsert=True)
-
-async def create_caption_settings_markup(settings):
-    markup = InlineKeyboardMarkup(
-        [
-            [
-                InlineKeyboardButton(
-                    f"Document {'✅' if settings.get('document') else '❌'}",
-                    callback_data="document",
-                ),
-                InlineKeyboardButton(
-                    f"Video {'✅' if settings.get('video') else '❌'}",
-                    callback_data="video",
-                ),
-                InlineKeyboardButton(
-                    f"Photos {'✅' if settings.get('photos') else '❌'}",
-                    callback_data="photos",
-                ),
-            ]
-        ]
-    )
-    return markup
-
-
+app.run()
