@@ -1,7 +1,7 @@
 import asyncio
 import os
 import re
-import mutagen  # Import mutagen for thumbnail embedding
+import mutagen  
 
 from pyrogram import Client, filters
 from pytube import YouTube
