@@ -6,14 +6,16 @@ from bs4 import BeautifulSoup
 
 @Client.on_message(filters.command(["ott"]))
 async def ott_search(client, message):
-    query = message.text.split(" ", 1)[1]  
-    results = f"https://www.google.com/search?q={query}+ott+release+date+platform"
-    url = results[0]
-        response = requests.get(url)
+  query = message.text.split(" ", 1)[1]
+  results = f"https://www.google.com/search?q={query}+ott+release+date+platform"
+  url = results[0]
 
-        await message.reply_text(response)
+  try:
+    response = requests.get(url)  # Indent this line to align with `try`
+    await message.reply_text(response)
 
-    except Exception as e:
-        await message.reply_text(f"Error: {e}")
+  except Exception as e:
+    await message.reply_text(f"Error: {e}")
+
 
 
