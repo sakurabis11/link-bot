@@ -1,19 +1,9 @@
 from pyrogram import Client, filters
 from googlesearch import search
+import requests
 
-API_ID = 'your_api_id'
-API_HASH = 'your_api_hash'
-BOT_TOKEN = 'your_bot_token'
-
-app = Client(
-    "OTTBot",
-    api_id=API_ID,
-    api_hash=API_HASH,
-    bot_token=BOT_TOKEN
-)
-
-@app.on_message(filters.command(["ott"]))
-def ott_search(client, message):
+@Client.on_message(filters.command(["ott"]))
+async def ott_search(client, message):
     try:
         # Extract movie/series name from the command
         query = ' '.join(message.command[1:])
@@ -44,5 +34,4 @@ def ott_search(client, message):
             text="An error occurred while processing your request."
         )
 
-if __name__ == "__main__":
-    app.run()
+
