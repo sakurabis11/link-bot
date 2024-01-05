@@ -29,7 +29,7 @@ async def make_sticker(client, message):
             sticker_set = await client.create_new_sticker_set(
                 user_id=message.from_user.id,
                 name=sticker_set_name,
-                title="",
+                title="@sd_bots",
                 emojis="✨",
                 png_sticker=sticker,
             )
@@ -45,4 +45,3 @@ async def make_sticker(client, message):
     else:
         await message.reply_text("Please reply to a photo to create a sticker.")
 
-app.run(API_TOKEN)
