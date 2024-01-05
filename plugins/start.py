@@ -129,6 +129,7 @@ async def callback_handle(client, query):
        if user_id not in ADMINS: 
            await query.answer("You are not authorized to access this feature.", show_alert=True)
            return
+        else user_id in ADMINS:
        buttons = [[
            InlineKeyboardButton('ʜᴏᴍᴇ', callback_data='help')
        ]]
