@@ -1,22 +1,35 @@
-import pyrogram
 from pyrogram import Client, filters
+from googlesearch import search
 import requests
-from bs4 import BeautifulSoup
 
-@Client.on_message(filters.command("ott", prefixes="/"))
+@Client.on_message(filters.command(["ott"]))
 async def ott_search(client, message):
-    search_query = message.text.split(" ", 1)[1]  
-
     try:
-        url = f"https://www.google.com/search?q=ott+release+date+{search_query}"
-        response = requests.get(url)
-        soup = BeautifulSoup(response.content, "html.parser")
+        # Extract movie/series name from the command
+        query = ' '.join(message.command[1:])
 
-        release_date = soup.find("span", {"class": "Z0LcW"}).text  
-        platform = soup.find("div", {"class": "BNeawe s3v9rd AP7Wnd"}).text  
+        # Search for the movie/series on Google
+        search_query = f"{query} release date and platform"
+        search_results = search(search_query, num=1, stop=1, pause=2)
 
-        await message.reply_text(f"Release Date: {release_date}\nPlatform: {platform}")
+        # Extract the first search result
+        result = next(search_results, None)
+
+        if result:
+            # Send the result to the user
+            await client.send_message(
+                chat_id=message.chat.id,
+                text=f"Search results for '{query}':\n{result}"
+            )
+        else:
+            await client.send_message(
+                chat_id=message.chat.id,
+                text=f"No results found for '{query}'."
+            )
+
     except Exception as e:
-        await message.reply_text("Something went wrong! Please try again.")
-
-
+        print(str(e))
+        await client.send_message(
+            chat_id=message.chat.id,
+            text="An error occurred while processing your request."
+        )
