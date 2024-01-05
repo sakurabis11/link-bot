@@ -125,11 +125,6 @@ async def callback_handle(client, query):
         await query.message.edit_text(text=script.HELP_TXT, reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
 
     elif query.data == 'admin':
-       user_id = query.from_user.id
-       if user_id not in ADMINS: 
-           await query.answer("You are not authorized to access this feature.", show_alert=True)
-           return
-        else user_id in ADMINS:
        buttons = [[
            InlineKeyboardButton('ʜᴏᴍᴇ', callback_data='help')
        ]]
