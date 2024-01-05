@@ -17,5 +17,5 @@ async def search_movie(client, message):
         first_result = soup.find("div", class_="tF2Cxc")
 
             # Format message
-            message_text = f"**Movie Name:** {movie_name}\n**OTT Platform:** {ott_platform}\n**OTT Release Date:** {ott_release_date}"
-            await message.reply(message_text)
+        message_text = f"**Movie Name:** {movie_name}\n**OTT Platform:** {ott_platform}\n**OTT Release Date:** {ott_release_date}"
+        await message.reply(message_text)
