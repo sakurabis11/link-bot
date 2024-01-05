@@ -7,7 +7,7 @@ from googlesearch import search
 async def search_movie(client, message):
     query = message.text.split(" ", 1)[1]  
 
-    results = search(query, tld="com", lang="en", num=1, stop=1, pause=2)  
+    results = f"https://www.google.com/search?q={query}+ott+release+date+and+platform" 
     url = results[0]
 
     try:
