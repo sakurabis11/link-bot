@@ -2,6 +2,7 @@ import asyncio
 import os
 from pyrogram import Client, filters
 from yt_dlp import YoutubeDL
+from pyrogram.types import Message
 
 @Client.on_message(filters.command(["video", "mp4"]))
 async def vsong(client, message: Message):
