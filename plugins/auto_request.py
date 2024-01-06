@@ -1,5 +1,6 @@
 import pyrogram
 from pyrogram import Client, filters
+from pyrogram.types import *
 
 WELCOME_MESSAGE = f"ʜɪ {message.from_user.mention}, ʏᴏᴜʀ ʀᴇǫᴜᴇsᴛ ɪs ᴀᴄᴄᴘᴇᴛᴇᴅ "
 
