@@ -76,7 +76,8 @@ async def help_command(client, message):
          InlineKeyboardButton('ғᴇᴇᴅʙᴀᴄᴋ', callback_data='feedback'),
          InlineKeyboardButton('ғᴏɴᴛ', callback_data='font')
          ],[
-         InlineKeyboardButton('ᴅᴏɴᴀᴛᴇ', callback_data='donate')
+         InlineKeyboardButton('ᴅᴏɴᴀᴛᴇ', callback_data='donate'),
+         InlineKeyboardButton('ᴀᴜᴛᴏ ʀᴇǫᴜᴇsᴛ ᴀᴄᴄᴇᴘᴛ', callback_dat='auto_accept')
          ],[
          InlineKeyboardButton('ʜᴏᴍᴇ', callback_data='start'),
          InlineKeyboardButton('ᴄʟᴏsᴇ', callback_data='close')
