@@ -1,7 +1,7 @@
 import pyrogram
 from pyrogram import Client, filters
 
-@Client.on_chat_member_request()
+@Client.on_chat_join_request()
 async def auto_accept_request(client, chat_member_update):
     chat_id = chat_member_update.chat.id
     user_id = chat_member_update.from_user.id
