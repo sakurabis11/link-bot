@@ -3,7 +3,7 @@ from pyrogram import Client, filters
 from pyrogram.types import Message
 
 WELCOME_MESSAGE = (
-    f"ʜɪ {Message.from_user.mention}, ʏᴏᴜʀ ʀᴇǫᴜᴇsᴛ ɪs ᴀᴄᴄᴘᴇᴛᴇᴅ "
+    f"ʜɪ {from_user.mention}, ʏᴏᴜʀ ʀᴇǫᴜᴇsᴛ ɪs ᴀᴄᴄᴘᴇᴛᴇᴅ "
 )  # Access Message class here
 
 @Client.on_chat_join_request(filters.chat_member(new_chat_members=True))
