@@ -11,7 +11,7 @@ async def auto_accept_request(client, chat_member_update):
         await client.approve_chat_join_request(chat_id, user_id)
         await client.send_message(
             user_id,
-            f"ʜᴇʏ {chat_member_update.from_user.mention}!\nᴡᴇʟᴄᴏᴍᴇ ᴛᴏ {chat_member_update.chat.title}"
+            f"ʜᴇʏ {chat_member_update.from_user.mention}!\nʀᴇǫᴜᴇsᴛ ʜᴀs ʙᴇᴇɴ ᴀᴄᴄᴇᴘᴛᴇᴅ ᴡᴇʟᴄᴏᴍᴇ ᴛᴏ {chat_member_update.chat.title}"
         )
 
     except Exception as e:
