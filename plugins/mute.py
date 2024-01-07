@@ -2,7 +2,7 @@ import pyrogram
 from pyrogram import filters, Client, enums
 from datetime import timedelta
 
-@Client.on_message(filters.command("mute") & filters.incoming & filters.reply)
+@Client.on_message(filters.command("mute") & filters.reply)
 async def mute_user(client, message):
     if message.chat.type in [enums.ChatType.GROUP, enums.ChatType.SUPERGROUP]:
         # Indentation corrected here
@@ -37,7 +37,7 @@ async def mute_user(client, message):
         else:
             await message.reply_text("You are not authorized to use this command.")
 
-@Client.on_message(filters.command("unmute") & filters.incoming & filters.reply)
+@Client.on_message(filters.command("unmute") & filters.reply)
 async def unmute_user(client, message):
     if message.chat.type in [enums.ChatType.GROUP, enums.ChatType.SUPERGROUP]:
         if await message.chat.get_member(message.from_user.id).can_restrict_members and await client.get_chat_member(message.chat.id, message.from_user.id).can_restrict_members:
