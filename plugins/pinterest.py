@@ -1,22 +1,26 @@
 import pyrogram
 from pyrogram import Client, filters
 import requests
-from urllib.parse import urljoin  
+from bs4 import BeautifulSoup
 
-STICKER_ID = "CAACAgUAAxkBAAIefmWa2mFflQjODv8DcWTwKN5rb7x3AAJyCgACywLBVKKgVw2dk9PbHgQ"
-
-@Client.on_message(filters.text & filters.regex(r"https://pin\.it/\w+"))
-async def download_photo(client, message):
+@Client.on_message(filters.command("pin") & filters.private)
+async def handle_pin_command(client, message):
     try:
-        await message.reply_sticker(STICKER_ID)  # Send the sticker
+        # Send a sticker to indicate bot activity
+        await message.reply_sticker("CAACAgUAAxkBAAIefmWa2mFflQjODv8DcWTwKN5rb7x3AAJyCgACywLBVKKgVw2dk9PbHgQ")
 
-        pin_url = message.text
-        response = requests.get(pin_url)
-        response.raise_for_status()  
-        image_url = response.url  
-        await client.send_photo(message.chat.id, image_url)  
+        pinterest_link = message.text.split(" ")[1]
+        response = requests.get(pinterest_link)
+        soup = BeautifulSoup(response.content, "html.parser")
+
+        # Extract image URL from Pinterest page (adjust selector if needed)
+        image_url = soup.find("img", class_="Xp9Ar").get("src")
+
+        # Download and send the image
+        image_data = requests.get(image_url).content
+        await message.reply_photo(image_data)
+
     except Exception as e:
-        await message.reply_text(f"Error downloading photo: {e}")
-
+        await message.reply_text("Error: " + str(e))
 
 
