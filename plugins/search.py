@@ -15,11 +15,7 @@ async def search_movie(client, message):
         response = requests.get(url)
         soup = BeautifulSoup(response.content, "html.parser")
 
-        
-        platform = soup.find("div", class_="ott-platform").text.strip()
-        release_date = soup.find("span", class_="ott-release-date").text.strip()
-
-        await message.reply_text(f"**OTT Platform:** {platform}\n**OTT Release Date:** {release_date}\n")
+        await message.reply_text(f"{soup}")
 
     except Exception as e:
         await message.reply_text("Sorry, could not extract information for that movie or series.")
