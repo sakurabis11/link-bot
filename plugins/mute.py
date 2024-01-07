@@ -37,4 +37,25 @@ async def mute_user(client, message):
         else:
             await message.reply_text("You are not authorized to use this command.")
 
+@Client.on_message(filters.command("unmute") & filters.incoming & filters.reply)
+async def unmute_user(client, message):
+    if message.chat.type in [enums.ChatType.GROUP, enums.ChatType.SUPERGROUP]:
+        if await message.chat.get_member(message.from_user.id).can_restrict_members and await client.get_chat_member(message.chat.id, message.from_user.id).can_restrict_members:
+            try:
+                reply_message = message.reply_to_message
+                if reply_message:
+                    user_to_unmute = reply_message.from_user
+
+                    # Unrestrict the user with appropriate permissions
+                    await message.chat.restrict_member(
+                        user_to_unmute.id,
+                        can_send_messages=True,  # Allow sending messages again
+                        until_date=None  # Remove any restriction duration
+                    )
+
+                    await message.reply_text(f"{user_to_unmute.mention} has been unmuted.")
+            except Exception as e:
+                await message.reply_text(f"An error occurred: {e}")
+        else:
+            await message.reply_text("You are not authorized to use this command.")
 
