@@ -13,9 +13,8 @@ async def search_movie(client, message):
     try:
         
         response = requests.get(url)
-        soup = BeautifulSoup(response.content, "html.parser")
 
-        await message.reply_text(f"{soup}")
+        await message.reply_text(f"{response}")
 
     except Exception as e:
         await message.reply_text("Sorry, could not extract information for that movie or series.")
