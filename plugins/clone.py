@@ -1,6 +1,8 @@
 import pyrogram
 from pyrogram import Client, filters
 
+cloned_bots = []
+
 @Client.on_message(filters.command("clone") & filters.private)
 async def clone_bot(client, message):
     bot_token = message.text.split()[1]  # Extract the bot token from the message
