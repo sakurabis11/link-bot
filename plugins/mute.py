@@ -2,7 +2,7 @@ import pyrogram
 from pyrogram import filters, Client, enums
 from datetime import timedelta
 
-@Client.on_message(filters.command("mute") & filters.incoming)
+@Client.on_message(filters.command("mute") & filters.incoming & filters.reply)
 async def mute_user(client, message):
     if message.chat.type in [enums.ChatType.GROUP, enums.ChatType.SUPERGROUP]:
         # Indentation corrected here
