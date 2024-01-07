@@ -32,7 +32,7 @@ COLLECTION_NAME = environ.get('COLLECTION_NAME', 'Telegram_files')
 MONGO_URL = os.environ.get('MONGO_URL', "")
 
 # for openai 
-OPENAI_API_KEY = os.environ.get('OPENAI_API_KEY', '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')
+OPENAI_API_KEY = os.environ.get('OPENAI_API_KEY', 'ghfhgdghdhcg')
 
 #for spotify 
 SPOTIFY_CLIENT_ID = os.environ.get('SPOTIFY_CLIENT_ID', 'd3a0f15a75014999945b5628dca40d0a')
