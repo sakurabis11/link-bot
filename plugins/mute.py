@@ -2,9 +2,9 @@ import pyrogram
 from pyrogram import filters, Client
 from datetime import timedelta
 
-@Client.on_message(filters.command("mute") & filters.chat(chat_type=["group", "supergroup"]))
+@Client.on_message(filters.command("mute") & filters.incoming)
 async def mute_user(client, message):
-    # Check if the bot is an admin and the sender is an owner/admin
+    if message.chat.type in [enums.ChatType.GROUP, enums.ChatType.SUPERGROUP]:
     if await message.chat.get_member(message.from_user.id).can_restrict_members and await client.get_chat_member(message.chat.id, message.from_user.id).can_restrict_members:
         try:
             reply_message = message.reply_to_message
