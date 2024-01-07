@@ -16,7 +16,7 @@ async def download_song(client, message):
   song_name = " ".join(message.text.split()[1:]) # Extract and combine song name parts
 
   # Send "Searching..." message before searching
-  await message.reply("⏳")
+  m=await message.reply("⏳")
 
   # Search for the song on YouTube
   search_results = YoutubeSearch(song_name, max_results=1).to_dict()
@@ -60,6 +60,7 @@ async def download_song(client, message):
       audio_filename,
       caption=song_caption
     )
+    await m.delete()
     await client.send_message(REQUESTED_CHANNEL, text=f"#sᴏɴɢ\nʀᴇǫᴜᴇsᴛᴇᴅ ғʀᴏᴍ {message.from_user.mention}\nʀᴇǫᴜᴇsᴛ ɪs {song_name}")
 
     # Delete the downloaded song after sending it
