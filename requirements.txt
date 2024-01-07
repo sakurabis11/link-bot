@@ -35,8 +35,9 @@ spotipy
 pafy
 ffmpeg
 asyncio
-pytube==15.0.0
+pytube
 youtube-search
+youtube-search-python
 spotdl
 Pillow
 wget
