@@ -1,5 +1,5 @@
 import pyrogram
-from pyrogram import filters, Client
+from pyrogram import filters, Client, enums
 from datetime import timedelta
 
 @Client.on_message(filters.command("mute") & filters.incoming)
