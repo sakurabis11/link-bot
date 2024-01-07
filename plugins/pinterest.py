@@ -14,7 +14,7 @@ async def download_photo(client, message):
         response = requests.get(pin_url)
         response.raise_for_status()  
         image_url = response.url  
-        await app.send_photo(message.chat.id, image_url)  
+        await client.send_photo(message.chat.id, image_url)  
     except Exception as e:
         await message.reply_text(f"Error downloading photo: {e}")
 
