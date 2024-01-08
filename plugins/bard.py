@@ -1,7 +1,7 @@
 import os
 
 from pyrogram import Client, filters
-import google.generativeai
+import google.generativeai as GenerativeAI
 
 bard = GenerativeAI()
 
