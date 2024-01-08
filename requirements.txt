@@ -10,8 +10,6 @@ telegraph==2.2.0
 pymongo==4.4.1
 dnspython==2.3.0
 marshmallow==3.20.1
-google-generativeai==0.3.2
-google
 umongo==3.1.0
 motor
 speedtest
@@ -34,6 +32,7 @@ wget
 pytz
 spotipy
 pafy
+fpdf
 ffmpeg
 asyncio
 pytube
