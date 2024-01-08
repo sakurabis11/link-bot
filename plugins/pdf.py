@@ -1,4 +1,4 @@
-import pyrogram
+from pyrogram import Client, filters
 from fpdf import FPDF
 
 @Client.on_message(filters.command(["txt", "pdf"]))
