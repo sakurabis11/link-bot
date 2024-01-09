@@ -1,5 +1,5 @@
 import os
-from pyrogram import Client
+from pyrogram import Client, filters
 import requests
 
 @Client.on_message(filters.command("google"))
