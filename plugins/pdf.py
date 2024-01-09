@@ -1,5 +1,5 @@
 from pyrogram import Client, filters
-from info immport LOG_CHANNEL
+from info import LOG_CHANNEL
 
 @Client.on_message(filters.command('t2f') & filters.reply)
 async def create_file(bot, message):
