@@ -3,7 +3,7 @@ from pyrogram import Client, filters
 @Client.on_message(filters.command('t2f') & filters.reply)
 async def create_file(bot, message):
     try:
-        query = message.reply_to_message.text  # Access the text of the replied-to message
+        query = message.reply_to_message.text 
         file_name = message.text.split(" ", 1)[1]
 
         x = await message.reply('Copping your message')
@@ -15,4 +15,4 @@ async def create_file(bot, message):
         await message.reply_document(file_name, caption="@mrtcoderbot")
 
     except Exception as e:
-        await message.reply(f"An error occurred: {e}")  # Handle potential errors
+        await message.reply(f"An error occurred: {e}")  
