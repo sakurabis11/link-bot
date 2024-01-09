@@ -20,7 +20,6 @@ async def create_file(bot, message):
         y = f"{message.from_user.mention},\n ʏᴏᴜʀ ʀᴇǫᴜᴇsᴛ ᴄᴏᴍᴘʟᴇᴛᴇᴅ"
         await message.reply_text(y)
         
-        await client.send_message(REQUESTED_CHANNEL, text=f"ʀᴇǫᴜᴇsᴛᴇᴅ ғʀᴏᴍ {message.from_user.mention}\n ᴛᴇxᴛ ɪs <code>{query}</code>")
         
     except Exception as e:
         await message.reply(f"An error occurred: {e}")  
