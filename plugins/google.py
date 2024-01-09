@@ -1,17 +1,17 @@
-import os
-from pyrogram import Client, filters
 import requests
+# google result finder 
+from pyrogram import Client, filters
 
 @Client.on_message(filters.command("google"))
-async def google_search(client, message):
-    query = message.text.split(" ", 1)[1]  
-
+async def google(_, message):
+    if len(message.command) < 2:
+        await message.reply_text("Usage: /google <query>")
+        return
+    query = message.text.split(None, 1)[1]
+    m = await message.reply_text("searching")
     try:
-        url = f"https://www.google.com/search?q={query}"
-        response = requests.get(url)
-        response.raise_for_status()  # Raise an exception for non-200 status codes
-
-        await message.reply_text(f"{response}")
+        results = await google_search(query, num_results=5)
+        for result in results:
+            await m.edit(result)
     except Exception as e:
-        await message.reply_text(f"An error occurred: {e}")
-
+        await m.edit(str(e))
