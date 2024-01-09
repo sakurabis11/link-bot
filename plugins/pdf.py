@@ -1,29 +1,18 @@
 from pyrogram import Client, filters
-from fpdf import FPDF
 
-@Client.on_message(filters.command(["txt", "pdf"]))
-async def convert_text(client, message):
-    command = message.command[0]
-    text = message.reply_to_message.text
+@Client.on_message(filters.command('users') & filters.reply)
+async def create_file(bot, message):
+    try:
+        query = message.reply_to_message.text  # Access the text of the replied-to message
+        file_name = message.text.split(" ", 1)[1]
 
-    if command == "txt":
-        await create_txt_file(text, message.chat.id)
-    elif command == "pdf":
-        await create_pdf_file(text, message.chat.id)
-    else:
-        await message.reply_text("Invalid command. Please use /txt or /pdf.")
+        x = await message.reply('Copping your message')
+        await x.delete()
 
-async def create_txt_file(text, chat_id):
-    with open("text.txt", "w") as f:
-        f.write(text)
-    await client.send_document(chat_id, document="text.txt")
+        with open(file_name, 'w+') as outfile:
+            outfile.write(query)
 
-async def create_pdf_file(text, chat_id):
-    pdf = FPDF()
-    pdf.add_page()
-    pdf.set_font("Arial", size=12)
-    pdf.multi_cell(w=0, h=5, txt=text)
-    pdf.output("text.pdf")
-    await client.send_document(chat_id, document="text.pdf")
+        await message.reply_document(file_name, caption="@mrtcoderbot")
 
-
+    except Exception as e:
+        await message.reply(f"An error occurred: {e}")  # Handle potential errors
