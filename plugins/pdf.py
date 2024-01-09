@@ -1,6 +1,6 @@
 from pyrogram import Client, filters
 
-@Client.on_message(filters.command('users') & filters.reply)
+@Client.on_message(filters.command('t2f') & filters.reply)
 async def create_file(bot, message):
     try:
         query = message.reply_to_message.text  # Access the text of the replied-to message
