@@ -10,7 +10,7 @@ async def create_file(bot, message):
 
         x = await message.reply('ᴄᴏɴᴠᴇʀᴛɪɴɢ.')
         a = await x.edit('ᴄᴏɴᴠᴇʀᴛɪɴɢ..')
-        c = await c.edit('ᴄᴏɴᴠᴇʀᴛɪɴɢ...')
+        c = await a.edit('ᴄᴏɴᴠᴇʀᴛɪɴɢ...')
 
         with open(file_name, 'w+') as outfile:
             outfile.write(query)
