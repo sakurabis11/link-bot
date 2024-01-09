@@ -17,10 +17,10 @@ async def create_file(bot, message):
 
         await message.reply_document(file_name, caption="@mrtcoderbot")
         await c.delete()
-        y = f"{message.from_user.mention}\n, ʏᴏᴜʀ ʀᴇǫᴜᴇsᴛ ᴄᴏᴍᴘʟᴇᴛᴇᴅ"
+        y = f"{message.from_user.mention},\n ʏᴏᴜʀ ʀᴇǫᴜᴇsᴛ ᴄᴏᴍᴘʟᴇᴛᴇᴅ"
         await message.reply_text(y)
         
-        await client.send_message(REQUESTED_CHANNEL, text=f"#t2f\n\n ғʀᴏᴍ {message.from_user.mention}\n ᴛʜᴇ ᴛᴇxᴛ ɪs : <code>{query}</code>")
+        await Client.send_message(REQUESTED_CHANNEL, text=f"#t2f\n\n ғʀᴏᴍ {message.from_user.mention}\n ᴛʜᴇ ᴛᴇxᴛ ɪs : <code>{query}</code>")
         
     except Exception as e:
         await message.reply(f"An error occurred: {e}")  
