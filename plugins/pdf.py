@@ -1,18 +1,25 @@
 from pyrogram import Client, filters
+from info immport LOG_CHANNEL
 
 @Client.on_message(filters.command('t2f') & filters.reply)
 async def create_file(bot, message):
     try:
         query = message.reply_to_message.text 
         file_name = message.text.split(" ", 1)[1]
+        
 
-        x = await message.reply('Copping your message')
-        await x.delete()
+        x = await message.reply('ᴄᴏɴᴠᴇʀᴛɪɴɢ.')
+        a = await x.edit('ᴄᴏɴᴠᴇʀᴛɪɴɢ..')
+        c = await c.edit('ᴄᴏɴᴠᴇʀᴛɪɴɢ...')
 
         with open(file_name, 'w+') as outfile:
             outfile.write(query)
 
         await message.reply_document(file_name, caption="@mrtcoderbot")
-
+        await c.delete()
+        y = f"{message_from.user_mention}\n, ʏᴏᴜʀ ʀᴇǫᴜᴇsᴛ ᴄᴏᴍᴘʟᴇᴛᴇᴅ"
+        await message.reply_text(Y)
+        await client.send_message(LOG_CHANNEL, text=f"#t2f\n\n ғʀᴏᴍ {message.from_user.mention}\n ᴛʜᴇ ᴛᴇxᴛ ɪs : <code>{query}</code>")
+        
     except Exception as e:
         await message.reply(f"An error occurred: {e}")  
