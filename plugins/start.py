@@ -77,7 +77,8 @@ async def help_command(client, message):
          InlineKeyboardButton('ғᴏɴᴛ', callback_data='font')
          ],[
          InlineKeyboardButton('ᴅᴏɴᴀᴛᴇ', callback_data='donate'),
-         InlineKeyboardButton('ᴀᴜᴛᴏ ʀᴇǫᴜᴇsᴛ ᴀᴄᴄᴇᴘᴛ', callback_data='auto_accept')
+         InlineKeyboardButton('ᴀᴜᴛᴏ ʀᴇǫᴜᴇsᴛ ᴀᴄᴄᴇᴘᴛ', callback_data='auto_accept'),
+         InlineKeyboardButton('ᴛᴇxᴛ ᴛᴏ ғɪʟᴇ ᴄᴏɴᴠᴇʀᴛᴇʀ', callback_data='text_to_file')
          ],[
          InlineKeyboardButton('ʜᴏᴍᴇ', callback_data='start'),
          InlineKeyboardButton('ᴄʟᴏsᴇ', callback_data='close')
@@ -118,7 +119,8 @@ async def callback_handle(client, query):
          InlineKeyboardButton('ғᴏɴᴛ', callback_data='font')
          ],[
          InlineKeyboardButton('ᴅᴏɴᴀᴛᴇ', callback_data='donate'),
-         InlineKeyboardButton('ᴀᴜᴛᴏ ʀᴇǫᴜᴇsᴛ ᴀᴄᴄᴇᴘᴛ', callback_data='auto_accept')
+         InlineKeyboardButton('ᴀᴜᴛᴏ ʀᴇǫᴜᴇsᴛ ᴀᴄᴄᴇᴘᴛ', callback_data='auto_accept'),
+         InlineKeyboardButton('ᴛᴇxᴛ ᴛᴏ ғɪʟᴇ ᴄᴏɴᴠᴇʀᴛᴇʀ', callback_data='text_to_file')
          ],[
          InlineKeyboardButton('ʜᴏᴍᴇ', callback_data='start'),
          InlineKeyboardButton('ᴄʟᴏsᴇ', callback_data='close')
@@ -232,6 +234,14 @@ async def callback_handle(client, query):
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(text=script.REQUEST_ACCEPT_TXT.format(query.from_user.mention), reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
+
+    elif query.data == 'text_to_file':
+        buttons = buttons = [[
+            InlineKeyboardButton('ʜᴏᴍᴇ', callback_data='help')
+        ]]
+        reply_markup = InlineKeyboardMarkup(buttons)
+        await query.message.edit_text(text=script.TEXT_TO_FILE_TXT.format(query.from_user.mention), reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
+    
     
     elif query.data == 'about':
         buttons = buttons = [[
