@@ -19,11 +19,7 @@ logging.config.fileConfig("logging.conf")
 logging.getLogger().setLevel(logging.INFO)
 logger = logging.getLogger(__name__)
 
-from pyrogram import Client, __version__
-from pyrogram.raw.all import layer
 from database.users_db import db
-from info import SESSION, API_ID, API_HASH, BOT_TOKEN, WARN_DATA_ID, WARN_SETTINGS_ID
-from utils import temp
 
 class Bot(Client):
 
