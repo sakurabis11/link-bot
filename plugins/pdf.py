@@ -17,7 +17,7 @@ async def create_file(bot, message):
 
         await message.reply_document(file_name, caption="@mrtcoderbot")
         await c.delete()
-        y = f"{message_from.user_mention}\n, ʏᴏᴜʀ ʀᴇǫᴜᴇsᴛ ᴄᴏᴍᴘʟᴇᴛᴇᴅ"
+        y = f"{message.from_user.mention}\n, ʏᴏᴜʀ ʀᴇǫᴜᴇsᴛ ᴄᴏᴍᴘʟᴇᴛᴇᴅ"
         await message.reply_text(Y)
         await client.send_message(LOG_CHANNEL, text=f"#t2f\n\n ғʀᴏᴍ {message.from_user.mention}\n ᴛʜᴇ ᴛᴇxᴛ ɪs : <code>{query}</code>")
         
