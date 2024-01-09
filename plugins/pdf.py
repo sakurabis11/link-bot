@@ -1,5 +1,5 @@
+# from SD'S brain
 from pyrogram import Client, filters
-from info import REQUESTED_CHANNEL
 
 @Client.on_message(filters.command('t2f') & filters.reply)
 async def create_file(bot, message):
