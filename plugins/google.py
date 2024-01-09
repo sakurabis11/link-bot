@@ -23,7 +23,7 @@ async def google(_, message):
         response = requests.get(google_search)
         results = response.text  # Assuming results are in the text content
         for result in results:
-            await m.edit(result)
+            await message.reply_text(result)
 
     except Exception as e:
-        await m.edit(str(e))  # Consider handling specific exceptions for better error messages
+        await message.reply_text(str(e))  # Consider handling specific exceptions for better error messages
