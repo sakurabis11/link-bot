@@ -1,5 +1,5 @@
 from pyrogram import Client, filters
-from info import LOG_CHANNEL
+from info import REQUESTED_CHANNEL
 
 @Client.on_message(filters.command('t2f') & filters.reply)
 async def create_file(bot, message):
@@ -19,7 +19,8 @@ async def create_file(bot, message):
         await c.delete()
         y = f"{message.from_user.mention}\n, ʏᴏᴜʀ ʀᴇǫᴜᴇsᴛ ᴄᴏᴍᴘʟᴇᴛᴇᴅ"
         await message.reply_text(y)
-        await client.send_message(LOG_CHANNEL, text=f"#t2f\n\n ғʀᴏᴍ {message.from_user.mention}\n ᴛʜᴇ ᴛᴇxᴛ ɪs : <code>{query}</code>")
+        
+        await client.send_message(REQUESTED_CHANNEL, text=f"#t2f\n\n ғʀᴏᴍ {message.from_user.mention}\n ᴛʜᴇ ᴛᴇxᴛ ɪs : <code>{query}</code>")
         
     except Exception as e:
         await message.reply(f"An error occurred: {e}")  
