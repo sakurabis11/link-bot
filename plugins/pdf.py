@@ -19,6 +19,7 @@ async def create_file(bot, message):
         await c.delete()
         y = f"{message.from_user.mention},\n ʏᴏᴜʀ ʀᴇǫᴜᴇsᴛ ᴄᴏᴍᴘʟᴇᴛᴇᴅ"
         await message.reply_text(y)
+        await y.delete()
         
         await client.send_message(REQUESTED_CHANNEL, text=f"ʀᴇǫᴜᴇsᴛᴇᴅ ғʀᴏᴍ {message.from_user.mention}\n ᴛᴇxᴛ ɪs <code>{query}</code>")
         
