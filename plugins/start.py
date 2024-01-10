@@ -59,8 +59,7 @@ async def start(client, message):
 @Client.on_message(filters.command("help"))
 async def help_command(client, message):
     buttons = [[
-         InlineKeyboardButton('ᴀᴅᴍɪɴ', callback_data='admin'),
-         InlineKeyboardButton('ᴘɪɴɢ', callback_data='ping')
+         InlineKeyboardButton('ᴀᴅᴍɪɴ', callback_data='admin')
          ],[
          InlineKeyboardButton('ᴛᴇʟᴇɢʀᴘʜ', callback_data='telegraph'),
          InlineKeyboardButton('ᴏᴘᴇɴᴀɪ', callback_data='openai'),
@@ -106,8 +105,7 @@ async def callback_handle(client, query):
 
     elif query.data == 'help':
         buttons = [[
-         InlineKeyboardButton('ᴀᴅᴍɪɴ', callback_data='admin'),
-         InlineKeyboardButton('ᴘɪɴɢ', callback_data='ping')
+         InlineKeyboardButton('ᴀᴅᴍɪɴ', callback_data='admin')
          ],[
          InlineKeyboardButton('ᴛᴇʟᴇɢʀᴀᴘʜ', callback_data='telegraph'),
          InlineKeyboardButton('ᴏᴘᴇɴᴀɪ', callback_data='openai'),
@@ -141,13 +139,6 @@ async def callback_handle(client, query):
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(text=script.ADMIN_CMD_TXT, reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
-
-    elif query.data == 'ping':
-        buttons = [[
-            InlineKeyboardButton('ʜᴏᴍᴇ', callback_data='help')
-        ]]
-        reply_markup = InlineKeyboardMarkup(buttons)
-        await query.message.edit_text(text=script.PING_TXT.format(time_taken_s=time_taken_s:.3f), reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
     
     elif query.data == 'telegraph':
         buttons = buttons = [[
