@@ -78,18 +78,14 @@ async def help_command(client, message):
          InlineKeyboardButton('ғᴏɴᴛ', callback_data='font')
          ],[
          InlineKeyboardButton('ᴅᴏɴᴀᴛᴇ', callback_data='donate'),
-         InlineKeyboardButton('ᴀᴜᴛᴏ ʀᴇǫᴜᴇsᴛ ᴀᴄᴄᴇᴘᴛ', callback_data='auto_accept'),
-         InlineKeyboardButton('ᴛᴇxᴛ ᴛᴏ ғɪʟᴇ ᴄᴏɴᴠᴇʀᴛᴇʀ', callback_data='text_file')
+         InlineKeyboardButton('ᴀᴜᴛᴏ ʀᴇǫᴜᴇsᴛ ᴀᴄᴄᴇᴘᴛ', callback_data='auto_accept')
          ],[
          InlineKeyboardButton('ʜᴏᴍᴇ', callback_data='start'),
-         InlineKeyboardButton('ᴄʟᴏsᴇ', callback_data='close')
+         InlineKeyboardButton('ᴄʟᴏsᴇ', callback_data='close'),
+         InlineKeyboardButton('ɴᴇxᴛ', callback_data='next')
     ]]
     reply_markup = InlineKeyboardMarkup(buttons)
     await message.reply_text(text=script.HELP_TXT, reply_markup=reply_markup)
-
-@Client.on_message(filters.regex("help"))
-async def help_command(client, message):
-    buttons = [[
 
 @Client.on_callback_query()
 async def callback_handle(client, query):
@@ -124,11 +120,11 @@ async def callback_handle(client, query):
          InlineKeyboardButton('ғᴏɴᴛ', callback_data='font')
          ],[
          InlineKeyboardButton('ᴅᴏɴᴀᴛᴇ', callback_data='donate'),
-         InlineKeyboardButton('ᴀᴜᴛᴏ ʀᴇǫᴜᴇsᴛ ᴀᴄᴄᴇᴘᴛ', callback_data='auto_accept'),
-         InlineKeyboardButton('ᴛᴇxᴛ ᴛᴏ ғɪʟᴇ ᴄᴏɴᴠᴇʀᴛᴇʀ', callback_data='text_file')
+         InlineKeyboardButton('ᴀᴜᴛᴏ ʀᴇǫᴜᴇsᴛ ᴀᴄᴄᴇᴘᴛ', callback_data='auto_accept')
          ],[
          InlineKeyboardButton('ʜᴏᴍᴇ', callback_data='start'),
-         InlineKeyboardButton('ᴄʟᴏsᴇ', callback_data='close')
+         InlineKeyboardButton('ᴄʟᴏsᴇ', callback_data='close'),
+         InlineKeyboardButton('ɴᴇxᴛ', callback_data='next')
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(text=script.HELP_TXT, reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
@@ -240,13 +236,22 @@ async def callback_handle(client, query):
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(text=script.REQUEST_ACCEPT_TXT.format(query.from_user.mention), reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
 
+    elif query.data == 'next':
+        buttons = buttons = [[
+            InlineKeyboardButton('ᴛᴇxᴛ ᴛᴏ ғɪʟᴇ ᴄᴏɴᴠᴇʀᴛᴇʀ', callback_data='text_file')
+            ],[
+            InlineKeyboardButton('Back', callback_data='help'),
+            InlineKeyboardButton('Home', callback_data='close')
+        ]]
+        reply_markup = InlineKeyboardMarkup(buttons)
+        await query.message.edit_text(text=script.NEXT_TXT., reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML) 
+
     elif query.data == 'text_file':
         buttons = buttons = [[
             InlineKeyboardButton('ʜᴏᴍᴇ', callback_data='help')
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(text=script.TEXT_TO_FILE_TXT.format(query.from_user.mention), reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
-    
     
     elif query.data == 'about':
         buttons = buttons = [[
