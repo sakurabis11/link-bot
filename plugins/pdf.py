@@ -21,3 +21,24 @@ async def create_file(bot, message):
     except Exception as e:
         await message.reply(f"An error occurred: {e}")  
 
+
+@Client.on_message(filters.command('f2t') & filters.reply)
+async def create file(client, message):
+    try:
+        queri = message.reply_to_message.document
+
+        x = await message.reply('ᴄᴏɴᴠᴇʀᴛɪɴɢ.')
+        a = await x.edit('ᴄᴏɴᴠᴇʀᴛɪɴɢ..')
+        c = await a.edit('ᴄᴏɴᴠᴇʀᴛɪɴɢ...')
+           
+        with open(file_name, 'w+') as outfile:
+          outfile.write(queri)
+
+        await message.reply_text(queryi)
+        
+        await c.delete()
+      
+        y = f"{message.from_user.mention},\n ʏᴏᴜʀ ʀᴇǫᴜᴇsᴛ ᴄᴏᴍᴘʟᴇᴛᴇᴅ"
+        await message.reply_text(y)        
+        except Exception as e:
+            await message.reply(f"An error occurred: {e}")
