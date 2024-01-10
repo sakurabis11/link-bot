@@ -1,6 +1,6 @@
 # from SD'S brain
 from pyrogram import Client, filters
-import docx2txt
+
 
 @Client.on_message(filters.command('t2f') & filters.reply)
 async def create_file(bot, message):
