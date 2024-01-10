@@ -6,6 +6,7 @@ from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, CallbackQ
 from pyrogram import enums, filters, Client
 from info import API_ID, API_HASH, BOT_TOKEN, PORT, ADMINS, LOG_CHANNEL, DATABASE_NAME, DATABASE_URI, S_GROUP, S_CHANNEL
 from Script import script
+import time
 from utils import temp
 from pyrogram.errors import FloodWait
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery
@@ -58,7 +59,8 @@ async def start(client, message):
 @Client.on_message(filters.command("help"))
 async def help_command(client, message):
     buttons = [[
-         InlineKeyboardButton('ᴀᴅᴍɪɴ', callback_data='admin')
+         InlineKeyboardButton('ᴀᴅᴍɪɴ', callback_data='admin'),
+         InlineKeyboardButton('ᴘɪɴɢ', callback_data='ping')
          ],[
          InlineKeyboardButton('ᴛᴇʟᴇɢʀᴘʜ', callback_data='telegraph'),
          InlineKeyboardButton('ᴏᴘᴇɴᴀɪ', callback_data='openai'),
@@ -78,13 +80,17 @@ async def help_command(client, message):
          ],[
          InlineKeyboardButton('ᴅᴏɴᴀᴛᴇ', callback_data='donate'),
          InlineKeyboardButton('ᴀᴜᴛᴏ ʀᴇǫᴜᴇsᴛ ᴀᴄᴄᴇᴘᴛ', callback_data='auto_accept'),
-         InlineKeyboardButton('ᴛᴇxᴛ ᴛᴏ ғɪʟᴇ ᴄᴏɴᴠᴇʀᴛᴇʀ', callback_data='text_to_file')
+         InlineKeyboardButton('ᴛᴇxᴛ ᴛᴏ ғɪʟᴇ ᴄᴏɴᴠᴇʀᴛᴇʀ', callback_data='text_file')
          ],[
          InlineKeyboardButton('ʜᴏᴍᴇ', callback_data='start'),
          InlineKeyboardButton('ᴄʟᴏsᴇ', callback_data='close')
     ]]
     reply_markup = InlineKeyboardMarkup(buttons)
     await message.reply_text(text=script.HELP_TXT, reply_markup=reply_markup)
+
+@Client.on_message(filters.regex("help"))
+async def help_command(client, message):
+    buttons = [[
 
 @Client.on_callback_query()
 async def callback_handle(client, query):
@@ -100,7 +106,8 @@ async def callback_handle(client, query):
 
     elif query.data == 'help':
         buttons = [[
-         InlineKeyboardButton('ᴀᴅᴍɪɴ', callback_data='admin')
+         InlineKeyboardButton('ᴀᴅᴍɪɴ', callback_data='admin'),
+         InlineKeyboardButton('ᴘɪɴɢ', callback_data='ping')
          ],[
          InlineKeyboardButton('ᴛᴇʟᴇɢʀᴀᴘʜ', callback_data='telegraph'),
          InlineKeyboardButton('ᴏᴘᴇɴᴀɪ', callback_data='openai'),
@@ -120,7 +127,7 @@ async def callback_handle(client, query):
          ],[
          InlineKeyboardButton('ᴅᴏɴᴀᴛᴇ', callback_data='donate'),
          InlineKeyboardButton('ᴀᴜᴛᴏ ʀᴇǫᴜᴇsᴛ ᴀᴄᴄᴇᴘᴛ', callback_data='auto_accept'),
-         InlineKeyboardButton('ᴛᴇxᴛ ᴛᴏ ғɪʟᴇ ᴄᴏɴᴠᴇʀᴛᴇʀ', callback_data='text_to_file')
+         InlineKeyboardButton('ᴛᴇxᴛ ᴛᴏ ғɪʟᴇ ᴄᴏɴᴠᴇʀᴛᴇʀ', callback_data='text_file')
          ],[
          InlineKeyboardButton('ʜᴏᴍᴇ', callback_data='start'),
          InlineKeyboardButton('ᴄʟᴏsᴇ', callback_data='close')
@@ -135,6 +142,13 @@ async def callback_handle(client, query):
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(text=script.ADMIN_CMD_TXT, reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
 
+    elif query.data == 'ping':
+        buttons = [[
+            InlineKeyboardButton('ʜᴏᴍᴇ', callback_data='help')
+        ]]
+        reply_markup = InlineKeyboardMarkup(buttons)
+        await query.message.edit_text(text=script.PING_TXT.format(time_taken_s:.3f), reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
+    
     elif query.data == 'telegraph':
         buttons = buttons = [[
             InlineKeyboardButton('ʜᴏᴍᴇ', callback_data='help')
@@ -235,7 +249,7 @@ async def callback_handle(client, query):
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(text=script.REQUEST_ACCEPT_TXT.format(query.from_user.mention), reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
 
-    elif query.data == 'text_to_file':
+    elif query.data == 'text_file':
         buttons = buttons = [[
             InlineKeyboardButton('ʜᴏᴍᴇ', callback_data='help')
         ]]
