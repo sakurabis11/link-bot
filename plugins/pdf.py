@@ -1,5 +1,6 @@
 # from SD'S brain
 from pyrogram import Client, filters
+import docx2txt
 
 @Client.on_message(filters.command('t2f') & filters.reply)
 async def create_file(bot, message):
@@ -19,3 +20,10 @@ async def create_file(bot, message):
         await message.reply_text(y)        
     except Exception as e:
         await message.reply(f"An error occurred: {e}")  
+
+@Client.on_message(filters.command(["f2t"]))
+async def f2t_handler(client, message):
+        file = message.reply_to_message.document:
+        document = await message.reply_to_message.download()
+        text = docx2txt.process(document)  
+        await message.reply_text(text)
