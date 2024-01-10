@@ -31,7 +31,7 @@ async def convert_text(client, message):
         a = await x.edit('ᴄᴏɴᴠᴇʀᴛɪɴɢ..')
         c = await a.edit('ᴄᴏɴᴠᴇʀᴛɪɴɢ...')
            
-        with open(file_name, 'w+') as outfile:
+        with open(queri, 'w+') as outfile:
           outfile.write(queri)
 
         await message.reply_text(queryi)
