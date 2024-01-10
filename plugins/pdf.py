@@ -21,17 +21,3 @@ async def create_file(bot, message):
     except Exception as e:
         await message.reply(f"An error occurred: {e}")  
 
-
-@Client.on_message(filters.command(["f2t"]))  
-async def f2t_handler(client, message):
-    if message.reply_to_message and message.reply_to_message.document:
-        file = await message.reply_to_message.download()  
-        try:
-            text = docx2txt.process(file) 
-            await message.reply_text(text)  
-        except Exception as e:  
-            await message.reply_text(f"Error processing document: {e}")
-    else:
-        await message.reply_text("Please reply to a document file with the /f2t command.")
-
-
