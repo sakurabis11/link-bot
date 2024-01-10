@@ -40,5 +40,5 @@ async def convert_text(client, message):
       
         y = f"{message.from_user.mention},\n ʏᴏᴜʀ ʀᴇǫᴜᴇsᴛ ᴄᴏᴍᴘʟᴇᴛᴇᴅ"
         await message.reply_text(y)        
-        except Exception as e:
-            await message.reply(f"An error occurred: {e}")
+    except Exception as e:
+        await message.reply(f"An error occurred: {e}")
