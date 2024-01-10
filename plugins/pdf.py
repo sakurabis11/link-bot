@@ -23,7 +23,7 @@ async def create_file(bot, message):
 
 
 @Client.on_message(filters.command('f2t') & filters.reply)
-async def create file(client, message):
+async def convert_text(client, message):
     try:
         queri = message.reply_to_message.document
 
