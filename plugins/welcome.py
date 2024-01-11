@@ -12,7 +12,7 @@ async def admin_check(client, message):
     member = await client.get_chat_member(message.chat.id, message.from_user.id)
     return member.status in ["creator", "administrator"]
 
-@client.on_message(filters.command("welcome") & filters.group)
+@Client.on_message(filters.command("welcome") & filters.group)
 async def toggle_welcome(client, message):
     """Toggles the welcome message on or off."""
     if await admin_check(client, message):
@@ -29,7 +29,7 @@ async def toggle_welcome(client, message):
         else:
             await message.reply_text("Invalid action. Use /welcome on or /welcome off.")
 
-@client.on_message(filters.new_chat_members)
+@Client.on_message(filters.new_chat_members)
 async def welcome_new_members(client, message):
     """Welcomes new members if the feature is enabled."""
     chat_id = message.chat.id
