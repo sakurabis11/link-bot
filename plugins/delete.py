@@ -9,12 +9,6 @@ async def delete_all_messages(client, message):
         me = await client.get_me()
         await client.get_chat_member(chat_id, me.id)  
 
-        user = await client.get_chat_member(chat_id, message.from_user.id)
-        if not user.status in ["creator", "administrator"]:
-            await message.reply_text("Only admins can use this command.")
-            return
-
-
         async for message in client.iter_history(chat_id, limit=None):
             try:
                 await client.delete_messages(chat_id, message.message_id)
