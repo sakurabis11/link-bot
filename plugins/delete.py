@@ -1,5 +1,5 @@
 import asyncio
-from pyrogram import Client, filters, app  # Import app
+from pyrogram import Client, filters
 
 @Client.on_message(filters.command("all_delete") & filters.group)
 async def delete_all_messages(client, message):
