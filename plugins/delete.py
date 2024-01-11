@@ -3,7 +3,7 @@ from pyrogram import Client, filters, app  # Import app
 
 @Client.on_message(filters.command("all_delete") & filters.group)
 async def delete_all_messages(client, message):
-    # Check if the user is an admin
+
     user_id = message.from_user.id
     chat_id = message.chat.id
     user_info = client.get_chat_member(chat_id, user_id)
@@ -12,7 +12,7 @@ async def delete_all_messages(client, message):
         return
 
     # Check if the bot is an admin
-    bot_info = client.get_chat_member(chat_id, app.get_me().id)  # Use app correctly
+    bot_info = client.get_chat_member(chat_id, client.get_me().id)  
     if not bot_info.status == "administrator":
         await message.reply_text("Please make sure the bot is an admin.")
         return
