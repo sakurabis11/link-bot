@@ -27,37 +27,35 @@ async def restart_bot(client, message):
     await asyncio.sleep(10)
     await client.delete_messages(chat_id=message.chat.id, message_ids=[message_id])
 
-@Client.on_message(pyrogram.filters.command("id"))
-async def get_id(client, message):
-    chat_type = message.chat.type
+@Client.on_message(filters.command("id"))
+async def send_user_id(client, message):
+  chat_type = message.chat.type
+  
+  if chat_type == "private":
+    user_id = message.from_user.id
+    first = message.from_user.first_name
+    last = message.from_user.last_name
+    username = message.from_user.username
+    await message.reply_text(f"ꜰɪʀꜱᴛ ɴᴀᴍᴇ: {first}\nʟᴀꜱᴛ ɴᴀᴍᴇ: {last}\nᴜꜱᴇʀɴᴀᴍᴇ: {username}\nɪᴅ: {user_id}")
 
-    if chat_type == pyrogram.enums.chat_types.PRIVATE:
-        # In private chat, send user's own info
-        await message.reply_text(
-            f"Your ID: {message.from_user.id}\n"
-            f"First name: {message.from_user.first_name}\n"
-            f"Last name: {message.from_user.last_name}\n"
-            f"Username: @{message.from_user.username}"
-        )
-    elif chat_type in [pyrogram.enums.chat_types.GROUP, pyrogram.enums.chat_types.SUPERGROUP]:
-        if message.reply_to_message:
-            # Reply to a user in a group
-            replied_user = message.reply_to_message.from_user
-            await message.reply_text(
-                f"Replied user ID: {replied_user.id}\n"
-                f"First name: {replied_user.first_name}\n"
-                f"Last name: {replied_user.last_name}\n"
-                f"Username: @{replied_user.username}\n"
-                f"Mention: {replied_user.mention}"
-            )
-        else:
-            # No reply, send user's and group's IDs
-            await message.reply_text(
-                f"Your ID: {message.from_user.id}\n"
-                f"Group ID: {message.chat.id}"
-            )
+  elif chat_type == "group":
+    user_id = message.from_user.id
+    first = message.from_user.first_name
+    last = message.from_user.last_name
+    username = message.from_user.username
+    group_name = message.chat.title
+    group_id = message.chat.id
+    await message.reply_text(f"ꜰɪʀꜱᴛ ɴᴀᴍᴇ: {first}\nʟᴀꜱᴛ ɴᴀᴍᴇ: {last}\nᴜꜱᴇʀɴᴀᴍᴇ: @{username}\nɪᴅ: {user_id}\ngroup name: {group_name}\ngroup_id: {group_id}")
 
-
+  else message.reply_to_message:
+    replied_user = message.reply_to_message.from_user.mention
+    replied_user_id = message.reply_to_message.from_user.id
+    replied_user_firstname = message.reply_to_message.from_user.first_name
+    replied_user_lastname = message.reply_to_message.from_user.last_name
+    group_name = message.chat.title
+    group_id = message.chat.id
+    requested_user = message.from_user.mention
+    await message.reply_text(f"details fetching from {replied_user}\n\nꜰɪʀꜱᴛ ɴᴀᴍᴇ: {replied_user_firstname}\nʟᴀꜱᴛ ɴᴀᴍᴇ: {replied_user_lastname}\nɪᴅ: {replied_user_id}\ngroup name: {group_name}\ngroup_id: {group_id}\n\nrequested by: {requested_user}")
 
 @Client.on_message(filters.command("donate"))
 async def donate(client, message):
