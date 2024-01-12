@@ -29,35 +29,45 @@ async def restart_bot(client, message):
 
 @Client.on_message(filters.command("id"))
 async def send_user_id(client, message):
-    if message.reply_to_message:
-        replied_user = message.reply_to_message.from_user
-        chat_id = message.chat.id
-        try:
-            chat_title = await client.get_chat(chat_id)
-            chat_type = chat_title.chat.type
-            chat_name = chat_title.chat.title
-        except Exception as e:
-            chat_type = "Unknown"
-            chat_name = "Unknown"
+  chat_type = message.chat.type
+  if chat_type == "private":
+    user_id = message.from_user.id
+    first = message.from_user.first_name
+    last = message.from_user.last_name
+    username = message.from_user.username
+    await message.reply_text(f"ꜰɪʀꜱᴛ ɴᴀᴍᴇ: {first}\nʟᴀꜱᴛ ɴᴀᴍᴇ: {last}\nᴜꜱᴇʀɴᴀᴍᴇ: {username}\nɪᴅ: {user_id}")
 
-        await message.reply_text(f"**User ID:** {replied_user.id}\n**User Name:** {replied_user.first_name} {replied_user.last_name}\n**User Mention:** @{replied_user.username}\n**Chat ID:** {chat_id}\n**Chat Type:** {chat_type}\n**Chat Name:** {chat_name}")
+  elif message.reply_to_message:
+    replied_user = message.reply_to_message.from_user
+    replied_user_id = message.reply_to_message.from_user.id
+    replied_user_firstname = message.reply_to_message.from_user.first_name
+    replied_user_lastname = message.reply_to_message.from_user.last_name
+     await message.reply_text(f"details fetching from {replied_user}\n\nꜰɪʀꜱᴛ ɴᴀᴍᴇ: {replied_user_firstname}\nʟᴀꜱᴛ ɴᴀᴍᴇ: {replied_user_lastname}\nɪᴅ: {replied_user_id}\n")
 
-    else:
-        await message.reply_text(f"**Your ID:** {message.from_user.id}\n**Your Name:** {message.from_user.first_name} {message.from_user.last_name}\n**Your Mention:** @{message.from_user.username}")
+  elif chat_type == "group":
+    user_id = message.from_user.id
+    first = message.from_user.first_name
+    last = message.from_user.last_name
+    username = message.from_user.username
+    group_name = message.chat.title
+    group_id = message.chat.id
+    await message.reply_text(f"ꜰɪʀꜱᴛ ɴᴀᴍᴇ: {first}\nʟᴀꜱᴛ ɴᴀᴍᴇ: {last}\nᴜꜱᴇʀɴᴀᴍᴇ: @{username}\nɪᴅ: {user_id}\ngroup name: {group_name}\ngroup_id: {group_id}")
 
-@Client.on_message(filters.forwarded & filters.command("id") & filters.reply)
-async def send_forwarded_user_channel_id(client, message):
-    try:
-        forwarded_message = message.forward_from_message
-        forwarded_user = forwarded_message.from_user
-        forwarded_chat_id = forwarded_message.chat.id
-        forwarded_chat_title = await client.get_chat(forwarded_chat_id)
-        forwarded_chat_type = forwarded_chat_title.chat.type
-        forwarded_chat_name = forwarded_chat_title.chat.title
+  else message.reply_to_message:
+    replied_user = message.reply_to_message.from_user.mention
+    replied_user_id = message.reply_to_message.from_user.id
+    replied_user_firstname = message.reply_to_message.from_user.first_name
+    replied_user_lastname = message.reply_to_message.from_user.last_name
+    group_name = message.chat.title
+    group_id = message.chat.id
+    requested_user = message.from_user.mention
+    await message.reply_text(f"details fetching from {replied_user}\n\nꜰɪʀꜱᴛ ɴᴀᴍᴇ: {replied_user_firstname}\nʟᴀꜱᴛ ɴᴀᴍᴇ: {replied_user_lastname}\nɪᴅ: {replied_user_id}\ngroup name: {group_name}\ngroup_id: {group_id}\n\nrequested by: {requested_user}")
 
-        await message.reply_text(f"**Forwarded User ID:** {forwarded_user.id}\n**Forwarded User Name:** {forwarded_user.first_name} {forwarded_user.last_name}\n**Forwarded Chat ID:** {forwarded_chat_id}\n**Forwarded Chat Type:** {forwarded_chat_type}\n**Forwarded Chat Name:** {forwarded_chat_name}")
-    except Exception as e:
-        await message.reply_text("Unable to get information from forwarded message.")
+  elif chat_type == "channel":
+    channel_id = message.chat.id
+    channel_name = message.chat.title
+    await message.reply_text(f"channel name: {channel_name}\nchannel id: {channel_id}")
+
 
 @Client.on_message(filters.command("donate"))
 async def donate(client, message):
