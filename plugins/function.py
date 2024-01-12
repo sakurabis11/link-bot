@@ -53,7 +53,7 @@ async def send_user_id(client, message):
     group_id = message.chat.id
     await message.reply_text(f"ꜰɪʀꜱᴛ ɴᴀᴍᴇ: {first}\nʟᴀꜱᴛ ɴᴀᴍᴇ: {last}\nᴜꜱᴇʀɴᴀᴍᴇ: @{username}\nɪᴅ: {user_id}\ngroup name: {group_name}\ngroup_id: {group_id}")
 
-  else message.reply_to_message:
+  elif message.reply_to_message:
     replied_user = message.reply_to_message.from_user.mention
     replied_user_id = message.reply_to_message.from_user.id
     replied_user_firstname = message.reply_to_message.from_user.first_name
