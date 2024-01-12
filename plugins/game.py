@@ -64,7 +64,7 @@ async def handle_callback(client, callback_query):
 async def play_game(client, message, board, user_symbol, bot_symbol):
     await update_board_message(message.chat.id, message.message_id, board)
 
-    async def play_game(client, message, board, user_symbol, bot_symbol):
+async def play_game(client, message, board, user_symbol, bot_symbol):
     await update_board_message(message.chat.id, message.message_id, board)
 
     while True:
