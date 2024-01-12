@@ -1,6 +1,6 @@
 import pyrogram
 from pyrogram import Client, filters
-from google.generativeai import genai
+import google.generativeai as genai
 from pathlib import Path
 
 
