@@ -27,41 +27,37 @@ async def restart_bot(client, message):
     await asyncio.sleep(10)
     await client.delete_messages(chat_id=message.chat.id, message_ids=[message_id])
 
-@Client.on_message(filters.command('id'))
-async def show_id(client, message):
-    chat_type = message.chat.type
-    if chat_type == enums.ChatType.PRIVATE:
-        user_id = message.chat.id
-        first = message.from_user.first_name
-        last = message.from_user.last_name or ""
-        username = message.from_user.username
-        dc_id = message.from_user.dc_id or ""
-        await message.reply_text(f"<b>➲ ꜰɪʀꜱᴛ ɴᴀᴍᴇ:</b> {first}\n<b>➲ ʟᴀꜱᴛ ɴᴀᴍᴇ:</b> {last}\n<b>➲ ᴜꜱᴇʀɴᴀᴍᴇ:</b> {username}\n<b>➲ ᴛᴇʟᴇɢʀᴀᴍ ɪᴅ:</b> <code>{user_id}</code>\n<b>➲ ᴅᴄ ɪᴅ:</b> <code>{dc_id}</code>", quote=True)
+@Client.on_message(filters.command("id") & filters.reply)
+async def send_user_id(client, message):
+    if message.reply_to_message:
+        replied_user = message.reply_to_message.from_user
+        chat_id = message.chat.id
+        try:
+            chat_title = await client.get_chat(chat_id)
+            chat_type = chat_title.chat.type
+            chat_name = chat_title.chat.title
+        except Exception as e:
+            chat_type = "Unknown"
+            chat_name = "Unknown"
 
-    elif chat_type in [enums.ChatType.GROUP, enums.ChatType.SUPERGROUP]:
-        _id = ""
-        _id += f"<b>➲ ᴄʜᴀᴛ ɪᴅ</b>: <code>{message.chat.id}</code>\n"
-        
-        if message.reply_to_message:
-            _id += (
-                "<b>➲ ᴜꜱᴇʀ ɪᴅ</b>: "
-                f"<code>{message.from_user.id if message.from_user else 'Anonymous'}</code>\n"
-                "<b>➲ ʀᴇᴩʟɪᴇᴅ ᴜꜱᴇʀ ɪᴅ</b>: "
-                f"<code>{message.reply_to_message.from_user.id if message.reply_to_message.from_user else 'Anonymous'}</code>\n"
-            )
-            file_info = get_file_id(message.reply_to_message)
-        else:
-            _id += (
-                "<b>➲ ᴜꜱᴇʀ ɪᴅ</b>: "
-                f"<code>{message.from_user.id if message.from_user else 'Anonymous'}</code>\n"
-            )
-            file_info = get_file_id(message)
-        if file_info:
-            _id += (
-                f"<b>{file_info.message_type}</b>: "
-                f"<code>{file_info.file_id}</code>\n"
-            )
-        await message.reply_text(_id, quote=True)
+        await message.reply_text(f"**User ID:** {replied_user.id}\n**User Name:** {replied_user.first_name} {replied_user.last_name}\n**User Mention:** @{replied_user.username}\n**Chat ID:** {chat_id}\n**Chat Type:** {chat_type}\n**Chat Name:** {chat_name}")
+
+    else:
+        await message.reply_text(f"**Your ID:** {message.from_user.id}\n**Your Name:** {message.from_user.first_name} {message.from_user.last_name}\n**Your Mention:** @{message.from_user.username}")
+
+@Client.on_message(filters.forwarded & filters.command("id") & filters.reply)
+async def send_forwarded_user_channel_id(client, message):
+    try:
+        forwarded_message = message.forward_from_message
+        forwarded_user = forwarded_message.from_user
+        forwarded_chat_id = forwarded_message.chat.id
+        forwarded_chat_title = await client.get_chat(forwarded_chat_id)
+        forwarded_chat_type = forwarded_chat_title.chat.type
+        forwarded_chat_name = forwarded_chat_title.chat.title
+
+        await message.reply_text(f"**Forwarded User ID:** {forwarded_user.id}\n**Forwarded User Name:** {forwarded_user.first_name} {forwarded_user.last_name}\n**Forwarded Chat ID:** {forwarded_chat_id}\n**Forwarded Chat Type:** {forwarded_chat_type}\n**Forwarded Chat Name:** {forwarded_chat_name}")
+    except Exception as e:
+        await message.reply_text("Unable to get information from forwarded message.")
 
 @Client.on_message(filters.command("donate"))
 async def donate(client, message):
