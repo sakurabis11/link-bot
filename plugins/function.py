@@ -29,7 +29,7 @@ async def restart_bot(client, message):
 
 @Client.on_message(filters.command("id"))
 async def send_user_id(client, message):
-  chat_type = message.chat.type
+   chat_type = message.chat.type
 
     user_id = message.from_user.id
     first = message.from_user.first_name
@@ -37,7 +37,7 @@ async def send_user_id(client, message):
     username = message.from_user.username
     await message.reply_text(f"ꜰɪʀꜱᴛ ɴᴀᴍᴇ: {first}\nʟᴀꜱᴛ ɴᴀᴍᴇ: {last}\nᴜꜱᴇʀɴᴀᴍᴇ: {username}\nɪᴅ: {user_id}")
 
-  elif chat_type == "group":
+  if chat_type == "group":
     user_id = message.from_user.id
     first = message.from_user.first_name
     last = message.from_user.last_name
