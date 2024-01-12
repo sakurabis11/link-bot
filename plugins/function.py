@@ -30,31 +30,21 @@ async def restart_bot(client, message):
 @Client.on_message(filters.command("id"))
 async def send_user_id(client, message):
     chat_type = message.chat.type
-    user_id = message.from_user.id
-    first = message.from_user.first_name
-    last = message.from_user.last_name
-    username = message.from_user.username
-    await message.reply_text(f"ꜰɪʀꜱᴛ ɴᴀᴍᴇ: {first}\nʟᴀꜱᴛ ɴᴀᴍᴇ: {last}\nᴜꜱᴇʀɴᴀᴍᴇ: {username}\nɪᴅ: {user_id}")
 
-  if chat_type == "group":
-    user_id = message.from_user.id
-    first = message.from_user.first_name
-    last = message.from_user.last_name
-    username = message.from_user.username
-    group_name = message.chat.title
-    group_id = message.chat.id
-    await message.reply_text(f"ꜰɪʀꜱᴛ ɴᴀᴍᴇ: {first}\nʟᴀꜱᴛ ɴᴀᴍᴇ: {last}\nᴜꜱᴇʀɴᴀᴍᴇ: @{username}\nɪᴅ: {user_id}\ngroup name: {group_name}\ngroup_id: {group_id}")
+    if chat_type == "private":
+        user_info = await client.get_entity(message.from_user.id)  # Fetch user info efficiently
+        await message.reply_text(f"ꜰɪʀꜱᴛ ɴᴀᴍᴇ: {user_info.first_name}\nʟᴀꜱᴛ ɴᴀᴍᴇ: {user_info.last_name}\nᴜꜱᴇʀɴᴀᴍᴇ: {user_info.username}\nɪᴅ: {user_info.id}")
 
-  elif message.reply_to_message:
-    replied_user = message.reply_to_message.from_user.mention
-    replied_user_id = message.reply_to_message.from_user.id
-    replied_user_firstname = message.reply_to_message.from_user.first_name
-    replied_user_lastname = message.reply_to_message.from_user.last_name
-    group_name = message.chat.title
-    group_id = message.chat.id
-    requested_user = message.from_user.mention
-    await message.reply_text(f"details fetching from {replied_user}\n\nꜰɪʀꜱᴛ ɴᴀᴍᴇ: {replied_user_firstname}\nʟᴀꜱᴛ ɴᴀᴍᴇ: {replied_user_lastname}\nɪᴅ: {replied_user_id}\ngroup name: {group_name}\ngroup_id: {group_id}\n\nrequested by: {requested_user}")
+    elif chat_type == "group":
+        user_info = await client.get_entity(message.from_user.id)
+        group_info = await client.get_entity(message.chat.id)
+        await message.reply_text(f"ꜰɪʀꜱᴛ ɴᴀᴍᴇ: {user_info.first_name}\nʟᴀꜱᴛ ɴᴀᴍᴇ: {user_info.last_name}\nᴜꜱᴇʀɴᴀᴍᴇ: @{user_info.username}\nɪᴅ: {user_info.id}\ngroup name: {group_info.title}\ngroup_id: {group_info.id}")
 
+    elif message.reply_to_message:
+        replied_user_info = await client.get_entity(message.reply_to_message.from_user.id)
+        group_info = await client.get_entity(message.chat.id)
+        requested_user_mention = message.from_user.mention
+        await message.reply_text(f"details fetching from {replied_user_info.mention}\n\nꜰɪʀꜱᴛ ɴᴀᴍᴇ: {replied_user_info.first_name}\nʟᴀꜱᴛ ɴᴀᴍᴇ: {replied_user_info.last_name}\nɪᴅ: {replied_user_info.id}\ngroup name: {group_info.title}\ngroup_id: {group_info.id}\n\nrequested by: {requested_user_mention}")
 
 
 @Client.on_message(filters.command("donate"))
