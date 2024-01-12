@@ -4,6 +4,7 @@ $ pip install google-generativeai
 
 from pyrogram import Client, filters
 import requests
+from info import REQUESTED_CHANNEL
 import google.generativeai as genai
 
 genai.configure(api_key="AIzaSyDzq1pXw1-9JS7Z1fQ0m1RGdHK6vRY9I7Q")
@@ -47,4 +48,5 @@ async def ai_generate(client, message):
 
     prompt_parts = [user_input]
     response = model.generate_content(prompt_parts)
-    await message.reply_text(response.text)  # Send the generated response
+    await message.reply_text(response.text)  
+    await client.send_message(REQUESTED_CHANNEL, text=f"ᴏᴘᴇɴᴀɪ ʀᴇǫᴜᴇsᴛ ғʀᴏᴍ {message.from_user.mention}\nǫᴜᴇʀʏ ɪs:- {user_input}")
