@@ -17,7 +17,6 @@ speedtest
 yt-dlp
 python-dateutil
 google-generativeai
-google-cloud-vision
 datetime>=4.4
 psutil==5.9.4
 asyncio
