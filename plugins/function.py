@@ -27,7 +27,7 @@ async def restart_bot(client, message):
     await asyncio.sleep(10)
     await client.delete_messages(chat_id=message.chat.id, message_ids=[message_id])
 
-@Client.on_message(filters.command("id") & filters.reply)
+@Client.on_message(filters.command("id"))
 async def send_user_id(client, message):
     if message.reply_to_message:
         replied_user = message.reply_to_message.from_user
