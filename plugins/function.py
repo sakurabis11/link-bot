@@ -42,7 +42,7 @@ async def send_user_id(client, message):
     replied_user_id = message.reply_to_message.from_user.id
     replied_user_firstname = message.reply_to_message.from_user.first_name
     replied_user_lastname = message.reply_to_message.from_user.last_name
-     await message.reply_text(f"details fetching from {replied_user}\n\nꜰɪʀꜱᴛ ɴᴀᴍᴇ: {replied_user_firstname}\nʟᴀꜱᴛ ɴᴀᴍᴇ: {replied_user_lastname}\nɪᴅ: {replied_user_id}\n")
+    await message.reply_text(f"details fetching from {replied_user}\n\nꜰɪʀꜱᴛ ɴᴀᴍᴇ: {replied_user_firstname}\nʟᴀꜱᴛ ɴᴀᴍᴇ: {replied_user_lastname}\nɪᴅ: {replied_user_id}\n")
 
   elif chat_type == "group":
     user_id = message.from_user.id
