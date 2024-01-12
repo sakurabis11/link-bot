@@ -30,7 +30,7 @@ async def restart_bot(client, message):
 @Client.on_message(filters.command("id"))
 async def send_user_id(client, message):
   chat_type = message.chat.type
-  if chat_type == "private":
+
     user_id = message.from_user.id
     first = message.from_user.first_name
     last = message.from_user.last_name
