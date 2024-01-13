@@ -1,14 +1,16 @@
+
 from pyrogram import filters, Client
 
-# Define the command handler for the '/delete' command
 @Client.on_message(filters.command("delete"))
 async def delete_messages(client, message):
-    # Get the chat ID of the current chat
+    user = message.from_user.id
     chat_id = message.chat.id
+    group = await client.get_chat_members(chat_id)
 
-    # Delete all messages in the current chat
-    deleted_messages = await client.delete_messages(chat_id)
+    if user not in [member.user.id for member in group if member.status in ["creator", "administrator"]]:
+        await message.reply_text("you are not allowed to use this command")
+        return
 
-    # Send a confirmation message to the user
-    await client.send_message(chat_id, "All messages in this chat have been deleted.")
-
+    await message.reply_text("deleting all messages...")
+    await client.delete_messages(chat_id, message_ids=range(1, message.message_id))
+    await message.reply_text("all messages deleted")
