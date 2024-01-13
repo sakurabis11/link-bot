@@ -13,7 +13,10 @@ genai.configure(api_key="AIzaSyDzq1pXw1-9JS7Z1fQ0m1RGdHK6vRY9I7Q")
 async def ai_generate(client, message):
     user_input = message.text.split()[1:]
     user_input = " ".join(user_input)
-
+ if message.text is not in user_input:
+    await message.reply_text("please send ur question with <code>/ai</code>")
+    return
+ else:
     generation_config = {
         "temperature": 0.9,
         "top_p": 1,
