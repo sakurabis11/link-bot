@@ -21,7 +21,7 @@ async def download_spotify_song(client: Client, message: Message):
     match = re.match(SPOTIFY_URL_REGEX, spotify_url)
     song_id = match.group("id")
 
-    await message.reply_text = f"{song_id}"
+    await message.reply_text(f"{song_id}")
 
     # Get the song metadata
     metadata = await client.get_media(f"https://open.spotify.com/track/{song_id}")
