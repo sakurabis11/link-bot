@@ -3,7 +3,7 @@ from PIL import Image
 from pyrogram import Client, filters
 
 # Define the command handler for the /kang command.
-@Client.on_message(filters.command("kang")filters.reply)
+@Client.on_message(filters.command("kang") & filters.reply)
 async def kang_handler(client, message):
     # Check if the user has sent a photo.
     if not message.reply_to_message.photo:
