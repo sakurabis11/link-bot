@@ -1,54 +1,48 @@
+python
 import asyncio
-import os
-from pyrogram import Client, filters
-from yt_dlp import YoutubeDL
-from pyrogram.types import Message
+import pyrogram
+from pyrogram.enums import ParseMode
+from pyrogram.raw import functions, types
+from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
+from youtubesearchpython import VideosSearch
 
-@Client.on_message(filters.command(["video", "mp4"]))
-async def vsong(client, message: Message):
-    urlissed = get_text(message)
+# Initialize the Pyrogram client
+client = pyrogram.Client("my_bot", api_id=12345, api_hash="abcdef")
 
-    pablo = await client.send_message(
-        message.chat.id, f"**𝙵𝙸𝙽𝙳𝙸𝙽𝙶 𝚈𝙾𝚄𝚁 𝚅𝙸𝙳𝙴𝙾** `{urlissed}`"
-    )
-    if not urlissed:
-        await pablo.edit("Invalid Command Syntax Please Check help Menu To Know More!")
-        return
+# Define callback query handler
+@client.on_callback_query()
+async def callback_query_handler(client, callback_query):
+    # Get the data from the callback query
+    data = callback_query.data
 
-    # Use yt-dlp for video searching and downloading
-    ydl_opts = {
-        "format": "best",  # Adjust format options as needed
-        "addmetadata": True,
-        "key": "FFmpegMetadata",
-        "prefer_ffmpeg": True,
-        "geo_bypass": True,
-        "nocheckcertificate": True,
-        "outtmpl": "%(id)s.mp4",
-        "logtostderr": False,
-        "quiet": True,
-    }
-    with YoutubeDL(ydl_opts) as ydl:
-        try:
-            info = ydl.extract_info(urlissed, download=True)
-        except Exception as e:
-            await pablo.edit(f"**Download Failed! Please Try Again.**\n**Error:** `{str(e)}`")
-            return
+    # Check if the data is a YouTube URL
+    if data.startswith("https://www.youtube.com/"):
+        # Get the video ID from the URL
+        video_id = data.split("=")[1]
 
-    file_stark = f"{info['id']}.mp4"
-    capy = f"""
-**𝚃𝙸𝚃𝙻𝙴 :** [{info['title']}]({info['webpage_url']})
-**𝚁𝙴𝚀𝚄𝙴𝚂𝚃𝙴𝙳 𝙱𝚈 :** {message.from_user.mention}
-**@ᴄᴄᴏᴍ_ᴛᴇᴀᴍ**
-"""
-    await client.send_video(
-        message.chat.id,
-        video=open(file_stark, "rb"),
-        duration=int(info['duration']),
-        file_name=info['title'],
-        thumb=info.get('thumbnail', None),  # Use thumbnail from yt-dlp if available
-        caption=capy,
-        supports_streaming=True,
-        reply_to_message_id=message.id
-    )
-    await pablo.delete()
-    os.remove(file_stark)  # Clean up downloaded file
+        # Download the video and audio files
+        video_file = await download_video(video_id)
+        audio_file = await download_audio(video_id)
+
+        # Send the video and audio files to the user
+        await client.send_video(callback_query.message.chat.id, video_file, caption="Here's the video you requested.", reply_to_message_id=callback_query.message.id)
+        await client.send_audio(callback_query.message.chat.id, audio_file, caption="Here's the audio you requested.", reply_to_message_id=callback_query.message.id)
+    else:
+        # The data is not a YouTube URL, so send an error message to the user
+        await client.send_message(callback_query.message.chat.id, "Invalid YouTube URL. Please send a valid URL.", reply_to_message_id=callback_query.message.id)
+
+# Define function to download YouTube video
+async def download_video(video_id):
+    # Use youtube-dl to download the video
+    video_file = f"{video_id}.mp4"
+    await asyncio.get_running_loop().run_in_executor(None, lambda: youtube_dl.YoutubeDL().download(f"https://www.youtube.com/watch?v={video_id}", output=video_file))
+    return video_file
+
+# Define function to download YouTube audio
+async def download_audio(video_id):
+    # Use youtube-dl to download the audio
+    audio_file = f"{video_id}.mp3"
+    await asyncio.get_running_loop().run_in_executor(None, lambda: youtube_dl.YoutubeDL({'format': 'bestaudio', 'postprocessors': [{'key': 'FFmpegExtractAudio', 'preferredcodec': 'mp3', 'preferredquality': '192'}]}).download(f"https://www.youtube.com/watch?v={video_id}", output=audio_file))
+    return audio_file
+
+
