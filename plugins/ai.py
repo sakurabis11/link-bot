@@ -3,7 +3,7 @@ import requests
 from info import REQUESTED_CHANNEL
 import google.generativeai as genai
 
-genai.configure(api_key="AIzaSyDzq1pXw1-9JS7Z1fQ0m1RGdHK6vRY9I7Q")
+genai.configure(api_key="AIzaSyD214hhYJ-xf8rfaWX044_g1VEBQ0ua55Q")
 
 @Client.on_message(filters.command("ai"))
 async def ai_generate(client, message):
