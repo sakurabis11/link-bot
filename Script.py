@@ -47,7 +47,7 @@ Mʏ Nᴀᴍᴇ Is <a href=https://t.me/{}>{}</a>. ɪ ᴀᴍ ᴀ sᴘᴇᴄɪᴀ�
     
     TELEGRAGH_TXT = """/telegraph Rᴇᴘʟʏ Tᴏ A Pʜᴏᴛᴏ Oʀ Vɪᴅᴇᴏ"""
 
-    GOOGLE_TXT = """/ask {ᴜʀ ǫᴜᴇsᴛɪᴏɴ}\n
+    GOOGLE_TXT = """/ai {ᴜʀ ǫᴜᴇsᴛɪᴏɴ}\n
 ᴄʀᴇᴅɪᴛs @MrTG_Coder"""
 
     SONG_TXT = """/song {song_name} .ᴅᴏᴡɴʟᴏᴀᴅ sᴏɴɢ ғʀᴏᴍ ʏᴏᴜᴛᴜʙᴇ
