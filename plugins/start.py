@@ -62,7 +62,7 @@ async def help_command(client, message):
          InlineKeyboardButton('ᴀᴅᴍɪɴ', callback_data='admin')
          ],[
          InlineKeyboardButton('ᴛᴇʟᴇɢʀᴘʜ', callback_data='telegraph'),
-         InlineKeyboardButton('ᴏᴘᴇɴᴀɪ', callback_data='openai'),
+         InlineKeyboardButton('ɢᴏᴏɢʟᴇ ᴀɪ', callback_data='google'),
          InlineKeyboardButton('ʀᴇᴘᴏ sᴇᴀʀᴄʜ', callback_data='repos')
          ],[
          InlineKeyboardButton('sᴏɴɢ', callback_data='song'),
@@ -104,7 +104,7 @@ async def callback_handle(client, query):
          InlineKeyboardButton('ᴀᴅᴍɪɴ', callback_data='admin')
          ],[
          InlineKeyboardButton('ᴛᴇʟᴇɢʀᴀᴘʜ', callback_data='telegraph'),
-         InlineKeyboardButton('ᴏᴘᴇɴᴀɪ', callback_data='openai'),
+         InlineKeyboardButton('ɢᴏᴏɢʟᴇ ᴀɪ', callback_data='google'),
          InlineKeyboardButton('ʀᴇᴘᴏ sᴇᴀʀᴄʜ', callback_data='repos')
          ],[
          InlineKeyboardButton('sᴏɴɢ', callback_data='song'),
@@ -143,12 +143,12 @@ async def callback_handle(client, query):
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(text=script.TELEGRAGH_TXT, reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
 
-    elif query.data == 'openai':
+    elif query.data == 'google':
         buttons = buttons = [[
             InlineKeyboardButton('ʜᴏᴍᴇ', callback_data='help')
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
-        await query.message.edit_text(text=script.OPENAI_TXT, reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
+        await query.message.edit_text(text=script.GOOGLE_TXT, reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
 
     elif query.data == 'song':
         buttons = buttons = [[
