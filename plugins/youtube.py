@@ -1,16 +1,12 @@
-python
 import asyncio
-import pyrogram
+from pyrogram import filters, Client
 from pyrogram.enums import ParseMode
 from pyrogram.raw import functions, types
-from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
+from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery
 from youtubesearchpython import VideosSearch
 
-# Initialize the Pyrogram client
-client = pyrogram.Client("my_bot", api_id=12345, api_hash="abcdef")
-
 # Define callback query handler
-@client.on_callback_query()
+@Client.on_callback_query()
 async def callback_query_handler(client, callback_query):
     # Get the data from the callback query
     data = callback_query.data
