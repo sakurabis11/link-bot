@@ -19,7 +19,7 @@ async def kang_handler(client, message):
     sticker.save("sticker.webp", "WEBP")
 
     # Upload the sticker to Telegram servers.
-    sticker_file_id = await bot.upload_sticker_file(
+    sticker_file_id = await client.upload_sticker_file(
         "sticker.webp"
     )
 
