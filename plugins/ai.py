@@ -2,7 +2,7 @@
 
 from pyrogram import Client, filters
 import requests
-from info import REQUESTED_CHANNEL, GOOGLE_API_KEY
+from info import REQUESTED_CHANNEL
 import google.generativeai as genai
 # how to get the api key == https://t.me/sd_bots/256 (copy this link and search on telegram)
 
