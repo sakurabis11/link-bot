@@ -9,12 +9,13 @@ genai.configure(api_key="AIzaSyD214hhYJ-xf8rfaWX044_g1VEBQ0ua55Q")
 @Client.on_message(filters.command("ai") & filters.chat(SAMPLE) & filters.incoming)
 async def ai_generate(client, message):
     if message.chat.id != SAMPLE:
-        return await message.reply_text("This bot only works in the specified GROUP")
+        await message.reply_text("This bot only works in the specified GROUP")
+        return
 
     user_input = message.text.split()[1:]
 
     if not user_input:
-        return await message.reply_text("Please provide your question after /ai")
+        await message.reply_text("Please provide your question after /ai")
 
     user_input = " ".join(user_input)
 
