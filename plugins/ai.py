@@ -1,4 +1,3 @@
-python
 from pyrogram import Client, filters, enums
 import requests
 from info import REQUESTED_CHANNEL, SAMPLE
@@ -11,11 +10,12 @@ async def ai_generate(client, message):
     if message.chat.id != SAMPLE:
         await message.reply_text("This bot only works in the specified GROUP")
         return
-
+     
     user_input = message.text.split()[1:]
 
     if not user_input:
         await message.reply_text("Please provide your question after /ai")
+        return
 
     user_input = " ".join(user_input)
 
@@ -55,6 +55,6 @@ async def ai_generate(client, message):
     response = model.generate_content(prompt_parts)
     await message.reply_text(response.text)
     await client.send_message(REQUESTED_CHANNEL, text=f"Google request from {message.from_user.mention}\nQuery is:- {user_input}")
-
-if message.chat.type in [enums.ChatType.PRIVATE]:
-    await message.reply_text("This feature will only work in groups.")
+     
+    if message.chat.type in [enums.ChatType.PRIVATE]:
+        await message.reply_text("This feature will only work in groups.")
