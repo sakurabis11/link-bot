@@ -25,7 +25,7 @@ model = genai.GenerativeModel(
 )
 
 
-@Client.on_message(pyrogram.filters.photo & filters.reply)
+@Client.on_message(filters.photo & filters.reply)
 async def handle_image_response(client, message):
     reply_message = message.reply_to_message
 
