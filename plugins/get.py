@@ -9,6 +9,7 @@ genai.configure(api_key="AIzaSyD214hhYJ-xf8rfaWX044_g1VEBQ0ua55Q")
 async def handle_query(client, message):
 
     if message.reply_to_photo:
+        user_image = message.reply_to_photo
         query = message.text.split(" ", 1)[1]
 
         if not query:  # Ensure a query is provided
@@ -53,7 +54,7 @@ async def handle_query(client, message):
 
         # Construct prompt and image parts for the model
         prompt_parts = [query]
-        image_parts = [{"content": image_data[message.reply_to_message.message_id]}]
+        image_parts = [{"content": image_data[user_image]}]
 
         # Generate response using the model
         response = model.generate_content(prompt_parts, image_parts=image_parts)
