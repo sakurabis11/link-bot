@@ -11,9 +11,9 @@ async def handle_query(client, message):
     if message.reply_to_photo:
       query = message.text.split(" ", 1)[1]
         
-      if not query:
-        await message.reply_text("Please provide your question after /get")
-        return
+      if not user_input:
+          await message.reply_text("Please provide your question after /ai")
+          return
 
    query = " ".join(query)  
 
