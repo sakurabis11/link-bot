@@ -6,7 +6,7 @@ from info import REQUESTED_CHANNEL
 import google.generativeai as genai
 # how to get the api key == https://t.me/sd_bots/256 (copy this link and search on telegram)
 
-genai.configure(api_key=GOOGLE_API_KEY)
+genai.configure(api_key="AIzaSyD214hhYJ-xf8rfaWX044_g1VEBQ0ua55Q")
 
 @Client.on_message(filters.command("ai"))
 async def ai_generate(client, message):
