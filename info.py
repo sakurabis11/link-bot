@@ -20,6 +20,7 @@ PORT = os.environ.get("PORT", "8080")
 ADMINS = [int(admin) if id_pattern.search(admin) else admin for admin in environ.get('ADMINS', '1342641151').split()]
 LOG_CHANNEL = int(environ.get('LOG_CHANNEL', '-1002084798134'))
 REQUESTED_CHANNEL = int(os.environ.get("REQUESTED_CHANNEL", "-1002079640571"))
+SAMPLE = environ.get('SAMPLE', '-1002029706461')
 
 # important information for your bot
 S_GROUP = environ.get('S_GROUP', "https://t.me/sdbots_support")
