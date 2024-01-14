@@ -7,15 +7,15 @@ genai.configure(api_key="AIzaSyD214hhYJ-xf8rfaWX044_g1VEBQ0ua55Q")
 
 @Client.on_message(filters.command("get", prefixes="/"))
 async def handle_query(client, message):
-    
-    if message.reply_to_photo:
-      query = message.text.split(" ", 1)[1]
-        
-      if not user_input:
-          await message.reply_text("Please provide your question after /ai")
-          return
 
-   query = " ".join(query)  
+    if message.reply_to_photo:
+        query = message.text.split(" ", 1)[1]
+
+        if not query:  # Correctly use 'query' here
+            await message.reply_text("Please provide your question after /ai")
+            return
+
+        query = " ".join(query) 
 
 
     generation_config={
