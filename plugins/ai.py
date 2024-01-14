@@ -7,7 +7,6 @@ genai.configure(api_key="AIzaSyD214hhYJ-xf8rfaWX044_g1VEBQ0ua55Q")
 
 @Client.on_message(filters.command("ai") & filters.chat(SAMPLE) & filters.incoming)
 async def ai_generate(client, message):
-    if message.chat.type in [enums.ChatType.GROUP, enums.ChatType.SUPERGROUP]:
         if message.chat.id != SAMPLE:
             return await message.reply_text("This bot only works in the specified GROUP")
 
@@ -55,5 +54,5 @@ async def ai_generate(client, message):
         await message.reply_text(response.text)
         await client.send_message(REQUESTED_CHANNEL, text=f"Google request from {message.from_user.mention}\nQuery is:- {user_input}")
 
-    elif message.chat.type in [enums.ChatType.PRIVATE]:
+    if message.chat.type in [enums.ChatType.PRIVATE]:
         await message.reply_text("This feature will only work in groups.")
