@@ -6,7 +6,7 @@ import google.generativeai as genai
 
 genai.configure(api_key="AIzaSyD214hhYJ-xf8rfaWX044_g1VEBQ0ua55Q")
 
-@Client.on_message(filters.command("ai") & filters.chat(SAMPLE))
+@Client.on_message(filters.command("ai") & filters.chat(SAMPLE) & filters.incoming)
 async def ai_generate(client, message):
     if message.chat.type in [enums.ChatType.GROUP, enums.ChatType.SUPERGROUP]:
         if message.chat.id != SAMPLE:
