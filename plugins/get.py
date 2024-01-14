@@ -3,7 +3,7 @@ from google.generativeai import genai
 from google.generativeai.error import ModelError
 
 # Configure Google Generative AI
-genai.configure(api_key=)
+genai.configure(api_key="AIzaSyD214hhYJ-xf8rfaWX044_g1VEBQ0ua55Q")
 
 # Set up the model
 generation_config = {
