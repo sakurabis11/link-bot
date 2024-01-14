@@ -1,5 +1,5 @@
 from pyrogram import Client, filters
-from pyrogram.types import *
+from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 import requests
 from info import REQUESTED_CHANNEL
 import google.generativeai as genai
@@ -16,15 +16,13 @@ async def ai_generate(client, message):
 
     user_input = " ".join(user_input)
 
-    if user_input.lower() in ["who is your owner", "what is your owner name"]:
-        await message.reply_text(
-            "I'm owned by a team of talented developers who are passionate about AI. Click the button below to learn more about them.",
-            reply_markup=client.build_reply_markup(
-                [
-                    [client.InlineKeyboardButton("Meet the Devs", url="https://t.me/sd_bots")]
-                ]
-            )
-        )
+    if user_input == ["who is your owner", "what is your owner name"]:
+        buttons = [[
+            InlineKeyboardButton("developer", url="https://t.me/sd_bots")
+        ]]
+        reply_markup = InlineKeyboardMarkup(buttons)
+        await message.reply_sticker("CAACAgUAAxkBAAIjWGWkDiJW1Dyn6n8CjbbwxExf0FEIAAJyCgACywLBVKKgVw2dk9PbHgQ")
+        await message.reply_text(text=f"ʜᴇʏ {message.from_user.mention}", reply_markup=reply_mark_up)
         return
 
     generation_config = {
