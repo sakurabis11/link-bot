@@ -1,5 +1,5 @@
 from pyrogram import *
-from google.generativeai import genai
+import google.generativeai as genai
 from google.generativeai.error import ModelError
 
 # Configure Google Generative AI
