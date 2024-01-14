@@ -9,12 +9,11 @@ genai.configure(api_key="AIzaSyD214hhYJ-xf8rfaWX044_g1VEBQ0ua55Q")
 async def handle_query(client, message):
     
     if message.reply_to_photo:
-
-        query = message.text.split(" ", 1)[1]
+      query = message.text.split(" ", 1)[1]
         
       if not query:
-       await message.reply_text("Please provide your question after /get")
-       return
+        await message.reply_text("Please provide your question after /get")
+        return
 
    query = " ".join(query)  
 
