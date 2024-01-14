@@ -1,6 +1,6 @@
 from pyrogram import *
 import google.generativeai as genai
-from google.generativeai.error import *
+
 
 # Configure Google Generative AI
 genai.configure(api_key="AIzaSyD214hhYJ-xf8rfaWX044_g1VEBQ0ua55Q")
