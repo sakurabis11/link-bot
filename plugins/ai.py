@@ -1,5 +1,4 @@
-import enums  # Ensure enums is imported correctly
-from pyrogram import Client, filters
+from pyrogram import Client, filters, enums
 import requests
 from info import REQUESTED_CHANNEL, SAMPLE
 import google.generativeai as genai
