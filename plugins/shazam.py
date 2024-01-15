@@ -8,7 +8,7 @@ import os
 shazam = Shazam()
 
 # Define the main function
-@client.on_message(filters.command(["identify"]))
+@Client.on_message(filters.command(["identify"]))
 async def identify_song(client, message):
     # Get the audio file from the user
     audio_file = message.reply_to_message.audio
