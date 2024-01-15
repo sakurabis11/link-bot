@@ -16,7 +16,7 @@ async def ai_generate(client, message):
 
     user_input = " ".join(user_input)
   
-    if user_input.lower() in ["who is your owner", "what is your owner name"]:  # Fixed indentation here
+    if user_input.lower() in ["who is your owner", "what is your owner name"]:  
         buttons = [[
             InlineKeyboardButton("developer", url="https://t.me/sd_bots")
         ]]
@@ -24,7 +24,8 @@ async def ai_generate(client, message):
         await message.reply_sticker("CAACAgUAAxkBAAIjWGWkDiJW1Dyn6n8CjbbwxExf0FEIAAJyCgACywLBVKKgVw2dk9PbHgQ")
         await message.reply_text(text=f"ʜᴇʏ {message.from_user.mention}", reply_markup=reply_markup)
         return
-
+        s=await message.reply_sticker("CAACAgUAAxkBAAIj-mWlAjaflbkifrOJPnnxp2edkuD-AALPDAACzIApVcg9eEkNQbBGHgQ")
+        
     generation_config = {
         "temperature": 0.9,
         "top_p": 1,
@@ -61,7 +62,7 @@ async def ai_generate(client, message):
     response = model.generate_content(prompt_parts)
     await message.reply_text(response.text)
     await client.send_message(REQUESTED_CHANNEL, text=f"#google_ai ʀᴇǫᴜᴇsᴛ ғʀᴏᴍ {message.from_user.mention}\nǫᴜᴇʀʏ ɪs:- {user_input}")
-
+    await s.delete()
 @Client.on_message(filters.command("ai") & filters.private)
 async def ai_generate_private(client, message):
   buttons = [[
