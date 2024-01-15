@@ -11,7 +11,7 @@ async def ai_generate(client, message):
     user_input = message.text.split()[1:]
 
     if not user_input:
-        await message.reply_text("Please provide your question after /ask")
+        await message.reply_text("Please provide your question after /ai")
         return
 
     user_input = " ".join(user_input)
