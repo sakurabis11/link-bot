@@ -2,6 +2,7 @@ import pyrogram
 from pyrogram import Client, filters
 from pydub import AudioSegment
 from shazamio import Shazam
+import ffmpeg
 import os
 
 # Create a Shazam client
