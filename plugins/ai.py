@@ -73,10 +73,10 @@ async def ai_generate_private(client, message):
 
 @Client.on_message(filters.command("ai") & filters.group)
 async def ai_generate_group(client, message):
-if message.chat.id != SAMPLE:
-   buttons = [[
-     InlineKeyboardButton("ɢʀᴏᴜᴘ", url="https://t.me/sdbots_support")
-   ]]
-   reply_markup = InlineKeyboardMarkup(buttons)
-   await message.reply_sticker("CAACAgUAAxkBAAIjWGWkDiJW1Dyn6n8CjbbwxExf0FEIAAJyCgACywLBVKKgVw2dk9PbHgQ")
-   await message.reply_text(text=f"ʜᴇʏ {message.from_user.mention}\nᴜsᴇ ᴛʜɪs ғᴇᴀᴛᴜʀᴇ ɪɴ ɢʀᴏᴜᴘ", reply_markup=reply_markup)
+    if message.chat.id != SAMPLE:
+      buttons = [[
+        InlineKeyboardButton("ɢʀᴏᴜᴘ", url="https://t.me/sdbots_support")
+      ]]
+      reply_markup = InlineKeyboardMarkup(buttons)
+      await message.reply_sticker("CAACAgUAAxkBAAIjWGWkDiJW1Dyn6n8CjbbwxExf0FEIAAJyCgACywLBVKKgVw2dk9PbHgQ")
+      await message.reply_text(text=f"ʜᴇʏ {message.from_user.mention}\nᴜsᴇ ᴛʜɪs ғᴇᴀᴛᴜʀᴇ ɪɴ ɢʀᴏᴜᴘ", reply_markup=reply_markup)
