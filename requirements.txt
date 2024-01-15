@@ -46,3 +46,4 @@ wget
 discord
 moviepy==1.0.3
 pydub
+shazamio
