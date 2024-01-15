@@ -6,7 +6,7 @@ import google.generativeai as genai
 
 genai.configure(api_key="AIzaSyD214hhYJ-xf8rfaWX044_g1VEBQ0ua55Q")
 
-@Client.on_message(filters.command("ai") & filters.group & filters.chat(SAMPLE))
+@Client.on_message(filters.command("ai") & filters.chat(SAMPLE))
 async def ai_generate(client, message):
     user_input = message.text.split()[1:]
 
@@ -22,7 +22,6 @@ async def ai_generate(client, message):
       await message.reply_sticker("CAACAgUAAxkBAAIjWGWkDiJW1Dyn6n8CjbbwxExf0FEIAAJyCgACywLBVKKgVw2dk9PbHgQ")
       await message.reply_text(text=f"ʜᴇʏ {message.from_user.mention}\nᴜsᴇ ᴛʜɪs ғᴇᴀᴛᴜʀᴇ ɪɴ ɢʀᴏᴜᴘ", reply_markup=reply_markup)
       return 
-    else message.char.id == SAMPLE:
         
     user_input = " ".join(user_input)        
 
