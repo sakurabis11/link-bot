@@ -14,7 +14,6 @@ async def ai_generate(client, message):
         await message.reply_text("Please provide your question after /ai")
         return
 
-    user_input = " ".join(user_input)
     if message.chat.id != SAMPLE:
       buttons = [[
         InlineKeyboardButton("ɢʀᴏᴜᴘ", url="https://t.me/sdbots_support")
@@ -24,6 +23,7 @@ async def ai_generate(client, message):
       await message.reply_text(text=f"ʜᴇʏ {message.from_user.mention}\nᴜsᴇ ᴛʜɪs ғᴇᴀᴛᴜʀᴇ ɪɴ ɢʀᴏᴜᴘ", reply_markup=reply_markup)
       return
         
+    user_input = " ".join(user_input)        
 
     if user_input.lower() in ["who is your owner", "what is your owner name"]:  # Fixed indentation here
         buttons = [[
