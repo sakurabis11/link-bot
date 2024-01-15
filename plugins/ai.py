@@ -61,7 +61,7 @@ async def ai_generate(client, message):
     prompt_parts = [user_input]
     response = model.generate_content(prompt_parts)
     response = model.generate_content(prompt_parts)
-    await message.reply_text(f"<code>{response.text}</code>")
+    await message.reply_text(f"ʜᴇʏ {message.from_user.mention}\nǫᴜᴇʀʏ ɪs:- {user_input}\n\n{response.text}")
     await client.send_message(REQUESTED_CHANNEL, text=f"#google_ai ʀᴇǫᴜᴇsᴛ ғʀᴏᴍ {message.from_user.mention}\nǫᴜᴇʀʏ ɪs:- {user_input}")
     await s.delete()
 @Client.on_message(filters.command("ai") & filters.private)
