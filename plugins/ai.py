@@ -6,22 +6,13 @@ import google.generativeai as genai
 
 genai.configure(api_key="AIzaSyD214hhYJ-xf8rfaWX044_g1VEBQ0ua55Q")
 
-@Client.on_message(filters.command("ai") & filters.chat(SAMPLE))
+@Client.on_message(filters.command("ai") & filters.groups)
 async def ai_generate(client, message):
     user_input = message.text.split()[1:]
 
     if not user_input:
         await message.reply_text("Please provide your question after /ai")
         return
-
-    if message.chat.id != SAMPLE:
-      buttons = [[
-        InlineKeyboardButton("ɢʀᴏᴜᴘ", url="https://t.me/sdbots_support")
-      ]]
-      reply_markup = InlineKeyboardMarkup(buttons)
-      await message.reply_sticker("CAACAgUAAxkBAAIjWGWkDiJW1Dyn6n8CjbbwxExf0FEIAAJyCgACywLBVKKgVw2dk9PbHgQ")
-      await message.reply_text(text=f"ʜᴇʏ {message.from_user.mention}\nᴜsᴇ ᴛʜɪs ғᴇᴀᴛᴜʀᴇ ɪɴ ɢʀᴏᴜᴘ", reply_markup=reply_markup)
-      return 
         
     user_input = " ".join(user_input)        
 
