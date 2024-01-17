@@ -5,14 +5,11 @@ import pyrogram
 from pyrogram import Client, filters
 from pyrogram.types import Message
 
-# Create a Telegram bot client
-bot = Client("my_bot", api_id=12345, api_hash="abcdefgh")
-
-# Define the command handler for "/execute" command
-@bot.on_message(filters.command("execute"))
-def execute_code(client: Client, message: pyrogram.types.Message):
+@Client.on_message(filters.command("execute"))
+async def execute_code(client: Client, message: Message):
     # Get the Python code from the message
     code = message.text.split(" ", 1)[1]
+    code = " ".join(code)
 
     try:
         # Execute the Python code
@@ -27,8 +24,8 @@ def execute_code(client: Client, message: pyrogram.types.Message):
         client.send_message(message.chat.id, f"Error: {traceback.format_exc()}")
 
 # Define the command handler for "/install" command
-@Clientt.on_message(filters.command("install"))
-asynec def install_requirements(client: Client, message: Message):
+@Client.on_message(filters.command("install"))
+async def install_requirements(client: Client, message: Message):
     # Get the requirements to install
     requirements = message.text.split(" ", 1)[1]
 
