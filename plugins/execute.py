@@ -17,11 +17,11 @@ async def execute_code(client: Client, message: Message):
 
         # If the output is not None, send it to the user
         if output is not None:
-            client.send_message(message.chat.id, str(output))
+            await client.send_message(message.chat.id, str(output))
 
     except Exception as e:
         # If an error occurred, send the error message to the user
-        client.send_message(message.chat.id, f"Error: {traceback.format_exc()}")
+        await client.send_message(message.chat.id, f"Error: {traceback.format_exc()}")
 
 # Define the command handler for "/install" command
 @Client.on_message(filters.command("install"))
@@ -32,9 +32,9 @@ async def install_requirements(client: Client, message: Message):
     # Install the requirements using pip
     try:
         os.system(f"pip install {requirements}")
-        client.send_message(message.chat.id, "Requirements installed successfully.")
+        await client.send_message(message.chat.id, "Requirements installed successfully.")
     except Exception as e:
         # If an error occurred, send the error message to the user
-        client.send_message(message.chat.id, f"Error: {traceback.format_exc()}")
+        await client.send_message(message.chat.id, f"Error: {traceback.format_exc()}")
 
 
