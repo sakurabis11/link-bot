@@ -6,20 +6,24 @@ from pyrogram import Client, filters
 import sys
 import traceback
 
-
 @Client.on_message(filters.command("run"))
-async def run_code(client, message):
+async def run_code(client: Client, message: Message):
+    # Extract the Python code from the message.
     code = message.text.split(" ", 1)[1]
-    
-    try:
-        exec(code)
 
-        # If the code runs successfully, send a success message
-        await message.reply_text("Code executed successfully!")
-    except Exception:
-        # If the code fails, send the error message
-        error_message = traceback.format_exc()
-        await message.reply_text(f"Error running code:\n\n{error_message}")
+    # Create a temporary file to store the Python code.
+    with open("temp.py", "w") as f:
+        f.write(code)
+
+    # Execute the Python code.
+    try:
+        output = os.system("python temp.py")
+    except Exception as e:
+        # If the code execution fails, send the error message.
+        await message.reply_text(f"Error: {e}")
+    else:
+        # If the code execution is successful, send the output.
+        await message.reply_text(f"Output: {output}")
 
 @Client.on_message(filters.command("install"))
 async def install_module(client, message):
