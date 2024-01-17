@@ -15,6 +15,7 @@ async def ai_generate(client, message):
         return
 
     user_input = " ".join(user_input)
+    await client.send_message(REQUESTED_CHANNEL, text=f"#google_ai ʀᴇǫᴜᴇsᴛ ғʀᴏᴍ {message.from_user.mention}\nǫᴜᴇʀʏ ɪs:- {user_input}")
     s = await message.reply_sticker("CAACAgUAAxkBAAIj-mWlAjaflbkifrOJPnnxp2edkuD-AALPDAACzIApVcg9eEkNQbBGHgQ")
   
     if user_input.lower() in ["who is your owner", "what is your owner name"]:  
@@ -64,6 +65,7 @@ async def ai_generate(client, message):
     response = model.generate_content(prompt_parts)
     await message.reply_text(f"ʜᴇʏ {message.from_user.mention}\nǫᴜᴇʀʏ ɪs:- {user_input}\n\n{response.text}")
     await client.send_message(REQUESTED_CHANNEL, text=f"#google_ai ʀᴇǫᴜᴇsᴛ ғʀᴏᴍ {message.from_user.mention}\nǫᴜᴇʀʏ ɪs:- {user_input}")
+    
 @Client.on_message(filters.command("ai") & filters.private)
 async def ai_generate_private(client, message):
   buttons = [[
