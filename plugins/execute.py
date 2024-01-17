@@ -1,45 +1,26 @@
-
 import asyncio
 import os
 import subprocess
 from pyrogram.types import *
 from pyrogram import Client, filters
+import sys
+import traceback
 
-@Client.on_message(filters.command("execute"))
-async def execute_code(client, message):
-    # Check if the user provided any code to execute
-    if not message.text.split()[1]:
-        await message.reply("Please provide the code you want to execute.")
-        return
+@Client.on_message(filters.command("run"))
+def run_code(client, message):
+    # Get the code from the message text
+    code = message.text.split(" ", 1)[1]
 
-    # Extract the code from the message
-    code = message.text.split()[1]
-
-    # Check if the user wants to install a package
-    if code.startswith("install "):
-        await install_package(client, message, code)
-        return
-
-    # Try to execute the code
+    # Try to run the code
     try:
-        # Create a temporary file to store the code
-        with open("temp.py", "w") as f:
-            f.write(code)
+        exec(code)
 
-        # Execute the code
-        output = subprocess.check_output(["python3", "temp.py"], stderr=subprocess.STDOUT)
-
-        # Delete the temporary file
-        os.remove("temp.py")
-
-        # Send the output to the user
-        await message.reply(output.decode("utf-8"))
-    except subprocess.CalledProcessError as e:
-        # Send the error message to the user
-        await message.reply(e.output.decode("utf-8"))
-    except Exception as e:
-        # Send the error message to the user
-        await message.reply(f"An error occurred: {e}")
+        # If the code runs successfully, send a success message
+        message.reply_text("Code executed successfully!")
+    except Exception:
+        # If the code fails, send the error message
+        error_message = traceback.format_exc()
+        message.reply_text(f"Error running code:\n\n{error_message}")
 
 # Define the command handler for "/install"
 @Client.on_message(filters.command("install"))
