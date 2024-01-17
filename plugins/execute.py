@@ -7,23 +7,25 @@ import sys
 import traceback
 
 @Client.on_message(filters.command("run"))
-async def run_code(client: Client, message: Message):
-    # Extract the Python code from the message.
+async def run_code(client, message):
+    # Extract the Python code from the message
     code = message.text.split(" ", 1)[1]
 
-    # Create a temporary file to store the Python code.
-    with open("temp.py", "w") as f:
-        f.write(code)
-
-    # Execute the Python code.
+    # Try to execute the code
     try:
-        output = os.system("python temp.py")
+        exec(code)
+        # If the code executed successfully, send a success message
+        await message.reply("Code executed successfully!")
     except Exception as e:
-        # If the code execution fails, send the error message.
-        await message.reply_text(f"Error: {e}")
-    else:
-        # If the code execution is successful, send the output.
-        await message.reply_text(f"Output: {output}")
+        # If there was an error, check if the user provided input values
+        if "name 'input'" in str(e):
+            # If the user provided input values, send the output of the code
+            output = eval(code)
+            await message.reply(f"Output: {output}")
+        else:
+            # If there was an error and the user did not provide input values, send the error message
+            await message.reply(f"Error: {e}")
+
 
 @Client.on_message(filters.command("install"))
 async def install_module(client, message):
