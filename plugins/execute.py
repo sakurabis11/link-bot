@@ -7,13 +7,14 @@ from pyrogram import Client, filters
 import sys
 import traceback
 
+
 @Client.on_message(filters.command("run"))
-def run_code(client, message):
-    # Get the code from the message text
+async def run_code(client, message):
     code = message.text.split(" ", 1)[1]
 
     # Check if the if library is installed
     try:
+        import iflib
     except ModuleNotFoundError:
         # If the library is not installed, notify the user and ask them to install it
         message.reply_text("The if library is not installed. Please install it with the command:")
@@ -32,7 +33,7 @@ def run_code(client, message):
         message.reply_text(f"Error running code:\n\n{error_message}")
 
 @Client.on_message(filters.command("install"))
-def install_module(client, message):
+async def install_module(client, message):
     # Get the module name from the message text
     module_name = message.text.split(" ", 1)[1]
 
