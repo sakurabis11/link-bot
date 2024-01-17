@@ -21,7 +21,6 @@ datetime>=4.4
 psutil==5.9.4
 asyncio
 chardet
-urllib3
 pycryptodomex
 wheel
 six
