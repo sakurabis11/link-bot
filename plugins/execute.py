@@ -11,11 +11,8 @@ import traceback
 @Client.on_message(filters.command("run"))
 async def run_code(client, message):
     code = message.text.split(" ", 1)[1]
-
-    # Check if the if library is installed
-    try:
-        import iflib
-    except ModuleNotFoundError:
+    
+    if ModuleNotFoundError:
         # If the library is not installed, notify the user and ask them to install it
         message.reply_text("The if library is not installed. Please install it with the command:")
         message.reply_text("/install iflib")
