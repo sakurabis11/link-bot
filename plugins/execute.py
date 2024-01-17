@@ -11,13 +11,6 @@ import traceback
 async def run_code(client, message):
     code = message.text.split(" ", 1)[1]
     
-    if ModuleNotFoundError:
-        # If the library is not installed, notify the user and ask them to install it
-        message.reply_text("The if library is not installed. Please install it with the command:")
-        message.reply_text("/install (package_name)")
-        return
-
-    # Try to run the code
     try:
         exec(code)
 
