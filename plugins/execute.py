@@ -1,4 +1,3 @@
-import iflib
 import asyncio
 import os
 import subprocess
@@ -15,7 +14,7 @@ async def run_code(client, message):
     if ModuleNotFoundError:
         # If the library is not installed, notify the user and ask them to install it
         message.reply_text("The if library is not installed. Please install it with the command:")
-        message.reply_text("/install iflib")
+        message.reply_text("/install (package_name)")
         return
 
     # Try to run the code
