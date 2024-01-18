@@ -6,7 +6,7 @@ from pyrogram import Client, filters
 import sys
 import traceback
 
-@client.on_message(filters.command("run"))
+@Client.on_message(filters.command("run"))
 async def run_code(client, message):
     # Get the code from the message
     code = message.text.split(" ", 1)[1]
