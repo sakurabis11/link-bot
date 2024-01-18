@@ -13,7 +13,7 @@ spotify = spotipy.Spotify(
 
 spotify_link_regex = re.compile(r"(https://open.spotify.com/track/\w+)")
    
-@client.on_message(spotify_link_regex)
+@Client.on_message(spotify_link_regex)
 async def download_song(client, message):
        # Extract the song name from the message
        song_name = message.text
