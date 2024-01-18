@@ -6,10 +6,13 @@ from pyrogram import Client, filters
 import sys
 import traceback
 
-@Client.on_message(filters.command("run"))
+@client.on_message(filters.command("run"))
 async def run_code(client, message):
     # Get the code from the message
     code = message.text.split(" ", 1)[1]
+
+    # Extract the code from the tuple
+    code = code[0]
 
     # Run the code in a separate thread
     try:
