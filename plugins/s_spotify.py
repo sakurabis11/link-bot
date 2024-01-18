@@ -1,6 +1,6 @@
 from pyrogram import Client, filters
 import spotipy
-from info import SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECERT
+from info import SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET
 
    # Create a Spotify API client instance
 spotify = spotipy.Spotify(
