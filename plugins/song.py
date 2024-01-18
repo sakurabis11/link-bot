@@ -1,70 +1,63 @@
 import asyncio
 import os
-import re
+import shutil
 from pyrogram import Client, filters
-from pytube import YouTube
-from info import REQUESTED_CHANNEL
-from youtube_search import YoutubeSearch
+from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery
+from yt_dlp import YoutubeDL
 
-@Client.on_message(filters.command(["song"]))
+@Client.on_message(filters.command("song"))
 async def download_song(client, message):
-  # Check if the user has provided a song name
-  if len(message.text.split()) < 2:
-    await message.reply("ᴘʟᴇᴀsᴇ ᴘʀᴏᴠɪᴅᴇ ᴛʜᴇ sᴏɴɢ ʏᴏᴜ ᴡᴀɴᴛ ᴇɢ:- /song lover")
-    return
+    # Extract the song name from the command
+    song_name = message.text.split()[1]
 
-  song_name = " ".join(message.text.split()[1:]) # Extract and combine song name parts
+    # Use yt-dlp to download the song
+    ydl_opts = {
+        "format": "bestaudio/best",
+        "postprocessors": [
+            {
+                "key": "FFmpegExtractAudio",
+                "preferredcodec": "mp3",
+                "preferredquality": "192",
+            }
+        ],
+    }
+    with YoutubeDL(ydl_opts) as ydl:
+        song_info = ydl.extract_info(f"ytsearch:{song_name}", download=False)
+        song_url = song_info["entries"][0]["webpage_url"]
+        ydl.download([song_url])
 
-  # Send "Searching..." message before searching
-  m=await message.reply("⏳")
-
-  # Search for the song on YouTube
-  search_results = YoutubeSearch(song_name, max_results=1).to_dict()
-  if not search_results:
-    await message.reply("ɴᴏ sᴏɴɢ ғᴏᴜɴᴅ ᴡɪᴛʜ ᴛʜᴀᴛ ɴᴀᴍᴇ ᴡɪᴛʜ ᴛʜᴀᴛ")
-
-  song_url = search_results[0]["url_suffix"]
-  song_title = search_results[0]["title"]
-  duration = search_results[0]["duration"]
-
-  # Download the song using pytube
-  yt = YouTube(f"https://www.youtube.com{song_url}")
-  thumbnail_url = yt.thumbnail_url # Extract thumbnail URL
-
-  audio_streams = yt.streams.filter(only_audio=True)
-  if not audio_streams:
-    await message.reply("ɴᴏ ᴀᴜᴅɪᴏ sᴛᴇᴇᴀᴍ ғᴏᴜɴᴅ ғᴏʀ ᴛʜᴇ sᴘᴇᴄɪғɪᴇᴅ ᴠɪᴅᴇᴏs")
-    return
-
-  video = audio_streams.first()
-  audio_filename = f"{song_title}.mp3"
-
-  try:
-    video.download(filename=audio_filename)
-
-    # Prepare the thumbnail for use as both caption and photo
-    thumbnail_caption = f"**🍃 {song_title}**\n" + \
-              f"🕛 ᴅᴜʀᴛɪᴏɴ: {duration}\n" + \
-              f"🍂 ʏᴏᴜ ᴛᴜʙᴇ: <a href='https://www.youtube.com{song_url}'>ʏᴏᴜ ᴛᴜʙᴇ</a>"
-
-    # Send the thumbnail as a photo with the caption
-    await message.reply_photo(
-      thumbnail_url,
-      caption=thumbnail_caption
+    # Set the thumbnail to the audio file as mp3
+    thumb_url = song_info["entries"][0]["thumbnails"][0]["url"]
+    thumb_file = "thumbnail.jpg"
+    await asyncio.gather(
+        client.download_media(thumb_url, thumb_file),
+        shutil.move(f"{song_name}.mp3", "song.mp3"),
     )
 
-    song_caption = f"**🎧 {song_title}**\n"
+    # Create an inline keyboard for the user to select the song
+    keyboard = InlineKeyboardMarkup(
+        [[InlineKeyboardButton("Download Song", callback_data="download_song")]]
+    )
 
-    # Send the downloaded song without an explicit caption (it's already in the photo)
+    # Send a message with the song details and the inline keyboard
     await message.reply_audio(
-      audio_filename,
-      caption=song_caption
+        "song.mp3",
+        caption=f"{song_info['entries'][0]['title']}\n\n{song_info['entries'][0]['description']}",
+        reply_markup=keyboard,
     )
-    await m.delete()
-    await client.send_message(REQUESTED_CHANNEL, text=f"#sᴏɴɢ\nʀᴇǫᴜᴇsᴛᴇᴅ ғʀᴏᴍ {message.from_user.mention}\nʀᴇǫᴜᴇsᴛ ɪs {song_name}")
 
-    # Delete the downloaded song after sending it
-    os.remove(audio_filename)
+# Define the callback handler for downloading the song
+@Client.on_callback_query(filters.regex("download_song"))
+async def download_song_callback(client, callback_query):
+    # Send the song file to the user
+    await client.send_audio(
+        callback_query.message.chat.id,
+        "song.mp3",
+        caption="Your song is ready!",
+    )
 
-  except Exception as e:
-    await message.reply(f"ᴇʀʀᴏʀ sᴏɴɢ ᴅᴏᴡɴʟᴏᴀᴅɪɴɢ: {e}")
+    # Delete the downloaded files
+    os.remove("song.mp3")
+    os.remove("thumbnail.jpg")
+
+
