@@ -10,7 +10,10 @@ async def download_song(client, message):
     # Extract the song name from the command
     song_name = message.text.split()[1]
 
-    # Use yt-dlp to download the song
+    # Specify the path to ffmpeg (replace with the actual path on your system)
+    ffmpeg_path = "/path/to/ffmpeg/bin"  # Replace with your actual ffmpeg path
+
+    # Use yt-dlp to download the song, providing the ffmpeg path
     ydl_opts = {
         "format": "bestaudio/best",
         "postprocessors": [
@@ -20,13 +23,14 @@ async def download_song(client, message):
                 "preferredquality": "192",
             }
         ],
+        "ffmpeg_location": ffmpeg_path,  # Provide the ffmpeg path here
     }
+
     with YoutubeDL(ydl_opts) as ydl:
         song_info = ydl.extract_info(f"ytsearch:{song_name}", download=False)
         song_url = song_info["entries"][0]["webpage_url"]
         ydl.download([song_url])
 
-    # Set the thumbnail to the audio file as mp3
     thumb_url = song_info["entries"][0]["thumbnails"][0]["url"]
     thumb_file = "thumbnail.jpg"
     await asyncio.gather(
