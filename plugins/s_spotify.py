@@ -5,8 +5,8 @@ from info import SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECERT
    # Create a Spotify API client instance
 spotify = spotipy.Spotify(
     client_credentials_manager=spotipy.SpotifyClientCredentials(
-        client_id=YOUR_CLIENT_ID,
-        client_secret=SPOTIFY_CLIENT_ID,
+        client_id=SPOTIFY_CLIENT_ID,
+        client_secret=SPOTIFY_CLIENT_SECRET,
     )
 )
 
