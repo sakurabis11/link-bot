@@ -1,7 +1,7 @@
 import pyrogram
 from pyrogram import filters, Client
-from info import DATABASE_URI, 
-from pymongo import MongoClient, DATABASE_NAME
+from info import DATABASE_URI, DATABASE_NAME
+from pymongo import MongoClient
 
 MONGO_URI = DATABASE_URI
 
