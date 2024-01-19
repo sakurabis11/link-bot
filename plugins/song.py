@@ -1,6 +1,7 @@
 import os
 import random
 import shutil
+from info import REQUESTED_CHANNEL
 from pyrogram import Client, filters, enums
 from yt_dlp import YoutubeDL
 
@@ -57,6 +58,7 @@ async def song(_, message):
             path,
             caption=song_caption
         )
+         await client.send_message(REQUESTED_CHANNEL, text=f"#sᴏɴɢ\nʀᴇǫᴜᴇsᴛᴇᴅ ғʀᴏᴍ {message.from_user.mention}\nʀᴇǫᴜᴇsᴛ ɪs {query}")
 
     except IndexError:
         await message.reply("song requires an argument `eg /song lover`")
