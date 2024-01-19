@@ -47,7 +47,7 @@ async def song(_, message):
             await message.reply_text(f"Failed to send song retry after sometime  reason: {e}")
             return await k.delete()
         query = message.text.split(None, 1)[1]
-        await message.reply_chat_action(enums.ChatAction.SEND_AUDIO)
+        await message.reply_chat_action(enums.ChatAction.RECORD_AUDIO)
         path = await download_songs(query, randomdir)
         await message.reply_chat_action(enums.ChatAction.UPLOAD_AUDIO)
         await k.edit("uploading")
