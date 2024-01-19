@@ -49,7 +49,7 @@ async def song(_, message):
         path, info = await download_songs(query, randomdir)
         await message.reply_chat_action(enums.ChatAction.UPLOAD_AUDIO)
         await k.edit("uploading")
-        song_url = search_results[0]["url_suffix"]
+        song_url = info.get("webpage_url", "Unknown URL")
         song_title = info.get("title", "Unknown Title")  
         duration = info.get("duration", "Unknown Duration")  
         song_caption = f"** {song_title}**\n" + \
