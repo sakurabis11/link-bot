@@ -49,12 +49,9 @@ async def song(_, message):
         path, info = await download_songs(query, randomdir)
         await message.reply_chat_action(enums.ChatAction.UPLOAD_AUDIO)
         await k.edit("uploading")
-        song_url = info.get("webpage_url", "Unknown URL")
-        song_title = info.get("title", "Unknown Title")  
-        duration = info.get("duration", "Unknown Duration")  
-        song_caption = f"** {song_title}**\n" + \
-                        f" ᴅᴜʀᴛɪᴏɴ: {duration}\n" + \
-                        f" ʏᴏᴜ ᴛᴜʙᴇ: <a href='https://www.youtube.com/watch?v={song_url}'>ʏᴏᴜ ᴛᴜʙᴇ</a>" 
+        song_title = info.get("title", "Unknown Title")   
+        song_caption = f"**🍃 {song_title}**\n" + \
+                       f"🍂 sᴜᴘᴘᴏʀᴛ: <a href='https://t.me/sd_bots'>sᴅ ʙᴏᴛs</a>" 
 
         await message.reply_audio(
             path,
