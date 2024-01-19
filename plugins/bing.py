@@ -12,7 +12,7 @@ def image_handler(client, message):
     query = " ".join(query)
 
     # Construct the Bing search URL
-    url = "https://www.bing.com/images/search?q=" + query
+    url = "https://www.bing.com/images/search?q=query"
 
     # Send a GET request to the Bing search URL
     response = requests.get(url)
