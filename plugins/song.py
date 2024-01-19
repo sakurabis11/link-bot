@@ -53,7 +53,7 @@ async def song(_, message):
         duration = info.get("duration", "Unknown Duration")  # Extract duration from info
         song_caption = f"** {song_title}**\n" + \
                         f" ᴅᴜʀᴛɪᴏɴ: {duration}\n" + \
-                        f" ʏᴏᴜ ᴛᴜʙᴇ: <a href='https://www.youtube.com/watch?v={video}'>ʏᴏᴜ ᴛᴜʙᴇ</a>"  # Construct correct link
+                        f" ʏᴏᴜ ᴛᴜʙᴇ: <a href='https://www.youtube.com/watch?v={query}'>ʏᴏᴜ ᴛᴜʙᴇ</a>"  # Construct correct link
 
         await message.reply_audio(
             path,
