@@ -28,11 +28,9 @@ async def download_songs(query, download_directory="."):
                 print(f"Track Not Found⚠️")
             else:
                 path_link = filename
-                return path_link
+                return path_link, info  # Return info for song title and duration
         except Exception as e:
-            pass
-            print(e)
-    return video
+            raise Exception(f"Error downloading song: {e}")  # Re-raise for specific handling
 
 @Client.on_message(filters.command("song"))
 async def song(_, message):
@@ -44,20 +42,29 @@ async def song(_, message):
             randomdir = f"/tmp/{str(random.randint(1, 100000000))}"
             os.mkdir(randomdir)
         except Exception as e:
-            await message.reply_text(f"Failed to send song retry after sometime  reason: {e}")
+            await message.reply_text(f"Failed to send song retry after sometime reason: {e}")
             return await k.delete()
         query = message.text.split(None, 1)[1]
         await message.reply_chat_action(enums.ChatAction.RECORD_AUDIO)
-        path = await download_songs(query, randomdir)
+        path, info = await download_songs(query, randomdir)
         await message.reply_chat_action(enums.ChatAction.UPLOAD_AUDIO)
         await k.edit("uploading")
-        await message.reply_audio(path)
+        song_title = info.get("title", "Unknown Title")  # Extract title from info
+        duration = info.get("duration", "Unknown Duration")  # Extract duration from info
+        song_caption = f"** {song_title}**\n" + \
+                        f" ᴅᴜʀᴛɪᴏɴ: {duration}\n" + \
+                        f" ʏᴏᴜ ᴛᴜʙᴇ: <a href='https://www.youtube.com/watch?v={video}'>ʏᴏᴜ ᴛᴜʙᴇ</a>"  # Construct correct link
+
+        await message.reply_audio(
+            path,
+            caption=song_caption
+        )
 
     except IndexError:
         await message.reply("song requires an argument `eg /song lover`")
         return await k.delete()
     except Exception as e:
-        await message.reply_text(f"Failed to send song  reason: {e}")
+        await message.reply_text(f"Failed to send song reason: {e}")
     finally:
         try:
             shutil.rmtree(randomdir)
