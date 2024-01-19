@@ -44,19 +44,17 @@ async def song(_, message):
             randomdir = f"/tmp/{str(random.randint(1, 100000000))}"
             os.mkdir(randomdir)
         except Exception as e:
-            await message.reply_text(
-                f"Failed to send song retry after sometime  reason: {e}"
-            )
+            await message.reply_text(f"Failed to send song retry after sometime  reason: {e}")
             return await k.delete()
         query = message.text.split(None, 1)[1]
-        await message.reply_chat_action(enums.ChatAction.RECORD_AUDIO)
+        await message.reply_chat_action(enums.ChatAction.SEND_AUDIO)
         path = await download_songs(query, randomdir)
         await message.reply_chat_action(enums.ChatAction.UPLOAD_AUDIO)
         await k.edit("uploading")
         await message.reply_audio(path)
 
     except IndexError:
-        await message.reply("song requires an argument `eg /song faded`")
+        await message.reply("song requires an argument `eg /song lover`")
         return await k.delete()
     except Exception as e:
         await message.reply_text(f"Failed to send song  reason: {e}")
