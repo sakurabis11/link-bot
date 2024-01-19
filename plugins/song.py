@@ -2,7 +2,7 @@ import os
 import random
 import shutil
 from info import REQUESTED_CHANNEL
-from pyrogram import Client, filters, enums
+from pyrogram import Client as client, filters, enums
 from yt_dlp import YoutubeDL
 
 async def download_songs(query, download_directory="."):
@@ -33,7 +33,7 @@ async def download_songs(query, download_directory="."):
         except Exception as e:
             raise Exception(f"Error downloading song: {e}")  
 
-@Client.on_message(filters.command("song"))
+@client.on_message(filters.command("song"))
 async def song(_, message):
     try:
         await message.reply_chat_action(enums.ChatAction.TYPING)
