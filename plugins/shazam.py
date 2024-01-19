@@ -19,12 +19,13 @@ app = Client("my_shazam_bot", api_id=api_id, api_hash=api_hash)
 @app.on_message(filters.command("shazam"))
 async def shazam_command(client, message):
     # Check if the user has replied to a message with media
+    if not (message.reply_to_message.audio or message.reply_to_message.voice or message.reply_to_message.video):
     if not message.reply_to_message:
-        await message.reply("Please reply to a message with an audio or video file.")
+        await message.reply("Please reply to an audio or video.")
         return
 
     # Get the media file from the replied message
-    media = message.reply_to_message.media
+    media = message.reply_to_message.video
 
     # Download the media file to a temporary file
     with tempfile.NamedTemporaryFile() as temp_file:
