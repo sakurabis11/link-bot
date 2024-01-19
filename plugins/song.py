@@ -1,8 +1,6 @@
 import os
 import random
 import shutil
-
-from asgiref.sync import sync_to_async
 from pyrogram import Client, filters, enums
 from yt_dlp import YoutubeDL
 
