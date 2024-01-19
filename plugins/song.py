@@ -28,9 +28,9 @@ async def download_songs(query, download_directory="."):
                 print(f"Track Not Found⚠️")
             else:
                 path_link = filename
-                return path_link, info  # Return info for song title and duration
+                return path_link, info 
         except Exception as e:
-            raise Exception(f"Error downloading song: {e}")  # Re-raise for specific handling
+            raise Exception(f"Error downloading song: {e}")  
 
 @Client.on_message(filters.command("song"))
 async def song(_, message):
@@ -49,11 +49,12 @@ async def song(_, message):
         path, info = await download_songs(query, randomdir)
         await message.reply_chat_action(enums.ChatAction.UPLOAD_AUDIO)
         await k.edit("uploading")
-        song_title = info.get("title", "Unknown Title")  # Extract title from info
-        duration = info.get("duration", "Unknown Duration")  # Extract duration from info
+        song_url = search_results[0]["url_suffix"]
+        song_title = info.get("title", "Unknown Title")  
+        duration = info.get("duration", "Unknown Duration")  
         song_caption = f"** {song_title}**\n" + \
                         f" ᴅᴜʀᴛɪᴏɴ: {duration}\n" + \
-                        f" ʏᴏᴜ ᴛᴜʙᴇ: <a href='https://www.youtube.com/watch?v={query}'>ʏᴏᴜ ᴛᴜʙᴇ</a>"  # Construct correct link
+                        f" ʏᴏᴜ ᴛᴜʙᴇ: <a href='https://www.youtube.com/watch?v={song_url}'>ʏᴏᴜ ᴛᴜʙᴇ</a>" 
 
         await message.reply_audio(
             path,
