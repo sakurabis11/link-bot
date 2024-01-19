@@ -1,4 +1,3 @@
-
 import pyrogram
 from pyrogram import Client, filters
 import requests
@@ -12,7 +11,7 @@ def image_handler(client, message):
     query = " ".join(query)
 
     # Construct the Bing search URL
-    url = "https://www.bing.com/images/search?q=query"
+    url = f"https://www.bing.com/images/search?q={query}"
 
     # Send a GET request to the Bing search URL
     response = requests.get(url)
@@ -28,3 +27,4 @@ def image_handler(client, message):
 
     # Send the image to the user
     client.send_photo(message.chat.id, image_data)
+  
