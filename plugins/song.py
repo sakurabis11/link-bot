@@ -1,7 +1,6 @@
 import os
 import random
 import shutil
-from info import REQUESTED_CHANNEL
 from pyrogram import Client, filters, enums
 from yt_dlp import YoutubeDL
 
@@ -43,13 +42,13 @@ async def song(_, message):
             randomdir = f"/tmp/{str(random.randint(1, 100000000))}"
             os.mkdir(randomdir)
         except Exception as e:
-            await message.reply_text(f"Failed to send song retry after sometime reason: {e}")
+            await message.reply_text(f"Fᴀɪʟᴇᴅ ᴛᴏ sᴇɴᴅ sᴏɴɢ ʀᴇᴛʀʏ ᴀғᴛᴇʀ sᴏᴍᴇᴛɪᴍᴇ ʀᴇᴀsᴏɴ: {e}")
             return await k.delete()
         query = message.text.split(None, 1)[1]
         await message.reply_chat_action(enums.ChatAction.RECORD_AUDIO)
         path, info = await download_songs(query, randomdir)
         await message.reply_chat_action(enums.ChatAction.UPLOAD_AUDIO)
-        await k.edit("uploading")
+        await k.edit("ᴜᴘʟᴏᴀᴅɪɴɢ")
         song_title = info.get("title", "Unknown Title")   
         song_caption = f"**🍃 {song_title}**\n" + \
                        f"🍂 sᴜᴘᴘᴏʀᴛ: <a href='https://t.me/sd_bots'>sᴅ ʙᴏᴛs</a>" 
@@ -58,13 +57,12 @@ async def song(_, message):
             path,
             caption=song_caption
         )
-         await client.send_message(REQUESTED_CHANNEL, text=f"#sᴏɴɢ\nʀᴇǫᴜᴇsᴛᴇᴅ ғʀᴏᴍ {message.from_user.mention}\nʀᴇǫᴜᴇsᴛ ɪs {query}")
 
     except IndexError:
-        await message.reply("song requires an argument `eg /song lover`")
+        await message.reply("eg `/song lover`")
         return await k.delete()
     except Exception as e:
-        await message.reply_text(f"Failed to send song reason: {e}")
+        await message.reply_text(f"Fᴀɪʟᴇᴅ ᴛᴏ sᴇɴᴅ sᴏɴɢ ʀᴇᴀsᴏɴ: {e}")
     finally:
         try:
             shutil.rmtree(randomdir)
