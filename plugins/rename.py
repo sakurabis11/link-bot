@@ -1,13 +1,13 @@
 import os
 from pyrogram import Client, filters
-from info import ADMIN
+from info import ADMINS
 
-@Client.on_message(filters.photo & filters.private & filters.user(ADMIN))
+@Client.on_message(filters.photo & filters.private & filters.user(ADMINS))
 async def save_thumbnail(client, message):
     thumbnail_file = await message.download()
     await message.reply("Thumbnail saved!")
 
-@Client.on_message(filters.command("rename") & filters.private & filters.user(ADMIN))
+@Client.on_message(filters.command("rename") & filters.private & filters.user(ADMINS))
 async def rename_file(client, message):
     try:
         reply_message = await message.get_reply_message()
@@ -20,14 +20,14 @@ async def rename_file(client, message):
             if os.path.exists("thumbnail.jpg"):
                 if reply_message.video:
                     await client.send_video(
-                        ADMIN, new_file_name, thumb="thumbnail.jpg"
+                        ADMINS, new_file_name, thumb="thumbnail.jpg"
                     )
                 else:
                     await client.send_document(
-                        ADMIN, new_file_name, thumb="thumbnail.jpg"
+                        ADMINS, new_file_name, thumb="thumbnail.jpg"
                     )  # Use send_document for documents
             else:
-                await client.send_video(ADMIN, new_file_name)  # Adjust for document
+                await client.send_video(ADMINS, new_file_name)  # Adjust for document
 
             await message.reply("File renamed and sent!")
         else:
