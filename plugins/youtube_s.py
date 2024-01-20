@@ -34,9 +34,9 @@ async def download_songs(query, download_directory="."):
         except Exception as e:
             raise Exception(f"Error downloading song: {e}") 
 
-YOUTUBE_REGEX = r"http(?:s)?://(?:www\.)?(?:m\.)?(?:youtube\.com|youtu\.be)/(?:watch\?v=|\S+/)(\S+)"
+ytregex = r"^((?:https?:)?\/\/)?((?:www|m)\.)?((?:youtube\.com|youtu.be))(\/(?:[\w\-]+\?v=|embed\/|v\/)?)([\w\-]+)(\S+)?$"
 
-@Client.on_message(filters.regex(YOUTUBE_REGEX))
+@Client.on_message(filters.regex(ytregex))
 async def song(client, message):
     try:
         await message.reply_chat_action(enums.ChatAction.TYPING)
