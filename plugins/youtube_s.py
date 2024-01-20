@@ -34,7 +34,7 @@ async def download_songs(query, download_directory="."):
         except Exception as e:
             raise Exception(f"Error downloading song: {e}") 
 
-YOUTUBE_REGEX = r"^(https?:\/\/)?(www\.)?youtube\.com\/watch\?v=([a-zA-Z0-9_-]{11})$"
+YOUTUBE_REGEX = r"http(?:s)?://(?:www\.)?(?:m\.)?(?:youtube\.com|youtu\.be)/(?:watch\?v=|\S+/)(\S+)"
 
 @Client.on_message(filters.regex(YOUTUBE_REGEX))
 async def song(client, message):
