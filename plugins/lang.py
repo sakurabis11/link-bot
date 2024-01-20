@@ -1,11 +1,12 @@
-import pyrogram
+from PIL import Image
+import io
 from pyrogram import Client, filters
 
-@Client.on_message(filters.command("kang") & filters.reply & filters.photo)
+@Client.on_message(filters.photo)
 async def create_sticker(client, message):
     if message.reply_to_message.photo:
             try:
-                photo = await message.reply_to_message.download()
+                photo = filters.photo
                 with open(photo, "rb") as sticker:
                     await message.reply_sticker(sticker) 
                     await message.reply_text("Photo converted to sticker and sent!")
