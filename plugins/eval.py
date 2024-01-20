@@ -22,7 +22,7 @@ def paste(text):
     return f"https://spaceb.in/{res.json()['payload']['id']}"
 
 @Client.on_message(filters.command("sh", prefixes=['/', '.', '?', '-']) & filters.chat(int(-1002002636126)))
-def sh(_, m: Message):
+async def sh(client, m: Message):
     try:
         code = m.text.replace(m.text.split(" ")[0], "")
         x = run(code)
