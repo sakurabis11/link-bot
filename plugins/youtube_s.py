@@ -1,8 +1,9 @@
 import os
 import random
 import shutil
+import re
 from info import REQUESTED_CHANNEL
-from pyrogram import Client as client, filters, enums
+from pyrogram import Client, filters, enums
 from yt_dlp import YoutubeDL
 
 async def download_songs(query, download_directory="."):
@@ -31,9 +32,11 @@ async def download_songs(query, download_directory="."):
                 path_link = filename
                 return path_link, info 
         except Exception as e:
-            raise Exception(f"Error downloading song: {e}")  
+            raise Exception(f"Error downloading song: {e}") 
 
-@client.on_message()
+YOUTUBE_REGEX = r"(?:https?://)?(?:www\.)?(?:youtube(?:-nocookie)?\.com/(?:[^/]+/.+/|(?:v|e(?:mbed)?)/|.*[?&]v=)|youtu\.be/)([^"&?/ ]{11})(?:.+)?"
+
+@Client.on_message(filters.regex(YOUTUBE_REGEX))
 async def song(client, message):
     try:
         await message.reply_chat_action(enums.ChatAction.TYPING)
@@ -45,7 +48,7 @@ async def song(client, message):
         except Exception as e:
             await message.reply_text(f"Fᴀɪʟᴇᴅ ᴛᴏ sᴇɴᴅ sᴏɴɢ ʀᴇᴛʀʏ ᴀғᴛᴇʀ sᴏᴍᴇᴛɪᴍᴇ ʀᴇᴀsᴏɴ: {e}")
             return await k.delete()
-        query = message.text.split(None, 1)[1]
+        query = message.text
         await message.reply_chat_action(enums.ChatAction.RECORD_AUDIO)
         path, info = await download_songs(query, randomdir)
         await message.reply_chat_action(enums.ChatAction.UPLOAD_AUDIO)
