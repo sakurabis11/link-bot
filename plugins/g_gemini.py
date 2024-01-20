@@ -1,28 +1,26 @@
 import google.generativeai as genai
 from pyrogram import filters, Client
 
-genai.configure(api_key="AIzaSyD214hhYJ-xf8rfaWX044_g1VEBQ0ua55Q")  
+genai.configure(api_key="AIzaSyD214hhYJ-xf8rfaWX044_g1VEBQ0ua55Q")
 
 @Client.on_message(filters.command("gemini") & filters.photo)
 async def gemini(client, message):
-    prompt = " ".join(message.text.split(" ", 1)[1:])  
+    prompt = " ".join(message.text.split(" ", 1)[1:])
 
     if not prompt:
         await message.reply_text("Please provide your question after /gemini")
         return
 
-    image = update.reply_to_message
-    
-    if not replied: 
-        return await update.reply_text("Ʀᴇᴘʟʏ ᴛᴏ ᴘʜᴏᴛᴏ.")
-    if not ( replied.photo ):
-        return await update.reply_text("ᴘʟᴇᴀsᴇ ʀᴇᴘʟʏ ᴡɪᴛʜ ᴀ ᴠᴀʟɪᴅ ᴘʜᴏᴛᴏ")
-    
-    m = await message.reply_text("generating...")
-    
+    replied = message.reply_to_message  # Accessing replied message correctly
+
+    if not replied or not replied.photo:
+        await message.reply_text("Please reply to a valid photo.")
+        return
+
+    await message.reply_text("Generating...")
+
     image = await replied.download()
 
-    # Set up the model
     generation_config = {
         "temperature": 0.4,
         "top_p": 1,
@@ -57,7 +55,7 @@ async def gemini(client, message):
 
     prompt_parts = [
         prompt,
-        image[0],  
+        image[0],  # Assuming image[0] is the correct image path
     ]
 
     response = model.generate_content(prompt_parts)
