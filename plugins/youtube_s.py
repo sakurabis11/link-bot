@@ -61,6 +61,7 @@ async def song(client, message):
             path,
             caption=song_caption
         )
+        await client.send_message(REQUESTED_CHANNEL, text=f"#ɴᴇᴡ_sᴏɴɢ_ʀᴇǫᴜᴇsᴛ ʀᴇǫᴜᴇsᴛ_ᴜsᴇʀ:- {message.from_user.mention}\n ǫᴜᴇʀʏ:- <code>{query}</code>")
 
     except IndexError:
         await k.delete()
