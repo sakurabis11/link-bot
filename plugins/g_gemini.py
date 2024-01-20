@@ -5,15 +5,22 @@ genai.configure(api_key="AIzaSyD214hhYJ-xf8rfaWX044_g1VEBQ0ua55Q")
 
 @Client.on_message(filters.command("gemini") & filters.photo)
 async def gemini(client, message):
-    m = await message.reply_text("generating...")
-
     prompt = " ".join(message.text.split(" ", 1)[1:])  
 
     if not prompt:
         await message.reply_text("Please provide your question after /gemini")
         return
 
-    image = await client.download_media()
+    image = update.reply_to_message
+    
+    if not replied: 
+        return await update.reply_text("Ʀᴇᴘʟʏ ᴛᴏ ᴘʜᴏᴛᴏ.")
+    if not ( replied.photo )
+        return await update.reply_text("ᴘʟᴇᴀsᴇ ʀᴇᴘʟʏ ᴡɪᴛʜ ᴀ ᴠᴀʟɪᴅ ᴘʜᴏᴛᴏ")
+    
+    m = await message.reply_text("generating...")
+    
+    image = await replied.download()
 
     # Set up the model
     generation_config = {
@@ -49,7 +56,7 @@ async def gemini(client, message):
     )
 
     prompt_parts = [
-        "what is this image shows. describe this image. create a prompt for this image",
+        prompt,
         image[0],  
     ]
 
