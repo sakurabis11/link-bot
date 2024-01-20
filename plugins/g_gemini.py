@@ -3,23 +3,12 @@ from pyrogram import filters, Client
 
 genai.configure(api_key="AIzaSyD214hhYJ-xf8rfaWX044_g1VEBQ0ua55Q")
 
-@Client.on_message(filters.command("gemini") & filters.photo)
+@Client.on_message(filters.photo)
 async def gemini(client, message):
-    prompt = " ".join(message.text.split(" ", 1)[1:])
 
-    if not prompt:
-        await message.reply_text("Please provide your question after /gemini")
-        return
+    await message.reply_photo("Generating...")
 
-    replied = message.reply_to_message  # Accessing replied message correctly
-
-    if not replied or not replied.photo:
-        await message.reply_text("Please reply to a valid photo.")
-        return
-
-    await message.reply_text("Generating...")
-
-    image = await replied.download()
+    image = await media.download()
 
     generation_config = {
         "temperature": 0.4,
@@ -54,8 +43,8 @@ async def gemini(client, message):
     )
 
     prompt_parts = [
-        prompt,
-        image[0],  # Assuming image[0] is the correct image path
+        "Describe this image, what is this image, create a prompt for this image",
+        image,  
     ]
 
     response = model.generate_content(prompt_parts)
