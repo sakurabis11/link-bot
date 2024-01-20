@@ -15,7 +15,7 @@ async def gemini(client, message):
     
     if not replied: 
         return await update.reply_text("Ʀᴇᴘʟʏ ᴛᴏ ᴘʜᴏᴛᴏ.")
-    if not ( replied.photo )
+    if not ( replied.photo ):
         return await update.reply_text("ᴘʟᴇᴀsᴇ ʀᴇᴘʟʏ ᴡɪᴛʜ ᴀ ᴠᴀʟɪᴅ ᴘʜᴏᴛᴏ")
     
     m = await message.reply_text("generating...")
