@@ -20,14 +20,14 @@ async def rename_file(client, message):
             if os.path.exists("thumbnail.jpg"):
                 if reply_message.video:
                     await client.send_video(
-                        YOUR_ADMIN_ID, new_file_name, thumb="thumbnail.jpg"
+                        ADMIN, new_file_name, thumb="thumbnail.jpg"
                     )
                 else:
                     await client.send_document(
-                        YOUR_ADMIN_ID, new_file_name, thumb="thumbnail.jpg"
+                        ADMIN, new_file_name, thumb="thumbnail.jpg"
                     )  # Use send_document for documents
             else:
-                await client.send_video(YOUR_ADMIN_ID, new_file_name)  # Adjust for document
+                await client.send_video(ADMIN, new_file_name)  # Adjust for document
 
             await message.reply("File renamed and sent!")
         else:
