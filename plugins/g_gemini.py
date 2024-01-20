@@ -8,8 +8,9 @@ async def gemini(client, message):
 
     await message.reply_photo("Generating...")
 
-    image = await media.download()
+    media = message.photo
 
+    image_path = await media.download()  # Download the image and get its path
     generation_config = {
         "temperature": 0.4,
         "top_p": 1,
@@ -44,7 +45,7 @@ async def gemini(client, message):
 
     prompt_parts = [
         "Describe this image, what is this image, create a prompt for this image",
-        image,  
+        image_path,
     ]
 
     response = model.generate_content(prompt_parts)
