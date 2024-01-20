@@ -77,7 +77,7 @@ async def doc(bot, update):
 
     ms = await update.message.edit("Tʀyɪɴɢ Tᴏ Dᴏᴡɴʟᴏᴀᴅɪɴɢ....")    
     try:
-     	path = await bot.download_media(message=file, file_name=file_path, progress=progress_for_pyrogram,progress_args=("Dᴏᴡɴʟᴏᴀᴅ Sᴛᴀʀᴛᴇᴅ....", ms, time.time()))                    
+     	path = await client.download_media(message=file, file_name=file_path, progress=progress_for_pyrogram,progress_args=("Dᴏᴡɴʟᴏᴀᴅ Sᴛᴀʀᴛᴇᴅ....", ms, time.time()))                    
     except Exception as e:
      	return await ms.edit(e)
      	     
@@ -104,9 +104,9 @@ async def doc(bot, update):
  
     if (media.thumbs or c_thumb):
          if c_thumb:
-             ph_path = await bot.download_media(c_thumb) 
+             ph_path = await client.download_media(c_thumb) 
          else:
-             ph_path = await bot.download_media(media.thumbs[0].file_id)
+             ph_path = await client.download_media(media.thumbs[0].file_id)
          Image.open(ph_path).convert("RGB").save(ph_path)
          img = Image.open(ph_path)
          img.resize((320, 320))
@@ -116,7 +116,7 @@ async def doc(bot, update):
     type = update.data.split("_")[1]
     try:
         if type == "document":
-            await bot.send_document(
+            await client.send_document(
                 update.message.chat.id,
                 document=file_path,
                 thumb=ph_path, 
@@ -124,7 +124,7 @@ async def doc(bot, update):
                 progress=progress_for_pyrogram,
                 progress_args=("Uᴩʟᴏᴅ Sᴛᴀʀᴛᴇᴅ....", ms, time.time()))
         elif type == "video": 
-            await bot.send_video(
+            await client.send_video(
 		update.message.chat.id,
 	        video=file_path,
 	        caption=caption,
@@ -133,7 +133,7 @@ async def doc(bot, update):
 	        progress=progress_for_pyrogram,
 		progress_args=("Uᴩʟᴏᴅ Sᴛᴀʀᴛᴇᴅ....", ms, time.time()))
         elif type == "audio": 
-            await bot.send_audio(
+            await client.send_audio(
 		update.message.chat.id,
 		audio=file_path,
 		caption=caption,
