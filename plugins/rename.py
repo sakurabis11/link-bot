@@ -1,5 +1,6 @@
 import os
 from pyrogram import Client, filters
+from pyrogram.types import *
 from info import ADMINS
 
 @Client.on_message(filters.photo & filters.private & filters.user(ADMINS))
@@ -8,7 +9,7 @@ async def save_thumbnail(client, message):
     await message.reply("Thumbnail saved!")
 
 @Client.on_message(filters.command("rename") & filters.private & filters.user(ADMINS))
-async def rename_file(client, message):
+async def rename_file(client, message: Message):
     try:
         reply_message = await message.get_reply_message()
         new_file_name = message.command[1]
