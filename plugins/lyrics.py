@@ -1,25 +1,30 @@
-import asyncio
-from pyrogram import Client, filters
-from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
+import pyrogram
+from pyrogram import filters, Client
+from pyrogram.types import Message
+from bs4 import BeautifulSoup
+import requests
 
-@Client.on_message(filters.command('lyrics'))
-async def lyrics(client: Client, message: Message):
-    # Get the song name from the message
-    song_name = message.text.split(' ', 1)[1]
 
-    # Search for the lyrics on Genius
-    async with client.async_session() as session:
-        async with session.get(f'https://api.genius.com/search?q={song_name}') as response:
-            data = await response.json()
+@Client.on_message(filters.command("lyrics"))
+async def get_lyrics(client, update):
+    message = update.message
+    chat_id = message.chat.id
 
-    # Get the first result
-    result = data['response']['hits'][0]
+    # Get the song title and artist from the message
+    song_title = message.text.split(" ")[1]
+    artist = message.text.split(" ")[2]
 
-    # Get the lyrics from the Genius API
-    async with client.async_session() as session:
-        async with session.get(f'https://api.genius.com/songs/{result["result"]["id"]}') as response:
-            data = await response.json()
+    # Make an HTTP request to the musiXmatch API to get the lyrics
+    url = f"https://api.musixmatch.com/ws/1.1/track.lyrics.get?q_track={song_title}&q_artist={artist}&apikey={lyrics_api_key}"
+    response = requests.get(url)
 
-    # Send the lyrics to the user
-    await message.reply_text(data['response']['song']['lyrics'])
+    # Parse the JSON response and get the lyrics
+    if response.status_code == 200:
+        response_data = response.json()
+        lyrics = response_data["message"]["body"]["lyrics"]["lyrics_body"]
+
+        # Send the lyrics to the user
+        await client.send_message(chat_id, lyrics)
+    else:
+        await client.send_message(chat_id, f"Error: Unable to find lyrics for '{song_title}' by '{artist}'")
 
