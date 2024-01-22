@@ -39,7 +39,7 @@ SPOTIFY_CLIENT_SECRET = os.environ.get('SPOTIFY_CLIENT_SECRET', 'e39d1705e35c47e
 #for google
 G_API_KEY = os.environ.get('G_API_KEY','AIzaSyAGv5kIu2-E0N9eTdK7lzevl2nr3sOk6is')
 
-CAPTION = environ.get("CAPTION", "{new_name}\n\n💽 size : {filesize}")
+CAPTION = environ.get("CAPTION", "{file_name}")
 
 # for thumbnail 
 DOWNLOAD_LOCATION = "./DOWNLOADS"
