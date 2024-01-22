@@ -22,6 +22,9 @@ logger = logging.getLogger(__name__)
 from database.users_db import db
 
 class Bot(Client):
+    if not os.path.isdir(DOWNLOAD_LOCATION):
+        os.makedirs(DOWNLOAD_LOCATION)
+    
     def __init__(self):
         super().__init__(
             name="simple-bot",
