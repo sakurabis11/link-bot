@@ -5,7 +5,7 @@ RUN  pip install --upgrade pip
 
 RUN pip install git+https://github.com/masterolic/pyrogram.git
 RUN pip install ffmpeg
-RUN pip install openai==0.28
+RUN pip install bing_image_scraper
 RUN pip install spotipy
 RUN pip install yt-dlp
 RUN pip instalL pafy
