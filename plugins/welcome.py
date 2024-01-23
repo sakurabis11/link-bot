@@ -1,6 +1,7 @@
 from pyrogram import Client, filters, enums
 from pyrogram.types import Message
 from database.users_db import db
+from info import DATABASE_NAME, DATABASE_URI
 
 @Client.on_message(filters.command("set_welcome"))
 async def set_welcome(client, message: Message):
