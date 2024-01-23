@@ -147,10 +147,10 @@ class Database:
     async def set_welcome(self, group_id, welcome_message):
         await self.grp.update_one({"_id": group_id}, {"$set": {"file_id": welcome_message}})
 
-    async def get_welcome(self, group_id, welcome_message):
+    async def get_welcome(self, group_id):
         return await self.grp.update_one({"_id": group_id}, {"$set": {"file_id": welcome_message}})
 
-    async def remove_welcome(self, group_id, welcome_message):
+    async def remove_welcome(self, group_id):
         await self.grp.update_one({"_id: group_id"}, {"$set": {"file_id":None}}) 
 
 
