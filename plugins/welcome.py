@@ -31,7 +31,7 @@ async def show_welcome_message(client, message: Message):
             raise ValueError("No welcome message is set")
            
         await message.reply_text(welcome_message)
-    except Exception as e:
+   except Exception as e:
         await message.reply_text(f"An error occurred: {e}")
 
 @Client.on_message(filters.command("welcome_message_remove"))
