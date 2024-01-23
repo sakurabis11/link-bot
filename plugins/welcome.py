@@ -40,7 +40,7 @@ async def remove_welcome(client, message: Message):
             raise PermissionError("You are not allowed to use this command")
 
 
-        welcome_message = await db.get_welcome(chat_id=message.chat.id)
+        welcome_message = await db.get_welcome(message.chat.id)
         if not welcome_message:
             raise ValueError(f"There's no welcome message set for this chat")
 
