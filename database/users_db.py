@@ -144,7 +144,7 @@ class Database:
     async def get_db_size(self):
         return (await self.db.command("dbstats"))['dataSize']
 
-    async def set_welcome(self, group_id, welcome_message) 
+    async def set_welcome(self, group_id, welcome_message):
         await self.grp.update_one({"_id": int(group_id)}, {"$set": {"file_id": welcome_message}})
 
 
