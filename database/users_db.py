@@ -158,7 +158,15 @@ class Database:
     async def get_caption(self, id):
         user = await self.col.find_one({'_id': int(id)})
         return user.get('caption', None)
-
+     
+    async def set_welcome(group_id, welcome_message):
+        mycol = mydb[str(group_id)]
+        mycol.update_one({"_id:group_id"},{"$set":{"file_id":welcome_message}})
+     
+    async def remove_welcome(group_id):
+        mycol = mydb[str(group_id)]
+        mycol.update_one({"_id:group_id"},{"$set":{"file_id":None}}) 
+         
 
 
 db = Database(DATABASE_URI, DATABASE_NAME)
