@@ -9,9 +9,9 @@ async def photo_to_sticker(client, message):
     if message.reply_to_message and message.reply_to_message.photo:
         photo = message.reply_to_message.photo
         file_id = photo.file_id
-        file_path = client.download_media(file_id)
+        file_path = await client.download_media(file_id)
 
         sticker = convert_photo_to_sticker(file_path)
-        client.send_sticker(message.chat_id, sticker)
+        await client.send_sticker(message.chat_id, sticker)
     else:
-        message.reply_text("Please reply to a photo with the /c command.")
+        await message.reply_text("Please reply to a photo with the /c command.")
