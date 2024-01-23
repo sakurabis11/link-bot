@@ -18,11 +18,4 @@ class Welcomedb:
         mycol = mydb[str(group_id)]
         mycol.update_one({"_id": group_id}, {"$set": {"file_id": None}})
 
-    async def set_welcome(self, group_id, welcome_message):
-        await self.col.update_one({'_id': int(id)}, {'$set': {'file_id': welcome_message}})
-
-    async def get_caption(self, id):
-        user = await self.col.find_one({'_id': int(id)})
-        return user.get('caption', None)
-
 wdb = Welcomedb(DATABASE_URI, DATABASE_NAME)
