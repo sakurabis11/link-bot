@@ -27,7 +27,7 @@ async def show_welcome_message(client, message: Message):
             raise PermissionError("Your are not allowed to use this command")
 
         welcome_message = await db.get_welcome(message.chat.id)
-        await message.reply_text(welcome_message)
+        await client.send_message(f"welcome_message")
     except Exception as e:
         await message.reply_text(f"An error occurred: {e}")
 
