@@ -8,7 +8,6 @@ logger.setLevel(logging.ERROR)
 myclient = pymongo.MongoClient(DATABASE_URI)
 mydb = myclient[DATABASE_NAME]
 
-class Welcomedb:
 
     async def set_welcome(group_id, welcome_message):
         mycol = mydb[str(group_id)]
@@ -18,4 +17,4 @@ class Welcomedb:
         mycol = mydb[str(group_id)]
         mycol.update_one({"_id": group_id}, {"$set": {"file_id": None}})
 
-wdb = Welcomedb(DATABASE_URI, DATABASE_NAME)
+
