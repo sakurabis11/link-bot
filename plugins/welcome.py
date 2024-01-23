@@ -14,8 +14,7 @@ async def set_welcome(client, message: Message):
             raise ValueError("Please provide a welcome message")
 
         welcome_message = message.text.split(" ", 1)[1]
-        welcome_message=welcome_message
-        await db.set_welcome(message.chat.id, welcome_message)
+        await db.set_welcome(message.chat.id)
         await message.reply_text(f"Welcome message successfully set for this chat")
     except Exception as e:
         await message.reply_text(f"An error occurred: {e}")
