@@ -144,27 +144,12 @@ class Database:
     async def get_db_size(self):
         return (await self.db.command("dbstats"))['dataSize']
 
-
-    async def set_thumbnail(self, id, file_id):
-        await self.col.update_one({'_id': int(id)}, {'$set': {'file_id': file_id}})
-
-    async def get_thumbnail(self, id):
-        user = await self.col.find_one({'_id': int(id)})
-        return user.get('file_id', None)
-
-    async def set_caption(self, id, caption):
-        await self.col.update_one({'_id': int(id)}, {'$set': {'caption': caption}})
-
-    async def get_caption(self, id):
-        user = await self.col.find_one({'_id': int(id)})
-        return user.get('caption', None)
-
     async def set_welcome(group_id, welcome_message):
         mycol = mydb[str(group_id)]
-        mycol.update_one({"_id": group_id}, {"$set": {"file_id": welcome_message}})
+        mycol.update_one({"_id": int(group_id)}, {"$set": {"file_id": welcome_message}})
 
     async def remove_welcome(group_id):
         mycol = mydb[str(group_id)]
-        mycol.update_one({"_id": group_id}, {"$set": {"file_id": None}})
+        mycol.update_one({"_id": int(group_id)}, {"$set": {"file_id": None}})
 
 db = Database(DATABASE_URI, DATABASE_NAME)
