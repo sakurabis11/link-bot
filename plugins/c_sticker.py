@@ -2,7 +2,7 @@ from pyrogram import Client, filters
 from pyrogram.types import Message
 from PIL import Image
 from io import BytesIO
-
+from utils import convert_photo_to_sticker
 
 @Client.on_message(filters.command("c"))
 async def photo_to_sticker(client, message):
@@ -15,15 +15,3 @@ async def photo_to_sticker(client, message):
         client.send_sticker(message.chat_id, sticker)
     else:
         message.reply_text("Please reply to a photo with the /c command.")
-
-def convert_photo_to_sticker(file_path):
-    image = Image.open(file_path)
-    image = image.resize((512, 512))  
-
-    sticker_bytes = BytesIO()
-    image.save(sticker_bytes, format="webp") 
-    sticker_bytes.seek(0)
-
-    return sticker_bytes
-
-
