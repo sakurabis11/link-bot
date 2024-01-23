@@ -28,7 +28,7 @@ async def show_welcome_message(client, message: Message):
 
         welcome_message = f"ʜᴇʏ {message.from_user.mention}✨\n,ᴡᴇʟᴄᴏᴍᴇ ᴛᴏ {message.chat.title}"
 
-        db_welcome = await db.get_welcome(message.chat.id)
+        db_welcome = await db.get_welcome(welcome_message, message.chat.id)
         if db_welcome:
             welcome_message = db_welcome
 
@@ -44,7 +44,7 @@ async def remove_welcome(client, message: Message):
         if user.status not in [enums.ChatMemberStatus.OWNER, enums.ChatMemberStatus.ADMINISTRATOR]:
             raise PermissionError("You are not allowed to use this command")
 
-        welcome_message = await db.get_welcome(message.chat.id)  
+        welcome_message = await db.get_welcome(welcome_message, message.chat.id)  
         if not welcome_message:
             raise ValueError(f"There's no welcome message set for this chat")
 
