@@ -9,7 +9,7 @@ async def set_welcome(client, message: Message):
         return await message.reply_text("You are not allowed to use this command")
     if len(message.command) == 1:
         return await message.reply_text("Please provide a welcome message")
-    welcome_message = message.text.split(" ", 1)[1]
+    welcome_message = message.text.split(None, 1)[1]
     await db.set_welcome(message.chat.id, welcome_message=welcome_message)
     await message.reply_text(f"Welcome message successfully set for this chat")  
 
