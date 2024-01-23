@@ -12,6 +12,8 @@ from datetime import datetime
 from typing import List
 from database.users_db import db
 from bs4 import BeautifulSoup
+from PIL import Image
+from io import BytesIO
 import requests
 
 logger = logging.getLogger(__name__)
@@ -27,35 +29,6 @@ SMART_OPEN = '“'
 SMART_CLOSE = '”'
 START_CHAR = ('\'', '"', SMART_OPEN)
 
-PROGRESS_BAR = "\n\n📁 : {b} | {c}\n🚀 : {a}%\n⚡ : {d}/s\n⏱️ : {f}"
-
-async def progress_message(current, total, ud_type, message, start):
-    now = time.time()
-    diff = now - start
-    if round(diff % 10.00) == 0 or current == total:
-        percentage = current * 100 / total
-        speed = current / diff
-        elapsed_time = round(diff) * 1000
-        time_to_completion = round((total - current) / speed) * 1000
-        estimated_total_time = elapsed_time + time_to_completion
-        elapsed_time = TimeFormatter(milliseconds=elapsed_time)
-        estimated_total_time = TimeFormatter(milliseconds=estimated_total_time)                                    
-        progress = "\n{0}{1}".format(
-            ''.join(["⬢" for i in range(math.floor(percentage / 5))]),
-            ''.join(["⬡" for i in range(20 - math.floor(percentage / 5))]))                                  
-        tmp = progress + PROGRESS_BAR.format(
-            a=round(percentage, 2),
-            b=humanbytes(current),
-            c=humanbytes(total),
-            d=humanbytes(speed),
-            f=estimated_total_time if estimated_total_time != '' else "0 s")                               
-        try:
-            chance = [[InlineKeyboardButton("🚫 Cancel", callback_data="del")]]
-            await message.edit(text="{}\n{}".format(ud_type, tmp), reply_markup=InlineKeyboardMarkup(chance))         
-        except:
-            pass
-
-
 def humanbytes(size):
     units = ["Bytes", "KB", "MB", "GB", "TB", "PB", "EB"]
     size = float(size)
@@ -64,19 +37,6 @@ def humanbytes(size):
         i += 1
         size /= 1024.0
     return "%.2f %s" % (size, units[i])
-
-
-def TimeFormatter(milliseconds: int) -> str:
-    seconds, milliseconds = divmod(int(milliseconds), 1000)
-    minutes, seconds = divmod(seconds, 60)
-    hours, minutes = divmod(minutes, 60)
-    days, hours = divmod(hours, 24)
-    tmp = ((str(days) + "d, ") if days else "") + \
-          ((str(hours) + "h, ") if hours else "") + \
-          ((str(minutes) + "m, ") if minutes else "") + \
-          ((str(seconds) + "s, ") if seconds else "") + \
-          ((str(milliseconds) + "ms, ") if milliseconds else "")
-    return tmp[:-2]
 
 # temp db for banned 
 class temp(object):
@@ -443,4 +403,14 @@ def remove_escapes(text: str) -> str:
         else:
             res += text[counter]
     return res
+
+def convert_photo_to_sticker(file_path):
+    image = Image.open(file_path)
+    image = image.resize((512, 512))  
+
+    sticker_bytes = BytesIO()
+    image.save(sticker_bytes, format="webp") 
+    sticker_bytes.seek(0)
+
+    return sticker_bytes
 
