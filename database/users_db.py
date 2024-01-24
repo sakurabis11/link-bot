@@ -148,7 +148,10 @@ class Database:
         await self.grp.update_one({"_id": int(group_id)}, {"$set": {"welcome_message": welcome_message}}) 
 
     async def get_welcome(self, group_id):
-        user = await self.col.find_one({'_id': int(group_id)})
-        return user.get('welcome_message', None)
+        user = await self.grp.update_one({'_id': int(group_id)})
+        if user is not None:
+            return user.get('welcome_message', None)
+        else:
+            return "Welcome message not found."
 
 db = Database(DATABASE_URI, DATABASE_NAME)
