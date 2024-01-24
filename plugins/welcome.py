@@ -14,7 +14,7 @@ async def set_welcome(client, message: Message):
       raise ValueError("Please provide a welcome message")
 
     welcome_message = message.text.split(" ", 1)[1]
-    await db.set_welcome(welcome_message, message.chat.id)
+    await db.set_welcome(message.chat.id, welcome_message)
     await message.reply_text(f"Welcome message successfully set for this chat")
   except Exception as e:
     await message.reply_text(f"An error occurred: {e}")
@@ -27,7 +27,10 @@ async def show_welcome_message(client, message: Message):
       raise PermissionError("You are not allowed to use this command")
 
     welcome_message = await db.get_welcome(message.chat.id)
-    await client.send_message(message.chat.id, welcome_message) 
+    if welcome_messsage:
+      await message.reply_text(f"your welcome message is {welcome_message}")
+    else:
+      await message.reply_text("no welcome message for this chat")
   except Exception as e:
     await message.reply_text(f"An error occurred: {e}")
 
