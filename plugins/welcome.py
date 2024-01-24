@@ -26,7 +26,7 @@ async def show_welcome_message(client, message: Message):
     if user.status not in [enums.ChatMemberStatus.OWNER, enums.ChatMemberStatus.ADMINISTRATOR]:
       raise PermissionError("You are not allowed to use this command")
 
-    welcome_message = await db.get_welcome(message.chat.id)
+    welcome_message = await db.get_welcome(message.chat.id, welcome_message)
     if welcome_message:  # Corrected variable name
       await message.reply_text(welcome_message)
     else:
