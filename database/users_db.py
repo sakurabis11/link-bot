@@ -144,14 +144,11 @@ class Database:
     async def get_db_size(self):
         return (await self.db.command("dbstats"))['dataSize']
 
-    async def set_welcome(self, group_id, welcome_message):
-        await self.grp.update_one({"_id": group_id}, {"$set": {"welcome_message": welcome_message}})
+    async def  set_welcome(self, group_id, welcome_message)
+        await self.grp.update_one({"_id": int(group_id)}, {"$set": {"welcome_message": welcome_message}}) 
 
-    async def get_welcome(self, group_id):
-        return await self.grp.find_one({"_id": group_id}, {"welcome_message": 1})
-
-    async def remove_welcome(self, group_id):
-        await self.grp.update_one({"_id": group_id}, {"$unset": {"welcome_message": ""}})
-
+    async def get_welcome(self, group_id)
+        user = await self.col.find_one({'_id': int(group_id)})
+        return user.get('welcome_message', None)
 
 db = Database(DATABASE_URI, DATABASE_NAME)
