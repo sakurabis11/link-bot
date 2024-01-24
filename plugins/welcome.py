@@ -28,7 +28,7 @@ async def show_welcome_message(client, message: Message):
 
     welcome_message = await db.get_welcome(message.chat.id)
     if welcome_message:  # Corrected variable name
-      await message.reply_text(f"your welcome message is {welcome_message}")
+      await message.reply_text(welcome_message)
     else:
       await message.reply_text("no welcome message for this chat")
   except Exception as e:
