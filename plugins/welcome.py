@@ -27,12 +27,13 @@ async def show_welcome_message(client, message: Message):
       raise PermissionError("You are not allowed to use this command")
 
     welcome_message = await db.get_welcome(message.chat.id)
-    if welcome_messsage:
+    if welcome_message:  # Corrected variable name
       await message.reply_text(f"your welcome message is {welcome_message}")
     else:
       await message.reply_text("no welcome message for this chat")
   except Exception as e:
     await message.reply_text(f"An error occurred: {e}")
+
 
 @Client.on_message(filters.command("welcome_message_remove"))
 async def remove_welcome(client, message: Message):
