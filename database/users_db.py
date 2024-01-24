@@ -149,9 +149,7 @@ class Database:
 
     async def get_welcome(self, group_id):
         user = await self.grp.find_one({'_id': int(group_id)})
-        if user is not None:
-            return user.get('welcome_message', None)
-        else:
-            return "Welcome message not found."
+        return user.get('welcome_message', None)
+
 
 db = Database(DATABASE_URI, DATABASE_NAME)
