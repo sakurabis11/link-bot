@@ -39,6 +39,8 @@ async def mute_user(client, message):
         permissions=pyrogram.ChatPermissions(can_send_messages=False)
     )
     await message.reply_text("User muted successfully.")
+  except Exception as e:
+    await message.reply_text(str(e))
 
 @Client.on_message(filters.command("unmute") & filters.group)
 async def mute_user(client, message):
@@ -53,3 +55,5 @@ async def mute_user(client, message):
         permissions=pyrogram.ChatPermissions(can_send_messages=True)
     )
     await message.reply_text("User unmuted successfully.")
+  except Exception as e:
+    await message.reply_text(str(e))
