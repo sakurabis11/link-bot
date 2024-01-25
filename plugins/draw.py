@@ -3,7 +3,7 @@ from pyrogram import Client, filters
 from PIL import Image, ImageDraw, ImageFont
 
 @Client.on_message(filters.command('draw'))
-async def generate_image(bot, message):
+async def generate_image(client, message):
     if not message.reply_to_message:
         return await message.reply('Please reply to a message with text to generate an image from.')
 
