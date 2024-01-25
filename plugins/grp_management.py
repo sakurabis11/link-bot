@@ -10,7 +10,7 @@ async def kick_user(bot, message: Message):
       raise PermissionError("You are not allowed to use this command")
 
     user_id = message.reply_to_message.from_user.id
-    await bot.kick_chat_member(user_id)
+    await bot.functions.kick_chat_member(chat_id=message.chat.id, user_id=user_id)
     await message.reply_text("User has been kicked from this group")
   except PermissionError as e:
     await message.reply_text(str(e))
