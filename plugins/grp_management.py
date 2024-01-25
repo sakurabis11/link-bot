@@ -24,4 +24,4 @@ async def kick_i(client, message: Message):
      await client.kick_chat_member(message.chat.id, user_id)
      await message.reply_text(f"{message.user.mention} has been kicked from this group by himself/herself")
   except Exception as e:
-  await message.reply_text(str(e))
+     await message.reply_text(str(e))
