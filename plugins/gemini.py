@@ -2,7 +2,7 @@ import pyrogram
 from pyrogram import Client, filters  # Add the filters import
 import google.generativeai as genai
 
-genai.configure(api_key="YOUR_ACTUAL_API_KEY")
+genai.configure(api_key="AIzaSyD214hhYJ-xf8rfaWX044_g1VEBQ0ua55Q")
 
 @Client.on_message(filters.photo & filters.command("gemini"))
 async def handle_photo_and_query(client, message):
