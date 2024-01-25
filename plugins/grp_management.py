@@ -35,7 +35,7 @@ async def mute_user(client, message):
     user_to_mute = message.reply_to_message.from_user
     await client.restrict_chat_member(
         chat_id=message.chat.id,
-        user_id=user_to_mute.id,
+        user_id=message.reply_to_message.from_user.id,
         permissions=pyrogram.ChatPermissions(can_send_messages=False)
     )
     await message.reply_text("User muted successfully.")
@@ -51,7 +51,7 @@ async def mute_user(client, message):
     user_to_mute = message.reply_to_message.from_user
     await client.restrict_chat_member(
         chat_id=message.chat.id,
-        user_id=user_to_mute.id,
+        user_id=message.reply_to_message.from_user.id,
         permissions=pyrogram.ChatPermissions(can_send_messages=True)
     )
     await message.reply_text("User unmuted successfully.")
