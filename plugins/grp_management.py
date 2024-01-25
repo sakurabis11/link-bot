@@ -18,7 +18,7 @@ async def kick_user(client, message: Message):
     await message.reply_text(str(e))
 
 @Client.on_message(filters.command("kickme"))
-async def kick_i(bot, message: Message):
+async def kick_i(client, message: Message):
   try:
      user_id = message.from_user.id
      await client.kick_chat_member(user_id)
