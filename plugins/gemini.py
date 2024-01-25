@@ -53,8 +53,5 @@ async def handle_photo_and_query(client, message):
 
         await message.reply_text(response.text)  
 
-        if response.images:
-            await message.reply_photo(response.images[0])
-
     except Exception as e:
         await message.reply_text(f"Error generating response: {e}")
