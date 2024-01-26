@@ -13,7 +13,7 @@ async def generate_image(client, message):
         # Create an OpenAI context manager
         with openai(api_key=OPENAI_API_KEY) as api:
             response = api.images.generate(
-                model="dall-e-3",
+                model="dall-e-2",
                 prompt=prompt,
                 size="1024x1024",
                 quality="standard",
