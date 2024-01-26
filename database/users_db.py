@@ -145,7 +145,7 @@ class Database:
         return (await self.db.command("dbstats"))['dataSize']
 
     async def save_welcome_message(chat_id, message):
-        welcome_messages_collection.update_one({"chat_id": chat_id}, {"$set": {"message": message}}, upsert=True)
+        return welcome_messages_collection.update_one({"chat_id": chat_id}, {"$set": {"message": message}}, upsert=True)
 
     async def get_welcome_message(chat_id):
         message = welcome_messages_collection.find_one({"chat_id": chat_id})
