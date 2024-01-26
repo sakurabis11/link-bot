@@ -145,9 +145,9 @@ class Database:
         return (await self.db.command("dbstats"))['dataSize']
 
     async def set_welcome(self, group_id, welcome_message):
-        return await welcome_messages.update_one({"chat_id": message.chat.id}, {"$set": {"message": query}}, upsert=True)
+        return await welcome_messages.update_one({"chat_id": message.chat.id}, {"$set": {"query": query}}, upsert=True)
     
     async def del_welcome
-        return await welcome_messages.delete_one({"chat_id": message.chat.id}, {"$set": {"message": None}}, upsert=False)
+        return await welcome_messages.delete_one({"chat_id": message.chat.id}, {"$set": {"query": None}}, upsert=False)
 
 db = Database(DATABASE_URI, DATABASE_NAME)
