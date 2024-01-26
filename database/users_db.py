@@ -144,10 +144,17 @@ class Database:
     async def get_db_size(self):
         return (await self.db.command("dbstats"))['dataSize']
 
-    async def set_welcome(self, group_id, welcome_message):
-        return await welcome_messages.update_one({"chat_id": message.chat.id}, {"$set": {"query": query}}, upsert=True)
-    
-    async def del_welcome(self, group_id, welcome_message):
-        return await welcome_messages.delete_one({"chat_id": message.chat.id}, {"$set": {"query": None}}, upsert=False)
+    async def save_welcome_message(chat_id, message):
+        welcome_messages_collection.update_one({"chat_id": chat_id}, {"$set": {"message": message}}, upsert=True)
+
+    async def get_welcome_message(chat_id):
+        message = welcome_messages_collection.find_one({"chat_id": chat_id})
+        if message:
+            return message["message"]
+        else:
+            return None
+
+    async def delete_welcome_message(chat_id):
+        welcome_messages_collection.delete_one({"chat_id": chat_id})
 
 db = Database(DATABASE_URI, DATABASE_NAME)
