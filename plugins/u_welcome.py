@@ -13,10 +13,12 @@ async def set_welcome(client, message):
     try:
         user = await client.get_chat_member(message.chat.id, message.from_user.id)
         if user.status not in [enums.ChatMemberStatus.OWNER, enums.ChatMemberStatus.ADMINISTRATOR]:
-            raise PermissionError("You are not allowed to use this command")
-          
-        query = message.text.split(" ", 1)[1] 
-        db.welcome_messages.update_one({"chat_id": message.chat.id}, {"$set": {"message": query}}, upsert=True)
+            raise PermissionError("You are not allowed to use this command")  
+        if len(message.command) == 1:
+            await message.reply_text("use /set_welcome hey {mention}")
+            return
+        query = message.text.split(" ", 1)[1]    
+        db.set_welcome(int(message.chat.id), query)
         await message.reply_text("Welcome message set successfully!")
     except Exception as e:
         await message.reply_text(f"An error occurred: {e}")
@@ -27,10 +29,12 @@ async def view_welcome(client, message):
         user = await client.get_chat_member(message.chat.id, message.from_user.id)
         if user.status not in [enums.ChatMemberStatus.OWNER, enums.ChatMemberStatus.ADMINISTRATOR]:
             raise PermissionError("You are not allowed to use this command")
+        query = db.welcome_messages.find_one({"chat_id": message.chat.id})
+        if query:
           
-        welcome_message = db.welcome_messages.find_one({"chat_id": message.chat.id})
+        query = db.welcome_messages.find_one({"chat_id": message.chat.id})
         if welcome_message:
-            await message.reply_text(f"Current welcome message:\n{welcome_message['message']}")
+            await message.reply_text(f"<b><u>Your welcome message:</b></u>\n\n`{query}`")
         else:
             await message.reply_text("No welcome message set for this group.")
     except Exception as e:
@@ -42,8 +46,8 @@ async def del_welcome(client, message):
         user = await client.get_chat_member(message.chat.id, message.from_user.id)
         if user.status not in [enums.ChatMemberStatus.OWNER, enums.ChatMemberStatus.ADMINISTRATOR]:
             raise PermissionError("You are not allowed to use this command")
-          
-         db.welcome_messages.delete_one({"chat_id": message.chat.id})
+         db.del_welcome({"chat_id": message.chat.id})
+
         await message.reply_text("Welcome message deleted successfully!")
     except Exception as e:
         await message.reply_text(f"An error occurred: {e}")
@@ -51,7 +55,7 @@ async def del_welcome(client, message):
 @Client.on_message(filters.group & filters.new_chat_members)
 async def welcome_new_members(client, message):
     welcome_message = await db.welcome_messages.find_one({"chat_id": message.chat.id})
-    if welcome_message:
+    if query:
         for new_member in message.new_chat_members:
-            await message.reply_text(welcome_message["message"].format(mention=new_member.mention))
+            await message.reply_text(query["query"].format(mention=new_member.mention))
 
