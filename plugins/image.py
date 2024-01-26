@@ -5,7 +5,7 @@ from pyrogram import Client, filters
 
 OPENAI_API_KEY = "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"
 
-client = OpenAI(api_key=OPENAI_API_KEY)
+client = openai(api_key=OPENAI_API_KEY)
 
 @Client.on_message(filters.command(["image"]))
 async def generate_image(client, message):
