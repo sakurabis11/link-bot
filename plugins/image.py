@@ -5,14 +5,14 @@ from pyrogram import Client, filters
 
 OPENAI_API_KEY = "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"
 
-client = openai(api_key=OPENAI_API_KEY)
+bot = openai(api_key=OPENAI_API_KEY)
 
 @Client.on_message(filters.command(["image"]))
 async def generate_image(client, message):
     prompt = message.text.split(" ", 1)[1]  
 
     try:
-        response = client.images.generate(
+        response = bot.images.generate(
             model="dall-e-3",
             prompt=prompt,
             size="1024x1024",
