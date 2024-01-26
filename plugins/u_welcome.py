@@ -1,6 +1,6 @@
 import pyrogram
 from pyrogram import Client, filters
-from pyrogram.error import *
+from pyrogram.errors import *
 import pymongo
 from info import DATABASE_URI
 
