@@ -1,5 +1,5 @@
 import pyrogram
-from openai import OpenAI
+import openai
 from pyrogram import Client, filters
 
 
