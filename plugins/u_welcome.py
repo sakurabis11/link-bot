@@ -16,7 +16,7 @@ async def set_welcome(client, message):
             raise PermissionError("You are not allowed to use this command")
           
         query = message.text.split(" ", 1)[1] 
-        await db.welcome_messages.update_one({"chat_id": message.chat.id}, {"$set": {"message": query}}, upsert=True)
+        db.welcome_messages.update_one({"chat_id": message.chat.id}, {"$set": {"message": query}}, upsert=True)
         await message.reply_text("Welcome message set successfully!")
     except Exception as e:
         await message.reply_text(f"An error occurred: {e}")
@@ -28,7 +28,7 @@ async def view_welcome(client, message):
         if user.status not in [enums.ChatMemberStatus.OWNER, enums.ChatMemberStatus.ADMINISTRATOR]:
             raise PermissionError("You are not allowed to use this command")
           
-        welcome_message = await db.welcome_messages.find_one({"chat_id": message.chat.id})
+        welcome_message = db.welcome_messages.find_one({"chat_id": message.chat.id})
         if welcome_message:
             await message.reply_text(f"Current welcome message:\n{welcome_message['message']}")
         else:
@@ -43,7 +43,7 @@ async def del_welcome(client, message):
         if user.status not in [enums.ChatMemberStatus.OWNER, enums.ChatMemberStatus.ADMINISTRATOR]:
             raise PermissionError("You are not allowed to use this command")
           
-        await db.welcome_messages.delete_one({"chat_id": message.chat.id})
+         db.welcome_messages.delete_one({"chat_id": message.chat.id})
         await message.reply_text("Welcome message deleted successfully!")
     except Exception as e:
         await message.reply_text(f"An error occurred: {e}")
