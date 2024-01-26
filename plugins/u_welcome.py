@@ -1,7 +1,6 @@
 from pyrogram import Client, filters, enums
-
-
-
+from database.users_db import db
+from pyrogram.errors import *
 
 @Client.on_message(filters.command("set_welcome") & filters.group)
 async def set_welcome(client, message):
