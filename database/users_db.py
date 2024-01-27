@@ -149,7 +149,7 @@ class Database:
         result = await self.grp.update_one({"_id": int(group_id)}, {"$set": {"welcome_message": welcome_message}})
         return result.modified_count > 0
 
-    async def get_welcome(self, group_id):
+    async def get_welcome(self, group_id, welcome_message):
         user = await self.grp.find_one({"_id": int(group_id)})
         if user:
             return user.get('welcome_message', None)
