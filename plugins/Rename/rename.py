@@ -4,10 +4,13 @@ from pyrogram.enums import MessageMediaType
 from pyrogram.errors import FloodWait
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from asyncio import sleep
+from hachoir.metadata import extractMetadata
+from hachoir.parser import createParser
 from PIL import Image
 from pyrogram import Client, filters, enums
 from info import *
 from plugins.Rename.r_utils import progress_message, humanbytes
+DOWNLOAD_LOCATION = "./DOWNLOADS"
 
 @Client.on_message(filters.private & filters.command("rename"))            
 async def rename_file(bot, msg):
