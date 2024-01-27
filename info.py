@@ -21,6 +21,7 @@ ADMINS = [int(admin) if id_pattern.search(admin) else admin for admin in environ
 LOG_CHANNEL = int(environ.get('LOG_CHANNEL', '-1002084798134'))
 REQUESTED_CHANNEL = int(os.environ.get("REQUESTED_CHANNEL", "-1002079640571"))
 MELCOW_NEW_USERS = is_enabled((environ.get('MELCOW_NEW_USERS', "True")), True)
+CAPTION = environ.get('CAPTION', "")
 
 # important information for your bot
 S_GROUP = environ.get('S_GROUP', "https://t.me/sdbots_support")
