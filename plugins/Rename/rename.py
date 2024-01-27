@@ -23,10 +23,11 @@ async def rename_file(bot, msg):
     c_time = time.time()
     downloaded = await reply.download(file_name=new_name, progress=progress_message, progress_args=("Download Started...⚡️", sts, c_time)) 
     filesize = humanbytes(og_media.file_size)   
+    
     c_caption = await db.get_caption(update.message.chat.id)
     c_thumb = await db.get_thumbnail(update.message.chat)
                                      
-    if c_caption = await db.get_caption(update.message.chat.id):
+    if c_caption:
         try:
              caption = c_caption.format(filename=new_filename, filesize=humanbytes(media.file_size), duration=convert(duration))
          except Exception as e:
