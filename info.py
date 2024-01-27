@@ -2,7 +2,7 @@ import re
 import os
 from os import environ
 from pyrogram import enums
-
+from heroku3 import from_key
 import asyncio
 import json
 from pyrogram import Client
