@@ -1,12 +1,15 @@
-#ALL FILES UPLOADED - CREDITS 🌟 - @Sunrises_24
+CREDITS 🌟 - @Sunrises_24
 import time, os
+from pyrogram.enums import MessageMediaType
+from pyrogram.errors import FloodWait
+from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
+from asyncio import sleep
+from PIL import Image
 from pyrogram import Client, filters, enums
-from info import DOWNLOAD_LOCATION, CAPTION, ADMINS
+from info import *
 from plugins.Rename.r_utils import progress_message, humanbytes
 
-#ALL FILES UPLOADED - CREDITS 🌟 - @Sunrises_24
-#RENAME
-@Client.on_message(filters.private & filters.command("rename") & filters.user(ADMINS))            
+@Client.on_message(filters.private & filters.command("rename"))            
 async def rename_file(bot, msg):
     reply = msg.reply_to_message
     if len(msg.command) < 2 or not reply:
@@ -19,37 +22,40 @@ async def rename_file(bot, msg):
     sts = await msg.reply_text("Trying to Downloading.....⚡")
     c_time = time.time()
     downloaded = await reply.download(file_name=new_name, progress=progress_message, progress_args=("Download Started...⚡️", sts, c_time)) 
-    filesize = humanbytes(og_media.file_size)                
-    if CAPTION:
+    filesize = humanbytes(og_media.file_size)   
+    c_caption = await db.get_caption(update.message.chat.id)
+    c_thumb = await db.get_thumbnail(update.message.chat
+                                     
+    if c_caption = await db.get_caption(update.message.chat.id):
         try:
-            cap = CAPTION.format(file_name=new_name, file_size=filesize)
-        except Exception as e:            
-            return await sts.edit(text=f"Your caption Error unexpected keyword ●> ({e})")           
+             caption = c_caption.format(filename=new_filename, filesize=humanbytes(media.file_size), duration=convert(duration))
+         except Exception as e:
+             return await ms.edit(text=f"Yᴏᴜʀ Cᴀᴩᴛɪᴏɴ Eʀʀᴏʀ Exᴄᴇᴩᴛ Kᴇyᴡᴏʀᴅ Aʀɢᴜᴍᴇɴᴛ ●> ({e})")             
     else:
-        cap = f"{new_name}\n\n🌟size : {filesize}"
+         caption = f"**{new_filename}**"
 
-    #ALL FILES UPLOADED - CREDITS 🌟 - @Sunrises_24
+    
 
     dir = os.listdir(DOWNLOAD_LOCATION)
-    if len(dir) == 0:
-        file_thumb = await bot.download_media(og_media.thumbs[0].file_id)
-        og_thumbnail = file_thumb
-    else:
-        try:
-            og_thumbnail = f"{DOWNLOAD_LOCATION}/thumbnail.jpg"
-        except Exception as e:
-            print(e)        
-            og_thumbnail = None
+    if (media.thumbs or c_thumb):
+         if c_thumb:
+             ph_path = await bot.download_media(c_thumb) 
+         else:
+             ph_path = await bot.download_media(media.thumbs[0].file_id)
+         Image.open(ph_path).convert("RGB").save(ph_path)
+         img = Image.open(ph_path)
+         img.resize((320, 320))
+         img.save(ph_path, "JPEG")
         
     await sts.edit("Trying to Uploading...⚡")
     c_time = time.time()
     try:
-        await bot.send_document(msg.chat.id, document=downloaded, thumb=og_thumbnail, caption=cap, progress=progress_message, progress_args=("Uploade Started.....", sts, c_time))        
+        await bot.send_document(msg.chat.id, document=downloaded, thumb=ph_path, caption=cap, progress=progress_message, progress_args=("Uploade Started.....", sts, c_time))        
     except Exception as e:  
         return await sts.edit(f"Error {e}")                       
     try:
-        if file_thumb:
-            os.remove(file_thumb)
+        if ph_path:
+            os.remove(ph_path)
         os.remove(downloaded)      
     except:
         pass
