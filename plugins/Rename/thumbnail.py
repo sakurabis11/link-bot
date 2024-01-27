@@ -1,39 +1,48 @@
-#ALL FILES UPLOADED - CREDITS 🌟 - @Sunrises_24
 from pyrogram import Client, filters 
-from info import DOWNLOAD_LOCATION, ADMINS
-import os
+from helper.database import db
+from info import *
 
-dir = os.listdir(DOWNLOAD_LOCATION)
+@Client.on_message(filters.private & filters.command('set_caption'))
+async def add_caption(client, message):
+    if len(message.command) == 1:
+       return await message.reply_text("**__Gɪᴠᴇ Tʜᴇ Cᴀᴩᴛɪᴏɴ__\n\nExᴀᴍᴩʟᴇ:- `/set_caption {filename}\n\n💾 Sɪᴢᴇ: {filesize}\n\n⏰ Dᴜʀᴀᴛɪᴏɴ: {duration}`**")
+    caption = message.text.split(" ", 1)[1]
+    await db.set_caption(message.from_user.id, caption=caption)
+    await message.reply_text("__**✅ Cᴀᴩᴛɪᴏɴ Sᴀᴠᴇᴅ**__")
+   
+@Client.on_message(filters.private & filters.command('del_caption'))
+async def delete_caption(client, message):
+    caption = await db.get_caption(message.from_user.id)  
+    if not caption:
+       return await message.reply_text("__**😔 Yᴏᴜ Dᴏɴ'ᴛ Hᴀᴠᴇ Aɴy Cᴀᴩᴛɪᴏɴ**__")
+    await db.set_caption(message.from_user.id, caption=None)
+    await message.reply_text("__**❌️ Cᴀᴩᴛɪᴏɴ Dᴇʟᴇᴛᴇᴅ**__")
+                                       
+@Client.on_message(filters.private & filters.command(['see_caption', 'view_caption']))
+async def see_caption(client, message):
+    caption = await db.get_caption(message.from_user.id)  
+    if caption:
+       await message.reply_text(f"**Yᴏᴜ'ʀᴇ Cᴀᴩᴛɪᴏɴ:-**\n\n`{caption}`")
+    else:
+       await message.reply_text("__**😔 Yᴏᴜ Dᴏɴ'ᴛ Hᴀᴠᴇ Aɴy Cᴀᴩᴛɪᴏɴ**__")
 
-#ALL FILES UPLOADED - CREDITS 🌟 - @Sunrises_24
-@Client.on_message(filters.private & filters.photo & filters.user(ADMINS))                            
-async def set_tumb(bot, msg):       
-    if len(dir) == 0:
-        await bot.download_media(message=msg.photo.file_id, file_name=f"{DOWNLOAD_LOCATION}/thumbnail.jpg")
-        return await msg.reply(f"Your permanent thumbnail is saved ✅️ \nIf Bot is restarted the thumbnail will delete⚠️")            
-    else:    
-        os.remove(f"{DOWNLOAD_LOCATION}/thumbnail.jpg")
-        await bot.download_media(message=msg.photo.file_id, file_name=f"{DOWNLOAD_LOCATION}/thumbnail.jpg")               
-        return await msg.reply(f"Your permanent thumbnail is saved ✅️ \nIf Bot is restarted the thumbnail will delete⚠️")            
 
-#ALL FILES UPLOADED - CREDITS 🌟 - @Sunrises_24
-@Client.on_message(filters.private & filters.command("view") & filters.user(ADMINS))                            
-async def view_tumb(bot, msg):
-    try:
-        await msg.reply_photo(photo=f"{DOWNLOAD_LOCATION}/thumbnail.jpg", caption="this is your current thumbnail")
-    except Exception as e:
-        print(e)
-        return await msg.reply_text(text="you don't have any thumbnail")
+@Client.on_message(filters.private & filters.command(['view_thumb', 'viewthumb']))
+async def viewthumb(client, message):    
+    thumb = await db.get_thumbnail(message.from_user.id)
+    if thumb:
+       await client.send_photo(chat_id=message.chat.id, photo=thumb)
+    else:
+        await message.reply_text("😔 __**Yᴏᴜ Dᴏɴ'ᴛ Hᴀᴠᴇ Aɴy Tʜᴜᴍʙɴᴀɪʟ**__") 
+		
+@Client.on_message(filters.private & filters.command(['del_thumb', 'delthumb']))
+async def removethumb(client, message):
+    await db.set_thumbnail(message.from_user.id, file_id=None)
+    await message.reply_text("❌️ __**Tʜᴜᴍʙɴᴀɪʟ Dᴇʟᴇᴛᴇᴅ**__")
+	
+@Client.on_message(filters.private & filters.photo)
+async def addthumbs(client, message):
+    mkn = await message.reply_text("Please Wait ...")
+    await db.set_thumbnail(message.from_user.id, file_id=message.photo.file_id)                
+    await mkn.edit("✅️ __**Tʜᴜᴍʙɴᴀɪʟ Sᴀᴠᴇᴅ**__")
 
-#ALL FILES UPLOADED - CREDITS 🌟 - @Sunrises_24
-@Client.on_message(filters.private & filters.command(["del", "del_thumb"]) & filters.user(ADMINS))                            
-async def del_tumb(bot, msg):
-    try:
-        os.remove(f"{DOWNLOAD_LOCATION}/thumbnail.jpg")
-        await msg.reply_text("your thumbnail was removed❌")
-    except Exception as e:
-        print(e)
-        return await msg.reply_text(text="you don't have any thumbnail‼️")
-
-#ALL FILES UPLOADED - CREDITS 🌟 - @Sunrises_24
-    
