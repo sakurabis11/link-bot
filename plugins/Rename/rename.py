@@ -1,7 +1,7 @@
 # CREDITS 🌟 - @Sunrises_24
 import time, os
 from pyrogram import Client, filters, enums
-from config import DOWNLOAD_LOCATION
+from info import DOWNLOAD_LOCATION
 from plugins.Rename.r_utils import progress_message, humanbytes
 
 @Client.on_message(filters.private & filters.command("rename"))            
