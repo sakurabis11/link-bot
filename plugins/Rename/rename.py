@@ -35,15 +35,13 @@ async def rename_file(bot, msg):
     else:
          caption = f"**{new_filename}**"
 
-    if (media.thumbs or c_thumb):
-         if c_thumb:
-             ph_path = await bot.download_media(c_thumb) 
-         else:
-             ph_path = await bot.download_media(media.thumbs[0].file_id)
-         Image.open(ph_path).convert("RGB").save(ph_path)
-         img = Image.open(ph_path)
-         img.resize((320, 320))
-         img.save(ph_path, "JPEG")
+    if c_thumb:
+        ph_path = await bot.download_media(c_thumb) 
+
+    Image.open(ph_path).convert("RGB").save(ph_path)
+    img = Image.open(ph_path)
+    img.resize((320, 320))
+    img.save(ph_path, "JPEG")
         
     await sts.edit("Trying to Uploading...⚡")
     c_time = time.time()
