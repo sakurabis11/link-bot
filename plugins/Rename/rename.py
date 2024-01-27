@@ -35,9 +35,6 @@ async def rename_file(bot, msg):
     else:
          caption = f"**{new_filename}**"
 
-    
-
-    dir = os.listdir(DOWNLOAD_LOCATION)
     if (media.thumbs or c_thumb):
          if c_thumb:
              ph_path = await bot.download_media(c_thumb) 
@@ -51,7 +48,7 @@ async def rename_file(bot, msg):
     await sts.edit("Trying to Uploading...⚡")
     c_time = time.time()
     try:
-        await bot.send_document(msg.chat.id, document=downloaded, thumb=ph_path, caption=cap, progress=progress_message, progress_args=("Uploade Started.....", sts, c_time))        
+        await bot.send_document(msg.chat.id, document=downloaded, thumb=ph_path, caption=caption, progress=progress_message, progress_args=("Uploade Started.....", sts, c_time))        
     except Exception as e:  
         return await sts.edit(f"Error {e}")                       
     try:
