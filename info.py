@@ -20,7 +20,7 @@ PORT = os.environ.get("PORT", "8080")
 ADMINS = [int(admin) if id_pattern.search(admin) else admin for admin in environ.get('ADMINS', '1342641151').split()]
 LOG_CHANNEL = int(environ.get('LOG_CHANNEL', '-1002084798134'))
 REQUESTED_CHANNEL = int(os.environ.get("REQUESTED_CHANNEL", "-1002079640571"))
-FSUB = environ.get('FSUB', '-1001555203714')
+FSUB = environ.get('FSUB', "https://t.me/sd_bots")
 MELCOW_NEW_USERS = is_enabled((environ.get('MELCOW_NEW_USERS', "True")), True)
 
 # important information for your bot
