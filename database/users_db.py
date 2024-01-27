@@ -32,12 +32,7 @@ class Database:
                 reason="",
             ),
         )
-
-    async def fadd_user(self, b, m):
-        u = m.from_user
-        if not await self.is_user_exist(u.id):
-            user = self.new_user(u.id)
-            await self.col.insert_one(user)            
+            
     
     async def add_user(self, id, name):
         user = self.new_user(id, name)
