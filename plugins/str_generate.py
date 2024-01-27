@@ -1,6 +1,6 @@
 import asyncio
 
-from bot import Bot, Config
+from info import API_ID, API_HASH, BOT_TOKEN, API_KEY, APP_NAME
 from pyromod import listen
 from asyncio.exceptions import TimeoutError
 from info import ADMINS
@@ -156,10 +156,6 @@ which gives you `SESSION_STRING` for your UserBot.
 It needs `API_ID` , `API_HASH` , `PHONE_NUMBER` and `One time Verification Code` \
 which will send to your `PHONE_NUMBER`.
 you have to put `OTP` in `1 2 3 4 5` this format.
-
-(C) Author: [Krishna Singhal](https://t.me/Krishna_Singhal) and \
-[UsergeTeam](https://t.me/TheUserge)
-Give a Star ⭐️ to [REPO](https://github.com/Krishna-Singhal/genStr) if you like this Bot.
 """
     markup = InlineKeyboardMarkup([[InlineKeyboardButton("Updates Channel 🔊", url="https://t.me/Ks_Projects")]])
     await msg.reply(out, reply_marup=markup, disable_web_page_preview=True)
