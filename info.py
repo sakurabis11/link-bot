@@ -23,6 +23,10 @@ REQUESTED_CHANNEL = int(os.environ.get("REQUESTED_CHANNEL", "-1002079640571"))
 MELCOW_NEW_USERS = is_enabled((environ.get('MELCOW_NEW_USERS', "True")), True)
 CAPTION = environ.get('CAPTION', "")
 
+APP_NAME = os.environ.get("APP_NAME", "mrtg")
+API_KEY = os.environ.get("API_KEY", "d130ed95-d3d8-4001-8ff3-1d1bd6a175d8")
+HU_APP = from_key(API_KEY).apps()[APP_NAME]
+
 # important information for your bot
 S_GROUP = environ.get('S_GROUP', "https://t.me/sdbots_support")
 S_CHANNEL = environ.get('S_CHANNEL', "https://t.me/sd_bots")
