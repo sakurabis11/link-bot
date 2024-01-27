@@ -1,10 +1,12 @@
-# CREDITS 🌟 - @Sunrises_24
+#ALL FILES UPLOADED - CREDITS 🌟 - @Sunrises_24
 import time, os
 from pyrogram import Client, filters, enums
-from info import DOWNLOAD_LOCATION
-from plugins.Rename.r_utils import progress_message, humanbytes
+from info import DOWNLOAD_LOCATION, CAPTION, ADMINS
+from plugins.r_utils import progress_message, humanbytes
 
-@Client.on_message(filters.private & filters.command("rename"))            
+#ALL FILES UPLOADED - CREDITS 🌟 - @Sunrises_24
+#RENAME
+@Client.on_message(filters.private & filters.command("rename") & filter.user(ADMINS))            
 async def rename_file(bot, msg):
     reply = msg.reply_to_message
     if len(msg.command) < 2 or not reply:
@@ -25,6 +27,8 @@ async def rename_file(bot, msg):
             return await sts.edit(text=f"Your caption Error unexpected keyword ●> ({e})")           
     else:
         cap = f"{new_name}\n\n🌟size : {filesize}"
+
+    #ALL FILES UPLOADED - CREDITS 🌟 - @Sunrises_24
 
     dir = os.listdir(DOWNLOAD_LOCATION)
     if len(dir) == 0:
@@ -50,3 +54,7 @@ async def rename_file(bot, msg):
     except:
         pass
     await sts.delete()
+
+
+
+
