@@ -30,7 +30,7 @@ async def rename_file(bot, msg):
     downloaded = await reply.download(file_name=new_name, progress=progress_message, progress_args=("Download Started...⚡️", sts, c_time))
     filesize = humanbytes(og_media.file_size)
 
-    c_caption = await db.get_caption(update.message.chat.id)  # Assuming `db` is defined elsewhere
+    c_caption = await db.get_caption(update.message.chat.id)  
     c_thumb = await db.get_thumbnail(update.message.chat)
 
     if c_caption:
@@ -41,27 +41,29 @@ async def rename_file(bot, msg):
     else:
         caption = f"**{new_filename}**"
 
-    if c_thumb:
+    dir = os.listdir(DOWNLOAD_LOCATION)
+    if len(dir) == 0:
+        c_thumb = await bot.download_media(og_media.thumbs[0].file_id)
+        og_thumbnail = c_thumb
+    else:
         try:
-            ph_path = await bot.download_media(c_thumb)
-            Image.open(ph_path).convert("RGB").save(ph_path)
-            img = Image.open(ph_path)
-            img.resize((320, 320)).save(ph_path, "JPEG")
+            og_thumbnail = f"{DOWNLOAD_LOCATION}/thumbnail.jpg"
         except Exception as e:
-            return await message.reply_text(f"error in thumbanil({e})") 
-
+            print(e)        
+            og_thumbnail = None
+        
     await sts.edit("Trying to Uploading...⚡")
     c_time = time.time()
     try:
-        await bot.send_document(msg.chat.id, document=downloaded, thumb=ph_path, caption=caption, progress=progress_message, progress_args=("Uploade Started.....", sts, c_time))
-    except Exception as e:
-        return await sts.edit(f"Error {e}")
-
+        await bot.send_document(msg.chat.id, document=downloaded, thumb=og_thumbnail, caption=cap, progress=progress_message, progress_args=("Uploade Started.....", sts, c_time))        
+    except Exception as e:  
+        return await sts.edit(f"Error {e}")                       
     try:
-        if ph_path:
-            os.remove(ph_path)
-        os.remove(downloaded)
+        if file_thumb:
+            os.remove(file_thumb)
+        os.remove(downloaded)      
     except:
         pass
+    await sts.delete()
 
     await sts.delete()
