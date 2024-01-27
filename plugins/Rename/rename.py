@@ -6,7 +6,7 @@ from plugins.Rename.r_utils import progress_message, humanbytes
 
 #ALL FILES UPLOADED - CREDITS 🌟 - @Sunrises_24
 #RENAME
-@Client.on_message(filters.private & filters.command("rename") & filter.user(ADMINS))            
+@Client.on_message(filters.private & filters.command("rename") & filters.user(ADMINS))            
 async def rename_file(bot, msg):
     reply = msg.reply_to_message
     if len(msg.command) < 2 or not reply:
