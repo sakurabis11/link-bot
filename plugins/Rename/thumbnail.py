@@ -1,6 +1,6 @@
 #ALL FILES UPLOADED - CREDITS 🌟 - @Sunrises_24
 from pyrogram import Client, filters 
-from info import DOWNLOAD_LOCATION
+from info import DOWNLOAD_LOCATION, ADMINS
 import os
 
 dir = os.listdir(DOWNLOAD_LOCATION)
