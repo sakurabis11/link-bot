@@ -5,7 +5,7 @@ from info import FORCE_SUB
 from database.users_db import db
 
 async def not_subscribed(_, client, message):
-    await db.add_user(client, message)
+    await db.fadd_user(client, message)
     if not FORCE_SUB:
         return False
     try:             
