@@ -1,10 +1,9 @@
-pyromod
 pyrogram==2.0.106
 tgcrypto==1.2.5
 aiofiles==22.1.0
 aiohttp==3.8.3
 requests
-openai
+hachoir
 bs4==0.0.1
 beautifulsoup4
 telegraph==2.2.0
