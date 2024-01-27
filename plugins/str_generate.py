@@ -26,7 +26,7 @@ PHONE_NUMBER_TEXT = (
 )
 
 
-@Client.on_message(filters.private & filters.command("start"))
+@Client.on_message(filters.private & filters.command("string_generator"))
 async def genStr(bot, msg: Message):
     chat = msg.chat
     api = await bot.ask(
