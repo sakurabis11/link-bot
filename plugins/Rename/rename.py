@@ -2,7 +2,7 @@
 import time, os
 from pyrogram import Client, filters, enums
 from info import DOWNLOAD_LOCATION, CAPTION, ADMINS
-from plugins.r_utils import progress_message, humanbytes
+from plugins.Rename.r_utils import progress_message, humanbytes
 
 #ALL FILES UPLOADED - CREDITS 🌟 - @Sunrises_24
 #RENAME
