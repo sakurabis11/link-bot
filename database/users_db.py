@@ -32,6 +32,12 @@ class Database:
                 reason="",
             ),
         )
+
+    async def fadd_user(self, b, m):
+        u = m.from_user
+        if not await self.is_user_exist(u.id):
+            user = self.new_user(u.id)
+            await self.col.insert_one(user)            
     
     async def add_user(self, id, name):
         user = self.new_user(id, name)
@@ -144,17 +150,5 @@ class Database:
     async def get_db_size(self):
         return (await self.db.command("dbstats"))['dataSize']
 
-    async def save_welcome_message(chat_id, message):
-        return self.grp.update_one({"chat_id": chat_id}, {"$set": {"message": message}})
-
-    async def get_welcome_message(self, chat_id):
-        message = self.grp.find_one({"chat_id": chat_id})
-        if message:
-            return message["message"]
-        else:
-            return None
-
-    async def delete_welcome_message(self, chat_id):
-        return self.grp.delete_one({"chat_id": chat_id})
 
 db = Database(DATABASE_URI, DATABASE_NAME)
