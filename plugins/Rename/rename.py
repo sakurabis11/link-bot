@@ -1,4 +1,4 @@
-CREDITS 🌟 - @Sunrises_24
+
 import time, os
 from pyrogram.enums import MessageMediaType
 from pyrogram.errors import FloodWait
