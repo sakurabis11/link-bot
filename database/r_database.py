@@ -32,3 +32,6 @@ async def addthumb(chat_id, file_id):
 async def delthumb(chat_id):
 	dbcol.update_one({"_id":chat_id},{"$set":{"file_id":None}})
 
+async def find_one(id):
+	return dbcol.find_one({"_id":id})
+
