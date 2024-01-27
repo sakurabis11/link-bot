@@ -149,7 +149,6 @@ class Database:
         await welcome_messages.update_one(
             {"chat_id": chat_id},
             {"$set": {"welcome_message": welcome_message}},
-            upsert=True,  
         )
 
     async def get_welcome(chat_id):
