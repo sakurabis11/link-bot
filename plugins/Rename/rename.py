@@ -30,7 +30,7 @@ async def rename_file(bot, msg):
     if c_caption:
         try:
              caption = c_caption.format(filename=new_filename, filesize=humanbytes(media.file_size), duration=convert(duration))
-         except Exception as e:
+        except Exception as e:
              return await ms.edit(text=f"Yᴏᴜʀ Cᴀᴩᴛɪᴏɴ Eʀʀᴏʀ Exᴄᴇᴩᴛ Kᴇyᴡᴏʀᴅ Aʀɢᴜᴍᴇɴᴛ ●> ({e})")             
     else:
          caption = f"**{new_filename}**"
