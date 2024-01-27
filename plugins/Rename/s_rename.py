@@ -1,10 +1,13 @@
 import os 
 from pyrogram import Client, filters
-token = os.environ.get('TOKEN','')
+from info import BOT_TOKEN
+
+token = os.environ.get('TOKEN',BOT_TOKEN)
 botid = token.split(':')[0]
-from helper.database import botdata, find_one, total_user
-from helper.progress import humanbytes
-@Client.on_message(filters.private & filters.command(["about"]))
+
+from from database.r_database import botdata, find_one, total_user
+from plugins.Rename.r_utils import *
+@Client.on_message(filters.private & filters.command(["r_stats"]))
 async def start(client,message):
 	botdata(int(botid))
 	data = find_one(int(botid))
