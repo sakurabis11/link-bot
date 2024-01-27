@@ -19,7 +19,7 @@ async def promote(client, message: Message):
             await message.reply("You are not an administrator in this chat.")
             return
 
-        await client.promote_chat_member(chat_id, x_user, can_change_info=True, can_delete_messages=True, can_invite_users=True, can_restrict_members=True, can_pin_messages=True)
+        await client.promote_chat_member(chat_id, x_user, can_delete_messages=True, can_invite_users=True, can_restrict_members=True, can_pin_messages=True)
 
     except Exception as e:
         await message.reply(f"An error occurred: {e}")
