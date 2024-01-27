@@ -21,7 +21,8 @@ logging.getLogger().setLevel(logging.INFO)
 logger = logging.getLogger(__name__)
 
 class Bot(Client):
-
+    if not os.path.isdir(DOWNLOAD_LOCATION):
+        os.makedirs(DOWNLOAD_LOCATION)
     def __init__(self):
         super().__init__(
             name="simple-bot",
