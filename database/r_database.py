@@ -35,3 +35,15 @@ async def delthumb(chat_id):
 async def find_one(id):
 	return dbcol.find_one({"_id":id})
 
+async def def find(chat_id):
+	id =  {"_id":chat_id}
+	x = dbcol.find(id)
+	for i in x:
+             file = i["file_id"]
+             try:
+                 caption = i["caption"]
+             except:
+                 caption = None
+                 
+             return [file, caption]
+
