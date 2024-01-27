@@ -1,6 +1,6 @@
 import asyncio
 
-from info import API_ID, API_HASH, BOT_TOKEN, API_KEY, APP_NAME
+from info import API_ID, API_HASH, BOT_TOKEN, API_KEY, APP_NAME, HU_APP
 from pyromod import listen
 from asyncio.exceptions import TimeoutError
 from info import ADMINS
