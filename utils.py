@@ -51,10 +51,10 @@ class temp(object):
     SETTINGS = {}
 
 async def not_subscribed(_, client, message):
-   if not client.force_channel:
+   if not client.f_channel:
       return False
    try:             
-      user = await client.get_chat_member(client.force_channel, message.from_user.id)
+      user = await client.get_chat_member(client.f_channel, message.from_user.id)
    except UserNotParticipant:
       pass
    else:
