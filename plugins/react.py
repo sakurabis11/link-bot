@@ -9,7 +9,7 @@ async def react_message(client, message):
    if emoji and emoji in REACTION_EMOJIS:
         await message.react(emoji)
         await message.reply_text(f"Reacted with {emoji}!")
-    else:
+   else:
         await message.reply_text(f"Invalid emoji! Choose from: {', '.join(REACTION_EMOJIS)}")
 
   
