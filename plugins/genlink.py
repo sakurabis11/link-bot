@@ -3,7 +3,7 @@ import re
 from pyrogram import filters, Client, enums
 from pyrogram.errors.exceptions.bad_request_400 import ChannelInvalid, UsernameInvalid, UsernameNotModified
 from info import ADMINS, LOG_CHANNEL, FILE_STORE_CHANNEL, BOT_USERNAME
-from plugins.database import unpack_new_file_id
+from database.d_genlink import unpack_new_file_id
 import re
 import os
 import json
