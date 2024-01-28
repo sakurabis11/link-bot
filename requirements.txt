@@ -18,7 +18,6 @@ hachoir==3.2.0
 python-docx
 speedtest
 yt-dlp
-heroku3
 python-dateutil
 google-generativeai
 datetime>=4.4
