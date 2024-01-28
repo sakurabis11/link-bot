@@ -25,7 +25,7 @@ MELCOW_NEW_USERS = is_enabled((environ.get('MELCOW_NEW_USERS', "True")), True)
 S_GROUP = environ.get('S_GROUP', "https://t.me/sdbots_support")
 S_CHANNEL = environ.get('S_CHANNEL', "https://t.me/sd_bots")
 
-FORCE_SUB = os.environ.get("FORCE_SUB", "sd_bots") 
+F_SUB = os.environ.get("FORCE_SUB", "sd_bots") 
 
 # for mongodb
 DATABASE_NAME = os.environ.get("DB_NAME", "mrtg")     
