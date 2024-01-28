@@ -4,7 +4,7 @@ from pyrogram.errors.exceptions.bad_request_400 import MessageTooLong, PeerIdInv
 from info import ADMINS, LOG_CHANNEL, DATABASE_NAME, DATABASE_URI, S_GROUP, S_CHANNEL, MELCOW_NEW_USERS
 from database.users_db import db
 from datetime import date, datetime 
-from utils import get_size, temp, get_settings
+from utils import get_size, temp
 from Script import script
 import re
 from pyrogram.errors import ChatAdminRequired
