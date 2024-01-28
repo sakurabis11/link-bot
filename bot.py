@@ -1,6 +1,7 @@
 from pyrogram import Client, __version__, filters
 from info import API_ID, API_HASH, BOT_TOKEN, PORT, ADMINS, LOG_CHANNEL, DOWNLOAD_LOCATION
-import os, math, logging, datetime, pytz
+import os, math, logging, pytz
+from datetime import date, datetime 
 from pytz import timezone
 import logging.config
 from pyrogram.errors import BadRequest, Unauthorized
