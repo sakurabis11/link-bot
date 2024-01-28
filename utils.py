@@ -62,6 +62,22 @@ async def not_subscribed(_, client, message):
          return False 
    return True
 
+def get_size(size):
+    """Get size in readable format"""
+
+    units = ["Bytes", "KB", "MB", "GB", "TB", "PB", "EB"]
+    size = float(size)
+    i = 0
+    while size >= 1024.0 and i < len(units):
+        i += 1
+        size /= 1024.0
+    return "%.2f %s" % (size, units[i])
+
+def split_list(l, n):
+    for i in range(0, len(l), n):
+        yield l[i:i + n]  
+
+
 async def broadcast_messages(user_id, message):
     try:
         await message.copy(chat_id=user_id)
