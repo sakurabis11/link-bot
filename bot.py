@@ -1,5 +1,5 @@
 from pyrogram import Client, __version__, filters
-from info import API_ID, API_HASH, BOT_TOKEN, PORT, ADMINS, LOG_CHANNEL, FORCE_SUB
+from info import API_ID, API_HASH, BOT_TOKEN, PORT, ADMINS, LOG_CHANNEL, F_SUB
 import os, math, logging, pytz
 from datetime import date, datetime 
 from pytz import timezone
@@ -40,7 +40,7 @@ class Bot(Client):
         temp.U_NAME = me.username
         temp.B_NAME = me.first_name
         self.username = '@' + me.username
-        self.force_channel = FORCE_SUB
+        self.f_channel = F_SUB
         logging.info(f"{me.first_name} with for Pyrogram v{__version__} (Layer {layer}) started on {me.username}.")
         app = web.AppRunner(await web_server())
         await app.setup()
@@ -52,14 +52,14 @@ class Bot(Client):
         now = datetime.now(tz)
         time = now.strftime("%H:%M:%S %p")
         await self.send_message(chat_id=LOG_CHANNEL, text=f"**__{me.mention} Iꜱ Rᴇsᴛᴀʀᴛᴇᴅ !!**\n\n📅 Dᴀᴛᴇ : `{today}`\n⏰ Tɪᴍᴇ : `{time}`\n🌐 Tɪᴍᴇᴢᴏɴᴇ : `Asia/Kolkata`\n\n🉐 Vᴇʀsɪᴏɴ : `v{__version__} (Layer {layer})`</b>")
-        if FORCE_SUB:
+        if F_SUB:
          try:
-            link = await self.export_chat_invite_link(FORCE_SUB)                  
+            link = await self.export_chat_invite_link(F_SUB)                  
             self.invitelink = link
          except Exception as e:
             logging.warning(e)
             logging.warning("Make Sure Bot admin in force sub channel")             
-            self.force_channel = None
+            self.f_channel = None
  
     async def stop(self, *args):
        await super().stop()      
