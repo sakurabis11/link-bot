@@ -15,8 +15,8 @@ class script(object):
 ᴛʜᴇ ᴛᴇxᴛ ɪs : <code>{}</code>"""
 
     LOG_TEXT_FA = """#ɴᴇᴡ_ғᴇᴇᴅʙᴀᴄᴋ_ᴀɴᴏɴʏᴍᴏᴜsʟʏ 
-ғᴇᴇᴅʙᴀᴄᴋ ғʀᴏᴍ {}
-ᴛʜᴇ ᴛᴇxᴛ ɪs : <code>{}</code>"""
+◉ ғᴇᴇᴅʙᴀᴄᴋ ғʀᴏᴍ: {}
+ᴛʜᴇ ᴛᴇxᴛ: <code>{}</code>"""
 
     START_TXT = """Hᴇʟʟᴏ {}.
 Mʏ Nᴀᴍᴇ Is <a href=https://t.me/{}>{}</a>. ɪ ᴀᴍ ᴀ sᴘᴇᴄɪᴀʟ ʙᴏᴛ"""
