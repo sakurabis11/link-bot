@@ -58,7 +58,7 @@ class Bot(Client):
             self.invitelink = link
          except Exception as e:
             logging.warning(e)
-            logging.warning("Make Sure Bot admin in force sub channel")             
+            logging.warning("Mᴀᴋᴇ Sᴜʀᴇ Bᴏᴛ ᴀᴅᴍɪɴ ɪɴ ғᴏʀᴄᴇ sᴜʙ ᴄʜᴀɴɴᴇʟ")             
             self.f_channel = None
  
     async def stop(self, *args):
