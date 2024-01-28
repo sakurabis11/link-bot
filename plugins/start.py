@@ -7,7 +7,7 @@ from pyrogram import enums, filters, Client
 from info import API_ID, API_HASH, BOT_TOKEN, PORT, ADMINS, LOG_CHANNEL, DATABASE_NAME, DATABASE_URI, S_GROUP, S_CHANNEL
 from Script import script
 import time
-from utils import temp, is_subscribed
+from utils import temp, not_subscribed
 from pyrogram.errors import FloodWait, ChatAdminRequired
 from database.users_db import db
 import re
