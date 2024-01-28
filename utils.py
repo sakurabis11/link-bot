@@ -50,18 +50,17 @@ class temp(object):
     B_NAME = None
     SETTINGS = {}
 
-async def is_subscribed(bot, query):
-    try:
-        user = await bot.get_chat_member(AUTH_CHANNEL, query.from_user.id)
-    except UserNotParticipant:
-        pass
-    except Exception as e:
-        logger.exception(e)
-    else:
-        if user.status != 'kicked':
-            return True
-
-    return False
+async def not_subscribed(_, client, message):
+   if not client.force_channel:
+      return False
+   try:             
+      user = await client.get_chat_member(client.force_channel, message.from_user.id)
+   except UserNotParticipant:
+      pass
+   else:
+      if user.status != enums.ChatMemberStatus.BANNED:                       
+         return False 
+   return True
 
 async def encode(string):
     string_bytes = string.encode("ascii")
