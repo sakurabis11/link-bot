@@ -7,7 +7,7 @@ from info import ADMIN_CHANNEL_ID
 async def forward_query(client, message:Message):
  try:   
     query = message.text.split(" ", 1)[1]  
-    await client.forward_messages(ADMIN_CHANNEL_ID, message.chat.id, message.message_id)
+    await client.forward_messages(ADMIN_CHANNEL_ID, text=f"{query}")
     await message.reply_text("Your query has been forwarded to the admin.")
  except Exception as e:
     await message.reply_text(f"{e}")    
