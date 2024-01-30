@@ -7,7 +7,6 @@ from info import ADMINS, ADMIN_CHANNEL_ID
 async def forward_query(client, message:Message):
     query = message.text.split(" ", 1)[1] 
     await client.send_messages(ADMIN_CHANNEL_ID, text=f"ғʀᴏᴍ {message.from_user.mention}\n\n{query}")
-    await client.send_message(
     await message.reply_text("Your query has been forwarded to the admin.")
 
 @Client.on_message(filters.chat(int(ADMIN_CHANNEL_ID)) & filters.command("reply") & filters.user(ADMINS))
