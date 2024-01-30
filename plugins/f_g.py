@@ -1,5 +1,5 @@
 import pyrogram
-from pyrogram import filters
+from pyrogram import filters, Client
 from pyrogram.types import Message
 from info import ADMIN_CHANNEL_ID 
 
