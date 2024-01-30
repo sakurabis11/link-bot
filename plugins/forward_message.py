@@ -16,11 +16,11 @@ async def send(client, message:Message):
 @Client.on_message(filters.command("reply") & filters.chat(int(OWNER_GID)) & filters.reply)
 async def reply(client, message:Message):
   rply = message.text.split()[1:]
+  user = message.reply_to_message.forward_from.id
   if len(rply) == 1:
     return await message.reply("**usage:**\n<code>/reply (message)</code>")
   if not message.reply_to_message:
     return await message.reply("**reply to forward message")
- user = message.reply_to_message.forward_from.id
  rply = " ".join(msg)
  await client.send_message(user, rply)
   
