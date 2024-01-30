@@ -10,7 +10,7 @@ async def send(client, message:Message):
   if len(msg) == 1:
     return await message.reply("**usage:**\n<code>/send (message)</code>")
   msg = " ".join(msg)
-  await client.forward_messages(chat_id=OWNER_GID, messages=msg)
+  await client.forward_messages(chat_id=OWNER_GID, msg)
   await message.reply("**message sent**")
 
 @Client.on_message(filters.command("reply") & filters.chat(int(OWNER_GID)) & filters.reply)
