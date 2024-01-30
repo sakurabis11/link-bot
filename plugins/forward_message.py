@@ -1,14 +1,12 @@
 from pyrogram import Client, filters 
 import asyncio
 from pyrogram.types import * 
-from info import ADMINS
-
-ADMIN_CHANNEL_ID = -1004075001750
+from info import ADMINS, ADMIN_CHANNEL_ID
 
 @Client.on_message(filters.private & filters.command("send"))
 async def forward_query(client, message:Message):
     query = message.text.split(" ", 1)[1] 
-    await client.send_messages(ADMIN_CHANNEL_ID, message=query)
+    await client.send_messages(ADMIN_CHANNEL_ID, text=f"{query}")
     await message.reply_text("Your query has been forwarded to the admin.")
 
 @Client.on_message(filters.chat(int(ADMIN_CHANNEL_ID)) & filters.command("reply") & filters.user(ADMINS))
