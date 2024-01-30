@@ -10,4 +10,4 @@ async def forward_query(client, message:Message):
     await client.send_messages(ADMIN_CHANNEL_ID, text=f"ғʀᴏᴍ {message.from_user.mention}\n\n{query}")
     await message.reply_text("Your query has been forwarded to the admin.")
  except Exception as e:
-    await message.reply_text("{e}")
+    await message.reply_text(f"{e}")
