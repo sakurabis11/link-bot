@@ -6,9 +6,9 @@ from info import ADMINS
 ADMIN_CHANNEL_ID = -1004075001750
 
 @Client.on_message(filters.private & filters.command("send"))
-async def forward_query(client, message):
+async def forward_query(client, message:Message):
     query = message.text.split(" ", 1)[1] 
-    await client.forward_messages(ADMIN_CHANNEL_ID, message.chat.id, message.message_id)
+    await client.forward_messages(ADMIN_CHANNEL_ID, message=query)
     await message.reply_text("Your query has been forwarded to the admin.")
 
 @Client.on_message(filters.chat(int(ADMIN_CHANNEL_ID)) & filters.command("reply") & filters.user(ADMINS))
