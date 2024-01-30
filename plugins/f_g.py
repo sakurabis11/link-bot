@@ -9,7 +9,7 @@ async def forward_query(client, message:Message):
     await client.forward_messages(ADMIN_CHANNEL_ID, message.chat.id, message.message_id)
     await message.reply_text("Your query has been forwarded to the admin.")
 
-@Client.on_message(filters.chat(ADMIN_CHANNEL_ID) & filters.command(["reply"]))
+@Client.on_message(filters.chat(int(ADMIN_CHANNEL_ID)) & filters.command(["reply"]))
 async def send_answer(client, message:Message):
     answer = message.text.split(" ", 1)[1]  
     reply_to_message = await client.get_messages(ADMIN_CHANNEL_ID, message.reply_to_message.message_id)
