@@ -21,7 +21,7 @@ async def reply(client, message:Message):
     return await message.reply("**usage:**\n<code>/reply (message)</code>")
   if not message.reply_to_message:
     return await message.reply("**reply to forward message")
- rply = " ".join(msg)
- await client.send_message(user, rply)
+  rply = " ".join(msg)
+  await client.send_message(user, rply)
   
   
