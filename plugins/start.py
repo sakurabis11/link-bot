@@ -18,8 +18,6 @@ import logging
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.ERROR)
 
-id = message.from_user.id
-
 @Client.on_message(filters.command("support"))
 async def support_command(client, message):
     buttons = [
@@ -135,7 +133,7 @@ async def callback_handle(client, query):
         user_id = query.from_user.id
         if user_id in ADMINS:
             buttons = [[
-                 InlineKeyboardButton('ʜᴏᴍᴇ', callback_data='help')
+                InlineKeyboardButton('ʜᴏᴍᴇ', callback_data='help')
             ]]
             reply_markup = InlineKeyboardMarkup(buttons)
             await query.message.edit_text(text=script.ADMIN_CMD_TXT, reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
