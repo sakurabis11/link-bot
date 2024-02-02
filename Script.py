@@ -110,9 +110,6 @@ Mʏ Nᴀᴍᴇ Is <a href=https://t.me/{}>{}</a>. ɪ ᴀᴍ ᴀ sᴘᴇᴄɪᴀ�
 
 ᴄʀᴇᴅɪᴛs @MrTG_Coder"""
 
-    NEXT_TXT = """Hᴇʀᴇ ɪs Mʏ Hᴇʟᴩ.
-ᴄʟɪᴄᴋ ᴛʜɪs /support"""
-
     CONTACT_ADMIN_TXT = """ʜᴇʏ {}
 
 Yᴏᴜ ᴄᴀɴ ᴄᴏɴᴛᴀᴄᴛ ʙᴏᴛ ᴀᴅᴍɪɴ ᴛʜʀᴏᴜɢʜ ʙᴏᴛ ᴜsɪɴɢ <code>/send {ᴜʀ_ᴍᴇssᴀɢᴇ}</code>
