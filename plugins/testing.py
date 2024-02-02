@@ -16,9 +16,10 @@ async def forward_message_to_group(client, message):
 
 @Client.on_message(filters.command("reply"))
 async def reply_to_forwarded_message(client, message:Message):
- try:  
-    user_id = message.text.split(" ", 1)[1] 
-    reply_text = message.text.split(" ", 2)[2]
+ try: 
+    mrtg = message.text.split(" ", 2)
+    user_id = int(mrtg[1])
+    reply_text = mrtg[2]
     await client.send_message(user_id, text=f"Reply from my admin <code>{reply_text}</code>")
     await message.reply_text(f"reply send to {user_id}")
  except Exception as e:
