@@ -9,7 +9,7 @@ async def forward_message_to_group(client, message):
     text = message.text.split(" ", 1)[1] 
     user_id = message.from_user.id
     await message.forward(ADMIN_GROUP_ID)
-    await client.send_message(f"{user_id}")
+    await client.send_message(ADMIN_GROUP_ID, text=f"{user_id}")
     await message.reply_text("Message forwarded to the admins.")
  except Exception as e:
     await message.reply_text(f"error{e}")
