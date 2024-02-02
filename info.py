@@ -22,6 +22,14 @@ REQUESTED_CHANNEL = int(os.environ.get("REQUESTED_CHANNEL", "-1002079640571"))
 MELCOW_NEW_USERS = is_enabled((environ.get('MELCOW_NEW_USERS', "True")), True)
 ADMIN_CHANNEL_ID = int(os.environ.get("ADMIN_CHANNEL_ID", "-1002001268584"))
 
+LOGGER = logging
+FLOOD = int(environ.get("FLOOD", "10"))
+LAZY_MODE = bool(environ.get("True"))
+#Add user id of the user in this field those who you want to be Authentic user for file renaming features
+lazy_renamers = [int(lazrenamers) if id_pattern.search(lazrenamers) else lazrenamers for lazrenamers in environ.get('LAZY_RENAMERS', '').split()]
+LAZY_RENAMERS = (lazy_renamers + ADMINS) if lazy_renamers else []
+REQ_CHANNEL = int(environ.get('REQ_CHANNEL'))
+
 # important information for your bot
 S_GROUP = environ.get('S_GROUP', "https://t.me/sdbots_support")
 S_CHANNEL = environ.get('S_CHANNEL', "https://t.me/sd_bots")
