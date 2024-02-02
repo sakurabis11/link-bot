@@ -4,6 +4,7 @@ from pyrogram import Client, filters
 @Client.on_message(filters.command("eval", prefixes="!"))
 async def eval_command(client, message):
     code = message.text.split(" ", 1)[1]
+    code = " ".join(code)
     try:
         output = eval(code)
         await message.reply_text(f"Output: {output}")
