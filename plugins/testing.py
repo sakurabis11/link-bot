@@ -2,7 +2,6 @@ from pyrogram import Client, filters
 from pyrogram.types import Message
 
 ADMIN_GROUP_ID = -1002059805189
-user_id = []
 
 @Client.on_message(filters.private & filters.command("send"))
 async def forward_message_to_group(client, message):
