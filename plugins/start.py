@@ -61,12 +61,12 @@ async def help_command(client, message):
     buttons = [[
          InlineKeyboardButton('ᴀᴅᴍɪɴ', callback_data='admin')
          ],[
-         InlineKeyboardButton('ᴛᴇʟᴇɢʀᴘʜ', callback_data='telegraph'),
+         InlineKeyboardButton('ᴛᴇʟᴇɢʀᴀᴘʜ', callback_data='telegraph'),
          InlineKeyboardButton('ɢᴏᴏɢʟᴇ ᴀɪ', callback_data='google'),
          InlineKeyboardButton('ʀᴇᴘᴏ sᴇᴀʀᴄʜ', callback_data='repos')
          ],[
          InlineKeyboardButton('sᴏɴɢ', callback_data='song'),
-         InlineKeyboardButton('ʀɪɢᴛᴜɴᴇ', callback_data='ringtune'),
+         InlineKeyboardButton('ʀɪɴɢᴛᴜɴᴇ', callback_data='ringtune'),
          InlineKeyboardButton('sᴘᴏᴛɪғʏ', callback_data='spotify')
          ],[
          InlineKeyboardButton('sᴛɪᴄᴋᴇʀ', callback_data='sticker'),
@@ -79,6 +79,9 @@ async def help_command(client, message):
          ],[
          InlineKeyboardButton('ᴅᴏɴᴀᴛᴇ', callback_data='donate'),
          InlineKeyboardButton('ᴀᴜᴛᴏ ʀᴇǫᴜᴇsᴛ ᴀᴄᴄᴇᴘᴛ', callback_data='auto_accept')
+         ],[
+         InlineKeyboardButton('ᴛᴇxᴛ ᴛᴏ ғɪʟᴇ ᴄᴏɴᴠᴇʀᴛᴇʀ', callback_data='text_file'),
+         InlineKeyboardbutton('ᴄᴏɴᴛᴀᴄᴛ ᴀᴅᴍɪɴ', callback_data='cont_admin')
          ],[
          InlineKeyboardButton('ʜᴏᴍᴇ', callback_data='start'),
          InlineKeyboardButton('ᴄʟᴏsᴇ', callback_data='close'),
