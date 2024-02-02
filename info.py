@@ -5,14 +5,6 @@ from pyrogram import enums
 import asyncio
 import json
 from pyrogram import Client
-import logging
-
-logging.basicConfig(
-    format='%(name)s - %(levelname)s - %(message)s',
-    handlers=[logging.FileHandler('log.txt'),
-              logging.StreamHandler()],
-    level=logging.INFO
-)
 
 id_pattern = re.compile(r'^.\d+$')
 def is_enabled(value, default):
@@ -29,13 +21,6 @@ LOG_CHANNEL = int(environ.get('LOG_CHANNEL', '-1002084798134'))
 REQUESTED_CHANNEL = int(os.environ.get("REQUESTED_CHANNEL", "-1002079640571"))
 MELCOW_NEW_USERS = is_enabled((environ.get('MELCOW_NEW_USERS', "True")), True)
 ADMIN_CHANNEL_ID = int(os.environ.get("ADMIN_CHANNEL_ID", "-1002001268584"))
-
-LOGGER = logging
-FLOOD = int(environ.get("FLOOD", "10"))
-LAZY_MODE = bool(environ.get("True"))
-#Add user id of the user in this field those who you want to be Authentic user for file renaming features
-lazy_renamers = [int(lazrenamers) if id_pattern.search(lazrenamers) else lazrenamers for lazrenamers in environ.get('LAZY_RENAMERS', '5006075304').split()]
-LAZY_RENAMERS = (lazy_renamers + ADMINS) if lazy_renamers else []
 
 
 # important information for your bot
