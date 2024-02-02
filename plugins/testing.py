@@ -15,7 +15,7 @@ async def forward_message_to_group(client, message):
 async def reply_to_forwarded_message(client, message):
  try:  
     user_id = message.reply_to_message.forward_from_message_id
-    name = message.reply_to_message.forward_from.first_name
+    name = message.reply_to_message_from.first_name
     reply_text = message.text.split(" ", 1)[1]
     await client.send_message(user_id, reply_text)
     await message.reply_text(f"reply send to {name}")
