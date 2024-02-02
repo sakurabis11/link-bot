@@ -122,6 +122,9 @@ async def callback_handle(client, query):
          InlineKeyboardButton('ᴅᴏɴᴀᴛᴇ', callback_data='donate'),
          InlineKeyboardButton('ᴀᴜᴛᴏ ʀᴇǫᴜᴇsᴛ ᴀᴄᴄᴇᴘᴛ', callback_data='auto_accept')
          ],[
+         InlineKeyboardButton('ᴛᴇxᴛ ᴛᴏ ғɪʟᴇ ᴄᴏɴᴠᴇʀᴛᴇʀ', callback_data='text_file'),
+         InlineKeyboardbutton('ᴄᴏɴᴛᴀᴄᴛ ᴀᴅᴍɪɴ', callback_data='cont_admin')
+         ],[
          InlineKeyboardButton('ʜᴏᴍᴇ', callback_data='start'),
          InlineKeyboardButton('ᴄʟᴏsᴇ', callback_data='close'),
          InlineKeyboardButton('ɴᴇxᴛ', callback_data='next')
@@ -239,17 +242,6 @@ async def callback_handle(client, query):
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(text=script.REQUEST_ACCEPT_TXT.format(query.from_user.mention), reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
-
-    elif query.data == 'next':
-        buttons = buttons = [[
-            InlineKeyboardButton('ᴛᴇxᴛ ᴛᴏ ғɪʟᴇ ᴄᴏɴᴠᴇʀᴛᴇʀ', callback_data='text_file'),
-            InlineKeyboardbutton('ᴄᴏɴᴛᴀᴄᴛ ᴀᴅᴍɪɴ', callback_data='cont_admin')
-            ],[
-            InlineKeyboardButton('Back', callback_data='help'),
-            InlineKeyboardButton('Home', callback_data='start')
-        ]]
-        reply_markup = InlineKeyboardMarkup(buttons)
-        await query.message.edit_text(text=script.NEXT_TXT, reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML) 
 
     elif query.data == 'text_file':
         buttons = buttons = [[
