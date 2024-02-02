@@ -17,7 +17,6 @@ async def reply_to_forwarded_message(client, message:Message):
  try:  
     user_id = message.reply_to_message.forward_from_message_id
     reply_text = message.text.split(" ", 1)[1]
-    await client.send_message(user_id, reply_text)
     await message.reply_text(f"reply send to {user_id}")
  except Exception as e:
     await message.reply_text(f"error{e}")
