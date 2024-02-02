@@ -7,8 +7,8 @@ from pyrogram import enums, filters, Client
 from info import API_ID, API_HASH, BOT_TOKEN, PORT, ADMINS, LOG_CHANNEL, DATABASE_NAME, DATABASE_URI, S_GROUP, S_CHANNEL
 from Script import script
 import time
-from utils import temp, not_subscribed
-from pyrogram.errors import FloodWait, ChatAdminRequired
+from utils import temp
+from pyrogram.errors import FloodWait
 from database.users_db import db
 import re
 import json
@@ -31,7 +31,7 @@ async def support_command(client, message):
 
 @Client.on_message(filters.command("start") & filters.incoming)
 async def start(client, message):
-    if message.chat.type in [enums.ChatType.GROUP, enums.ChatType.SUPERGROUP, enums.ChatType.CHANNEL]:
+    if message.chat.type in [enums.ChatType.GROUP, enums.ChatType.SUPERGROUP]:
         buttons = [[
             InlineKeyboardButton("ʜᴇʟᴘ", url=f"https://t.me/{temp.U_NAME}?start=help"),
         ]]
@@ -54,19 +54,18 @@ async def start(client, message):
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await message.reply_text(text=script.START_TXT.format(message.from_user.mention, temp.U_NAME, temp.B_NAME), reply_markup=reply_markup)
-
     
 @Client.on_message(filters.command("help"))
 async def help_command(client, message):
     buttons = [[
          InlineKeyboardButton('ᴀᴅᴍɪɴ', callback_data='admin')
          ],[
-         InlineKeyboardButton('ᴛᴇʟᴇɢʀᴀᴘʜ', callback_data='telegraph'),
+         InlineKeyboardButton('ᴛᴇʟᴇɢʀᴘʜ', callback_data='telegraph'),
          InlineKeyboardButton('ɢᴏᴏɢʟᴇ ᴀɪ', callback_data='google'),
          InlineKeyboardButton('ʀᴇᴘᴏ sᴇᴀʀᴄʜ', callback_data='repos')
          ],[
          InlineKeyboardButton('sᴏɴɢ', callback_data='song'),
-         InlineKeyboardButton('ʀɪɴɢᴛᴜɴᴇ', callback_data='ringtune'),
+         InlineKeyboardButton('ʀɪɢᴛᴜɴᴇ', callback_data='ringtune'),
          InlineKeyboardButton('sᴘᴏᴛɪғʏ', callback_data='spotify')
          ],[
          InlineKeyboardButton('sᴛɪᴄᴋᴇʀ', callback_data='sticker'),
@@ -79,9 +78,6 @@ async def help_command(client, message):
          ],[
          InlineKeyboardButton('ᴅᴏɴᴀᴛᴇ', callback_data='donate'),
          InlineKeyboardButton('ᴀᴜᴛᴏ ʀᴇǫᴜᴇsᴛ ᴀᴄᴄᴇᴘᴛ', callback_data='auto_accept')
-         ],[
-         InlineKeyboardButton('ᴛᴇxᴛ ᴛᴏ ғɪʟᴇ ᴄᴏɴᴠᴇʀᴛᴇʀ', callback_data='text_file'),
-         InlineKeyboardbutton('ᴄᴏɴᴛᴀᴄᴛ ᴀᴅᴍɪɴ', callback_data='cont_admin')
          ],[
          InlineKeyboardButton('ʜᴏᴍᴇ', callback_data='start'),
          InlineKeyboardButton('ᴄʟᴏsᴇ', callback_data='close'),
@@ -124,9 +120,6 @@ async def callback_handle(client, query):
          ],[
          InlineKeyboardButton('ᴅᴏɴᴀᴛᴇ', callback_data='donate'),
          InlineKeyboardButton('ᴀᴜᴛᴏ ʀᴇǫᴜᴇsᴛ ᴀᴄᴄᴇᴘᴛ', callback_data='auto_accept')
-         ],[
-         InlineKeyboardButton('ᴛᴇxᴛ ᴛᴏ ғɪʟᴇ ᴄᴏɴᴠᴇʀᴛᴇʀ', callback_data='text_file'),
-         InlineKeyboardbutton('ᴄᴏɴᴛᴀᴄᴛ ᴀᴅᴍɪɴ', callback_data='cont_admin')
          ],[
          InlineKeyboardButton('ʜᴏᴍᴇ', callback_data='start'),
          InlineKeyboardButton('ᴄʟᴏsᴇ', callback_data='close'),
@@ -246,19 +239,22 @@ async def callback_handle(client, query):
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(text=script.REQUEST_ACCEPT_TXT.format(query.from_user.mention), reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
 
+    elif query.data == 'next':
+        buttons = buttons = [[
+            InlineKeyboardButton('ᴛᴇxᴛ ᴛᴏ ғɪʟᴇ ᴄᴏɴᴠᴇʀᴛᴇʀ', callback_data='text_file')
+            ],[
+            InlineKeyboardButton('Back', callback_data='help'),
+            InlineKeyboardButton('Home', callback_data='start')
+        ]]
+        reply_markup = InlineKeyboardMarkup(buttons)
+        await query.message.edit_text(text=script.NEXT_TXT, reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML) 
+
     elif query.data == 'text_file':
         buttons = buttons = [[
             InlineKeyboardButton('ʜᴏᴍᴇ', callback_data='help')
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(text=script.TEXT_TO_FILE_TXT.format(query.from_user.mention), reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
-
-    elif query.data == 'cont_admin':
-        buttons = buttons = [[
-            InlineKeyboardButton('ʜᴏᴍᴇ', callback_data='help')
-        ]]
-        reply_markup = InlineKeyboardMarkup(buttons)
-        await query.message.edit_text(text=script.CONTACT_ADMIN_TXT.format(query.from_user.mention), reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
     
     elif query.data == 'about':
         buttons = buttons = [[
