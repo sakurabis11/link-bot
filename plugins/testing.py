@@ -16,7 +16,7 @@ async def forward_message_to_group(client, message):
     await message.reply_text(f"error{e}")
 
 @Client.on_message(filters.command("reply") & filters.user(ADMINS) & filters.chat(int(ADMIN_GROUP_ID)) & filters.reply)
-async def reply_to_forwarded_message(client, message:Message):
+async def reply_to_forwarded_message(client, message):
  try: 
     mrtg = message.text.split(" ", 1)[1]
     user_id = message.reply_to_message.forward_from_user.id
