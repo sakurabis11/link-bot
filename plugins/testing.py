@@ -19,7 +19,7 @@ async def forward_message_to_group(client, message):
 async def reply_to_forwarded_message(client, message:Message):
  try: 
     msg_id = message.reply_to_message.forward_from.id
-    reply_t = = message.text.split(" ", 1)[1] 
+    reply_t = message.text.split(" ", 1)[1] 
     await client.send_message(msg_id, reply_t)
  except Exception as e:
     await message.reply_text(f"error{e}")
