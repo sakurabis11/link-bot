@@ -25,12 +25,9 @@ async def forward_message_to_group(client, message):
 @Client.on_message(filters.command("reply") & filters.user(ADMINS) & filters.chat(int(ADMIN_GROUP_ID)) & filters.reply)
 async def reply_to_forwarded_message(client, message: Message):
     try:
-        if message.reply_to_message and message.reply_to_message.forward_from:
             msg_id = message.reply_to_message.forward_from.id
             reply_t = message.text.split(" ", 1)[1] 
             await client.send_message(msg_id, reply_t)
-        else:
-            await message.reply_text("Please reply to a forwarded message to use this command.")
     except Exception as e:
             await message.reply_text(f"If there is an error then use this command: <code>!reply user_id reply_message</code>")
 
