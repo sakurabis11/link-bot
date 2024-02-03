@@ -42,7 +42,7 @@ async def reply_to_forwarded_message(client, message: Message):
             await client.send_message(msg_id, reply_t)
             await message.reply_text(f"sucessfully sended to <a href='tg://user?id={msg_id}'><b>ᴄʟɪᴄᴋ ʜᴇʀᴇ</b></a>")    
         else:
-            await message.reply_text(f"Reply the forward message or Use this command: <code>!reply <user_id> <reply_message>")
+            await message.reply_text(f"Reply the forward message or Use this command: <code>!ans (user_id) (reply_message)</code>")
     except Exception as e:
             await message.reply_text(f"An error occurred: {e}\n\nIf there is an error then use this command: <code>!ans (user_id) (reply_message)</code>")
 
