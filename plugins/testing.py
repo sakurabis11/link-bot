@@ -29,7 +29,7 @@ async def reply_to_forwarded_message(client, message: Message):
             msg_id = message.reply_to_message.forward_from.id
             reply_t = message.text.split(" ", 1)[1] 
             await client.send_message(msg_id, reply_t)
-        
+            await message.reply_text(f"sucessfully sended to <a href='tg://user?id={msg_id}'><b>ᴄʟɪᴄᴋ ʜᴇʀᴇ</b></a>")    
         else:
             await message.reply_text(f"Reply the forward message or Use this command: <code>!reply <user_id> <reply_message>")
     except Exception as e:
