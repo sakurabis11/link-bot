@@ -22,6 +22,17 @@ async def forward_message_to_group(client, message):
  except Exception as e:
     await message.reply_text(f"error{e}")
 
+@Client.on_message(filters.command("ans", "!") & filters.user(ADMINS) & filters.chat(int(ADMIN_GROUP_ID)))
+async def reply_to_forwarded_message(client, message:Message):
+ try: 
+    mrtg = message.text.split(" ", 2)
+    user_id = int(mrtg[1])
+    reply_text = mrtg[2]
+    await client.send_message(user_id, text=f"Reply from my admin:- <code>{reply_text}</code>")
+    await message.reply_text(f"sucessfully sended to <a href='tg://user?id={user_id}'><b>ᴄʟɪᴄᴋ ʜᴇʀᴇ</b></a>")
+ except Exception as e:
+    await message.reply_text(f"error{e}")
+
 @Client.on_message(filters.command("reply") & filters.user(ADMINS) & filters.chat(int(ADMIN_GROUP_ID)) & filters.reply)
 async def reply_to_forwarded_message(client, message: Message):
     try:
@@ -35,14 +46,5 @@ async def reply_to_forwarded_message(client, message: Message):
     except Exception as e:
             await message.reply_text(f"An error occurred: {e}\n\nIf there is an error then use this command: <code>!ans (user_id) (reply_message)</code>")
 
-@Client.on_message(filters.command("ans", "!") & filters.user(ADMINS) & filters.chat(int(ADMIN_GROUP_ID)))
-async def reply_to_forwarded_message(client, message:Message):
- try: 
-    mrtg = message.text.split(" ", 2)
-    user_id = int(mrtg[1])
-    reply_text = mrtg[2]
-    await client.send_message(user_id, text=f"Reply from my admin:- <code>{reply_text}</code>")
-    await message.reply_text(f"sucessfully sended to <a href='tg://user?id={user_id}'><b>ᴄʟɪᴄᴋ ʜᴇʀᴇ</b></a>")
- except Exception as e:
-    await message.reply_text(f"error{e}")
+
 
