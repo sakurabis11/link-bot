@@ -5,6 +5,26 @@ import re
 import traceback
 from io import StringIO
 from info import ADMINS
+import os
+from pyrogram import Client, filters
+import subprocess
+from dotenv import load_dotenv
+
+load_dotenv()
+
+@Client.on_message(filters.command("install"))
+async def install_packages(client, message):
+    package_names = message.text.split()[1:]
+
+    if not package_names:
+        await message.reply_text("Please specify packages to install (e.g., /install numpy pandas)")
+        return
+
+    try:
+        subprocess.run(["pip", "install"] + package_names)
+        await message.reply_text("Packages installed successfully!")
+    except Exception as e:
+        await message.reply_text(f"Error installing packages: {e}")
 
 @Client.on_message(filters.command("eval") & filters.user(ADMINS))
 async def executor(client, message):
