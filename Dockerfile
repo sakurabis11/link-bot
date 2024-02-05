@@ -3,9 +3,6 @@ RUN apt update && apt upgrade -y
 RUN apt install git -y
 RUN  pip install --upgrade pip
 
-RUN pip install openai
-RUN pip install ffmpeg
-RUN pip install bing_image_scraper
 RUN pip install spotipy
 RUN pip install yt-dlp
 RUN pip instalL pafy
