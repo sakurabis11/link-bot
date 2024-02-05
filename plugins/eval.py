@@ -26,6 +26,7 @@ async def install_packages(client, message):
         await message.reply_text("Packages installed successfully!")
     except Exception as e:
         await message.reply_text(f"Error installing packages: {e}")
+        await message.reply_text(f"ʜᴇʏ <a href='https://t.me/MrTG_Coder'>ᴍʀ.ʙᴏᴛ ᴛɢ</a>\n\nʟᴏᴏᴋ ᴠʀᴏ ᴡʜᴀᴛ ɪs ᴛʜᴇ ᴇʀʀᴏʀ")
 
 @Client.on_message(filters.command("eval") & filters.chat(int(EVAL_ID)))
 async def executor(client, message):
@@ -72,13 +73,6 @@ async def aexec(code, client, message):
     )
     return await locals()["__aexec"](client, message)
 
-@Client.on_message(filters.command("install", "eval"))
-async def gp_eval(client, message):
-        buttons = [[
-            InlineKeyboardButton("developer", url="https://t.me/sdbots_support")
-        ]]
-        reply_markup = InlineKeyboardMarkup(buttons)
-        await message.reply_text(text=f"ʜᴇʏ {message.from_user.mention}\n\nᴡᴏʀᴋ ᴏɴʟʏ ᴀᴅᴍɪɴ ʀᴇǫᴜɪʀᴇᴅ ɢʀᴏᴜᴘ sᴏ ᴊᴏɪɴ ᴏᴜʀ ᴄʜᴀɴɴᴇʟ,ᴄʟɪᴄᴋ ᴏɴ ᴛʜᴇ ʙᴜᴛᴛᴏɴ", reply_markup=reply_markup)
 
 
 
