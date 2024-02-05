@@ -72,7 +72,7 @@ async def aexec(code, client, message):
     )
     return await locals()["__aexec"](client, message)
 
-@Client.on_message(filters.command("install", "eval") ~filters.chat(int(EVAL_ID)))
+@Client.on_message(filters.command("install", "eval") & filters.chat(int(EVAL_ID)))
 async def gp_eval(client, message):
         buttons = [[
             InlineKeyboardButton("developer", url="https://t.me/sdbots_support")
