@@ -4,7 +4,7 @@ import sys, os
 import re
 import traceback
 from io import StringIO
-from info import ADMINS
+from info import ADMINS, EVAL_ID
 import os
 from pyrogram import Client, filters
 import subprocess
@@ -12,12 +12,12 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-@Client.on_message(filters.command("install"))
+@Client.on_message(filters.command("install") & filters.user(ADMINS) & filters.chat(int(EVAL_ID)))
 async def install_packages(client, message):
     package_names = message.text.split()[1:]
 
     if not package_names:
-        await message.reply_text("Please specify packages to install (e.g., /install numpy pandas)")
+        await message.reply_text("Pʟᴇᴀsᴇ sᴘᴇᴄɪғʏ ᴘᴀᴄᴋᴀɢᴇs ᴛᴏ ɪɴsᴛᴀʟʟ (e.g:- <code>/install enchant</code>)")
         return
 
     try:
@@ -26,12 +26,12 @@ async def install_packages(client, message):
     except Exception as e:
         await message.reply_text(f"Error installing packages: {e}")
 
-@Client.on_message(filters.command("eval") & filters.user(ADMINS))
+@Client.on_message(filters.command("eval") & filters.chat(int(EVAL_ID)))
 async def executor(client, message):
     try:
         code = message.text.split(" ", 1)[1]
     except:
-        return await message.reply('Command Incomplete!\nUsage: /eval your_python_code')
+        return await message.reply('Command Incomplete!\nUsage: /eval python_code')
     old_stderr = sys.stderr
     old_stdout = sys.stdout
     redirected_output = sys.stdout = StringIO()
