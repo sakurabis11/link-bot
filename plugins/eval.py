@@ -23,17 +23,17 @@ async def install_packages(client, message):
 
     try:
         subprocess.run(["pip", "install"] + package_names)
-        await message.reply_text("Packages installed successfully!")
+        await message.reply_text("Pᴀᴄᴋᴀɢᴇs ɪɴsᴛᴀʟʟᴇᴅ sᴜᴄᴄᴇssғᴜʟʟʏ!")
     except Exception as e:
-        await message.reply_text(f"Error installing packages: {e}")
-        await message.reply_text(f"ʜᴇʏ <a href='https://t.me/MrTG_Coder'>ᴍʀ.ʙᴏᴛ ᴛɢ</a>\n\nʟᴏᴏᴋ ᴠʀᴏ ᴡʜᴀᴛ ɪs ᴛʜᴇ ᴇʀʀᴏʀ")
+        await message.reply_text(f"Eʀʀᴏʀ ɪɴsᴛᴀʟʟɪɴɢ ᴘᴀᴄᴋᴀɢᴇs: {e}")
+
 
 @Client.on_message(filters.command("eval") & filters.chat(int(EVAL_ID)))
 async def executor(client, message):
     try:
         code = message.text.split(" ", 1)[1]
     except:
-        return await message.reply('Command Incomplete!\nUsage: /eval python_code')
+        return await message.reply('Cᴏᴍᴍᴀɴᴅ Iɴᴄᴏᴍᴘʟᴇᴛᴇ!\ɴUsᴀɢᴇ: /eval python_code')
     old_stderr = sys.stderr
     old_stdout = sys.stdout
     redirected_output = sys.stdout = StringIO()
@@ -72,7 +72,3 @@ async def aexec(code, client, message):
         + "".join(f"\n {a}" for a in code.split("\n"))
     )
     return await locals()["__aexec"](client, message)
-
-
-
-
