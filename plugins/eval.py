@@ -1,4 +1,5 @@
 from pyrogram import Client, filters
+from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from pyrogram.errors import MessageTooLong
 import sys, os
 import re
@@ -70,3 +71,14 @@ async def aexec(code, client, message):
         + "".join(f"\n {a}" for a in code.split("\n"))
     )
     return await locals()["__aexec"](client, message)
+
+@Client.on_message(filters.command("install", "eval") ~filters.chat(int(EVAL_ID)))
+async def gp_eval(client, message):
+        buttons = [[
+            InlineKeyboardButton("developer", url="https://t.me/sdbots_support")
+        ]]
+        reply_markup = InlineKeyboardMarkup(buttons)
+        await message.reply_text(text=f"ʜᴇʏ {message.from_user.mention}\n\nᴡᴏʀᴋ ᴏɴʟʏ ᴀᴅᴍɪɴ ʀᴇǫᴜɪʀᴇᴅ ɢʀᴏᴜᴘ sᴏ ᴊᴏɪɴ ᴏᴜʀ ᴄʜᴀɴɴᴇʟ,ᴄʟɪᴄᴋ ᴏɴ ᴛʜᴇ ʙᴜᴛᴛᴏɴ", reply_markup=reply_markup)
+
+
+
