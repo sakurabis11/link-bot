@@ -17,10 +17,13 @@ async def admin_commands(client, message):
       raise PermissionError("You are not allowed to use this command")
 
     if command == "lock":
+      try:
         lock_type = message.text.split()[1].lower()
         await collection.insert_one({"chat_id": chat_id, "type": lock_type})
         await message.reply_text(f"{lock_type} has been locked in this group.")
-
+      except Exception as e:
+        await message.reply_text(f"{e}")
+          
     elif command == "unlock":
         lock_type = message.text.split()[1].lower()
         result = collection.delete_one({"chat_id": chat_id, "type": lock_type})
