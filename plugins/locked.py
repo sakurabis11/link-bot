@@ -19,7 +19,7 @@ async def admin_commands(client, message):
     if command == "lock":
       try:
         lock_type = message.text.split()[1].lower()
-        await collection.insert_one({"chat_id": chat_id, "type": lock_type})
+        collection.insert_one({"chat_id": chat_id, "type": lock_type})
         await message.reply_text(f"{lock_type} has been locked in this group.")
       except Exception as e:
         await message.reply_text(f"{e}")
