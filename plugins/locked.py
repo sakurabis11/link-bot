@@ -1,6 +1,7 @@
 import pyrogram
 from pyrogram import filters, Client, enums
 import pymongo
+from pyrogram.errors import *
 from info import DATABASE_NAME, DATABASE_URI
 
 # Connect to MongoDB
@@ -10,11 +11,11 @@ collection = db["locks"]
 
 @Client.on_message(filters.command(["lock", "unlock", "seelocks"]) & filters.group)
 async def admin_commands(client, message):
-    chat_id = message.chat.id
-    command = message.command[0]
     user = await client.get_chat_member(message.chat.id, message.from_user.id)
     if user.status not in [enums.ChatMemberStatus.OWNER, enums.ChatMemberStatus.ADMINISTRATOR]:
       raise PermissionError("You are not allowed to use this command")
+    chat_id = message.chat.id
+    command = message.command[0]
 
     if command == "lock":
       try:
