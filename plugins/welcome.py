@@ -27,7 +27,7 @@ async def set_welcome(client, message):
   chat_id = message.chat.id
   welcome_template = message.text.split(" ", 1)[1]
   welcome_code = generate_unique_code() 
-  collection.insert_one({"chat_id": chat_id, "type": welcome_template, "code": welcome_code}
+  collection.insert_one({"chat_id": chat_id, "type": welcome_template, "code": welcome_code})
   await message.reply_text("Welcome message set successfully")
  except PermissionError as e:
   await message.reply_text(str(e))
