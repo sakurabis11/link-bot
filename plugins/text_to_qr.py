@@ -20,4 +20,4 @@ async def generate_qr_code(client, message):
     await message.reply_photo(img_path)
     await client.send_message(REQUESTED_CHANNEL, text=f"ʀᴇǫᴜᴇsᴛᴇᴅ_ғʀᴏᴍ: {message.from_user.mention}\n ᴛᴇxᴛ: {text_to_stylize}")
  except Exception as e:
-    await message.reply_text("{e}")
+    await message.reply_text(f"{e}")
