@@ -15,6 +15,7 @@ Pillow
 motor
 python-docx
 speedtest
+qrcode
 yt-dlp
 python-dateutil
 google-generativeai
