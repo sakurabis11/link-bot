@@ -1,8 +1,9 @@
 from pyrogram import Client, filters
+from pyrogram.types import Message
 import google.generativeai as genai
 
 @Client.on_message(filters.command("gemini"))
-async def gemini(client, message):
+async def gemini(client, message: Message):
     try:
 
         prompt = message.text.split()[1:]
