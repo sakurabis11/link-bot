@@ -7,12 +7,11 @@ async def gemini(client, message):
 
         prompt = message.text.split()[1:]
 
-        if reply_to_message.photo:
+        if reply_to_message and reply_to_message.photo:
             image = reply_to_message.photo
         else:
             await message.reply_text("Please reply with an image and a prompt.")
             return
-
 
         try:
             pic = await client.download_media(image)
