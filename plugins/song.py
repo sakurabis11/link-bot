@@ -89,7 +89,7 @@ async def song(client, message):
 @Client.on_callback_query()
 async def callback_handle(client, query):
     if query.data == "send_to_pm":
-      client.send_audio(chat_id=query.from_user.id, path, caption=song_caption)
+      client.send_audio(chat_id=query.from_user.id, audio=path, caption=song_caption)
       return await query.answer("send this audio to your pm", show_alert=True) 
   
 
