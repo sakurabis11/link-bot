@@ -4,6 +4,7 @@ import shutil
 import re
 from info import REQUESTED_CHANNEL
 from pyrogram import Client, filters, enums
+from pyrogram.types import *
 from yt_dlp import YoutubeDL
 
 async def download_songs(query, download_directory="."):
@@ -39,6 +40,7 @@ ytregex = r"^((?:https?:)?\/\/)?((?:www|m)\.)?((?:youtube\.com|youtu.be))(\/(?:[
 @Client.on_message(filters.regex(ytregex))
 async def song(client, message):
     try:
+        chat_type = message.chat.type
         await message.reply_chat_action(enums.ChatAction.TYPING)
         k = await message.reply("⌛")
         print("⌛")
@@ -55,12 +57,22 @@ async def song(client, message):
         await k.edit("ᴜᴘʟᴏᴀᴅɪɴɢ")
         song_title = info.get("title", "Unknown Title")   
         song_caption = f"**🍃 {song_title}**\n" + \
-                       f"🍂 sᴜᴘᴘᴏʀᴛ: <a href='https://t.me/sd_bots'>sᴅ ʙᴏᴛs</a>" 
+                       f"🍂 sᴜᴘᴘᴏʀᴛ: <a href='https://t.me/sd_bots'>sᴅ ʙᴏᴛs</a>"
 
+        if chat_type == enums.ChatType.PRIVATE:
+          await message.reply_audio(
+              path,
+              caption=song_caption
+          )
+        else:
         await message.reply_audio(
             path,
             caption=song_caption
         )
+        buttons = [[
+            InlineKeyboardButton('send to pm', callback_data='send_to_pm')
+        ]]
+        reply_markup = InlineKeyboardMarkup(buttons)
         await client.send_message(REQUESTED_CHANNEL, text=f"#ɴᴇᴡ_sᴏɴɢ_ʀᴇǫᴜᴇsᴛ ʀᴇǫᴜᴇsᴛ_ᴜsᴇʀ:- {message.from_user.mention}\n ǫᴜᴇʀʏ:- <code>{query}</code>")
 
     except IndexError:
@@ -73,3 +85,12 @@ async def song(client, message):
             return await k.delete()
         except:
             pass
+
+@Client.on_callback_query()
+async def callback_handle(client, query):
+    if query.data == "send_to_pm"
+      client.send_audio(chat_id=query.from_user.id, audio=path, caption=song_caption)
+      return await query.answer("send this audio to your pm", show_alert=True) 
+  
+
+
