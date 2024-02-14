@@ -40,7 +40,7 @@ ytregex = r"^((?:https?:)?\/\/)?((?:www|m)\.)?((?:youtube\.com|youtu.be))(\/(?:[
 @Client.on_message(filters.regex(ytregex))
 async def song(client, message):
     try:
-        user_id = message.from_user.id
+        chat_type = message.chat.type
         await message.reply_chat_action(enums.ChatAction.TYPING)
         k = await message.reply("⌛")
         print("⌛")
