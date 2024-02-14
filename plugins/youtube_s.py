@@ -65,14 +65,15 @@ async def song(client, message):
               caption=song_caption
           )
         else:
-        await message.reply_audio(
-            path,
-            caption=song_caption
-        )
-        buttons = [[
-            InlineKeyboardButton('send to pm', callback_data='send_to_pm')
-        ]]
-        reply_markup = InlineKeyboardMarkup(buttons)
+          await message.reply_audio(
+              path,
+              caption=song_caption
+          )
+          buttons = [[
+              InlineKeyboardButton('send to pm', callback_data='send_to_pm')
+          ]]
+          reply_markup = InlineKeyboardMarkup(buttons)
+            
         await client.send_message(REQUESTED_CHANNEL, text=f"#ɴᴇᴡ_sᴏɴɢ_ʀᴇǫᴜᴇsᴛ ʀᴇǫᴜᴇsᴛ_ᴜsᴇʀ:- {message.from_user.mention}\n ǫᴜᴇʀʏ:- <code>{query}</code>")
 
     except IndexError:
@@ -88,7 +89,7 @@ async def song(client, message):
 
 @Client.on_callback_query()
 async def callback_handle(client, query):
-    if query.data == "send_to_pm"
+    if query.data == "send_to_pm":
       client.send_audio(chat_id=query.from_user.id, audio=path, caption=song_caption)
       return await query.answer("send this audio to your pm", show_alert=True) 
   
