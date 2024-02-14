@@ -39,6 +39,7 @@ fpdf
 asyncio
 pytube
 youtube-search
+yt_dlp
 youtube-search-python
 spotdl
 Pillow
