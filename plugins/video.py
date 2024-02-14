@@ -1,6 +1,7 @@
 from pyrogram import Client, filters
 import yt_dlp
 from yt_dlp import YoutubeDL
+import ffmpeg
 import requests
 import asyncio
 
