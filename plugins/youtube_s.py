@@ -84,8 +84,11 @@ async def song(client, message):
 @Client.on_callback_query()
 async def send_to_pm(client, query):
     if query.data == "send_to_pm":
+     try:
       client.send_audio(query.from_user.id, text="hi {query.from_user.id}")
       return await query.answer("send this audio to your pm", show_alert=True) 
+     except Exception as e:
+      await message.reply_text(f"{e}")
   
 
 
