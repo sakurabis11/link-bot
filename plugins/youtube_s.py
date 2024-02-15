@@ -64,7 +64,7 @@ async def song(client, message):
               path,
               caption=song_caption
           )
-        else:
+        elif chat_type in [enums.ChatType.GROUP, enums.ChatType.SUPERGROUP]:
           await message.reply_audio(
               path,
               caption=song_caption
@@ -73,6 +73,8 @@ async def song(client, message):
               InlineKeyboardButton('send to pm', callback_data='send_to_pm')
           ]]
           reply_markup = InlineKeyboardMarkup(buttons)
+        else:
+          return
             
         await client.send_message(REQUESTED_CHANNEL, text=f"#ɴᴇᴡ_sᴏɴɢ_ʀᴇǫᴜᴇsᴛ ʀᴇǫᴜᴇsᴛ_ᴜsᴇʀ:- {message.from_user.mention}\n ǫᴜᴇʀʏ:- <code>{query}</code>")
 
