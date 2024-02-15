@@ -58,14 +58,15 @@ async def song(client, message):
         song_title = info.get("title", "Unknown Title")   
         song_caption = f"**🍃 {song_title}**\n" + \
                        f"🍂 sᴜᴘᴘᴏʀᴛ: <a href='https://t.me/sd_bots'>sᴅ ʙᴏᴛs</a>"
+
+        reply_markup = InlineKeyboardMarkup([[
+            InlineKeyboardButton("Send to PM", callback_data="send_to_pm")
+        ]])
         await message.reply_audio(
             path,
-            caption=song_caption
+            caption=song_caption,
+            reply_markup=reply_markup
         )
-        buttons = [[
-            InlineKeyboardButton('send to pm', callback_data='send_to_pm')
-        ]]
-        reply_markup = InlineKeyboardMarkup(buttons)
             
         await client.send_message(REQUESTED_CHANNEL, text=f"#ɴᴇᴡ_sᴏɴɢ_ʀᴇǫᴜᴇsᴛ ʀᴇǫᴜᴇsᴛ_ᴜsᴇʀ:- {message.from_user.mention}\n ǫᴜᴇʀʏ:- <code>{query}</code>")
 
