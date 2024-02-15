@@ -21,7 +21,8 @@ async def download_video(client, message):
       'format': 'bestvideo[height<=?720][ext=mp4]+bestaudio[ext=m4a]/best[height<=?720][ext=mp4]/best', 
       'postprocessors': [{
         'key': 'FFmpegVideoConvertor',
-        'preferedformat': 'mp4'
+        'preferedformat': 'mp4',
+         'prefer_ffmpeg': True
       }],
     }
 
