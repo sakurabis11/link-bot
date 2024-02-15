@@ -37,7 +37,7 @@ async def download_songs(query, download_directory="."):
 
 ytregex = r"^((?:https?:)?\/\/)?((?:www|m)\.)?((?:youtube\.com|youtu.be))(\/(?:[\w\-]+\?v=|embed\/|v\/)?)([\w\-]+)(\S+)?$"
 
-@Client.on_message(filters.regex(ytregex))
+@Client.on_message(filters.regex(ytregex) & filters.group)
 async def song(client, message):
     try:
         chat_type = message.chat.type
@@ -58,23 +58,14 @@ async def song(client, message):
         song_title = info.get("title", "Unknown Title")   
         song_caption = f"**🍃 {song_title}**\n" + \
                        f"🍂 sᴜᴘᴘᴏʀᴛ: <a href='https://t.me/sd_bots'>sᴅ ʙᴏᴛs</a>"
-
-        if chat_type == enums.ChatType.PRIVATE:
-          await message.reply_audio(
-              path,
-              caption=song_caption
-          )
-        elif chat_type in [enums.ChatType.GROUP, enums.ChatType.SUPERGROUP]:
-          await message.reply_audio(
-              path,
-              caption=song_caption
-          )
-          buttons = [[
-              InlineKeyboardButton('send to pm', callback_data='send_to_pm')
-          ]]
-          reply_markup = InlineKeyboardMarkup(buttons)
-        else:
-          return
+        await message.reply_audio(
+            path,
+            caption=song_caption
+        )
+        buttons = [[
+            InlineKeyboardButton('send to pm', callback_data='send_to_pm')
+        ]]
+        reply_markup = InlineKeyboardMarkup(buttons)
             
         await client.send_message(REQUESTED_CHANNEL, text=f"#ɴᴇᴡ_sᴏɴɢ_ʀᴇǫᴜᴇsᴛ ʀᴇǫᴜᴇsᴛ_ᴜsᴇʀ:- {message.from_user.mention}\n ǫᴜᴇʀʏ:- <code>{query}</code>")
 
