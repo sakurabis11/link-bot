@@ -82,13 +82,11 @@ async def song(client, message):
             pass
 
 @Client.on_callback_query()
-async def send_to_pm(client, query):
-    if query.data == "send_to_pm":
-     try:
-      client.send_audio(query.from_user.id, text="hi {query.from_user.id}")
-      return await query.answer("send this audio to your pm", show_alert=True) 
-     except Exception as e:
-      await message.reply_text(f"{e}")
-  
-
-
+async def send_to_pm(client: Client, callback_query: CallbackQuery):
+    if callback_query.data.startswith("send_to_pm"):
+        try:
+            await callback_query.edit_message_reply_markup()
+            m = await client.get_messages(callback_query.message.chat.id, callback_query.message.message_id)
+            await m.copy(callback_query.from_user.id)
+        except Exception as e:
+            await callback_query.message.reply_text(f"Error: {e}")
