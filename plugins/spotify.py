@@ -2,6 +2,11 @@ import re
 from pyrogram import Client, filters
 from pyrogram.types import *
 import os
+from yt_dlp import YoutubeDL
+import os
+import random
+import shutil
+import re
 from info import REQUESTED_CHANNEL
 import requests
 import base64
@@ -25,6 +30,34 @@ def get_access_token():
     }
     response = requests.post(url, headers=headers, data=data)
     return response.json()['access_token']
+
+async def download_songs(song_name, download_directory="."):
+  ydl_opts = {
+      "format": "bestaudio/best",
+      "default_search": "ytsearch",
+      "noplaylist": True,
+      "nocheckcertificate": True,
+      "outtmpl": f"{download_directory}/%(title)s.mp3",
+      "quiet": True,
+      "addmetadata": True,
+      "prefer_ffmpeg": True,
+      "geo_bypass": True,
+      "nocheckcertificate": True,
+  }
+
+  with YoutubeDL(ydl_opts) as ydl:
+      try:
+          video = ydl.extract_info(f"ytsearch:{song_name}", download=False)["entries"][0]["id"]
+          info = ydl.extract_info(video)
+          filename = ydl.prepare_filename(info)
+          if not filename:
+              print(f"Track Not Found⚠️")
+          else:
+              path_link = filename
+              return path_link, info 
+      except Exception as e:
+          raise Exception(f"Error downloading song: {e}") 
+
 
 @Client.on_message(filters.command("spotify"))
 async def spotify(client, message):
@@ -69,6 +102,15 @@ async def spotify(client, message):
     album = data["album"]["name"]
     release_date = data["album"]["release_date"]
 
+    randomdir = f"/tmp/{str(random.randint(1, 100000000))}"
+    os.mkdir(randomdir)
+  
+    path, info = await download_songs(song_name, randomdir)
+  
+    song_caption = f"🍂 sᴜᴘᴘᴏʀᴛ: <a href='https://t.me/sd_bots'>sᴅ ʙᴏᴛs</a>" 
+
     # Send the song thumbnail and details to the user
     await message.reply_photo(photo=thumbnail_url, caption=f"🎧 ᴛɪᴛʟᴇ: <code>{name}</code>\n🎼 ᴀʀᴛɪsᴛ: <code>{artist}</code>\n🎤 ᴀʟʙᴜᴍ: <code>{album}</code>\n🗓️ ʀᴇʟᴇᴀsᴇ ᴅᴀᴛᴇ: <code>{release_date}</code>\n")
     await client.send_message(REQUESTED_CHANNEL, text=f"#sᴘᴏᴛꞮҒʏ\nʀᴇǫᴜᴇsᴛᴇᴅ ғʀᴏᴍ {message.from_user.mention}\nʀᴇǫᴜᴇsᴛ ɪs {song_name_or_url}")
+
+    await message.reply_audio(path, caption=song_caption, title=name, performer=artist, thumb=thumbnail_url)
