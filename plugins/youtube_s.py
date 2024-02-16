@@ -84,5 +84,5 @@ async def song(client, message):
 async def send_to_pm(client, query):
     if query.data == "send_to_pm":
 
-      client.send_audio(chat_id=update.chat.id, path, caption=song_caption)
+      client.send_audio(chat_id=update.chat.id, path=path, caption=song_caption)
       return await query.answer("send this audio to your pm", show_alert=True) 
