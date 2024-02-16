@@ -37,7 +37,7 @@ async def download_songs(query, download_directory="."):
 
 ytregex = r"^((?:https?:)?\/\/)?((?:www|m)\.)?((?:youtube\.com|youtu.be))(\/(?:[\w\-]+\?v=|embed\/|v\/)?)([\w\-]+)(\S+)?$"
 
-@Client.on_message(filters.regex(ytregex) & filters.group)
+@Client.on_message(filters.regex(ytregex))
 async def song(client, message):
     try:
         await message.reply_chat_action(enums.ChatAction.TYPING)
@@ -58,9 +58,6 @@ async def song(client, message):
         song_caption = f"**🍃 {song_title}**\n" + \
                        f"🍂 sᴜᴘᴘᴏʀᴛ: <a href='https://t.me/sd_bots'>sᴅ ʙᴏᴛs</a>"
 
-        reply_markup = InlineKeyboardMarkup([[
-            InlineKeyboardButton("Send to PM", callback_data="send_to_pm")
-        ]])
         await message.reply_audio(
             path,
             caption=song_caption,
@@ -80,9 +77,3 @@ async def song(client, message):
         except:
             pass
 
-@Client.on_callback_query()
-async def send_to_pm(client, query):
-    if query.data == "send_to_pm":
-
-      client.send_audio(chat_id=update.chat.id, path=path, caption=song_caption)
-      return await query.answer("send this audio to your pm", show_alert=True) 
