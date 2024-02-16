@@ -84,7 +84,7 @@ async def spotify(client, message):
     randomdir = f"/tmp/{str(random.randint(1, 100000000))}"
     os.mkdir(randomdir)
 
-    path, info = await download_songs(query, randomdir)
+    path = await download_songs(query, randomdir)
 
     song_caption = f"🍂 sᴜᴘᴘᴏʀᴛ: <a href='https://t.me/sd_bots'>sᴅ ʙᴏᴛs</a>" 
 
