@@ -40,7 +40,7 @@ ytregex = r"^((?:https?:)?\/\/)?((?:www|m)\.)?((?:youtube\.com|youtu.be))(\/(?:[
 @Client.on_message(filters.regex(ytregex) & filters.group)
 async def song(client, message):
     try:
-        chat_type = message.chat.type
+        chat_id = message.from_user.id
         await message.reply_chat_action(enums.ChatAction.TYPING)
         k = await message.reply("⌛")
         print("⌛")
@@ -84,6 +84,6 @@ async def song(client, message):
 @Client.on_callback_query()
 async def send_to_pm(client, query):
     if query.data == "send_to_pm":
-      user_id = query.from_user.id
-      client.send_audio(user_id, path, caption=song_caption)
+
+      client.send_audio(chat_id, path, caption=song_caption)
       return await query.answer("send this audio to your pm", show_alert=True) 
