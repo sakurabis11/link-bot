@@ -9,15 +9,10 @@ import os, wget
 import random
 import shutil
 
-
-# Define your client id and client secret
 client_id = 'd3a0f15a75014999945b5628dca40d0a'
 client_secret = 'e39d1705e35c47e6a0baf50ff3bb587f'
-
-# Encode the client id and client secret
 credentials = base64.b64encode(f'{client_id}:{client_secret}'.encode('utf-8')).decode('utf-8')
 
-# Define a function to get the access token
 def get_access_token():
     url = 'https://accounts.spotify.com/api/token'
     headers = {
@@ -64,10 +59,8 @@ async def spotify(client, message):
 
     access_token = get_access_token()
 
- 
     song_name_or_url = message.command[1:]
     song_name_or_url = " ".join(song_name_or_url)
-
 
     match = re.match(r'https://open\.spotify\.com/track/([a-zA-Z0-9]+)', song_name_or_url)
     if match:
@@ -80,22 +73,15 @@ async def spotify(client, message):
         headers = {"Authorization": f"Bearer {access_token}"}
         response = requests.get(url, headers=headers)
         data = response.json()
-
-
         item = data["tracks"]["items"][0]
-
-   
         song_id = item["id"]
-
 
     url = f'https://api.spotify.com/v1/tracks/{song_id}'
     headers = {"Authorization": f"Bearer {access_token}"}
     response = requests.get(url, headers=headers)
     data = response.json()
 
-
     thumbnail_url = data["album"]["images"][0]["url"]
-
 
     artist = data["artists"][0]["name"]
     name = data["name"]
@@ -113,7 +99,6 @@ async def spotify(client, message):
         path,
         thumb=thumbnail
     )    
-    
     shutil.rmtree(randomdir)
     os.remove(thumbnail)
  except Exception as e:
