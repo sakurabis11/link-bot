@@ -115,5 +115,6 @@ async def spotify(client, message):
     )    
     
     shutil.rmtree(randomdir)
+    os.remove(thumbnail)
  except Exception as e:
     await message.reply_text(f"{e}")
