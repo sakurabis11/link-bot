@@ -109,7 +109,6 @@ async def spotify(client, message):
     await client.send_message(REQUESTED_CHANNEL, text=f"#sᴘᴏᴛꞮҒʏ\nʀᴇǫᴜᴇsᴛᴇᴅ ғʀᴏᴍ {message.from_user.mention}\nʀᴇǫᴜᴇsᴛ ɪs {song_name_or_url}")
     await message.reply_audio(
         path,
-        thumb=thumbnail_url
     )    
     
     shutil.rmtree(randomdir)
