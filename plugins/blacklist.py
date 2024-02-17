@@ -5,7 +5,7 @@ from info import ADMINS
 
 lock_types=[]
 
-@Client.on_message(filters.command("lock") & filters.group & filters.user(ADMINS)
+@Client.on_message(filters.command("lock") & filters.group & filters.user(ADMINS))
 async def lock(client, message: Message):
     lock=message.split(" ", 1)
     lock_types=lock
