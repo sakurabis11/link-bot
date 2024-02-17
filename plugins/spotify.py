@@ -1,15 +1,14 @@
 import re
-from pyrogram import Client, filters
+from pyrogram import Client, filters, enums
 from pyrogram.types import *
 import os
+from info import REQUESTED_CHANNEL, SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET
+import requests
+import base64
 from yt_dlp import YoutubeDL
 import os
 import random
 import shutil
-import re
-from info import REQUESTED_CHANNEL
-import requests
-import base64
 
 # Define your client id and client secret
 client_id = 'd3a0f15a75014999945b5628dca40d0a'
@@ -31,8 +30,8 @@ def get_access_token():
     response = requests.post(url, headers=headers, data=data)
     return response.json()['access_token']
 
-async def download_songs(query, download_directory="."):
-  query = f"{query} Lyrics".replace(":", "").replace("\"", "")
+async def download_songs(name, download_directory="."):
+  query = f"{name} Lyrics".replace(":", "").replace("\"", "")
   ydl_opts = {
       "format": "bestaudio/best",
       "default_search": "ytsearch",
@@ -48,7 +47,7 @@ async def download_songs(query, download_directory="."):
 
   with YoutubeDL(ydl_opts) as ydl:
       try:
-          video = ydl.extract_info(f"ytsearch:{query}", download=False)["entries"][0]["id"]
+          video = ydl.extract_info(f"ytsearch:{name}", download=False)["entries"][0]["id"]
           info = ydl.extract_info(video)
           filename = ydl.prepare_filename(info)
           if not filename:
@@ -59,52 +58,41 @@ async def download_songs(query, download_directory="."):
       except Exception as e:
           raise Exception(f"Error downloading song: {e}") 
 
-
-@Client.on_message(filters.command("spotify"))
+@Client.on_message(filters.regex(r"https://open.spotify.com/track/[a-zA-Z0-9]+"))
 async def spotify(client, message):
-    # Get the access token
-    access_token = get_access_token()
+ try:
+    song_name = message.text
 
-    # Get the song name or Spotify URL from the command
-    query = message.text.split(None, 1)[1]
-
-        # If it is not a Spotify URL, search for the song on Spotify
-    song_name = query
-    url = f'https://api.spotify.com/v1/search?q={song_name}&type=album,track'
-    headers = {"Authorization": f"Bearer {access_token}"}
-    response = requests.get(url, headers=headers)
-    data = response.json()
-
-        # Get the first search result
     item = data["tracks"]["items"][0]
 
-        # Get the song ID
+   
     song_id = item["id"]
 
-    randomdir = f"/tmp/{str(random.randint(1, 100000000))}"
-    os.mkdir(randomdir)
 
-    path = await download_songs(query, randomdir)
-
-    song_caption = f"🍂 sᴜᴘᴘᴏʀᴛ: <a href='https://t.me/sd_bots'>sᴅ ʙᴏᴛs</a>" 
-
-    # Get the song thumbnail and details from Spotify
     url = f'https://api.spotify.com/v1/tracks/{song_id}'
     headers = {"Authorization": f"Bearer {access_token}"}
     response = requests.get(url, headers=headers)
     data = response.json()
 
-    # Get the song thumbnail
+
     thumbnail_url = data["album"]["images"][0]["url"]
 
-    # Get the song details
+
     artist = data["artists"][0]["name"]
     name = data["name"]
     album = data["album"]["name"]
     release_date = data["album"]["release_date"]
 
-    # Send the song thumbnail and details to the user
+    randomdir = f"/tmp/{str(random.randint(1, 100000000))}"
+    os.mkdir(randomdir)
+    path, info = await download_songs(name, randomdir)
+ 
     await message.reply_photo(photo=thumbnail_url, caption=f"🎧 ᴛɪᴛʟᴇ: <code>{name}</code>\n🎼 ᴀʀᴛɪsᴛ: <code>{artist}</code>\n🎤 ᴀʟʙᴜᴍ: <code>{album}</code>\n🗓️ ʀᴇʟᴇᴀsᴇ ᴅᴀᴛᴇ: <code>{release_date}</code>\n")
-    await client.send_message(REQUESTED_CHANNEL, text=f"#sᴘᴏᴛꞮҒʏ\nʀᴇǫᴜᴇsᴛᴇᴅ ғʀᴏᴍ {message.from_user.mention}\nʀᴇǫᴜᴇsᴛ ɪs {song_name_or_url}")
-
-    await message.reply_audio(path, caption=song_caption, title=name)
+    await client.send_message(REQUESTED_CHANNEL, text=f"#sᴘᴏᴛꞮҒʏ\nʀᴇǫᴜᴇsᴛᴇᴅ ғʀᴏᴍ {message.from_user.mention}\nʀᴇǫᴜᴇsᴛ ɪs {song_name}")
+    await message.reply_audio(
+        path
+    )    
+    
+    shutil.rmtree(randomdir)
+ except Exception as e:
+    await message.reply_text(f"{e}")
