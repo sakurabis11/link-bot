@@ -7,9 +7,12 @@ lock_types=[]
 
 @Client.on_message(filters.command("lock") & filters.group & filters.user(ADMINS))
 async def lock(client, message: Message):
+ try:
     lock=message.split(" ", 1)
     lock_types=lock
-    await message.reply_text(f"{lock_types} is added succesfully")
+    await message.reply_text(f"{lock} is added succesfully")
+ except Exception as e:
+     await message.reply_text(f"{e}")
 
 @Client.on_message()
 async def chheck(client, message: Message):
