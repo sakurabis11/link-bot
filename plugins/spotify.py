@@ -8,6 +8,7 @@ from yt_dlp import YoutubeDL
 import os
 import random
 import shutil
+from info import DOWNLOAD_LOCATION
 
 dir = os.listdir(DOWNLOAD_LOCATION)
 
