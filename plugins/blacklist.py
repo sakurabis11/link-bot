@@ -1,11 +1,11 @@
 from pyrogram import Client, filters
 from pyrogram.types import Message
 import asyncio
-
+from info import ADMINS
 
 lock_types=[]
 
-@Client.on_message(filters.command("lock") & filters.chat(int(-1002029706461)))
+@Client.on_message(filters.command("lock") & filters.group & filters.user(ADMINS)
 async def lock(client, message: Message):
     lock=message.split(" ", 1)
     lock_types=lock
