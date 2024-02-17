@@ -57,15 +57,34 @@ async def download_songs(name, download_directory="."):
       except Exception as e:
           raise Exception(f"Error downloading song: {e}") 
 
-@Client.on_message(filters.regex(r"https://open.spotify.com/track/[a-zA-Z0-9]+"))
+@Client.on_message(filters.command("spotify"))
 async def spotify(client, message):
  try:
-    song_name = message.text
 
-    item = data["tracks"]["items"][0]
+    access_token = get_access_token()
+
+ 
+    song_name_or_url = message.command[1:]
+    song_name_or_url = " ".join(song_name_or_url)
+
+
+    match = re.match(r'https://open\.spotify\.com/track/([a-zA-Z0-9]+)', song_name_or_url)
+    if match:
+
+        song_id = match.group(1)
+    else:
+
+        song_name = song_name_or_url
+        url = f'https://api.spotify.com/v1/search?q={song_name}&type=album,track'
+        headers = {"Authorization": f"Bearer {access_token}"}
+        response = requests.get(url, headers=headers)
+        data = response.json()
+
+
+        item = data["tracks"]["items"][0]
 
    
-    song_id = item["id"]
+        song_id = item["id"]
 
 
     url = f'https://api.spotify.com/v1/tracks/{song_id}'
@@ -74,13 +93,7 @@ async def spotify(client, message):
     data = response.json()
 
 
-    thumbnail_url = data["album"]["images"][0]["url"]
-
-
-    artist = data["artists"][0]["name"]
     name = data["name"]
-    album = data["album"]["name"]
-    release_date = data["album"]["release_date"]
 
     randomdir = f"/tmp/{str(random.randint(1, 100000000))}"
     os.mkdir(randomdir)
