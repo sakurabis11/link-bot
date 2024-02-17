@@ -1,6 +1,5 @@
 import re
 from pyrogram import Client, filters, enums
-from pyrogram.types import *
 import os
 from info import REQUESTED_CHANNEL, SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET
 import requests
