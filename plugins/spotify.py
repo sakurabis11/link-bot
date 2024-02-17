@@ -93,7 +93,13 @@ async def spotify(client, message):
     data = response.json()
 
 
+    thumbnail_url = data["album"]["images"][0]["url"]
+
+
+    artist = data["artists"][0]["name"]
     name = data["name"]
+    album = data["album"]["name"]
+    release_date = data["album"]["release_date"]
 
     randomdir = f"/tmp/{str(random.randint(1, 100000000))}"
     os.mkdir(randomdir)
