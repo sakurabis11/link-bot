@@ -69,7 +69,8 @@ Mʏ Nᴀᴍᴇ Is <a href=https://t.me/{}>{}</a>. ɪ ᴀᴍ ᴀ sᴘᴇᴄɪᴀ�
 
     REPO_TXT = """/repo ᴛᴏ sᴇᴀʀᴄʜ ᴛʜᴇ ʀᴇᴘᴏsɪᴛᴏʀʏ """
 
-    SPOTIFY_TXT = """/spotify {song_name}\nɴᴏᴡ ᴡᴇ ᴏɴʟʏ ᴀᴅᴅ ғɪɴᴅ ᴛʜᴇ sᴏɴɢ ᴅᴇᴛᴀɪʟs ʙʏ ᴜʀ ʀᴇǫᴜᴇsᴛ.
+    SPOTIFY_TXT = """ᴜsᴇ {sᴏɴɢ_ɴᴀᴍᴇ ᴏʀ sᴘᴏᴛɪғʏ_ᴛʀᴀᴄᴋ_ᴜʀʟ}\ɴ
+ғᴏʀ ɢᴇᴛᴛɪɴɢ sᴏɴɢ
 
 ᴄʀᴇᴅɪᴛs @MrTG_Coder"""
 
