@@ -5,12 +5,10 @@ from info import REQUESTED_CHANNEL, SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET
 import requests
 import base64
 from yt_dlp import YoutubeDL
-import os
+import os, wget
 import random
 import shutil
-from info import DOWNLOAD_LOCATION
 
-dir = os.listdir(DOWNLOAD_LOCATION)
 
 # Define your client id and client secret
 client_id = 'd3a0f15a75014999945b5628dca40d0a'
@@ -107,16 +105,15 @@ async def spotify(client, message):
     randomdir = f"/tmp/{str(random.randint(1, 100000000))}"
     os.mkdir(randomdir)
     path, info = await download_songs(name, randomdir)
-    await client.download_media(msg=thumbnail_url, thumb=f"{DOWNLOAD_LOCATION}/thumbnail.jpg")
+    thumbnail = wget.download(thumbnail_url)
  
     await message.reply_photo(photo=thumbnail_url, caption=f"🎧 ᴛɪᴛʟᴇ: <code>{name}</code>\n🎼 ᴀʀᴛɪsᴛ: <code>{artist}</code>\n🎤 ᴀʟʙᴜᴍ: <code>{album}</code>\n🗓️ ʀᴇʟᴇᴀsᴇ ᴅᴀᴛᴇ: <code>{release_date}</code>\n")
     await client.send_message(REQUESTED_CHANNEL, text=f"#sᴘᴏᴛꞮҒʏ\nʀᴇǫᴜᴇsᴛᴇᴅ ғʀᴏᴍ {message.from_user.mention}\nʀᴇǫᴜᴇsᴛ ɪs {song_name_or_url}")
     await message.reply_audio(
         path,
-        thumb=thumb
+        thumb=thumbnail
     )    
     
     shutil.rmtree(randomdir)
-    os.remove(f"{DOWNLOAD_LOCATION}/thumbnail.jpg")
  except Exception as e:
     await message.reply_text(f"{e}")
