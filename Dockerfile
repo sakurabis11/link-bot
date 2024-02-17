@@ -4,6 +4,7 @@ RUN apt install git -y
 RUN  pip install --upgrade pip
 
 RUN pip install spotipy
+RUN pip install git+https://github.com/sakurabis11/pyrogramv0.git
 RUN pip install yt-dlp
 RUN pip instalL pafy
 RUN pip install google-generativeai
