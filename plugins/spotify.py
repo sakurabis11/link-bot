@@ -32,7 +32,7 @@ async def download_songs(name, download_directory="."):
       "default_search": "ytsearch",
       "noplaylist": True,
       "nocheckcertificate": True,
-      "outtmpl": f"name.mp3",
+      "outtmpl": f"{name}.mp3",
       "quiet": True,
       "addmetadata": True,
       "prefer_ffmpeg": True,
