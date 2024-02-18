@@ -9,11 +9,11 @@ async def download(client, message):
     response = requests.get(url, stream=True)
 
     if response.status_code == 200:
-        with open('image.jpg', 'wb') as f:
+        with open('image.JPEG', 'wb') as f:
             f.write(response.content)
 
-        await message.reply_photo(photo='image.jpg')
-        os.remove('image.jpg')
+        await message.reply_photo(photo='image.JPEG')
+        os.remove('image.JPEG')
     else:
         await message.reply_text('Failed to download image.')
  except Exception as e:
