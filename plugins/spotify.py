@@ -53,15 +53,13 @@ async def download_songs(name, download_directory="."):
       except Exception as e:
           raise Exception(f"Error downloading song: {e}") 
 
-@Client.on_message(filters.command("spotify"))
+@Client.on_message(filters.regex(r'https://open\.spotify\.com/track/([a-zA-Z0-9]+)'))
 async def spotify(client, message):
  try:
 
     access_token = get_access_token()
 
-    song_name_or_url = message.command[1:]
-    song_name_or_url = " ".join(song_name_or_url)
-
+    song_name_or_url = message.text
     match = re.match(r'https://open\.spotify\.com/track/([a-zA-Z0-9]+)', song_name_or_url)
     if match:
 
