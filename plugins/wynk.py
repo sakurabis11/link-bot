@@ -19,7 +19,7 @@ async def wynk_download(client, message):
     with YoutubeDL(ydl_opts) as ydl:
         try:
 
-            search_result = ydl.extract_info("https://music.wynk.in/search/" + song_name, download=False)
+            search_result = ydl.extract_info("https://music.wynk.dev/search/" + song_name, download=False)
 
             ydl.download([search_result["entries"][0]["url"]])
 
