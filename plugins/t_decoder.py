@@ -39,10 +39,10 @@ async def imagine(client, message):
         response = requests.get(url, stream=True)
 
         if response.status_code == 200:
-            with open('image.jpg', 'wb') as f:
+            with open('image.png', 'wb') as f:
                 f.write(response.content)
 
-            t_send = upload_file('image.jpg')
+            t_send = upload_file('image.png')
             t_link = f"https://telegra.ph{t_send[0]}"
 
             await messsage.reply_text(t_link)
