@@ -24,20 +24,25 @@ async def download_songs(query, download_directory="."):
 
     with YoutubeDL(ydl_opts) as ydl:
         try:
-            video = ydl.extract_info(f"ytsearch:{query}", download=False)["entries"][0]["id"]
-            info = ydl.extract_info(video)
-            filename = ydl.prepare_filename(info)
-            if not filename:
-                print(f"Track Not Found⚠️")
+            info_dict = ydl.extract_info(f"ytsearch:{query}", download=False)
+            entries = info_dict.get("entries", [])
+            if entries:
+                video = entries[0]["id"]
+                info = ydl.extract_info(video)
+                filename = ydl.prepare_filename(info)
+                if not filename:
+                    print(f"Track Not Found⚠️")
+                else:
+                    path_link = filename
+                    return path_link, info 
             else:
-                path_link = filename
-                return path_link, info 
+                raise Exception("No results found for the given query.")
         except Exception as e:
             raise Exception(f"Error downloading song: {e}") 
 
 ytregex = r"^((?:https?:)?\/\/)?((?:www|m)\.)?((?:youtube\.com|youtu.be))(\/(?:[\w\-]+\?v=|embed\/|v\/)?)([\w\-]+)(\S+)?$"
 
-@Client.on_message(filters.regex(ytregex))
+@app.on_message(filters.regex(ytregex))
 async def song(client, message):
     try:
         query = message.text
@@ -75,4 +80,3 @@ async def song(client, message):
             return await k.delete()
         except:
             pass
-
