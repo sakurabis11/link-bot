@@ -8,7 +8,7 @@ from pyrogram.types import *
 from yt_dlp import YoutubeDL
 
 async def download_songs(query, download_directory="."):
-    query = f"{query} Lyrics".replace(":", "").replace("\"", "")
+    query = f"{query}".replace(":", "").replace("\"", "")
     ydl_opts = {
         "format": "bestaudio/best",
         "default_search": "ytsearch",
