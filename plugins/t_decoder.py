@@ -31,18 +31,3 @@ async def download(client, message):
         return
  except Exception as e:
         await message.reply_text(f"{e}")
-
-@Client.on_message(filters.command("imagine"))
-def send_random_image(client, message):
-    url = "https://waifu.pics/sfw/waifu"
-    response = requests.get(url, stream=True)
-
-    if response.status_code == 200:
-        with open('image.jpg', 'wb') as f:
-            f.write(response.content)
-        
-        message.reply_photo(photo=open('image.jpg', 'rb'))
-    else:
-        message.reply_text('Failed to generate image.')
-
-
