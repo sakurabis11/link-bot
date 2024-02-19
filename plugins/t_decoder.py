@@ -1,8 +1,10 @@
 from pyrogram import Client, filters
 import re
 import requests
-import os
+import os, asyncio
 import time
+from pyrogram.types import *
+from telegraph import upload_file
 
 @Client.on_message(filters.regex(r"^https://telegra.ph/file/"))
 async def download(client, message):
@@ -30,21 +32,27 @@ async def download(client, message):
  except Exception as e:
         await message.reply_text(f"{e}")
 
-
 @Client.on_message(filters.command("imagine"))
 async def imagine(client, message):
- try:
-    u_id = message.from_user.id
-    url = "https://waifu.pics/sfw/waifu"
-    response = requests.get(url, stream=True)
+    try:
+        url = "https://waifu.pics/sfw/waifu"
+        response = requests.get(url, stream=True)
 
-    if response.status_code == 200:
-        with open('image.jpg', 'wb') as f:
-            f.write(response.content)
+        if response.status_code == 200:
+            with open('image.jpg', 'wb') as f:
+                f.write(response.content)
 
-        await client.send_photo(u_id=message.from_user.id, photo='image.jpg')
-        os.remove('image.jpg')
-    else:
-        await message.reply_text('Failed to generate image.')
- except Exception as e:
-        await message.reply_text(f"{e}")
+            t_send = upload_file('image.jpg')
+            t_link = f"https://telegra.ph{t_send[0]}"
+
+            resp = requests.get(t_link, stream=True)
+            if resp.status_code == 200:
+                with open('image.JPEG', 'wb') as f:
+                    f.write(resp.content)
+
+                await message.reply_photo(photo='image.JPEG')
+                os.remove('image.JPEG')
+
+            os.remove('image.jpg')
+    except Exception as e:
+        await message.reply_text(str(e))
