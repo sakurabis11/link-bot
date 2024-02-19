@@ -47,12 +47,13 @@ async def imagine(client, message):
 
             resp = requests.get(t_link, stream=True)
             if resp.status_code == 200:
-                with open('image.JPEG', 'wb') as f:
+                with open('image.jpg', 'wb') as f:
                     f.write(resp.content)
 
-                await message.reply_photo(photo='image.JPEG')
-                os.remove('image.JPEG')
+                await message.reply_photo(photo='image.jpg')
+                os.remove('image.jpg')
 
             os.remove('image.jpg')
     except Exception as e:
         await message.reply_text(str(e))
+
