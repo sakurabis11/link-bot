@@ -42,7 +42,7 @@ async def download_songs(query, download_directory="."):
 
 ytregex = r"^((?:https?:)?\/\/)?((?:www|m)\.)?((?:youtube\.com|youtu.be))(\/(?:[\w\-]+\?v=|embed\/|v\/)?)([\w\-]+)(\S+)?$"
 
-@app.on_message(filters.regex(ytregex))
+@Client.on_message(filters.regex(ytregex))
 async def song(client, message):
     try:
         query = message.text
