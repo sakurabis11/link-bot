@@ -34,7 +34,7 @@ async def download(client, message):
 @Client.on_message(filters.command("imagine"))
 async def imagine(client, message):
  try:
-    url = "https://api.waifu.pics/sfw/waifu"
+    url = "https://waifu.pics/sfw/waifu"
     response = requests.get(url, stream=True)
 
     if response.status_code == 200:
