@@ -2,7 +2,7 @@ from pyrogram import Client, filters, enums
 from pymongo import MongoClient
 from info import DATABASE_URI, DATABASE_NAME
 
-client = pymongo.MongoClient(DATABASE_URI)
+client = MongoClient(DATABASE_URI)
 db = client[DATABASE_NAME]
 linked_chats = db["linked_chats"]
 
