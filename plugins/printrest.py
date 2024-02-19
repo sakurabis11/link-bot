@@ -2,7 +2,7 @@ from pyrogram import Client, filters
 import requests
 import os
 
-@Client.on_message(filters.command("download"))
+@Client.on_message(filters.command("pic"))
 async def download(client, message):
  try:
     url = message.text.split()[1]
@@ -17,6 +17,21 @@ async def download(client, message):
     else:
         await message.reply_text('Failed to download image.')
  except Exception as e:
+        await message.reply_text(f"{e}")
+
+@Client.on_message(filters.command("video"))
+async def download(client, message):
+    try:
+        url = message.text.split()[1]
+        response = requests.get(url, stream=True)
+        if response.status_code == 200:
+            with open('video.mp4', 'wb') as f:
+                f.write(response.content)
+            await message.reply_video(video='video.mp4')
+            os.remove('video.mp4')
+        else:
+            await message.reply_text('Failed to download video.')
+    except Exception as e:
         await message.reply_text(f"{e}")
 
 @Client.on_message(filters.command("imagine"))
