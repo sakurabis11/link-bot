@@ -40,6 +40,7 @@ ytregex = r"^((?:https?:)?\/\/)?((?:www|m)\.)?((?:youtube\.com|youtu.be))(\/(?:[
 @Client.on_message(filters.regex(ytregex))
 async def song(client, message):
     try:
+        query = message.text
         await message.reply_chat_action(enums.ChatAction.TYPING)
         k = await message.reply("⌛")
         print("⌛")
@@ -49,7 +50,6 @@ async def song(client, message):
         except Exception as e:
             await message.reply_text(f"Fᴀɪʟᴇᴅ ᴛᴏ sᴇɴᴅ sᴏɴɢ ʀᴇᴛʀʏ ᴀғᴛᴇʀ sᴏᴍᴇᴛɪᴍᴇ ʀᴇᴀsᴏɴ: {e}")
             return await k.delete()
-        query = message.text
         await message.reply_chat_action(enums.ChatAction.RECORD_AUDIO)
         path, info = await download_songs(query, randomdir)
         await message.reply_chat_action(enums.ChatAction.UPLOAD_AUDIO)
@@ -61,7 +61,6 @@ async def song(client, message):
         await message.reply_audio(
             path,
             caption=song_caption,
-            reply_markup=reply_markup
         )
             
         await client.send_message(REQUESTED_CHANNEL, text=f"#ɴᴇᴡ_sᴏɴɢ_ʀᴇǫᴜᴇsᴛ ʀᴇǫᴜᴇsᴛ_ᴜsᴇʀ:- {message.from_user.mention}\n ǫᴜᴇʀʏ:- <code>{query}</code>")
