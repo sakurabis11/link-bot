@@ -246,7 +246,7 @@ async def callback_handle(client, query):
             InlineKeyboardButton('ᴇᴠᴀʟ',  callback_data='eval')
             ],[
             InlineKeyboardButton('ǫʀ ᴄᴏᴅᴇ',  callback_data='qr'),
-            InlineKeyboardButton('ᴛᴇʟᴇɢʀᴀᴘʜ ᴄᴏᴅᴇʀ',  callback_data='t_decoder')
+            InlineKeyboardButton('ᴛᴇʟᴇɢʀᴀᴘʜ ᴅᴇᴄᴏᴅᴇʀ',  callback_data='t_decoder')
             ],[
             InlineKeyboardButton('Back', callback_data='help'),
             InlineKeyboardButton('Home', callback_data='start')
