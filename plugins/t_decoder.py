@@ -33,19 +33,16 @@ async def download(client, message):
         await message.reply_text(f"{e}")
 
 @Client.on_message(filters.command("imagine"))
-async def imagine(client, message):
-    try:
-        url = "https://waifu.pics/sfw/waifu"
-        response = requests.get(url, stream=True)
+def send_random_image(client, message):
+    url = "https://waifu.pics/sfw/waifu"
+    response = requests.get(url, stream=True)
 
-        if response.status_code == 200:
-            with open('image.png', 'wb') as f:
-                f.write(response.content)
+    if response.status_code == 200:
+        with open('image.jpg', 'wb') as f:
+            f.write(response.content)
+        
+        message.reply_photo(photo=open('image.jpg', 'rb'))
+    else:
+        message.reply_text('Failed to generate image.')
 
-            t_send = upload_file('image.png')
-            t_link = f"https://telegra.ph{t_send[0]}"
-
-            await messsage.reply_text(t_link)
-    except Exception as e:
-        await message.reply_text(str(e))
 
