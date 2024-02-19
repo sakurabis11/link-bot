@@ -45,15 +45,7 @@ async def imagine(client, message):
             t_send = upload_file('image.jpg')
             t_link = f"https://telegra.ph{t_send[0]}"
 
-            resp = requests.get(t_link, stream=True)
-            if resp.status_code == 200:
-                with open('image.jpg', 'wb') as f:
-                    f.write(resp.content)
-
-                await message.reply_photo(photo='image.jpg')
-                os.remove('image.jpg')
-
-            os.remove('image.jpg')
+            await messsage.reply_text(t_link)
     except Exception as e:
         await message.reply_text(str(e))
 
