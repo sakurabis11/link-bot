@@ -1,10 +1,10 @@
 from pyrogram import Client, filters, enums
 from pymongo import MongoClient
-from info import DATABASE_URI, DATABASE_NAME
+from info import DATABASE_URI, DATABASE_NAME, COLLECTION_NAME
 
 client = MongoClient(DATABASE_URI)
 db = client[DATABASE_NAME]
-linked_chats = db["linked_chats"]
+linked_chats = db[COLLECTION_NAME]
 
 @Client.on_message(filters.command("antilink") & filters.group)
 async def antilink(client, message):
