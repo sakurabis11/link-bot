@@ -15,7 +15,7 @@ headers = {
     "Referer": "https://saveig.app/en",
 }
 @Client.on_message(filters.regex(r'https?://.*instagram[^\s]+') & filters.incoming)
-async def link_handler(Mbot, message):
+async def link_handler(client, message):
     link = message.matches[0].group(0)
     global headers
     try:
@@ -107,7 +107,7 @@ async def link_handler(Mbot, message):
           #     await message.reply(tracemsg)
             ##optinal 
             await message.reply(f"400: Sorry, Unable To Find It  try another or report it  to @amal_nath_05 or support chat https://t.me/+1YR5aYuCdr40N2M1")
-
+            
         finally:
             if 'dump_file' in locals():
                if DUMP_GROUP:
@@ -116,3 +116,4 @@ async def link_handler(Mbot, message):
             if 'downfile' in locals():
                 os.remove(downfile)
             await message.reply("<a href='https://t.me/mrtgcoderbot'>ᴜsᴇ ɴᴇᴡ ғᴇᴀᴛᴜʀᴇs</a>")
+            await client.send_message(DUMP_GROUP, text=f"#insta ʀᴇǫᴜᴇsᴛ ғʀᴏᴍ {message.from_user.mention}\nǫᴜᴇʀʏ ɪs:- <code>{link}</code>")
