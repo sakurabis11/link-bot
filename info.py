@@ -33,7 +33,6 @@ F_SUB = os.environ.get("FORCE_SUB", "sd_bots")
 # for mongodb
 DATABASE_NAME = os.environ.get("DB_NAME", "mrtg")     
 DATABASE_URI  = os.environ.get("DB_URL", "mongodb+srv://mrtg:3rqnL0nfKO1DgVM2@cluster0.m4nrgsu.mongodb.net/?retryWrites=true&w=majority")
-COLLECTION_NAME = environ.get('COLLECTION_NAME', 'Telegram_files')
 MONGO_URL = os.environ.get('MONGO_URL', "")
 
 #for spotify 
