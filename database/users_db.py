@@ -122,18 +122,6 @@ class Database:
 
 
     async def get_db_size(self):
-        return (await self.db.command("dbstats"))['dataSize']
-
-    async def antispam_on(self, id):
-        chat_status=dict(
-            is_disabled=False,
-            )
-        await self.grp.insert_one({'id': int(id)}, {'$set': {'chat_status': chat_status}})
-
-    async def antispam_off(self, id):
-        chat_status=dict(
-            is_disabled=True,
-            )
-        await self.grp.remove_one({'id': int(id)}, {'$set': {'chat_status': chat_status}})    
+        return (await self.db.command("dbstats"))['dataSize']   
 
 db = Database(DATABASE_URI, DATABASE_NAME)
