@@ -8,16 +8,10 @@ client = pymongo.MongoClient(DATABASE_URI)
 db = client["antispam_database"]
 collection = db["antispam_settings"]
 
+link_pattern = r"https"
 
-link_pattern = r"(https?://\S+)"
-
-
-@Client.on_message(filters.command("antispam on"))
+@Client.on_message(filters.command("antispam on") & filters.group)
 async def handle_antispam_on(client, message):
-    if message.chat.type == "private":
-       await message.reply("This command is only for groups.")
-       return
-
     group_id = message.chat.id
     is_enabled = collection.find_one({"group_id": group_id})
     if is_enabled:
@@ -27,12 +21,8 @@ async def handle_antispam_on(client, message):
     collection.insert_one({"group_id": group_id, "enabled": True})
     await message.reply("Anti-spam enabled successfully!")
 
-@Client.on_message(filters.command("antispam off"))
+@Client.on_message(filters.command("antispam off") & filters.group)
 async def handle_antispam_off(client, message):
-   if message.chat.type == "private":
-      await message.reply("This command is only for groups.")
-      return
-
    group_id = message.chat.id
    is_enabled = collection.find_one({"group_id": group_id})
    if not is_enabled:
