@@ -37,9 +37,6 @@ async def handle_text_messages(client, message):
     group_id = message.chat.id
     is_antispam_enabled = collection.find_one({"group_id": group_id, "enabled": True})
 
-    if is_antispam_enabled:
-        matches = re.findall(link_pattern, message.text)
-        if matches:
-            for link in matches:
-                await message.delete()
-                
+    if message.text == link_pattern
+       await message.delete()
+       return         
