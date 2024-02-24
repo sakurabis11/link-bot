@@ -16,7 +16,7 @@ async def google_search(client, message):
             link = result["link"]
             snippet = result["snippet"]
 
-            message.reply_text(f"**Title:** {title}\n**Link:** {link}\n**Snippet:** {snippet}")
+            await message.reply_text(f"**Title:** {title}\n**Link:** {link}\n**Snippet:** {snippet}")
 
  except Exception as e:
         await message.reply_text(f"{e}")
