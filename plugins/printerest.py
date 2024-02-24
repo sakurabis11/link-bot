@@ -18,6 +18,6 @@ async def pinterest(client, message: Message):
             await asyncio.sleep(5)
             await SD_BOTS.edit("Uploading...")
             await SD_BOTS.delete()
-            await client.send_focument(message.chat.id, filename)
+            await client.send_document(message.chat.id, filename)
     except Exception as e:
             await message.reply_text(f"{e}")
