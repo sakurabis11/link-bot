@@ -12,5 +12,6 @@ async def pinterest(client, message:Message):
     sd=await SD.edit("Uploading...")
     await client.send_document(message.chat.id,pint_url)
  except Exception as e:
-     await message.reply_text(f"error occured: {e}")
+    await message.reply_text(f"error occured: {e}")
+
 
