@@ -14,7 +14,11 @@ async def pinterest(client, message: Message):
 
         response = requests.get(pint_url)
         media_url = re.search(r'"og:image" content="(.*?)"', response.text).group(1)
-        media_filename = wget.download(media_url)
+        if media_url:
+           media_filename = wget.download(media_url)
+        else:
+           await message.reply_text("Sorry, couldn't find the image URL.")
+
         
         await asyncio.sleep(5)
         await SD_BOTS.edit("Uploading...")        
