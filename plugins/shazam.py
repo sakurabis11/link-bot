@@ -2,6 +2,7 @@ import pyrogram
 import aiohttp
 import requests
 import logging
+from pyrogram import filters, Client
 
 # Safone.dev API endpoint
 API_ENDPOINT = "https://api.safone.dev/shazam"
