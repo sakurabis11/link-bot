@@ -87,6 +87,7 @@ async def spotify(client, message):
     release_date = data["album"]["release_date"]
 
     music = f"{name}_{album}"
+    thumbnail = wget.download(thumbnail_url)
 
     randomdir = f"/tmp/{str(random.randint(1, 100000000))}"
     os.mkdir(randomdir)
