@@ -1,53 +1,63 @@
 import pyrogram
-import aiohttp
 import requests
-import logging
 from pyrogram import filters, Client
 
-# Safone.dev API endpoint
-API_ENDPOINT = "https://api.safone.dev/shazam"
+def shazam_recognize(audio_file):
+    """Performs Shazam recognition on an audio file."""
+    url = "https://api.safone.dev/shazam"
+    files = {"audio_file": audio_file}
 
-# Logging configuration
-logging.basicConfig(
-    level=logging.DEBUG,
-    format="[%(asctime)s] %(levelname)s - %(message)s",
-    datefmt="%Y-%m-%d %H:%M:%S"
-)
-
-async def identify_audio_video(client, message, chat_id):
     try:
-        # Download audio/video file
-        file_id = message.audio.file_id if message.audio else message.video.file_id
-        audio_video_bytes = await client.download_file(file_id)
+        response = requests.post(url, files=files)
+        response.raise_for_status()  # Raise error for non-200 status codes
+    except requests.exceptions.RequestException as e:
+        print(f"Error occurred during API request: {e}")
+        return None  # Indicate error
 
-        # Prepare request data
-        data = {
-            "audio_file": (audio_video_bytes, "audio.mp3"),  # Adjust filename and extension if needed
-            "additional_info": "optional_info"  # Add any user-provided info
-        }
+    return response.json()
 
-        async with aiohttp.ClientSession() as session:
-            # Send API request with rate limiting
-            async with session.post(API_ENDPOINT, data=data) as response:
-                if response.status == 200:
-                    # Parse response and send bot message
-                    recognition_data = await response.json()
-                    recognition_message = f"Identified: {recognition_data['title']} by {recognition_data['artist']} (Link: {recognition_data['link']})"
-                    await client.send_message(chat_id, recognition_message)
-                else:
-                    error_message = f"API error: {response.status} - {await response.text()}"
-                    logging.error(error_message)
-                    await client.send_message(chat_id, "An error occurred. Please try again later.")
+@Client.on_message(filters.command(["shazam"]))
+async def handle_shazam_command(client, message):
+    """Handles the Shazam command and replies with recognized song information."""
 
-    except Exception as e:
-        logging.error(f"Unexpected error: {e}")
-        await client.send_message(chat_id, "An unexpected error occurred. Please try again later.")
+    if not message.reply_to_message:
+        await message.reply_text("Please reply to an audio or video message to use Shazam.")
+        return
 
+    reply_message = message.reply_to_message
 
-@Client.on_message(filters.command("shazam"))
-async def shazam_command(client, message):
-    chat_id = message.chat.id
-    if message.audio or message.video:
-        await identify_audio_video(client, message, chat_id)
+    if reply_message.audio:
+        media_type = "audio"
+        media_id = reply_message.audio.file_id
+    elif reply_message.video:
+        media_type = "video"
+        media_id = reply_message.video.file_id
     else:
-        await client.send_message(chat_id, "Please send an audio or video file.")
+        await message.reply_text("Unsupported media type. Please reply to an audio or video message.")
+        return
+
+    try:
+        audio_file = await client.download_media(media_id)
+
+        response = shazam_recognize(audio_file)
+
+        if response:
+            shazam_results = response["tracks"]["hits"]
+
+            if shazam_results:
+                top_result = shazam_results[0]
+                artist_name = top_result["artist"]["name"]
+                song_title = top_result["track"]["title"]
+
+                await message.reply_text(f"Shazam results for {media_type}:\nArtist: {artist_name}\nSong: {song_title}")
+            else:
+                await message.reply_text("Sorry, Shazam couldn't recognize the song.")
+        else:
+            await message.reply_text("An error occurred during Shazam recognition.")
+    except requests.exceptions.RequestException as e:
+        await message.reply_text(f"An error occurred: {e}")
+    except Exception as e:
+        await message.reply_text(f"Unexpected error: {e}")
+    finally:
+        audio_file.close()  # Ensure audio file is closed properly
+
