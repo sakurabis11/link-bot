@@ -86,7 +86,7 @@ async def spotify(client, message):
     album = data["album"]["name"]
     release_date = data["album"]["release_date"]
 
-    music = name + album
+    music = f"{name} {album}"
 
     randomdir = f"/tmp/{str(random.randint(1, 100000000))}"
     os.mkdir(randomdir)
