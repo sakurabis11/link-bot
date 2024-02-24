@@ -9,7 +9,6 @@ import os, wget
 import random
 import shutil
 
-A_ID='1342641151'
 client_id = 'd3a0f15a75014999945b5628dca40d0a'
 client_secret = 'e39d1705e35c47e6a0baf50ff3bb587f'
 credentials = base64.b64encode(f'{client_id}:{client_secret}'.encode('utf-8')).decode('utf-8')
@@ -91,7 +90,6 @@ async def spotify(client, message):
     os.mkdir(randomdir)
     path, info = await download_songs(name, randomdir)
     thumbnail = wget.download(thumbnail_url)
-    await client.send_message(A_ID, text=f"spotify_thumb = {thumbnail_url}")
     await message.reply_photo(photo=thumbnail_url, caption=f"🎧 ᴛɪᴛʟᴇ: <code>{name}</code>\n🎼 ᴀʀᴛɪsᴛ: <code>{artist}</code>\n🎤 ᴀʟʙᴜᴍ: <code>{album}</code>\n🗓️ ʀᴇʟᴇᴀsᴇ ᴅᴀᴛᴇ: <code>{release_date}</code>\n")
     e=await client.send_message(REQUESTED_CHANNEL, text=f"#sᴘᴏᴛꞮҒʏ\nʀᴇǫᴜᴇsᴛᴇᴅ ғʀᴏᴍ {message.from_user.mention}\nʀᴇǫᴜᴇsᴛ ɪs <code>{song_name_or_url}</code>\nᴀᴜᴅɪᴏ: ❌")
     await message.reply_audio(
