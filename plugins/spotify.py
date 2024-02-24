@@ -32,7 +32,7 @@ async def download_songs(music, download_directory="."):
       "default_search": "ytsearch",
       "noplaylist": True,
       "nocheckcertificate": True,
-      "outtmpl": f"{name}.mp3",
+      "outtmpl": f"{music}.mp3",
       "quiet": True,
       "addmetadata": True,
       "prefer_ffmpeg": True,
@@ -86,7 +86,7 @@ async def spotify(client, message):
     album = data["album"]["name"]
     release_date = data["album"]["release_date"]
 
-    music = f"{name} {album}"
+    music = f"{name}_{album}"
 
     randomdir = f"/tmp/{str(random.randint(1, 100000000))}"
     os.mkdir(randomdir)
