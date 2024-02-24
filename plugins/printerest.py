@@ -1,7 +1,7 @@
 import os
 import re
-import wget
 import asyncio
+import requests
 from pyrogram import Client, filters
 from pyrogram.types import Message
 
@@ -10,11 +10,13 @@ async def pinterest(client, message: Message):
     try:
         pint_url = message.text
         SD_BOTS = await message.reply_text("Downloading...")
-        filename = wget.download(pint_url)
-        await asyncio.sleep(5)
-        await SD_BOTS.edit("Uploading...")        
-        await client.send_document(message.chat.id, filename)
-        await SD_BOTS.delete()
-        os.remove(filename)
+        response = requests.get(pint_url, allow_redirects=True)
+        if response.status_code == 200:
+            filename = "pinterest_image.jpg"
+            with open(filename, "wb") as f:
+                f.write(response.content)
+            await asyncio.sleep(5)
+            await SD_BOTS.edit("Uploading...")
+            await client.send_document(message.chat.id, filename)
     except Exception as e:
-        await message.reply_text(f"{e}")
+            await message.reply_text(f"{e}")
