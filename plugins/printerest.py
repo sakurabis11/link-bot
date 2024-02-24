@@ -8,7 +8,8 @@ from pyrogram.types import Message
 @Client.on_message(filters.regex(r"^https?://pin\.it/([^/?]+)"))
 async def pinterest(client, message: Message):
     try:
-        pint_url = message.text
+        pint1_url = message.text
+        url= link.replace("pin.it","i.pinimg.com")
         SD_BOTS = await message.reply_text("Downloading...")
         response = requests.get(pint_url, allow_redirects=True)
         if response.status_code == 200:
