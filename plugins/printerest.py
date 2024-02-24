@@ -9,9 +9,9 @@ from pyrogram.types import Message
 async def pinterest(client, message: Message):
     try:
         pint1_url = message.text
-        url= link.replace("pin.it","i.pinimg.com")
+        url = pint1_url.replace("pin.it","i.pinimg.com")
         SD_BOTS = await message.reply_text("Downloading...")
-        response = requests.get(pint_url, allow_redirects=True)
+        response = requests.get(url, allow_redirects=True)
         if response.status_code == 200:
             filename = "pinterest_image.jpg"
             with open(filename, "wb") as f:
