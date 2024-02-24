@@ -1,6 +1,7 @@
 import os
 import re
 import wget
+import asyncio
 from pyrogram import Client, filters
 from pyrogram.types import Message
 
