@@ -13,7 +13,7 @@ async def pinterest(client, message: Message):
         SD_BOTS = await message.reply_text("Downloading...")
 
         response = requests.get(pint_url)
-        media_url = re.search(r'"og:image" content="(.*?)"', response.text).group(1)
+        media_url = re.search(r'"og:image" content="(.*?)"', response.text)
         if media_url:
            media_filename = wget.download(media_url)
         else:
