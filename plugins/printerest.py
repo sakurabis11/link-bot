@@ -3,7 +3,7 @@ import re
 import wget
 from pyrogram import Client, filters, Message
 
-@Client.on_message(filters.regex(r'^https?://pin.it/([^/?]+))
+@Client.on_message(filters.regex(r"^https?://pin.it/([^/?]+"))
 async def pinterest(client, message: Message):
     try:
         match = re.match(r'^https?://pin.it/([^/?]+)', message.text)
