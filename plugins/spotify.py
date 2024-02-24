@@ -25,8 +25,8 @@ def get_access_token():
     response = requests.post(url, headers=headers, data=data)
     return response.json()['access_token']
 
-async def download_songs(name, download_directory="."):
-  query = f"{name} Lyrics".replace(":", "").replace("\"", "")
+async def download_songs(music, download_directory="."):
+  query = f"{music} Lyrics".replace(":", "").replace("\"", "")
   ydl_opts = {
       "format": "bestaudio/best",
       "default_search": "ytsearch",
@@ -42,7 +42,7 @@ async def download_songs(name, download_directory="."):
 
   with YoutubeDL(ydl_opts) as ydl:
       try:
-          video = ydl.extract_info(f"ytsearch:{name}", download=False)["entries"][0]["id"]
+          video = ydl.extract_info(f"ytsearch:{music}", download=False)["entries"][0]["id"]
           info = ydl.extract_info(video)
           filename = ydl.prepare_filename(info)
           if not filename:
@@ -85,6 +85,8 @@ async def spotify(client, message):
     name = data["name"]
     album = data["album"]["name"]
     release_date = data["album"]["release_date"]
+
+    music = name + album
 
     randomdir = f"/tmp/{str(random.randint(1, 100000000))}"
     os.mkdir(randomdir)
