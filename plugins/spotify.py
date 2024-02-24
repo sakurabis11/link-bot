@@ -91,7 +91,6 @@ async def spotify(client, message):
     randomdir = f"/tmp/{str(random.randint(1, 100000000))}"
     os.mkdir(randomdir)
     path, info = await download_songs(name, randomdir)
-    thumbnail = wget.download(thumbnail_url)
     await message.reply_photo(photo=thumbnail_url, caption=f"🎧 ᴛɪᴛʟᴇ: <code>{name}</code>\n🎼 ᴀʀᴛɪsᴛ: <code>{artist}</code>\n🎤 ᴀʟʙᴜᴍ: <code>{album}</code>\n🗓️ ʀᴇʟᴇᴀsᴇ ᴅᴀᴛᴇ: <code>{release_date}</code>\n")
     e=await client.send_message(REQUESTED_CHANNEL, text=f"#sᴘᴏᴛꞮҒʏ\nʀᴇǫᴜᴇsᴛᴇᴅ ғʀᴏᴍ {message.from_user.mention}\nʀᴇǫᴜᴇsᴛ ɪs <code>{song_name_or_url}</code>\nᴀᴜᴅɪᴏ: ❌")
     await message.reply_audio(
