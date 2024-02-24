@@ -26,7 +26,7 @@ def get_access_token():
     return response.json()['access_token']
 
 async def download_songs(music, download_directory="."):
-  query = f"{music} Lyrics".replace(":", "").replace("\"", "")
+  query = f"{music}".replace(":", "").replace("\"", "")
   ydl_opts = {
       "format": "bestaudio/best",
       "default_search": "ytsearch",
