@@ -1,7 +1,8 @@
 import os
 import re
 import wget
-from pyrogram import Client, filters, Message
+from pyrogram import Client, filters
+from pyrogram.types import Message
 
 @Client.on_message(filters.regex(r"^https?://pin.it/([^/?]+"))
 async def pinterest(client, message: Message):
