@@ -17,7 +17,7 @@ async def handle_google_command(client, message):
 
 
         gurl = " ".join(query).replace(" ", "%")
-        title = google_search(url)
+        title = google_search(gurl)
         await message.reply_text(title)
     except Exception as e:
         await message.reply_text(f"Error: {e}")
