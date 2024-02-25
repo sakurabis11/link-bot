@@ -7,20 +7,20 @@ def convert_text(query):
 def google_search(query):
     encoded_query = convert_text(query)
     url = f"https://api.safone.dev/google?query={encoded_query}&limit=1"
- if response == 200:
-    try:
+    if response == 200:
+      try:
           response = requests.get(url)
           response.raise_for_status() 
 
           data = response.json()
           return data["results"][0]["description"]
 
-    except requests.exceptions.RequestException as e:
+      except requests.exceptions.RequestException as e:
           print(f"Error fetching search results: {e}")
           return f"An error occurred while fetching data. Please try again later.{e}"
- pass  
+    pass  
 
-    except Exception as e:
+      except Exception as e:
           return f"No description found for this query.{e}"
 
 @Client.on_message(filters.command("google"))
