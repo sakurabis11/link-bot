@@ -5,7 +5,7 @@ import requests
 async def google_search(client, message):
  try:
     query = message.text.split(" ")[1:]
-    url = query.replace(" ", "%")
+    url =  " ".join(query).replace(" ", "%")
     search_url = f"https://api.safone.dev/google?query={url}&limit=1"
     response = requests.get(search_url)
     results = response.json()
