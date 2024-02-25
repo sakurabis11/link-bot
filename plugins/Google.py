@@ -20,9 +20,6 @@ def google_search(query):
           return f"An error occurred while fetching data. Please try again later.{e}"
     pass  
 
-      except Exception as e:
-          return f"No description found for this query.{e}"
-
 @Client.on_message(filters.command("google"))
 async def handle_google_command(client, message):
     try:
