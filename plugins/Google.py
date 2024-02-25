@@ -1,14 +1,24 @@
 from pyrogram import Client, filters
 import requests
 
-gurl = " ".join(query).replace(" ", "%")
+def convert_text(query):
+    return " ".join(query).replace(" ", "%")
 
 def google_search(query):
-    url = f"https://api.safone.dev/google?query={gurl}&limit=1"
-    response = requests.get(url)
-    data = response.json()
+    encoded_query = convert_text(query)
+    url = f"https://api.safone.dev/google?query={encoded_query}&limit=1"
+
     try:
-        return data["results"][2]["description"]
+        response = requests.get(url)
+        response.raise_for_status() 
+
+        data = response.json()
+        return data["results"][0]["description"]
+
+    except requests.exceptions.RequestException as e:
+        print(f"Error fetching search results: {e}")
+        return "An error occurred while fetching data. Please try again later."
+
     except KeyError:
         return "No description found for this query."
 
@@ -20,9 +30,9 @@ async def handle_google_command(client, message):
             await message.reply_text("Please provide a search query.")
             return
 
-        gurl = " ".join(query).replace(" ", "%")
-        description = google_search(gurl)
+        description = google_search(query)
         await message.reply_text(description)
+
     except Exception as e:
-        await message.reply_text(f"Error: {e}")
+        await message.reply_text(f"An error occurred: {e}")
 
