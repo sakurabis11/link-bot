@@ -1,6 +1,8 @@
 from pyrogram import Client, filters
 import requests
 
+gurl = " ".join(query).replace(" ", "%")
+
 def google_search(query):
     url = f"https://api.safone.dev/google?query={gurl}&limit=1"
     response = requests.get(url)
