@@ -9,18 +9,20 @@ def google_search(query):
     url = f"https://api.safone.dev/google?query={encoded_query}&limit=1"
 
     try:
-        response = requests.get(url)
-        response.raise_for_status() 
+        if response == 200:
+          response = requests.get(url)
+          response.raise_for_status() 
 
-        data = response.json()
-        return data["results"][0]["description"]
+          data = response.json()
+          return data["results"][0]["description"]
+        pass
 
     except requests.exceptions.RequestException as e:
-        print(f"Error fetching search results: {e}")
-        return "An error occurred while fetching data. Please try again later."
+          print(f"Error fetching search results: {e}")
+          return f"An error occurred while fetching data. Please try again later.{e}"
 
-    except KeyError:
-        return "No description found for this query."
+    except Exception as e:
+          return f"No description found for this query.{e}"
 
 @Client.on_message(filters.command("google"))
 async def handle_google_command(client, message):
