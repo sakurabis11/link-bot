@@ -2,7 +2,7 @@ from pyrogram import Client, filters
 import requests
 
 def google_search(query):
-    url = f"https://api.safone.dev/google?query={url}&limit=1"
+    url = f"https://api.safone.dev/google?query={gurl}&limit=1"
     response = requests.get(url)
     data = response.json()
     return data["results"][2]["description"]
@@ -14,7 +14,7 @@ async def handle_google_command(client, message):
     if not query:
         await message.reply_text("Please provide a search query.")
         return
-        url =  " ".join(query).replace(" ", "%")
+        gurl =  " ".join(query).replace(" ", "%")
         title = google_search(" ".join(url))
         await message.reply_text(title)
  except Exception as e:
