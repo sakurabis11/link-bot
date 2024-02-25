@@ -1,14 +1,21 @@
 from pyrogram import Client, filters
 import requests
 
+def google_search(query):
+    url = f"https://api.safone.dev/google?query={url}&limit=1"
+    response = requests.get(url)
+    data = response.json()
+    return data["results"][0]["description"]
+
 @Client.on_message(filters.command("google"))
-async def google_search(client, message):
+async def handle_google_command(client, message):
  try:
-    query = message.text.split(" ")[1:]
-    url =  " ".join(query).replace(" ", "%")
-    search_url = f"https://api.safone.dev/google?query={url}&limit=1"
-    response = requests.get(search_url)
-    results = response.json()
-    await message.reply_text(f"Title: {results['title']}\n", parse_mode="HTML")
+    query = message.text.split()[1:]
+    if not query:
+        await message.reply_text("Please provide a search query.")
+        return
+        url =  " ".join(query).replace(" ", "%")
+        title = google_search(" ".join(url))
+        await message.reply_text(title)
  except Exception as e:
-    await message.reply_text(f"{e}")
+        await message.reply_text(f"Error: {e}")
