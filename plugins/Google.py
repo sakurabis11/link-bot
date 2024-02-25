@@ -5,7 +5,10 @@ def google_search(query):
     url = f"https://api.safone.dev/google?query={gurl}&limit=1"
     response = requests.get(url)
     data = response.json()
-    return data["results"][2]["description"]
+    try:
+        return data["results"][2]["description"]
+    except KeyError:
+        return "No description found for this query."
 
 @Client.on_message(filters.command("google"))
 async def handle_google_command(client, message):
@@ -15,9 +18,9 @@ async def handle_google_command(client, message):
             await message.reply_text("Please provide a search query.")
             return
 
-
         gurl = " ".join(query).replace(" ", "%")
-        title = google_search(gurl)
-        await message.reply_text(title)
+        description = google_search(gurl)
+        await message.reply_text(description)
     except Exception as e:
         await message.reply_text(f"Error: {e}")
+
