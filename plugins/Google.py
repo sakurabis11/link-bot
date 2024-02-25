@@ -5,7 +5,7 @@ def google_search(query):
     url = f"https://api.safone.dev/google?query={url}&limit=1"
     response = requests.get(url)
     data = response.json()
-    return data["results"][0]["description"]
+    return data["results"][2]["description"]
 
 @Client.on_message(filters.command("google"))
 async def handle_google_command(client, message):
