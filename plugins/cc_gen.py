@@ -12,7 +12,7 @@ async def google_text(client, message):
             data = response.json()
             bin_data = data['results'][0]
             card = bin_data['cards']
-            await client.send_text(message.chat.id, card)
+            await client.send_message(message.chat.id, card)
 
     except Exception as e:
        await message.reply_text(f"An error occurred: {e}")
