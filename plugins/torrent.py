@@ -6,7 +6,7 @@ import requests
 async def google_text(client, message):
     try:
         user_query = message.text.split()[1:]
-        encoded_query = user_query.replace(" ", "")
+        encoded_query = " ".join(user_query).replace(" ", "")
 
         response = requests.get(f"https://api.safone.dev/torrent?query={encoded_query}&limit=1")
         if response.status_code == 200:
