@@ -12,6 +12,6 @@ async def google_text(client, message):
             data = response.json()
             title = data.get("title")
             version = data.get("version")
-       await client.send_message(message.chat.id, text=f"**{title} verison:**\n<code>{version}</code>")
+            await client.send_message(message.chat.id, text=f"**{title} verison:**\n<code>{version}</code>")
     except Exception as e:
-       await message.reply_text(f"An error occurred: {e}")
+        await message.reply_text(f"An error occurred: {e}")
