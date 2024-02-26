@@ -13,7 +13,7 @@ async def google_text(client, message):
         response = requests.get(f"https://api.safone.dev/image?query={encoded_query}&limit=1")
         if response.status_code == 200:
             data = response.json()
-            image_data = data['items'][0]
+            image_data = data['results'][0]
             image_url = image_data['imageUrl']
             downloaded_image = wget.download(image_url)
             await client.send_message(message.chat.id, downloaded_image)
