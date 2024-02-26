@@ -10,7 +10,7 @@ async def google_text(client, message):
         response = requests.get(f"https://api.safone.dev/ccgen?bins={user_query}&limit=1")
         if response.status_code == 200:
             data = response.json()
-            bin_data = data['results'][1]
+            bin_data = data['results'][0]
             card = bin_data['cards']
             await client.send_text(message.chat.id, card)
 
