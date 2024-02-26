@@ -1,5 +1,4 @@
 import asyncio
-from SafoneAPI import SafoneAPI
 from pyrogram import Client, filters
 import requests
 
