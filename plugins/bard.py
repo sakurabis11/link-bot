@@ -11,7 +11,7 @@ async def google_text(client, message):
           await message.reply_text("please provide a query") 
           return
         encoded_query = user_query.replace(" ", "%20")
-        response = requests.get(fhttps://api.safone.dev/bard?message={encoded_query}")
+        response = requests.get(f"https://api.safone.dev/bard?message={encoded_query}")
         if response.status_code == 200:
             data = response.json()
             bard = data['candidates'][0]
