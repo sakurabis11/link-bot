@@ -5,5 +5,5 @@ message="```python\nimport pyrogram\nfrom pyrogram import filters\nfrom pyrogram
 
 @Client.on_message(filters.command("hi"))
 async def hi(client, message):
-    await message.reply_text(f"text")
-    await message.reply_text(f"message")
+    await message.reply_text(text)
+    await message.reply_text(message)
