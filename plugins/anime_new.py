@@ -2,6 +2,7 @@ import asyncio
 from pyrogram import Client, filters
 import requests
 import wget 
+from info import REQUESTED_CHANNEL
 
 @Client.on_message(filters.command("anime_news"))
 async def google_text(client, message):
