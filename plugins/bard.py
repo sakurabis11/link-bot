@@ -15,7 +15,7 @@ async def google_text(client, message):
         if response.status_code == 200:
             data = response.json()
             bard = data['parts'][0]
-            bar_d = bard['text']
+            bar_d = bard['message']
             await client.send_message(message.chat.id, bar_d)
             await client.send_message(REQUESTED_CHANNEL, text=f"#ᴄᴄ_ɢᴇɴ\nʜᴇʏ {message.from_user.mention}\nʀᴇǫᴜᴇsᴛ ɪs {user_query}")
 
