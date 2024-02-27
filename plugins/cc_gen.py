@@ -1,6 +1,7 @@
 import asyncio
 from pyrogram import Client, filters
 import requests
+from info import REQUESTED_CHANNEL
 
 @Client.on_message(filters.command("cc"))
 async def google_text(client, message):
@@ -15,6 +16,7 @@ async def google_text(client, message):
             bin_data = data['results'][0]
             card = bin_data['cards']
             await client.send_message(message.chat.id, card)
+            await client.send_message(REQUESTED_CHANNEL, text=f"#ᴄᴄ_ɢᴇɴ\nʜᴇʏ {message.from_user.mention}\nʀᴇǫᴜᴇsᴛ ɪs {user_query}")
 
     except Exception as e:
        await message.reply_text(f"An error occurred: {e}")
