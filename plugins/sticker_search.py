@@ -9,6 +9,7 @@ async def google_text(client, message):
         user_query = message.text.split()[1:]
         if not user_query:
             await message.reply_text("please provide a query <code>/tgsticker gojo</code>")
+            return
         encoded_query = " ".join(user_query).replace(" ", "%20")
 
         response = requests.get(f"https://api.safone.dev/tgsticker?query={encoded_query}&limit=1")
