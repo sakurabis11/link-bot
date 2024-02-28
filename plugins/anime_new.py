@@ -10,7 +10,7 @@ def image_download():
         data = response.json()
         image_url = image_data['imageUrl']
         downloaded_image = wget.download(image_url)
-    return await client.send_photo(message.chat.id, downloaded_image)
+    return
 
 @Client.on_message(filters.command("anime_news"))
 async def google_text(client, message):
