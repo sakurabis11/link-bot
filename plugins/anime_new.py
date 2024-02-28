@@ -21,7 +21,7 @@ async def google_text(client, message):
         if response.status_code == 200:
           data = response.json()
           image_url = data['imageUrl']
-          downloaded_image = await wget.async_download(image_url) 
+          downloaded_image = await wget.download(image_url) 
       
       downloaded_image = await image_download()  
       
