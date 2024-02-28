@@ -32,9 +32,6 @@ async def anime_news_handler(client, message):
       await client.send_photo(message.chat.id, downloaded_image, caption=f"Title: {title_data}\n\nNews: {text_data}")
       await client.send_message(REQUESTED_CHANNEL, text=f"#ᴀɴɪᴍᴇ_ɴᴇᴡs\nʀǫᴜᴇsᴛᴇᴅ: {message.from_user.mention}")
 
-  except Exception as e:
-    await message.reply_text(f"An error occurred: {e}")
-
-@Client.on_message(filters.command("anime_news"))
-async def anime_news_handler(client, message):
-  await google_text(client, message)  
+ except Exception as e:
+      await message.reply_text(f"An error occurred: {e}")
+ 
