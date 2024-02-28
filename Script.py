@@ -148,8 +148,19 @@ Yᴏᴜ ᴄᴀɴ ɢᴇɴᴇʀᴀᴛᴇ QR ᴄᴏᴅᴇs ʙʏ sᴇɴᴅɪɴɢ ᴛ
 ᴄʀᴇᴅɪᴛs @MrTG_Coder"""
 
     STICKER_SEARCH_TXT = """ʜᴇʏ {}
-ɪᴛ ᴡɪʟʟ sᴇᴀʀᴄʜ 
+ʏᴏᴜ ᴄᴀɴ sᴇᴀʀᴄʜ sᴛɪᴄᴋᴇʀ ғᴏʀ ᴛᴇʟᴇɢʀᴀᴍ.
+ᴜsᴇ <code>/tgsticker tessa</code>
 
 ᴄʀᴇᴅɪᴛs @MrTG_Coder"""
 
+    IMAGE_SEARCH_TXT = """ʜᴇʏ {}
+ʏᴏᴜ ᴄᴀɴ sᴇᴀʀᴄʜ ɪᴍᴀɢᴇs.
+ᴜsᴇ <code>/image Mrunal Thakur</code>
 
+ᴄʀᴇᴅɪᴛs @MrTG_Coder"""
+
+    TORRENT_TXT = """ʜᴇʏ {}
+ʏᴏᴜ ᴄᴀɴ sᴇᴀʀᴄʜ ᴀɴᴅ ᴇxᴘʟᴏʀᴇ ᴛᴏʀʀᴇɴᴛs ᴡɪᴛʜɪɴ Tᴇʟᴇɢʀᴀᴍ.
+ᴜsᴇ <code>/torrent neru </code>
+
+ᴄʀᴇᴅɪᴛs @MrTG_Coder"""
