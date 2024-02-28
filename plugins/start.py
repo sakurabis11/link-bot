@@ -246,7 +246,14 @@ async def callback_handle(client, query):
             InlineKeyboardButton('ᴇᴠᴀʟ',  callback_data='eval')
             ],[
             InlineKeyboardButton('ǫʀ ᴄᴏᴅᴇ',  callback_data='qr'),
-            InlineKeyboardButton('ᴛᴇʟᴇɢʀᴀᴘʜ ᴅᴇᴄᴏᴅᴇʀ',  callback_data='t_decoder')
+            InlineKeyboardButton('ᴛᴇʟᴇɢʀᴀᴘʜ ᴅᴇᴄᴏᴅᴇʀ',  callback_data='t_decoder'),
+            InlineKeyboardButton('ᴀɴɪɴᴇ ɴᴇᴡs',  callback_data='anime_news')
+            ],[
+            InlineKeyboardButton('ɪᴍᴀɢᴇ sᴇᴀʀᴄʜ',  callback_data='image_search'),
+            InlineKeyboardButton('sᴛɪᴄᴋᴇʀ sᴇᴀʀᴄʜ',  callback_data='sticker_search'),
+            InlineKeyboardButton('ᴛᴏʀʀᴇɴᴛ',  callback_data='torrent')
+            ],[
+            InlineKeyboardButton('ᴄᴄ ɢᴇɴᴇʀᴀᴛᴏʀ',  callback_data='cc_gen')
             ],[
             InlineKeyboardButton('Back', callback_data='help'),
             InlineKeyboardButton('Home', callback_data='start')
@@ -288,6 +295,41 @@ async def callback_handle(client, query):
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(text=script.T_DECODER_TXT.format(query.from_user.mention), reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
+
+        elif query.data == 'anime_news':
+        buttons = buttons = [[
+            InlineKeyboardButton('ʜᴏᴍᴇ', callback_data='next')
+        ]]
+        reply_markup = InlineKeyboardMarkup(buttons)
+        await query.message.edit_text(text=script.ANIME_NEWS_TXT.format(query.from_user.mention), reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
+
+    elif query.data == 'sticker_search':
+        buttons = buttons = [[
+            InlineKeyboardButton('ʜᴏᴍᴇ', callback_data='next')
+        ]]
+        reply_markup = InlineKeyboardMarkup(buttons)
+        await query.message.edit_text(text=script.STICKER_SEARCH_TXT.format(query.from_user.mention), reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
+
+    elif query.data == 'image_search':
+        buttons = buttons = [[
+            InlineKeyboardButton('ʜᴏᴍᴇ', callback_data='next')
+        ]]
+        reply_markup = InlineKeyboardMarkup(buttons)
+        await query.message.edit_text(text=script.IMAGE_SEARCH_TXT.format(query.from_user.mention), reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
+
+    elif query.data == 'torrent':
+        buttons = buttons = [[
+            InlineKeyboardButton('ʜᴏᴍᴇ', callback_data='next')
+        ]]
+        reply_markup = InlineKeyboardMarkup(buttons)
+        await query.message.edit_text(text=script.TORRENT_TEXT.format(query.from_user.mention), reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
+
+    elif query.data == 'cc_gen':
+        buttons = buttons = [[
+            InlineKeyboardButton('ʜᴏᴍᴇ', callback_data='next')
+        ]]
+        reply_markup = InlineKeyboardMarkup(buttons)
+        await query.message.edit_text(text=script.CC_GEN_TXT.format(query.from_user.mention), reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
     
     elif query.data == 'about':
         buttons = buttons = [[
