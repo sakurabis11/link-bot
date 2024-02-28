@@ -4,6 +4,14 @@ import requests
 import wget 
 from info import REQUESTED_CHANNEL
 
+def image_download():
+    response = requests.get(f"https://api.safone.dev/image?query={title_data}&limit=1")
+    if response.status_code == 200:
+        data = response.json()
+        image_url = image_data['imageUrl']
+        downloaded_image = wget.download(image_url)
+    return await client.send_photo(message.chat.id, downloaded_image)
+
 @Client.on_message(filters.command("anime_news"))
 async def google_text(client, message):
     try: 
@@ -13,8 +21,7 @@ async def google_text(client, message):
             image_data = data['results'][0]
             text_data = image_data['description']
             title_data = image_data['title']
-            image_url = image_data['imageUrl']
-            downloaded_image = wget.download(image_url)
+            downloaded_image = image_download()
             await client.send_photo(message.chat.id, downloaded_image, caption=f"Title: {title_data}\n\nNews: {text_data}")
             await client.send_message(REQUESTED_CHANNEL, text=f"#ᴀɴɪᴍᴇ_ɴᴇᴡs\nʀǫᴜᴇsᴛᴇᴅ: {message.from_user.mention}")
 
