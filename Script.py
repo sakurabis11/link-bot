@@ -144,24 +144,24 @@ Yᴏᴜ ᴄᴀɴ ɢᴇɴᴇʀᴀᴛᴇ QR ᴄᴏᴅᴇs ʙʏ sᴇɴᴅɪɴɢ ᴛ
 
     STICKER_SEARCH_TXT = """ʜᴇʏ {}
 ʏᴏᴜ ᴄᴀɴ sᴇᴀʀᴄʜ sᴛɪᴄᴋᴇʀ ғᴏʀ ᴛᴇʟᴇɢʀᴀᴍ.
-ᴜsᴇ <code>/tgsticker tessa</code>
+ᴜsᴀɢᴇ <code>/tgsticker tessa</code>
 
 ᴄʀᴇᴅɪᴛs @MrTG_Coder"""
 
     IMAGE_SEARCH_TXT = """ʜᴇʏ {}
 ʏᴏᴜ ᴄᴀɴ sᴇᴀʀᴄʜ ɪᴍᴀɢᴇs.
-ᴜsᴇ <code>/image Mrunal Thakur</code>
+ᴜsᴀɢᴇ <code>/image Mrunal Thakur</code>
 
 ᴄʀᴇᴅɪᴛs @MrTG_Coder"""
 
     TORRENT_TXT = """ʜᴇʏ {}
 ʏᴏᴜ ᴄᴀɴ sᴇᴀʀᴄʜ ᴀɴᴅ ᴇxᴘʟᴏʀᴇ ᴛᴏʀʀᴇɴᴛs ᴡɪᴛʜɪɴ Tᴇʟᴇɢʀᴀᴍ.
-ᴜsᴇ <code>/torrent neru </code>
+ᴜsᴀɢᴇ <code>/torrent neru </code>
 
 ᴄʀᴇᴅɪᴛs @MrTG_Coder"""
 
     CC_GEN_TXT = """ʜᴇʏ {}
 ʏᴏᴜ ᴄᴀɴ ɢᴇɴᴇʀᴀᴛᴇ ᴄᴄ ᴡɪᴛʜɪɴ ᴛᴇʟᴇɢʀᴀᴍ.
-ᴜsᴇ <code>/cc {Enter the first four digit of bin}</code>
+ᴜsᴀɢᴇ <code>/cc {Enter the first four digit of bin}</code>
 
 ᴄʀᴇᴅɪᴛs @MrTG_Coder"""
