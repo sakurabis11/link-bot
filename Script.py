@@ -142,11 +142,6 @@ Yᴏᴜ ᴄᴀɴ ɢᴇɴᴇʀᴀᴛᴇ QR ᴄᴏᴅᴇs ʙʏ sᴇɴᴅɪɴɢ ᴛ
 
  ᴄʀᴇᴅɪᴛs @MrTG_Coder"""
 
-    ANIME_NEWS_TXT = """ʜᴇʏ {}
-ɪᴛ ᴡɪʟʟ sᴇɴᴅ ᴛʜᴇ ᴀɴɪᴍᴇ ɴᴇᴡs ᴊᴜsᴛ sᴇɴᴅ /anime_news
-
-ᴄʀᴇᴅɪᴛs @MrTG_Coder"""
-
     STICKER_SEARCH_TXT = """ʜᴇʏ {}
 ʏᴏᴜ ᴄᴀɴ sᴇᴀʀᴄʜ sᴛɪᴄᴋᴇʀ ғᴏʀ ᴛᴇʟᴇɢʀᴀᴍ.
 ᴜsᴇ <code>/tgsticker tessa</code>
@@ -167,6 +162,6 @@ Yᴏᴜ ᴄᴀɴ ɢᴇɴᴇʀᴀᴛᴇ QR ᴄᴏᴅᴇs ʙʏ sᴇɴᴅɪɴɢ ᴛ
 
     CC_GEN_TXT = """ʜᴇʏ {}
 ʏᴏᴜ ᴄᴀɴ ɢᴇɴᴇʀᴀᴛᴇ ᴄᴄ ᴡɪᴛʜɪɴ ᴛᴇʟᴇɢʀᴀᴍ.
-ᴜsᴇ <code>/cc 7879</code>
+ᴜsᴇ <code>/cc {Enter the first four digit of bin}</code>
 
 ᴄʀᴇᴅɪᴛs @MrTG_Coder"""
