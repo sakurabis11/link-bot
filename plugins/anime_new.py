@@ -4,8 +4,12 @@ import requests
 import wget 
 from info import REQUESTED_CHANNEL
 
+name = title_data
+name = ' '.join(message.command[1:])
+encoded_name = name.replace(" ", "%20")
+
 def image_download():
-    response = requests.get(f"https://api.safone.dev/image?query={title_data}&limit=1")
+    response = requests.get(f"https://api.safone.dev/image?query={encoded_name}&limit=1")
     if response.status_code == 200:
         data = response.json()
         image_url = image_data['imageUrl']
