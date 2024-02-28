@@ -3,7 +3,7 @@ from pyrogram import Client, filters
 import requests
 from info import REQUESTED_CHANNEL
 
-@Client.on_message(filters.command("torent"))
+@Client.on_message(filters.command("torrent"))
 async def google_text(client, message):
     try:
         user_query = message.text.split()[1:]
