@@ -1,6 +1,5 @@
 import re
 from pyrogram import Client, filters, enums
-from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery
 import os
 from info import REQUESTED_CHANNEL, SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET
 import requests
@@ -99,28 +98,8 @@ async def spotify(client, message):
         path,
         thumb=thumbnail
     )
-    m = await e.edit(f"#sᴘᴏᴛꞮҒʏ\nʀᴇǫᴜᴇsᴛᴇᴅ ғʀᴏᴍ {message.from_user.mention}\nʀᴇǫᴜᴇsᴛ ɪs <code>{song_name_or_url}</code>\nᴀᴜᴅɪᴏ ✅")
-    buttons = [[
-         InlineKeyboardButton('yes', callback_data='yes'),
-         InlineKeyboardButton('no', callback_data='no')
-    ]]  
-    reply_markup = InlineKeyboardMarkup(buttons)
-    await message.reply_text(text=f"Hey {message.from_user.mention}\n\nIs the correct audio get from me", reply_markup=reply_markup)
-
-
+    await e.edit(f"#sᴘᴏᴛꞮҒʏ\nʀᴇǫᴜᴇsᴛᴇᴅ ғʀᴏᴍ {message.from_user.mention}\nʀᴇǫᴜᴇsᴛ ɪs <code>{song_name_or_url}</code>\nᴀᴜᴅɪᴏ ✅")
     shutil.rmtree(randomdir)
     os.remove(thumbnail)
  except Exception as e:
     await message.reply_text(f"{e}")
-
-@Client.on_callback_query()
-async def callback_handle(client, query):
-    if query.data == 'yes':
-        await client.send_message(f"#sᴘᴏᴛꞮҒʏ\nʀᴇǫᴜᴇsᴛᴇᴅ ғʀᴏᴍ {query.from_user.mention}\nʀᴇǫᴜᴇsᴛ ɪs <code>{song_name_or_url}</code>\nᴀᴜᴅɪᴏ ✅\n\ncorrect audio get from me✅")
-        await query.answer("Thank u for using me", show_alert=True)
-    elif query.data == 'no':
-        await client.send_message(f"#sᴘᴏᴛꞮҒʏ\nʀᴇǫᴜᴇsᴛᴇᴅ ғʀᴏᴍ {query.from_user.mention}\nʀᴇǫᴜᴇsᴛ ɪs <code>{song_name_or_url}</code>\nᴀᴜᴅɪᴏ ✅\n\ncorrect audio get from me❌")
-        await query.answer("Thank u for using me", show_alert=True)
-    else:
-        pass
-  
