@@ -8,7 +8,6 @@ RUN pip install yt-dlp
 RUN pip instalL pafy
 RUN pip install google-generativeai
 RUN pip install pytube 
-RUN pip install edenaiapi
 RUN pip install pymongo
 RUN pip install youtube-search
 
