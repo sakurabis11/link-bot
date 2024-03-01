@@ -3,6 +3,7 @@ from pyrogram.types import Message
 
 @Client.on_message(filters.command("pypi"))
 async def search_pypi(client: Client, message: Message):
+ try:
     text = message.text.split()[1:]  
     if not text:
         await message.reply_text("Please specify a package name to search.")
@@ -20,4 +21,5 @@ async def search_pypi(client: Client, message: Message):
                 await message.reply_text(f"Package {package_name} not found.")
         else:
             await message.reply_text(f"Error fetching information for {package_name}")
-
+ except Exception as e:
+            await message.reply_text(f"{e}")
