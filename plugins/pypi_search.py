@@ -1,5 +1,5 @@
 import requests
-from pyrogram import Client
+from pyrogram import Client, filters
 
 PYPI_SEARCH_URL = "https://pypi.org/pypi/{}/json"
 
