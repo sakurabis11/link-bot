@@ -1,5 +1,7 @@
 import asyncio
 from pyrogram import Client, filters
+import edenaiapi
+
 
 API_TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiYWE2NzM0NWQtYTQ5Zi00MTNiLTlmNWQtY2VkYzAyMGViYzczIiwidHlwZSI6ImFwaV90b2tlbiJ9.yAUteQib-6jcYVBTKtOMwWOLq-wuVu--qPOYVX6PuJE"
 
