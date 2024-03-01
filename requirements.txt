@@ -12,7 +12,6 @@ python-dotenv
 marshmallow==3.20.1
 umongo==3.1.0
 Pillow
-edenaiapi
 motor
 python-docx
 speedtest
