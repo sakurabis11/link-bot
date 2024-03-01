@@ -17,7 +17,7 @@ async def google_text(client, message):
             google_re = data['results'][0]
             res = google_re['description']
             await client.send_message(message.chat.id, res)
-            await client.send_message(REQUESTED_CHANNEL, text=f"#ᴄᴄ_ɢᴇɴ\nʜᴇʏ {message.from_user.mention}\nʀᴇǫᴜᴇsᴛ ɪs {user_query}")
+            await client.send_message(REQUESTED_CHANNEL, text=f"#google_result\nʜᴇʏ {message.from_user.mention}\nʀᴇǫᴜᴇsᴛ ɪs {user_query}")
 
     except Exception as e:
        await message.reply_text(f"An error occurred: {e}")
