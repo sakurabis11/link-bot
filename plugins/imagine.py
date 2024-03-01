@@ -5,6 +5,7 @@ API_TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiYWE2NzM0NWQtYT
 
 @Client.on_message(filters.command("imagine"))
 async def imagine(client, message):
+ try:
     query = message.text.split()[1:]  
     if not query:
         await message.reply_text("Please provide a prompt for the image generation.")
@@ -27,3 +28,5 @@ async def imagine(client, message):
     image_url = response["data"][0]["image_url"]
 
     await message.reply_photo(image_url)
+ except Exception as e:
+    await message.reply_text(f"An error occurred from photo: {str(e)}")
