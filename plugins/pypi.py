@@ -1,7 +1,7 @@
 from pyrogram import Client, filters
 from pyrogram.types import Message
 
-@Client.on_message(filters.command("pypi") & ~filters.edited)
+@Client.on_message(filters.command("pypi"))
 async def search_pypi(client: Client, message: Message):
     text = message.text.split()[1:]  
     if not text:
