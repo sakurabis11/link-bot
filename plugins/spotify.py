@@ -116,11 +116,11 @@ async def spotify(client, message):
 @Client.on_callback_query()
 async def callback_handle(client, query):
     if query.data == 'yes':
-        await query.answer("Thank u for using me", show_alert=True)
         await client.send_message(f"#sᴘᴏᴛꞮҒʏ\nʀᴇǫᴜᴇsᴛᴇᴅ ғʀᴏᴍ {query.from_user.mention}\nʀᴇǫᴜᴇsᴛ ɪs <code>{song_name_or_url}</code>\nᴀᴜᴅɪᴏ ✅\n\ncorrect audio get from me✅")
-    elif query.data == 'no':
         await query.answer("Thank u for using me", show_alert=True)
+    elif query.data == 'no':
         await client.send_message(f"#sᴘᴏᴛꞮҒʏ\nʀᴇǫᴜᴇsᴛᴇᴅ ғʀᴏᴍ {query.from_user.mention}\nʀᴇǫᴜᴇsᴛ ɪs <code>{song_name_or_url}</code>\nᴀᴜᴅɪᴏ ✅\n\ncorrect audio get from me❌")
+        await query.answer("Thank u for using me", show_alert=True)
     else:
         pass
   
