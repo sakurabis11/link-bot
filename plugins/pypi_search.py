@@ -3,7 +3,7 @@ from pyrogram import Client, filters
 
 PYPI_SEARCH_URL = "https://pypi.org/pypi/{}/json"
 
-@Client.on_message(filters.command("pypi"))
+@Client.on_message(filter.command("pypi"))
 async def pypi_search(client, message):
     try:
         # Extract search query from message text
