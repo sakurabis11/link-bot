@@ -8,11 +8,11 @@ genai.configure(api_key="AIzaSyD214hhYJ-xf8rfaWX044_g1VEBQ0ua55Q")
 @Client.on_message(filters.command("vision") & filters.reply)
 async def vision(client, message: Message):
  try:
-    pic = message.reply_to_photo
+    pic = message.reply_to_message
     if not pic:
         return await message.reply_text("Reply to a photo with the /vision command.")
 
-    media = await pic.download()
+    media = await client.download_media(message)
 
     generation_config = {
         "temperature": 0.4,
