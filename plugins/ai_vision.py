@@ -1,13 +1,13 @@
 rom pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
 import requests
-from info import REQUESTED_CHANNEL
 import google.generativeai as genai
 
 genai.configure(api_key="AIzaSyD214hhYJ-xf8rfaWX044_g1VEBQ0ua55Q")
 
 @Client.on_message(filters.command("vision") & filters.reply)
 async def vision(client, message):
+ try:
     pic = message.reply_to_photo
     if not pic:
       return await message.reply_text("Reply to a photo")
@@ -48,3 +48,6 @@ async def vision(client, message):
     prompt_parts = [media,"what is the picture shows",]
     response = model.generate_content(prompt_parts)
     await message.reply_text(response.text)
+
+ except Exception as e:
+     await message.reply_text(f"{e}")
