@@ -7,49 +7,53 @@ genai.configure(api_key="AIzaSyD214hhYJ-xf8rfaWX044_g1VEBQ0ua55Q")
 
 @Client.on_message(filters.command("vision") & filters.reply)
 async def vision(client, message: Message):
- try:
-    pic = message.reply_to_message.photo
-    if not message.reply_to_message:
-        return await message.reply_text("Reply to a photo with the /vision command.")
-    if not message.reply_to_message.photo: 
-        return await message.reply_text("Reply to a photo with the /vision command.") 
-    media = await client.download_media(pic)
+    try:
+        pic = message.reply_to_message.photo
 
-    generation_config = {
-        "temperature": 0.4,
-        "top_p": 1,
-        "top_k": 32,
-        "max_output_tokens": 4096,
-    }
+        if not message.reply_to_message:
+            return await message.reply_text("Reply to a photo with the /vision command.")
+        if not message.reply_to_message.photo:
+            return await message.reply_text("Reply to a photo with the /vision command.")
 
-    safety_settings = [
-        {
-            "category": "HARM_CATEGORY_HARASSMENT",
-            "threshold": "BLOCK_MEDIUM_AND_ABOVE"
-        },
-        {
-            "category": "HARM_CATEGORY_HATE_SPEECH",
-            "threshold": "BLOCK_MEDIUM_AND_ABOVE"
-        },
-        {
-            "category": "HARM_CATEGORY_SEXUALLY_EXPLICIT",
-            "threshold": "BLOCK_MEDIUM_AND_ABOVE"
-        },
-        {
-            "category": "HARM_CATEGORY_DANGEROUS_CONTENT",
-            "threshold": "BLOCK_MEDIUM_AND_ABOVE"
-        },
-    ]
+        # Download the photo and check for success
+        media = await client.download_media(pic)
+        if not media:
+            return await message.reply_text("Failed to download the image. Please try again.")
 
+        generation_config = {
+            "temperature": 0.4,
+            "top_p": 1,
+            "top_k": 32,
+            "max_output_tokens": 4096,
+        }
 
-    model = genai.GenerativeModel(model_name="gemini-1.0-pro-vision-latest",
-        generation_config=generation_config,
-        safety_settings=safety_settings
-    )
+        safety_settings = [
+            {
+                "category": "HARM_CATEGORY_HARASSMENT",
+                "threshold": "BLOCK_MEDIUM_AND_ABOVE"
+            },
+            {
+                "category": "HARM_CATEGORY_HATE_SPEECH",
+                "threshold": "BLOCK_MEDIUM_AND_ABOVE"
+            },
+            {
+                "category": "HARM_CATEGORY_SEXUALLY_EXPLICIT",
+                "threshold": "BLOCK_MEDIUM_AND_ABOVE"
+            },
+            {
+                "category": "HARM_CATEGORY_DANGEROUS_CONTENT",
+                "threshold": "BLOCK_MEDIUM_AND_ABOVE"
+            },
+        ]
 
-    prompt_parts = [media,"what is the picture shows",]
-    response = model.generate_content(prompt_parts)
-    await message.reply_text(response.text)
+        model = genai.GenerativeModel(model_name="gemini-1.0-pro-vision-latest",
+                                     generation_config=generation_config,
+                                     safety_settings=safety_settings
+                                     )
 
- except Exception as e:
-     await message.reply_text(f"{e}")
+        prompt_parts = [media, "what is the picture shows"]
+        response = model.generate_content(prompt_parts)
+        await message.reply_text(response.text)
+
+    except Exception as e:
+        await message.reply_text(f"{e}")
