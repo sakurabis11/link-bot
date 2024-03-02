@@ -42,7 +42,7 @@ async def vision(client, message: Message):
     ]
 
 
-    model = genai.GenerativeModel(model_name="gemini-1.0-pro-001",
+    model = genai.GenerativeModel(model_name="gemini-1.0-pro-vision-latest",
         generation_config=generation_config,
         safety_settings=safety_settings
     )
