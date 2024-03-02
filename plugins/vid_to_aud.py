@@ -1,42 +1,28 @@
-import os
-import subprocess
-import ffmpeg
+import asyncio
 from pyrogram import Client, filters
 
-FFMPEG_PATH = "/usr/bin/ffmpeg"  
+async def convert_video_to_audio(client, message):
+    try:
+        video_file = message.document or message.video
+        if not video_file:
+            return await message.reply_text("Please send a video file to convert.")
 
-async def convert_to_audio(vid_path):
-    command = f"ffmpeg -i {vid_path} -map 0:a obanai.mp3"
-    process = await asyncio.create_subprocess(*command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    stdout, stderr = await process.communicate()
+        downloaded_file_path = await client.download_media(video_file.file_id)
 
-    if process.returncode != 0:
-        error_msg = stderr.decode("utf-8")
-        return f"Error converting video: {error_msg}"
+        output_file_path = f"{downloaded_file_path[:-4]}.mp3" 
+        await client.run_ffmpeg(
+            input=downloaded_file_path, output=output_file_path, c="acodec libmp3lame"
+        )
 
-    if not os.path.exists("obanai.mp3"):
-        return "Failed to generate audio file."
+        await client.send_audio(message.chat.id, output_file_path)
 
-    return "obanai.mp3"
+        await client.delete_downloaded_file(downloaded_file_path)
+        await client.delete_downloaded_file(output_file_path)
 
+    except Exception as e:
+        print(f"Error during conversion: {e}")
+        await message.reply_text(f"An error occurred while converting the video: {e}")
 
-@Client.on_message(filters.command("audio"))
-async def aud(client, message):
-    stime = time.time()
-    msg = await message.reply_text("`Converting This Video to Audio.`")
-    if not message.reply_to_message:
-        return await msg.edit("`Reply To Video File`")
-    if not message.reply_to_message.video:
-        return await msg.edit("`Reply To Audio File.`")
-
-    video_file = await message.reply_to_message.download()
-    music_file = await convert_to_audio(video_file)
-
-    if isinstance(music_file, str) and music_file.startswith("Error"):
-        await msg.edit(music_file)
-        return
-
-    etime = time.time()
-    await client.send_audio(message.chat.id, music_file)
-    os.remove(music_file)
-    await msg.edit(f"Converted video to audio in {etime - stime:.2f} seconds.")
+@Client.on_message(filters.command("mp3") & filters.document | filters.video)
+async def video_to_audio_handler(client, message):
+    await convert_video_to_audio(client, message)
