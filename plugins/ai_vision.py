@@ -1,4 +1,4 @@
-rom pyrogram import Client, filters
+from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
 import requests
 import google.generativeai as genai
