@@ -6,7 +6,7 @@ import google.generativeai as genai
 genai.configure(api_key="AIzaSyD214hhYJ-xf8rfaWX044_g1VEBQ0ua55Q")
 
 @Client.on_message(filters.command("vision") & filters.reply)
-async def vision(client, message):
+async def vision(client, message: Message):
  try:
     pic = message.reply_to_photo
     if not pic:
