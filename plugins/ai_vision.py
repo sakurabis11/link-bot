@@ -14,8 +14,6 @@ async def vision(client, message: Message):
             return await message.reply_text("Reply to a photo with the /vision command.")
         if not message.reply_to_message.photo:
             return await message.reply_text("Reply to a photo with the /vision command.")
-
-        # Download the photo and check for success
         media = await client.download_media(pic)
         if not media:
             return await message.reply_text("Failed to download the image. Please try again.")
