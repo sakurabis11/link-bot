@@ -10,7 +10,8 @@ async def vision(client, message: Message):
  try:
     pic = message.reply_to_photo
     if not pic:
-      return await message.reply_text("Reply to a photo")
+        return await message.reply_text("Reply to a photo with the /vision command.")
+
     media = await pic.download()
 
     generation_config = {
