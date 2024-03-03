@@ -10,7 +10,7 @@ async def google_text(client, message):
         if not user_query:
           await message.reply_text("Enter a four digit of bin to create the cc <code>/cc 1234</code>") 
           return
-        response = requests.get(f"https://api.safone.dev/ccgen?bins={user_query}&limit=1")
+        response = requests.get(f"https://api.safone.dev/ccgen?bins={user_query}&limit=10")
         if response.status_code == 200:
             data = response.json()
             bin_data = data['results'][0]
