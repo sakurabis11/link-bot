@@ -13,6 +13,7 @@ marshmallow==3.20.1
 umongo==3.1.0
 Pillow
 motor
+pypi-search
 python-docx
 speedtest
 qrcode
