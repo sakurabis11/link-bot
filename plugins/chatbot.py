@@ -16,6 +16,7 @@ async def chatbot(client: Client, message: Message):
         if response.status_code == 200:
             data = response.json()
             response = data["response"][0]
+            reslt = {response['response']}
     
             await client.send_message(message.chat.id, response)
     except Exception as e:
