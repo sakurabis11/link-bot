@@ -10,7 +10,7 @@ async def chatbot(client, message):
             await message.reply_text("please provide a movie name, <code>/torent your name</code>")
             return 
         encoded_query = " ".join(user_query).replace(" ", "")
-        response = requests.get(f"https://api.safone.dev/chatbot?query={encoded_query}&user_id={user_id}&bot_name={temp.U_NAME}&bot_master={}")
+        response = requests.get(f"https://api.safone.dev/chatbot?query={encoded_query}&user_id={user_id}&bot_name={temp.U_NAME}&bot_master=mrtg")
         if response.status_code == 200:
             data = response.json()
             response = data["response"][0]
