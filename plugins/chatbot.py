@@ -1,5 +1,6 @@
 from pyrogram import Client, filters
 from pyrogram.types import Message
+import requests
 from utils import temp
 
 @Client.on_message(filters.command("chatbot"))
