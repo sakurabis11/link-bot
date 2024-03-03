@@ -3,6 +3,7 @@ RUN apt update && apt upgrade -y
 RUN apt install git -y
 RUN  pip install --upgrade pip
 
+RUN pip install pypi-search
 RUN pip install spotipy
 RUN pip install yt-dlp
 RUN pip instalL pafy
