@@ -1,8 +1,9 @@
 from pyrogram import Client, filters
+from pyrogram.types import Message
 from utils import temp
 
 @Client.on_messag(filters.command("chatbot"))
-async def chatbot(client, message):
+async def chatbot(client: Client, message: Message):
     try:
         user_id = message.from_user.id
         user_query = message.text.split()[1:]
