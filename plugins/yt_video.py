@@ -12,8 +12,9 @@ def get_text(message: Message) -> str:
         return ""
     return text.split(None, 1)[1]
 
-@Client.on_message(filters.command(["video"]))
+@Client.on_message(filters.command("video"))
 async def download_video(client: Client, message: Message):
+ try:
     text = get_text(message)  
 
     if not text:
@@ -71,6 +72,7 @@ async def download_video(client: Client, message: Message):
         # Cleanup (can be improved for better error handling)
         os.remove(file_path)
 
-
+ except Exception as e:
+        await message.reply_text(f"{e}")
 
 
