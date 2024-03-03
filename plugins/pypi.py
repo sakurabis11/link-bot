@@ -1,7 +1,7 @@
 import asyncio
 from pyrogram import Client, filters
 from pyrogram.types import Message
-from pypi_search import search
+from pypi_search import pypi_search
 
 @Client.on_message(filters.command("pypi"))
 async def pypi_search(client: Client, message: Message):
