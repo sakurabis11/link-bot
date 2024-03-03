@@ -11,9 +11,7 @@ async def pypi_search(client: Client, message: Message):
         result = search(query)
         response = f"**{result['info']['name']}**\n\n"
         response += f"**Version:** {result['info']['version']}\n"
-        response += f"**Summary:** {result['info']['summary']}\n"
-        response += f"**Homepage:** {result['info']['home_page']}\n"
-        response += f"**Download:** {result['info']['download_url']}\n"
+
     except Exception as e:
         response = f"Error 1: {str(e)}"
     await message.reply(response)
