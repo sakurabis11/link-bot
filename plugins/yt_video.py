@@ -21,7 +21,6 @@ async def download_video(client: Client, message: Message):
         await message.reply_text("Invalid command syntax! Use /video or /mp4 followed by the video title or URL.")
         return
 
-    async with client.conversation(message.chat.id) as chat:
         await chat.send_message("**Searching for your video...**")
 
         search = YoutubeSearch(text, max_results=1).to_dict()  
