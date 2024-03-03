@@ -3,8 +3,8 @@ from utils import temp
 
 @Client.on_messag(filters.command("chatbot"))
 async def chatbot(client, message):
-  user_id = message.from_user.id
     try:
+        user_id = message.from_user.id
         user_query = message.text.split()[1:]
         if not user_query:
             await message.reply_text("please provide a movie name, <code>/torent your name</code>")
