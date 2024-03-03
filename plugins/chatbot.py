@@ -18,7 +18,7 @@ async def chatbot(client: Client, message: Message):
             response = data["response"][0]
             reslt = {response['response']}
     
-            await client.send_message(message.chat.id, response)
+            await client.send_message(message.chat.id, reslt)
     except Exception as e:
             await message.reply_text(f"{e}")
         
