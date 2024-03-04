@@ -129,6 +129,7 @@ class Database:
 
     async def get_caption(self, id):
         user = await self.grp.find_one({'_id': int(id)})
-        return user.get('caption', None)
+        return user.get('caption', {})
+
 
 db = Database(DATABASE_URI, DATABASE_NAME)
