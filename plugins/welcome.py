@@ -58,7 +58,7 @@ async def view_welcome_handler(client, message):
 async def delete_welcome_handler(client, message):
     await delete_welcome(client, message)
 
-@Client.on_event(filters.new_chat_members)
+@Client.on_message(filters.new_chat_members & filters.group)
 async def welcome_new_member_handler(client, event):
     await welcome_new_member(client, event)
 
