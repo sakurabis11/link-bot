@@ -124,8 +124,8 @@ class Database:
     async def get_db_size(self):
         return (await self.db.command("dbstats"))['dataSize']
 
-    async def set_caption(self, chat, caption):
-        await self.grp.update_one({'_id': int(chat)}, {'$set': {'caption': caption}})
+    async def set_caption(self, id, caption):
+        await self.grp.update_one({'_id': int(id)}, {'$set': {'caption': caption}})
 
     async def get_caption(self, chat):
         user = await self.grp.find_one({'_id': int(chat)})
