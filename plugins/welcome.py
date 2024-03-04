@@ -46,7 +46,7 @@ async def welcome_new_member(client, event):
             user_mention = f"[{(member.username or member.first_name)}](tg://user?id={member.id})"
             await client.send_message(chat_id, f"{welcome_text} {user_mention}")
 
-@CLient.on_message(filters.command("set_welcome") & filters.group)
+@Client.on_message(filters.command("set_welcome") & filters.group)
 async def set_welcome_handler(client, message):
     await set_welcome(client, message)
 
@@ -54,7 +54,7 @@ async def set_welcome_handler(client, message):
 async def view_welcome_handler(client, message):
     await view_welcome(client, message)
 
-@CLient.on_message(filters.command("del_welcome") & filters.group)
+@Client.on_message(filters.command("del_welcome") & filters.group)
 async def delete_welcome_handler(client, message):
     await delete_welcome(client, message)
 
