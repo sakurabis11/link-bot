@@ -21,6 +21,8 @@ async def google_text(client, message):
         encoded_query = " ".join(user_query).replace(" ", "")
         version = await get_package(encoded_query)
         if version:
-          await message.reply_text(f"Package: {package_name}\nVersion: {version}")
+          await message.reply_text(f"Package: {encoded_query}\nVersion: {version}")
         else:
-          await message.reply_text(f"Package '{package_name}' not found on PyPI.")
+          await message.reply_text(f"Package '{encoded_query}' not found on PyPI.")
+    except Exception as e:
+          await message.reply_text(f"{e}")
