@@ -1,6 +1,6 @@
 from pyrogram import Client, filters
 from pyrogram.types import Message
-from info import REQUESTED_CHANNEL
+from database.users_db import db
 
 @Client.on_message(filters.group & filters.command('set_caption'))
 async def add_caption(client, message: Message):
