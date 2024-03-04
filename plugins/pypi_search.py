@@ -5,10 +5,10 @@ from info import REQUESTED_CHANNEL
 
 async def get_package(encoded_query):
    response = requests.get(f"https://pypi.org/pypi/{user_query}/json")
-    if response.status_code == 200:
+   if response.status_code == 200:
         data = response.json()
         return data.get("info", {}).get("version")
-    else:
+   else:
         return None
 
 @Client.on_message(filters.command("pypi"))
