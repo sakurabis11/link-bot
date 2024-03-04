@@ -3,7 +3,7 @@ from pyrogram import Client, filters
 import requests
 from info import REQUESTED_CHANNEL
 
-async def get_package(encoded_query):
+async def get_package(user_query):
    response = requests.get(f"https://pypi.org/pypi/{user_query}/json")
    if response.status_code == 200:
         data = response.json()
@@ -18,11 +18,10 @@ async def google_text(client, message):
         if not user_query:
           await message.reply_text("Enter a package name") 
           return  
-        encoded_query = " ".join(user_query).replace(" ", "")
-        version = await get_package(encoded_query)
+        version = await get_package(user_query)
         if version:
-          await message.reply_text(f"Package: {encoded_query}\nVersion: {version}")
+          await message.reply_text(f"Package: {user_query}\nVersion: {version}")
         else:
-          await message.reply_text(f"Package '{encoded_query}' not found on PyPI.")
+          await message.reply_text(f"Package '{user_query}' not found on PyPI.")
     except Exception as e:
           await message.reply_text(f"{e}")
