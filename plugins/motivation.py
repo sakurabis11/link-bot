@@ -3,7 +3,7 @@ import random
 from pyrogram import Client, filters
 
 MOTIVATION_CHANNEL_ID = -1001943067765  # Use a negative value for channel IDs
-
+videos = []
 @Client.on_message(filters.command("motivation"))
 async def send_random_motivation_video(client, message):
     try:
@@ -23,8 +23,4 @@ async def send_random_motivation_video(client, message):
 
     except Exception as e:
         print(f"Error occurred: {e}")
-        await message.reply_text("An error occurred while sending the video.{e}")
-
-videos = []
-
-
+        await message.reply_text(f"An error occurred while sending the video.{e}")
