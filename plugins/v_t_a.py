@@ -31,7 +31,7 @@ def managed_bytes_io(data):
     result.close()
 
 
-@Client.on_message(filters.video & filters.duration(less_than="00:05:00"))
+@Client.on_message(filters.video)
 async def extract_video_command(client, message):
   """
   Event handler for processing video messages with duration less than 5 minutes.
