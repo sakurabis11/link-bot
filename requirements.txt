@@ -17,7 +17,6 @@ python-docx
 speedtest
 qrcode
 yt-dlp
-pinterest-scraper
 python-dateutil
 google-generativeai
 datetime>=4.4
