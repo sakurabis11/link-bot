@@ -29,7 +29,6 @@ async def download_pinterest_file(url, file_path):
             else:
                 logging.error(f'Unsupported file type: {content_type}')
 
-https://pin.it/5ALlATkuN
 
 async def handle_pinterest_url(message):
     url = message.text.strip()
