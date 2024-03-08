@@ -22,6 +22,6 @@ async def msg(client, message: Message):
         await message.reply_text(f"Hello {message.from_user.mention}")
     elif message.text == ".alive":
         uptime = format_uptime(time.time() - psutil.boot_time())
-        await message.reply_text("I am alive\n\nI am running on {uptime}")
+        await message.reply_text(f"I am alive\n\nI am running on {uptime}")
     else:
         pass
