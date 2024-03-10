@@ -16,7 +16,7 @@ motor
 python-docx
 speedtest
 qrcode
-yt-dlp
+yt-dlp==2023.12.30
 python-dateutil
 google-generativeai
 datetime>=4.4
