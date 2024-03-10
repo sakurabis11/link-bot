@@ -18,7 +18,7 @@ logger.setLevel(logging.ERROR)
 
 
 
-@Client.on_message((filters.group) & filters.text & filters.incoming)
+@Client.on_message((filters.private) & filters.text)
 async def give_filter(client,message):
     await global_filters(client, message)
     group_id = message.chat.id
@@ -27,7 +27,7 @@ async def give_filter(client,message):
     for keyword in reversed(sorted(keywords, key=len)):
         pattern = r"( |^|[^\w])" + re.escape(keyword) + r"( |$|[^\w])"
         if re.search(pattern, name, flags=re.IGNORECASE):
-            reply_text, btn, alert, fileid = await find_filter(group_id, keyword)
+            reply_text, btn, alert, fileid = await find_filter(keyword)
 
             if reply_text:
                 reply_text = reply_text.replace("\\n", "\n").replace("\\t", "\t")
