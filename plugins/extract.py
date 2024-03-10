@@ -45,10 +45,10 @@ async def shazam_(client, message):
         t_taken = await message.reply_text(f"<code>{t_k} Seconds for converting this video to audio...</code>")
         await asyncio.sleep(10)
         await t_taken.delete()
+        os.remove(music_file)
     else:
         pass
     await msg.delete()
  except Exception as e:
         await message.reply_text(f"{e}")
-    os.remove(music_file)
 
