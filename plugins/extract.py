@@ -35,15 +35,18 @@ async def shazam_(client, message):
         if not message.reply_to_message or not message.reply_to_message.video:
             return await message.reply_text("Reply to a video...")
         stime = time.time()
-        msg = await message.reply_text("Converting video to audio...")
+        msg = await message.reply_text("Cᴏɴᴠᴇʀᴛɪɴɢ ᴠɪᴅᴇᴏ ᴛᴏ ᴀᴜᴅɪᴏ...\n\nIᴛ ᴍᴀʏ ᴄᴀᴜsᴇs sᴏᴍᴇ ᴛɪᴍᴇ ᴅᴜᴇ ᴛᴏ ᴠɪᴅᴇᴏ ᴅᴜʀᴀᴛɪᴏɴ, sᴏ ᴘʟᴇᴀsᴇ ᴡ𝟾")
         video_file = await message.reply_to_message.download()
         music_file = await convert_to_audio(video_file)
         if music_file is None:
-            return await msg.edit("Failed to convert video to audio.")
+            return await msg.edit("Fᴀɪʟᴇᴅ ᴛᴏ ᴄᴏɴᴠᴇʀᴛ ᴠɪᴅᴇᴏ ᴛᴏ ᴀᴜᴅɪᴏ.")
         etime = time.time()
         t_k = round(etime - stime)
         await client.send_audio(message.chat.id, music_file)
-        await msg.edit(f"<code>{t_k} Seconds for converting this video to audio...</code>")
+        t_taken = await message.reply_text(f"<code>{t_k} Sᴇᴄᴏɴᴅs ғᴏʀ ᴄᴏɴᴠᴇʀᴛɪɴɢ ᴛʜɪs ᴠɪᴅᴇᴏ ᴛᴏ ᴀᴜᴅɪᴏ...</code>")
+        await asyncio.sleep(10)
+        await t_taken.delete()
+        await msg.delete()
         os.remove(video_file)
         os.remove(music_file)
     except Exception as e:
