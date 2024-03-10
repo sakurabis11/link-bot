@@ -22,7 +22,7 @@ async def runcmd(cmd: str) -> Tuple[str, str, int, int]:
     )
 
 async def convert_to_audio(vid_path):
-    stark_cmd = f"ffmpeg -i {vid_path} -map 0:a friday.mp3"
+    stark_cmd = f"ffmpeg -i {vid_path} -map 0:a sd.mp3"
     await runcmd(stark_cmd)
     final_warner = "sd.mp3"
     if not os.path.exists(final_warner):
@@ -41,7 +41,6 @@ async def shazam_(client, message):
         music_file = await convert_to_audio(video_file)
         etime = time.time()
         t_k = round(etime - stime)
-        await message.reply_text(f"{video_file}")
         await client.send_audio(message.chat.id, music_file)
         t_taken = await message.reply_text(f"<code>{t_k} Seconds</code>")
         await asyncio.sleep(10)
