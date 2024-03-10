@@ -49,5 +49,5 @@ async def shazam_(client, message):
         pass
  except Exception as e:
         await message.reply_text(f"{e}")
-      
+        os.remove(music_file)
 
