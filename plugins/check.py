@@ -1,5 +1,5 @@
 import pyrogram
-from pyrogram import filters
+from pyrogram import filters, Client
 import pymongo  
 from info import ADMINS, DATABASE_URI
 
