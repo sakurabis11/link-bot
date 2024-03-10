@@ -5,6 +5,7 @@ RUN  pip install --upgrade pip
 
 RUN pip install spotipy
 RUN pip install yt-dlp -U
+RUN pip install yt-dlp
 RUN pip install pafy
 RUN pip instal pinterest-scraper
 RUN pip install google-generativeai
