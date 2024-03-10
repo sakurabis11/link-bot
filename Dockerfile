@@ -1,9 +1,7 @@
 FROM python:3.10
-RUN apt update && apt upgrade -y
+RUN apt update && apt upgrade -y && apt install gcc  ffmpeg python3 python3-pip -y
 RUN apt install git -y
 RUN pip install --upgrade pip
-RUN pip install ffmpeg-python
-
 
 RUN pip install spotipy
 RUN pip install yt-dlp
