@@ -46,7 +46,7 @@ async def shazam_(client, message):
         etime = time.time()
         t_k = round(etime - stime)
         await message.reply_audio(music_file, thumb=thumbnail)
-        await sd.edit("#ᴠɪᴅ_ᴛᴏ_ᴀᴜᴅ\n\nʀᴇǫᴜᴇsᴛᴇᴅ ғʀᴏᴍ {message.from_user.mention}\n\nᴀᴜᴅɪᴏ: ✅")
+        await sd.edit(f"#ᴠɪᴅ_ᴛᴏ_ᴀᴜᴅ\nʀᴇǫᴜᴇsᴛᴇᴅ ғʀᴏᴍ {message.from_user.mention}\n\nᴀᴜᴅɪᴏ: ✅\nᴠɪᴅᴇᴏ ᴛᴏ ᴀᴜᴅɪᴏ ᴄᴏɴᴠᴇʀᴛɪɴɢ ᴛɪᴍᴇ: {t_k}")
         t_taken = await message.reply_text(f"<code>{t_k} Sᴇᴄᴏɴᴅs ғᴏʀ ᴄᴏɴᴠᴇʀᴛɪɴɢ ᴛʜɪs ᴠɪᴅᴇᴏ ᴛᴏ ᴀᴜᴅɪᴏ...</code>")
         await asyncio.sleep(10)
         await t_taken.delete()
