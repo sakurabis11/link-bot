@@ -9,7 +9,7 @@ from database.gfilters_mdb import(
    del_allg
 )
 
-from helper_func.py import get_file_id, parser, split_quotes
+from utils import get_file_id, parser, split_quotes
 from info import ADMINS
 
 
