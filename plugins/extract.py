@@ -33,21 +33,22 @@ async def convert_to_audio(vid_path):
 async def shazam_(client, message):
  try:
     stime = time.time()
-    msg = await message.reply_text("`Shazaming This Song.")
+    msg = await message.reply_text("Cᴏɴᴠᴇʀᴛɪɴɢ ᴠɪᴅᴇᴏ ᴛᴏ ᴀᴜᴅɪᴏ...\n\nIᴛ ᴍᴀʏ ᴄᴀᴜsᴇs sᴏᴍᴇ ᴛɪᴍᴇ ᴅᴜᴇ ᴛᴏ ᴠɪᴅᴇᴏ ᴅᴜʀᴀᴛɪᴏɴ, sᴏ ᴘʟᴇᴀsᴇ ᴡ𝟾")
     if not message.reply_to_message.video:
-        return await msg.edit("`Reply To Audio File.`")
+        return await message.reply_text("Rᴇᴘʟʏ ᴛᴏ ᴀ ᴠɪᴅᴇᴏ...")
     if message.reply_to_message.video:
         video_file = await message.reply_to_message.download()
         music_file = await convert_to_audio(video_file)
         etime = time.time()
         t_k = round(etime - stime)
         await client.send_audio(message.chat.id, music_file)
-        t_taken = await message.reply_text(f"<code>{t_k} Seconds</code>")
+        t_taken = await message.reply_text(f"<code>{t_k} Seconds for converting this video to audio...</code>")
         await asyncio.sleep(10)
         await t_taken.delete()
     else:
         pass
+    await msg.delete()
  except Exception as e:
         await message.reply_text(f"{e}")
-        os.remove(music_file)
+    os.remove(music_file)
 
