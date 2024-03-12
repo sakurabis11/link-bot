@@ -28,7 +28,7 @@ EVAL_ID = int(os.environ.get("EVAL_ID", "-1002002636126"))
 S_GROUP = environ.get('S_GROUP', "https://t.me/sdbots_support")
 S_CHANNEL = environ.get('S_CHANNEL', "https://t.me/sd_bots")
 
-F_SUB = os.environ.get("FORCE_SUB", "sd_bots") 
+F_SUB = os.environ.get("FORCE_SUB", "Aniflix_Series") 
 
 # for mongodb
 DATABASE_NAME = os.environ.get("DB_NAME", "mrtg")     
