@@ -23,16 +23,11 @@ MELCOW_NEW_USERS = is_enabled((environ.get('MELCOW_NEW_USERS', "False")), False)
 ADMIN_CHANNEL_ID = int(os.environ.get("ADMIN_CHANNEL_ID", "-1002001268584"))
 EVAL_ID = int(os.environ.get("EVAL_ID", "-1002002636126"))
 
-CHANNEL_ID = int(os.environ.get("CHANNEL_ID", "-1002016409099"))
-CUSTOM_CAPTION = os.environ.get("CUSTOM_CAPTION", "• ʙʏ @Aniflix_Series")
-PROTECT_CONTENT = True if os.environ.get('PROTECT_CONTENT', "False") == "True" else False
-DISABLE_CHANNEL_BUTTON = os.environ.get("DISABLE_CHANNEL_BUTTON", None) == 'True'
-
 # important information for your bot
 S_GROUP = environ.get('S_GROUP', "https://t.me/sdbots_support")
 S_CHANNEL = environ.get('S_CHANNEL', "https://t.me/sd_bots")
 
-F_SUB = os.environ.get("FORCE_SUB", "Aniflix_Series") 
+F_SUB = os.environ.get("FORCE_SUB", "sd_bots") 
 
 # for mongodb
 DATABASE_NAME = os.environ.get("DB_NAME", "mrtg")     
