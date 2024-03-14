@@ -28,7 +28,7 @@ async def convert_to_audio(vid_path):
     if query == None:
         final_warner = "sd.mp3"
     elif query != None:
-        final_warner =
+        final_warner = f{query}
     else:
         pass
       if not os.path.exists(final_warner) or returncode != 0:
