@@ -25,6 +25,7 @@ async def runcmd(cmd: str) -> Tuple[str, str, int, int]:
 async def convert_to_audio(vid_path):
     stark_cmd = f"ffmpeg -i {vid_path} -map 0:a sd.mp3"
     _, _, returncode, _ = await runcmd(stark_cmd)
+    title = message.command[1:]
     if title is None:
         final_warner = "sd.mp3"
     elif title is not None:
