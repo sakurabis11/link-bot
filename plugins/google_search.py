@@ -10,8 +10,7 @@ async def google_text(client, message):
         if not user_query:
           await message.reply_text("provide a query") 
           return
-        updated_query = f"What is the release date of {user_query}"
-        encoded_query = " ".join(updated_query).replace(" ", "%20")
+        encoded_query = " ".join(user_query).replace(" ", "%20")
 
         response = requests.get(f"https://api.safone.dev/google?query={encoded_query}&limit=1")
         if response.status_code == 200:
