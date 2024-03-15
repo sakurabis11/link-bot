@@ -1,5 +1,5 @@
 from pyrogram import filters, Client
-from pyrogram import InlineQueryResultArticle, InlineKeyboardMarkup, InlineKeyboardButton
+from pyrogram.types import InlineQueryResultArticle, InlineKeyboardMarkup, InlineKeyboardButton
 
 @Client.on_inline_query()
 async def handle_inline_query(client, query):
