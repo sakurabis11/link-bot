@@ -39,6 +39,8 @@ async def convert_to_audio(vid_path):
 async def shazam_(client, message):
   try:
       query = message.text.split(None, 1)[1]
+      if query == None:
+        pass
       if not message.reply_to_message or not message.reply_to_message.video:
           return await message.reply_text("Reply to a video...")
       thumbnail = wget.download("https://telegra.ph/file/f4f20a3a7b15d588fcc2a.jpg")
