@@ -58,3 +58,5 @@ async def shazam_(client, message):
       await msg.delete()
       os.remove(video_file)
       os.remove
+  except Exception as e:
+      await message.reply_text(f"Error: {e}")
