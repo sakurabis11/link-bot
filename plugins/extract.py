@@ -51,7 +51,7 @@ async def shazam_(client, message):
         if title is None:
             await message.reply_audio(music_file, thumb=thumbnail)
         elif title is not None:
-            await message.reply_audio(music_file, title=song_title, thumb=thumbnail)
+            await message.reply_audio(music_file, title=title, thumb=thumbnail)
         else:
             pass
         await sd.edit(f"#ᴠɪᴅ_ᴛᴏ_ᴀᴜᴅ\nʀᴇǫᴜᴇsᴛᴇᴅ ғʀᴏᴍ {message.from_user.mention}\n\nᴀᴜᴅɪᴏ: ✅\nᴠɪᴅᴇᴏ ᴛᴏ ᴀᴜᴅɪᴏ ᴄᴏɴᴠᴇʀᴛɪɴɢ ᴛɪᴍᴇ: {t_k}")
