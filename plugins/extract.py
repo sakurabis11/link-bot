@@ -25,13 +25,7 @@ async def runcmd(cmd: str) -> Tuple[str, str, int, int]:
 async def convert_to_audio(vid_path):
     stark_cmd = f"ffmpeg -i {vid_path} -map 0:a sd.mp3"
     _, _, returncode, _ = await runcmd(stark_cmd)
-    query = f"{query}".replace(" ", "_")
-    if title is None:
-        final_warner = "sd.mp3"
-    elif title is not None:
-        final_warner = f"{title}"
-    else:
-        pass
+    final_warner = "sd.mp3"
     if not os.path.exists(final_warner) or returncode != 0:
         return None
     return final_warner
@@ -39,9 +33,6 @@ async def convert_to_audio(vid_path):
 @Client.on_message(filters.command(["convert", "vid_to_aud"]))
 async def shazam_(client, message):
     try:
-        title = message.command[1:]
-        if not title:
-            title = "sd"
         if not message.reply_to_message or not message.reply_to_message.video:
             return await message.reply_text("Reply to a video...")
         thumbnail = wget.download("https://telegra.ph/file/f4f20a3a7b15d588fcc2a.jpg")
@@ -54,12 +45,7 @@ async def shazam_(client, message):
             return await msg.edit("Fᴀɪʟᴇᴅ ᴛᴏ ᴄᴏɴᴠᴇʀᴛ ᴠɪᴅᴇᴏ ᴛᴏ ᴀᴜᴅɪᴏ.")
         etime = time.time()
         t_k = round(etime - stime)
-        if title is None:
-            await message.reply_audio(music_file, thumb=thumbnail)
-        elif title is not None:
-            await message.reply_audio(music_file, title=title, thumb=thumbnail)
-        else:
-            pass
+        await message.reply_audio(music_file, thumb=thumbnail)
         await sd.edit(f"#ᴠɪᴅ_ᴛᴏ_ᴀᴜᴅ\nʀᴇǫᴜᴇsᴛᴇᴅ ғʀᴏᴍ {message.from_user.mention}\n\nᴀᴜᴅɪᴏ: ✅\nᴠɪᴅᴇᴏ ᴛᴏ ᴀᴜᴅɪᴏ ᴄᴏɴᴠᴇʀᴛɪɴɢ ᴛɪᴍᴇ: {t_k}")
         t_taken = await message.reply_text(f"<code>{t_k} Sᴇᴄᴏɴᴅs ғᴏʀ ᴄᴏɴᴠᴇʀᴛɪɴɢ ᴛʜɪs ᴠɪᴅᴇᴏ ᴛᴏ ᴀᴜᴅɪᴏ...</code>")
         await asyncio.sleep(10)
