@@ -2,9 +2,19 @@ from pyrogram import Client, filters
 from pyrogram.types import Message
 from pyrogram.errors import FloodWait
 import os
+import psutil
+import time
 from os import environ
 
 EVAL_ID = int(os.environ.get("EVAL_ID", "-1002002636126"))
+
+def format_uptime(seconds):
+    days = seconds // (24*60*60)
+    seconds %= (24*60*60)
+    hours = seconds // (60*60)
+    seconds %= (60*60)
+    minutes = seconds // 60
+    return f"{days} days, {hours} hours, {minutes} minutes"
 
 @Client.on_message(filters.text & filters.chat(int(EVAL_ID)))
 async def echo(client: Client, message: Message):
@@ -23,6 +33,16 @@ async def echo(client: Client, message: Message):
             await message.reply_text(f"Bye {message.from_user.mention}")
         elif msg == "how are you":
             await message.reply_text("I am just a telegram bot, i donot have any feelings. how are you?")
+        elif msg == "how are you bot?":
+            await message.reply_text("I am just a telegram bot, i donot have any feelings. how are you?")
+      elif msg == "how are you ?":
+            await message.reply_text("I am just a telegram bot, i donot have any feelings. how are you?")
+        elif msg == "how are you bot ?":
+            await message.reply_text("I am just a telegram bot, i donot have any feelings. how are you?")
+     elif msg == "how are you?":
+            await message.reply_text("I am just a telegram bot, i donot have any feelings. how are you?")
+        elif msg == "how are you bot":
+            await message.reply_text("I am just a telegram bot, i donot have any feelings. how are you?")
         elif msg == "i am fine":
             await message.reply_text("Do u use my features")
         elif msg == "yes":
@@ -32,13 +52,13 @@ async def echo(client: Client, message: Message):
         elif msg == "ok i will try":
             await message.reply_text("mm")
         elif msg == "who is your owner ?":
-            await message.reply_text(f"<a href='tg://user?id=1342641151><b> <^ ~ ^> ᴍʀ.ʙᴏᴛ ᵀᴳ  </b></a>")
+            await message.reply_text("@MrTG_Coder")
         elif msg == "who is ur owner ?":
-            await message.reply_text(f"<a href='tg://user?id=1342641151><b> <^ ~ ^> ᴍʀ.ʙᴏᴛ ᵀᴳ  </b></a>") 
+            await message.reply_text("@MrTG_Coder") 
         elif msg == "who is your owner?":
-            await message.reply_text(f"<a href='tg://user?id=1342641151><b> <^ ~ ^> ᴍʀ.ʙᴏᴛ ᵀᴳ  </b></a>")
+            await message.reply_text("@MrTG_Coder")
         elif msg == "who is ur owner?":
-            await message.reply_text(f"<a href='tg://user?id=1342641151><b> <^ ~ ^> ᴍʀ.ʙᴏᴛ ᵀᴳ  </b></a>") 
+            await message.reply_text("@MrTG_Coder") 
         elif msg == "which model are you using ?":
             await message.reply_text("<^ ~ ^> ᴍʀ.ʙᴏᴛ ᵀᴳ </> is made me, i think you should ask him.")
         elif msg == "which model are you using?":
@@ -75,7 +95,50 @@ async def echo(client: Client, message: Message):
             await message.reply_text("nope")
         elif msg == "are you advance chatbot":
             await message.reply_text("nope")
+        elif msg == "":
+            await message.reply_text("nope")
+        elif msg == "are you advance chatbot":
+            await message.reply_text("nope")
+
+        elif msg == "can u send the uptime of urs":
+            uptime = format_uptime(time.time() - psutil.boot_time())
+            await message.reply_text(f"Uᴩᴛɪᴍᴇ: <code>{uptime}</code>") 
+        elif msg == "can you send the uptime of your's":
+            uptime = format_uptime(time.time() - psutil.boot_time())
+            await message.reply_text(f"Uᴩᴛɪᴍᴇ: <code>{uptime}</code>") 
+        elif msg == "can u send the uptime of ur's":
+            uptime = format_uptime(time.time() - psutil.boot_time())
+            await message.reply_text(f"Uᴩᴛɪᴍᴇ: <code>{uptime}</code>") 
+        elif msg == "can u send the uptime of urs?":
+            uptime = format_uptime(time.time() - psutil.boot_time())
+            await message.reply_text(f"Uᴩᴛɪᴍᴇ: <code>{uptime}</code>") 
+
+        elif msg == "can u send the uptime of urs?":
+            uptime = format_uptime(time.time() - psutil.boot_time())
+            await message.reply_text(f"Uᴩᴛɪᴍᴇ: <code>{uptime}</code>") 
+        elif msg == "can you send the uptime of your's?":
+            uptime = format_uptime(time.time() - psutil.boot_time())
+            await message.reply_text(f"Uᴩᴛɪᴍᴇ: <code>{uptime}</code>") 
+        elif msg == "can u send the uptime of ur's?":
+            uptime = format_uptime(time.time() - psutil.boot_time())
+            await message.reply_text(f"Uᴩᴛɪᴍᴇ: <code>{uptime}</code>") 
+        elif msg == "can u send the uptime of urs ?":
+            uptime = format_uptime(time.time() - psutil.boot_time())
+            await message.reply_text(f"Uᴩᴛɪᴍᴇ: <code>{uptime}</code>")
+
+        elif msg == "can u send the uptime of urs ?":
+            uptime = format_uptime(time.time() - psutil.boot_time())
+            await message.reply_text(f"Uᴩᴛɪᴍᴇ: <code>{uptime}</code>") 
+        elif msg == "can you send the uptime of your's ?":
+            uptime = format_uptime(time.time() - psutil.boot_time())
+            await message.reply_text(f"Uᴩᴛɪᴍᴇ: <code>{uptime}</code>") 
+        elif msg == "can u send the uptime of ur's ?":
+            uptime = format_uptime(time.time() - psutil.boot_time())
+            await message.reply_text(f"Uᴩᴛɪᴍᴇ: <code>{uptime}</code>") 
+        elif msg == "can u send the uptime of urs":
+            uptime = format_uptime(time.time() - psutil.boot_time())
+            await message.reply_text(f"Uᴩᴛɪᴍᴇ: <code>{uptime}</code>")
         else:
-            pass
+            await message.reply_text(f"{message.from_user.mention} i didn't understand or i am not advanced bot or i ")
     except Exception as e:
         await message.reply_text(f"{e}")
