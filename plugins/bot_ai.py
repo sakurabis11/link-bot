@@ -42,7 +42,5 @@ async def echo(client: Client, message: Message):
             await message.reply_text("<^ ~ ^> ᴍʀ.ʙᴏᴛ ᵀᴳ </> is made me, i think you should ask him.")            
         else:
             pass
-        else:
-            pass
     except Exception as e:
         await message.reply_text(f"{e}")
