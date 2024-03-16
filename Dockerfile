@@ -5,6 +5,7 @@ RUN pip install --upgrade pip
 
 RUN pip install spotipy
 RUN pip install yt-dlp
+RUN apt-get install ffmpeg
 RUN pip install pafy
 RUN pip install google-generativeai
 RUN pip install pytube 
