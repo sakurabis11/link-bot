@@ -13,7 +13,7 @@ async def echo(client: Client, message: Message):
       msg = message.text
       bot_id = 6645084082
       user_id = reply_to_message.from_user.id
-      if user_id = bot_id:
+      if user_id == bot_id:
         if msg == "Hi":
           await message.reply_text(f"Hello {message.from_user.mention}")
         elif msg == "Bye":
