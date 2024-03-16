@@ -158,7 +158,7 @@ async def echo(client: Client, message: Message):
             await message.reply_text("ok {message.from_user.mention}")
         elif msg == "it is not for urs":
             await message.reply_text("ok {message.from_user.mention}")
-         elif msg == "it is not for yours":
+        elif msg == "it is not for yours":
             await message.reply_text("ok {message.from_user.mention}")
         elif msg == "it is not for your's":
             await message.reply_text("ok {message.from_user.mention}")           
