@@ -69,5 +69,5 @@ async def echo(client, message: Message):
        await message.reply_text(text=script.STATUS_TXT.format(users, chats))
      else:
        pass
- except Exceptions as e:
+ except (Exception1, Exception2) as e:
        await message.reply_text(f"{e}")
