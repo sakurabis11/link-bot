@@ -11,13 +11,8 @@ async def echo(client: Client, message: Message):
     try:
         msg = message.text
         bot_id = 6645084082
-        if message.reply_to_message is not None:
-            user_id = message.reply_to_message.from_user.id
-        else:
-            pass
 
-        # Option 2: Use effective_user (For Pyrogram v20 or later)
-        # user_id = message.effective_user.id  # Uncomment this for Pyrogram v20+
+        user_id = message.effective_user.id  
 
         if user_id == bot_id:
             if msg == "Hi":
