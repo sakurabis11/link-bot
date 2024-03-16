@@ -79,8 +79,24 @@ async def echo(client: Client, message: Message):
             await message.reply_text("my name is ᴏʙᴀɴᴀɪ")
         elif msg == "what is ur name?":
             await message.reply_text("my name is ᴏʙᴀɴᴀɪ")
+        elif msg == "how to deploy a telegram bot":
+            await message.reply_text("ask him: @MrTG_Coder")
+        elif msg == "how to deploy a bot?":
+            await message.reply_text("ask him: @MrTG_Coder")
+        elif msg == "how to deploy a telegram bot ?":
+            await message.reply_text("ask him: @MrTG_Coder")
+        elif msg == "how to deploy a telegram bot?":
+            await message.reply_text("ask him: @MrTG_Coder")
+
         elif msg == "how to deploy a bot":
-            await message.reply_text(f"ask him: <a href='tg://user?id=1342641151><b> <^ ~ ^> ᴍʀ.ʙᴏᴛ ᵀᴳ </> </b></a>")
+            await message.reply_text("ask him: @MrTG_Coder")
+        elif msg == "how to deploy a bot?":
+            await message.reply_text("ask him: @MrTG_Coder")
+        elif msg == "how to deploy a bot ?":
+            await message.reply_text("ask him: @MrTG_Coder")
+        elif msg == "how to deploy a bot?":
+            await message.reply_text("ask him: @MrTG_Coder")
+
         elif msg == "can u send ur repo":
             await message.reply_text("yup, why not repo:- https://github.com/MrTG-CodeBot/Obanai")
         elif msg == "which server are u using ?":
