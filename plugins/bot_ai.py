@@ -154,7 +154,15 @@ async def echo(client: Client, message: Message):
         elif msg == "can u send the uptime of urs":
             uptime = format_uptime(time.time() - psutil.boot_time())
             await message.reply_text(f"Uᴩᴛɪᴍᴇ: <code>{uptime}</code>")
+        elif msg == "it is not for ur's":
+            await message.reply_text("ok {message.from_user.mention}")
+        elif msg == "it is not for urs":
+            await message.reply_text("ok {message.from_user.mention}")
+         elif msg == "it is not for yours":
+            await message.reply_text("ok {message.from_user.mention}")
+        elif msg == "it is not for your's":
+            await message.reply_text("ok {message.from_user.mention}")           
         else:
-            await message.reply_text(f"{message.from_user.mention} i didn't understand or i am not advanced bot or i ")
+            await message.reply_text(f"{message.from_user.mention} i didn't understand or i am not advanced bot.")
     except Exception as e:
         await message.reply_text(f"{e}")
