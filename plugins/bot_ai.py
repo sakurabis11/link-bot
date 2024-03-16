@@ -13,7 +13,7 @@ async def echo(client: Client, message: Message):
         msg = msg.lower()
         if msg == "hi":
             await message.reply_text(f"Hello {message.from_user.mention}")
-        elif msg == "hii":
+        elif msg in "hii":
             await message.reply_text(f"Hello {message.from_user.mention}")
         elif msg == "hello":
             await message.reply_text(f"hi {message.from_user.mention}")  
@@ -22,7 +22,7 @@ async def echo(client: Client, message: Message):
         elif msg == "bye":
             await message.reply_text(f"Bye {message.from_user.mention}")
         elif msg == "how are you":
-            await message.reply_text("I am fine, and you?")
+            await message.reply_text("I am just a telegram bot, i donot have any feelings. how are you?")
         elif msg == "i am fine":
             await message.reply_text("Do u use my features")
         elif msg == "yes":
@@ -32,13 +32,13 @@ async def echo(client: Client, message: Message):
         elif msg == "ok i will try":
             await message.reply_text("mm")
         elif msg == "who is your owner ?":
-            await message.reply_text(f"<a href='tg://user?id=1342641151><b> <^ ~ ^> ᴍʀ.ʙᴏᴛ ᵀᴳ </> </b></a>")
+            await message.reply_text(f"<a href='tg://user?id=1342641151><b> <^ ~ ^> ᴍʀ.ʙᴏᴛ ᵀᴳ  </b></a>")
         elif msg == "who is ur owner ?":
-            await message.reply_text(f"<a href='tg://user?id=1342641151><b> <^ ~ ^> ᴍʀ.ʙᴏᴛ ᵀᴳ </> </b></a>") 
+            await message.reply_text(f"<a href='tg://user?id=1342641151><b> <^ ~ ^> ᴍʀ.ʙᴏᴛ ᵀᴳ  </b></a>") 
         elif msg == "who is your owner?":
-            await message.reply_text(f"<a href='tg://user?id=1342641151><b> <^ ~ ^> ᴍʀ.ʙᴏᴛ ᵀᴳ </> </b></a>")
+            await message.reply_text(f"<a href='tg://user?id=1342641151><b> <^ ~ ^> ᴍʀ.ʙᴏᴛ ᵀᴳ  </b></a>")
         elif msg == "who is ur owner?":
-            await message.reply_text(f"<a href='tg://user?id=1342641151><b> <^ ~ ^> ᴍʀ.ʙᴏᴛ ᵀᴳ </> </b></a>") 
+            await message.reply_text(f"<a href='tg://user?id=1342641151><b> <^ ~ ^> ᴍʀ.ʙᴏᴛ ᵀᴳ  </b></a>") 
         elif msg == "which model are you using ?":
             await message.reply_text("<^ ~ ^> ᴍʀ.ʙᴏᴛ ᵀᴳ </> is made me, i think you should ask him.")
         elif msg == "which model are you using?":
