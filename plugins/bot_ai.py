@@ -1,3 +1,10 @@
+from pyrogram import Client, filters
+from pyrogram.types import Message
+from pyrogram.errors import FloodWait
+import os
+from os import environ
+EVAL_ID = int(os.environ.get("EVAL_ID", "-1002002636126"))
+
 @Client.on_message(filters.text & filters.chat(int(EVAL_ID)))
 async def echo(client: Client, message: Message):
   try:
