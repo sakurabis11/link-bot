@@ -35,11 +35,11 @@ async def echo(client: Client, message: Message):
             await message.reply_text("I am just a telegram bot, i donot have any feelings. how are you?")
         elif msg == "how are you bot?":
             await message.reply_text("I am just a telegram bot, i donot have any feelings. how are you?")
-      elif msg == "how are you ?":
+        elif msg == "how are you ?":
             await message.reply_text("I am just a telegram bot, i donot have any feelings. how are you?")
         elif msg == "how are you bot ?":
             await message.reply_text("I am just a telegram bot, i donot have any feelings. how are you?")
-     elif msg == "how are you?":
+        elif msg == "how are you?":
             await message.reply_text("I am just a telegram bot, i donot have any feelings. how are you?")
         elif msg == "how are you bot":
             await message.reply_text("I am just a telegram bot, i donot have any feelings. how are you?")
