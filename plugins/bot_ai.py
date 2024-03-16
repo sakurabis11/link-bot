@@ -31,4 +31,4 @@ async def echo(client: Client, message: Message):
       else:
           pass
   except Exception as e:
-          await message.reply_text("{e}")
+          await message.reply_text(f"{e}")
