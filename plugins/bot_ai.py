@@ -9,7 +9,7 @@ EVAL_ID = int(os.environ.get("EVAL_ID", "-1002002636126"))
 async def echo(client: Client, message: Message):
   try:
       msg = message.text
-      bot_id = "6645084082"
+      bot_id = 6645084082
       user_id = message.reply_to_message.from_user.id
       if user_id == bot_id:
         if msg == "Hi":
