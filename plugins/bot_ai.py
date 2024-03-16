@@ -13,6 +13,12 @@ async def echo(client: Client, message: Message):
         msg = msg.lower()
         if msg == "hi":
             await message.reply_text(f"Hello {message.from_user.mention}")
+        elif msg == "hii":
+            await message.reply_text(f"Hello {message.from_user.mention}")
+        elif msg == "hello":
+            await message.reply_text(f"hi {message.from_user.mention}")  
+        elif msg == "helo":
+            await message.reply_text(f"hi {message.from_user.mention}")  
         elif msg == "bye":
             await message.reply_text(f"Bye {message.from_user.mention}")
         elif msg == "how are you":
@@ -25,9 +31,13 @@ async def echo(client: Client, message: Message):
             await message.reply_text("use it click /help")
         elif msg == "ok i will try":
             await message.reply_text("mm")
-        elif msg == "who is your owner":
+        elif msg == "who is your owner ?":
             await message.reply_text(f"<a href='tg://user?id=1342641151><b> <^ ~ ^> ᴍʀ.ʙᴏᴛ ᵀᴳ </> </b></a>")
-        elif msg == "who is ur owner":
+        elif msg == "who is ur owner ?":
+            await message.reply_text(f"<a href='tg://user?id=1342641151><b> <^ ~ ^> ᴍʀ.ʙᴏᴛ ᵀᴳ </> </b></a>") 
+        elif msg == "who is your owner?":
+            await message.reply_text(f"<a href='tg://user?id=1342641151><b> <^ ~ ^> ᴍʀ.ʙᴏᴛ ᵀᴳ </> </b></a>")
+        elif msg == "who is ur owner?":
             await message.reply_text(f"<a href='tg://user?id=1342641151><b> <^ ~ ^> ᴍʀ.ʙᴏᴛ ᵀᴳ </> </b></a>") 
         elif msg == "which model are you using ?":
             await message.reply_text("<^ ~ ^> ᴍʀ.ʙᴏᴛ ᵀᴳ </> is made me, i think you should ask him.")
@@ -59,6 +69,12 @@ async def echo(client: Client, message: Message):
             await message.reply_text("idk")     
         elif msg == "which server are u using":
             await message.reply_text("idk")  
+        elif msg == "are you advance chatbot?":
+            await message.reply_text("nope")
+        elif msg == "are you advance chatbot ?":
+            await message.reply_text("nope")
+        elif msg == "are you advance chatbot":
+            await message.reply_text("nope")
         else:
             pass
     except Exception as e:
