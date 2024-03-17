@@ -32,13 +32,13 @@ async def echo(client, message: Message):
 
      if ("hi" or "hii" or "hiii" or "hello" or "hellu" or "helo") in msg:
        await message.reply_text(f"Hello {message.from_user.mention}")
-     elif ("good morning" or "morning") in msg:
+     elif ("good morning" or "morning" or "mrng") in msg:
        await message.reply_text(f"good morning {message.from_user.mention}")
-     elif ("good evening" or "evening") in msg:
+     elif ("good evening" or "evening" or "evning") in msg:
        await message.reply_text(f"good morning {message.from_user.mention}")
-     elif ("how are you" or "how are u") in msg:
+     elif ("how are you" or "how are u" or "how are you today") in msg:
        await message.reply_text("I am just a telegram bot, i don't have any feelings. How are you?")    
-     elif ("i am fine" or "fine") in msg:
+     elif ("i am fine" or "fine" or "good day") in msg:
        await message.reply_text("Oh great\n\nDo u use my features?")
      elif ("yes" or "yup" or "i used the features") in msg:
        await message.reply_text("Ch nice, thank u for using me.")
