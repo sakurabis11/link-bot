@@ -23,8 +23,6 @@ MELCOW_NEW_USERS = is_enabled((environ.get('MELCOW_NEW_USERS', "False")), False)
 ADMIN_CHANNEL_ID = int(os.environ.get("ADMIN_CHANNEL_ID", "-1002001268584"))
 EVAL_ID = int(os.environ.get("EVAL_ID", "-1002002636126"))
 
-SESSION = os.environ.get('SESSION', 'BQCIBMcATknvKkt2INITA5xMTmw3Cox6w_11EODlcyEYQfJ82cs6fq8_PSn26ner3XraBHl3Q58RlfFKA50LafeZnX3phbaif31nFnDeU-bEn5NtspjbLc-3QlLAxPFgqjSNCZq3BvP4lis1OzF-txdPWMpjDLU9Ezjefu1kfPwOkwPD4sY86c6EIB3AvLSkbbwEjSBgDO3cr5S9lx9HUsO-zYZ9Po_hYYrkV7375Qt72E8xi77BabaQrCagsbE7N6bjc2U-rNGeVA6wZbFQteD_avM4Y4o6535fDx-aIEvLn7AfBjHsOUBiMzfzAex9gZaIBJaQ563VlDHbu7J0pIHGg3JMfgAAAABQBxP_AA')
-
 # important information for your bot
 S_GROUP = environ.get('S_GROUP', "https://t.me/sdbots_support")
 S_CHANNEL = environ.get('S_CHANNEL', "https://t.me/sd_bots")
