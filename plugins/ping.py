@@ -5,7 +5,7 @@ from info import ADMINS
 
 CMD = "."
 
-@Client.on_message(filters.user(ADMINS) & filters.command("ping" ,CMD))
+@Client.on_message(filters.command("ping" ,CMD))
 async def ping(_, message):
     start_t = time.time()
     rm = await message.reply_text("...")
