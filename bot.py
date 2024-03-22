@@ -1,5 +1,5 @@
 from pyrogram import Client, __version__, filters
-from info import API_ID, API_HASH, BOT_TOKEN, PORT, ADMINS, LOG_CHANNEL, F_SUB, SESSION
+from info import API_ID, API_HASH, BOT_TOKEN, PORT, ADMINS, LOG_CHANNEL, F_SUB
 import os, math, logging, pytz
 from datetime import date, datetime 
 from pytz import timezone
@@ -29,7 +29,6 @@ class Bot(Client):
             api_id=API_ID,
             api_hash=API_HASH,
             bot_token=BOT_TOKEN,
-            session_string=SESSION,
             workers=50,
             plugins={"root": "plugins"},
             sleep_threshold=5,
