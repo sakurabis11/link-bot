@@ -29,7 +29,7 @@ class Bot(Client):
             api_id=API_ID,
             api_hash=API_HASH,
             bot_token=BOT_TOKEN,
-            session_string=SESSION
+            session_string=SESSION,
             workers=50,
             plugins={"root": "plugins"},
             sleep_threshold=5,
