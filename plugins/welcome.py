@@ -14,11 +14,11 @@ async def set_welcome(client, message):
             await message.reply_text("Set welcome message ✅")
         else:
             await message.reply_text(f"You are not an admin")
-    except IndexError:
-        await message.reply_text("Invalid command format. Usage: /set_welcome <message>")
+    except Exception as e: 
+        await message.reply_text(f"Invalid command format. Usage: /set_welcome <message>\n\n{e}")
 
 
-@Client.on_message(filters.command("see_welcome"))
+@Client.on_message(filters.command("see_welcome") & filters.user(EVAL_ID))
 async def see_welcome(client, message):
     try:
         if welcome_msg is None:
