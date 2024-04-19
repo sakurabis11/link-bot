@@ -5,7 +5,7 @@ from info import EVAL_ID, ADMINS
 
 welcome_msg = []
 
-@Client.on_message(filters.command("set_welcome") & filters.user(EVAL_ID))
+@Client.on_message(filters.command("set_welcome") & filters..chat(int(EVAL_ID)))
 async def set_welcome(client, message):
     user_id = message.from_user.id
     try:
@@ -18,7 +18,7 @@ async def set_welcome(client, message):
         await message.reply_text(f"Invalid command format. Usage: /set_welcome <message>\n\n{e}")
 
 
-@Client.on_message(filters.command("see_welcome") & filters.user(EVAL_ID))
+@Client.on_message(filters.command("see_welcome") & filters..chat(int(EVAL_ID)))
 async def see_welcome(client, message):
     try:
         if welcome_msg is None:
@@ -29,7 +29,7 @@ async def see_welcome(client, message):
         await message.reply_text(f"An error occurred: {e}")
 
 
-@Client.on_message(filters.command("delete_welcome") & filters.user(EVAL_ID))
+@Client.on_message(filters.command("delete_welcome") & filters..chat(int(EVAL_ID)))
 async def delete_welcome(client, message):
     user_id = message.from_user.id
     try:
