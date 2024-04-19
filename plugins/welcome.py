@@ -11,7 +11,7 @@ async def setw_elcome(client, message):
  if user_id in ADMINS:
    welcome_msg = message.text.split()[1:]
    await message.reply_text("set welcome message ✅")
-else:
+ else:
    await message.reply_text(f"You are not admin")
 
 @Client.on_message(filters.command("see_welcome"))
@@ -30,5 +30,5 @@ async def setw_elcome(client, message):
    else:
      welcome_msg = None
      await message.reply_text("delete welcome message ✅")
-else:
+ else:
    await message.reply_text(f"You are not admin")
