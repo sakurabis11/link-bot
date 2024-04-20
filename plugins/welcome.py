@@ -24,7 +24,8 @@ async def see_welcome(client, message):
         if welcome_msg is None:
             await message.reply_text("The welcome message is not set.")
         else:
-            await client.send_message(welcome_msg)
+            welcome_msg = " ".join(welcome_msg)
+            await client.send_message(message.chat.id, welcome_msg)
     except Exception as e:  
         await message.reply_text(f"An error occurred: {e}")
 
