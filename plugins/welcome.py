@@ -25,7 +25,7 @@ async def see_welcome(client, message):
     else:
       user_input = " ".join(welcome_msg)
       await client.send_message(message.chat.id, user_input)
-  except Exception as e:  
+  except Exception as e:  
     await message.reply_text(f"An error occurred: {e}")
 
 
