@@ -17,17 +17,17 @@ async def set_welcome(client, message):
     except Exception as e: 
         await message.reply_text(f"Invalid command format. Usage: /set_welcome <message>\n\n{e}")
 
-
 @Client.on_message(filters.command("see_welcome") & filters.chat(int(EVAL_ID)))
 async def see_welcome(client, message):
-    try:
-        if welcome_msg is None:
-            await message.reply_text("The welcome message is not set.")
-        else:
-            welcome_msg = " ".join(welcome_msg)
-            await client.send_message(message.chat.id, welcome_msg)
-    except Exception as e:  
-        await message.reply_text(f"An error occurred: {e}")
+  try:
+    if welcome_msg is None:
+      await message.reply_text("The welcome message is not set.")
+    else:
+      user_input = " ".join(welcome_msg)
+      await client.send_message(message.chat.id, user_input)
+  except Exception as e:  
+    await message.reply_text(f"An error occurred: {e}")
+
 
 
 @Client.on_message(filters.command("delete_welcome") & filters.chat(int(EVAL_ID)))
