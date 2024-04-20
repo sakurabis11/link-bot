@@ -3,18 +3,15 @@ from pyrogram import Client, filters
 from pyrogram.types import Message
 from info import EVAL_ID, ADMINS
 
-welcome_msg = ""
+welcome_msg = []
 
 @Client.on_message(filters.command("set_welcome") & filters.chat(int(EVAL_ID)))
 async def set_welcome(client, message):
     user_id = message.from_user.id
     try:
         if user_id in ADMINS:
-          if welcome_msg:  # Check if welcome_msg is not None
-            welcome_msg = " ".join(welcome_msg)
-            await client.send_message(message.chat.id, welcome_msg)
-          else:
-            await message.reply_text("The welcome message is not set.")
+            welcome_msg = message.text.split()[1:]
+            await message.reply_text(f"Set welcome message ✅\n\n{welcome_msg}")
         else:
             await message.reply_text(f"You are not an admin")
     except Exception as e: 
