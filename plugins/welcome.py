@@ -11,7 +11,7 @@ async def set_welcome(client, message):
     try:
         if user_id in ADMINS:
             welcome_msg = message.text.split()[1:]
-            await message.reply_text("Set welcome message ✅")
+            await message.reply_text(f"Set welcome message ✅\n\n{welcome_msg}")
         else:
             await message.reply_text(f"You are not an admin")
     except Exception as e: 
