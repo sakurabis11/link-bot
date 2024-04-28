@@ -134,7 +134,7 @@ class Database:
 
 
     async def add_bot(self, user_id, owner, bot_id, bot_token, username):
-        bot = {'_id': user_id, 'owner': first_name, 'bot_token': bot_token, 'bot_id': bot_id, 'username': username}
+        bot = {'_id': user_id, 'owner': owner, 'bot_token': bot_token, 'bot_id': bot_id, 'username': username}
         await self.bot.insert_one(bot)
 
     async def is_bot_token(self, token):
