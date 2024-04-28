@@ -25,13 +25,12 @@ async def add_handler(client, message):
       bot_token=bot_token ,
       plugins={"root": "c_plugins"}
     )
-    mine = await c_bot.get_me()
-    await db.add_bot(message.from_user.id, message.from_user.first_name, mine.id, bot_token, mine.username)
-    b=await a.edit("ᴄʟᴏɴɪɴɢ ᴇɴᴅᴇᴅ")
     try:
-      await c_bot.start()  # Use the already defined c_bot
-      await b.edit("ᴄʟᴏɴɪɴɢ ᴄᴏᴍᴘʟᴇᴛᴇᴅ")
+      await c_bot.start()  
+      mine = await c_bot.get_me()
+      await db.add_bot(message.from_user.id, message.from_user.first_name, mine.id, bot_token, mine.username)
     except Exception as e:
+      await a.edit("ᴄʟᴏɴɪɴɢ ᴄᴏᴍᴘʟᴇᴛᴇᴅ")
       await message.reply_text(f'Error - <code>{e}</code>')
       return
   except Exception as e:
