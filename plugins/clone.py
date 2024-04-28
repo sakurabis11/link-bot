@@ -32,7 +32,7 @@ async def add_handler(client, message):
     else:
         await client.send_message(LOG_clone_CHANNEL , text=existing_token)
     if existing_token:
-        await message.reply_text("This bot token is already cloned.")
+        await message.reply_text("Tʜɪs ʙᴏᴛ ᴛᴏᴋᴇɴ ɪs ᴀʟʀᴇᴀᴅʏ ᴄʟᴏɴᴇᴅ.")
         return
 
     a = await message.reply_text("ᴄʟᴏɴɪɴɢ sᴛᴀʀᴛᴇᴅ")
@@ -45,11 +45,12 @@ async def add_handler(client, message):
     )
     try:
       await c_bot.start()
+      mine = await c_bot.get_me()
+      await a.edit(f"{mine.username} ʜᴀs sᴜᴄᴄᴇssғᴜʟʟʏ ᴀᴅᴅᴇᴅ")
     except Exception as e:
-      await a.edit("ᴄʟᴏɴɪɴɢ ᴄᴏᴍᴘʟᴇᴛᴇᴅ")
       await message.reply_text(f'Error - <code>{e}</code>')
       return
-    mine = await c_bot.get_me()
+
     bot_info = {
         "bot_token": bot_token,
         "user_id": message.from_user.id,
@@ -60,7 +61,7 @@ async def add_handler(client, message):
         collection.insert_one(bot_info)
         await client.send_message(LOG_clone_CHANNEL, text=bot_info)
     else:
-        await message.reply_text("Failed to clone bot. Invalid bot token or error retrieving information.")
+        await message.reply_text("Fᴀɪʟᴇᴅ ᴛᴏ ᴄʟᴏɴᴇ ʙᴏᴛ. Iɴᴠᴀʟɪᴅ ʙᴏᴛ ᴛᴏᴋᴇɴ ᴏʀ ᴇʀʀᴏʀ ʀᴇᴛʀɪᴇᴠɪɴɢ ɪɴғᴏʀᴍᴀᴛɪᴏɴ.")
   except Exception as e:
     await message.reply_text(e)
   except Exception as e:
