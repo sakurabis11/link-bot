@@ -2,7 +2,7 @@ import pyrogram
 from pyrogram import Client, filters, enums
 import requests as re
 import os
-from database.B_database import bdb
+from database.users_db import db
 from info import API_ID, API_HASH, LOG_CHANNEL
 
 @Client.on_message(filters.command('clone') & filters.private)
