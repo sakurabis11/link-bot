@@ -139,6 +139,10 @@ class Database:
 
     async def is_bot_token(self, token):
         bot = await self.bot.find_one({'bot_token': token})
-        return bool(bot)
+        return bool(bot)\
+
+    async def add_bot_token(self, bot_token):
+        bot = {'bot_token': bot_token}
+        await self.bot.insert_one(bot)
 
 db = Database(DATABASE_URI, DATABASE_NAME)
