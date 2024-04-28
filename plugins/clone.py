@@ -66,3 +66,38 @@ async def add_handler(client, message):
     await message.reply_text(e)
   except Exception as e:
     await message.reply_text(e)
+
+@Client.on_message(filters.command('mybots') & filters.private)
+async def list_bots_handler(client, message):
+    user_id = message.from_user.id
+    bot_infos = collection.find({"user_id": user_id})
+
+    if not bot_infos:
+        await message.reply_text("You haven't cloned any bots yet.")
+        return
+
+    response = "**Your Cloned Bots:**\n"
+    for bot_info in bot_infos:
+        username = bot_info.get("username", "N/A")
+        response += f"- Cloned by: @{username}\n"
+
+    await message.reply_text(response)
+
+@Client.on_message(filters.command('delete') & filters.private)
+async def delete_bot_handler(client, message):
+    try:
+        bot_username = message.text.split()[1]
+
+        if not bot_username.startswith("@"):
+            await message.reply_text("Invalid bot username format. Use '@username'.")
+            return
+        bot_info = collection.find_one({"username": bot_username.strip("@")})
+        if not bot_info:
+            await message.reply_text("Couldn't find a bot with that username.")
+            return
+
+        collection.delete_one(bot_info)
+        await message.reply_text(f"Bot @{bot_username} successfully deleted from your cloned bot list.")
+
+    except Exception as e:
+        await message.reply_text(f"An error occurred:\n<code>{e}</code>")
