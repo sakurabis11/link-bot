@@ -13,7 +13,7 @@ async def clone_menu(client, message):
 async def clone_menu(client, message):
         new_message = message.text.split()[1:]
         bot_token = " ".join(new_message) 
-        is_token_in = await bdb.is_bot_token(bot_token)
+        is_token_in = await db.is_bot_token(bot_token)
         if is_token_in:
             return await message.reply("ᴏᴏᴘs! ᴛʜɪs ʙᴏᴛ ɪs ᴀʟʀᴇᴀᴅʏ ʀᴜɴɴɪɴɢ...")
         a = await message.reply_text("ᴄʟᴏɴɪɴɢ sᴛᴀʀᴛᴇᴅ")
@@ -25,7 +25,7 @@ async def clone_menu(client, message):
             plugins={"root": "c_plugins"}
         )
         mine = await c_bot.get_me()
-        await bdb.add_bot(message.from_user.id, message.from_user.first_name, mine.id, bot_token, mine.username)
+        await db.add_bot(message.from_user.id, message.from_user.first_name, mine.id, bot_token, mine.username)
         b=await a.edit("ᴄʟᴏɴɪɴɢ ᴇɴᴅᴇᴅ")
         try:
             await clone_bot.start()
