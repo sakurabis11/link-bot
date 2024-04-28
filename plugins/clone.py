@@ -59,7 +59,7 @@ async def add_handler(client, message):
     try:
       await c_bot.start()
       mine = await c_bot.get_me()
-      await a.edit(f"{mine.username} ʜᴀs sᴜᴄᴄᴇssғᴜʟʟʏ ᴀᴅᴅᴇᴅ")
+      await a.edit(f"**@{mine.username} ʜᴀs sᴜᴄᴄᴇssғᴜʟʟʏ ᴀᴅᴅᴇᴅ**")
     except Exception as e:
       await message.reply_text(f'Error - <code>{e}</code>')
       return
