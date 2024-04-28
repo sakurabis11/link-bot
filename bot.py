@@ -11,6 +11,7 @@ import pytz
 import aiohttp
 from aiohttp import web
 from utils import temp
+from plugins.clone import check_and_restart_bot
 from pyrogram.raw.all import layer
 from pyrogram import types
 from Script import script 
@@ -31,7 +32,7 @@ class Bot(Client):
             bot_token=BOT_TOKEN,
             workers=50,
             plugins={"root": "plugins"},
-            sleep_threshold=5,
+            sleep_threshold=5
         )
     async def start(self):
         await super().start()
