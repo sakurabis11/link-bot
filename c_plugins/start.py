@@ -1,5 +1,5 @@
 from pyrogram import enums, filters, Client
-from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery
+from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery, Message
 
 @Client.on_message(filters.command("start"))
 async def start(client, message: Message):
