@@ -15,3 +15,5 @@ class B_database:
     async def is_bot_token(self, token):
         bot = botcol.find_one({'bot_token': token})
         return bool(bot)
+
+bdb = B_database()
