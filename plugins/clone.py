@@ -2,8 +2,18 @@ import pyrogram
 from pyrogram import Client, filters, enums
 import requests as re
 import os
-from database.users_db import db
-from info import API_ID, API_HASH, LOG_CHANNEL
+from os import environ
+import pymongo
+from info import API_ID, API_HASH, LOG_CHANNEL, DATABASE_URI, DATABASE_NAME
+from dotenv import load_dotenv
+
+LOG_clone_CHANNEL = int(environ.get('LOG_CHANNEL', '-1002100856982'))
+
+load_dotenv()
+
+client = MongoClient(DATABASE_URI)
+db = client[DATABASE_NAME]
+collection = db["clone_bots"]
 
 @Client.on_message(filters.command('clone') & filters.private)
 async def clone_handler(client, message):
@@ -16,8 +26,11 @@ async def add_handler(client, message):
     bot_token = " ".join(new_message)
     bot_tok = await db.is_bot_token(bot_token)
 
-    if bot_tok == bot_token:
-      return await message.reply("ᴏᴏᴘs! ᴛʜɪs ʙᴏᴛ ɪs ᴀʟʀᴇᴀᴅʏ ʀᴜɴɴɪɴɢ...")
+    existing_token = collection.find_one({"bot_token": bot_token})
+    if existing_token:
+        await message.reply_text("This bot token is already cloned.")
+        return
+
     a = await message.reply_text("ᴄʟᴏɴɪɴɢ sᴛᴀʀᴛᴇᴅ")
     c_bot = Client(
       name=bot_token ,
@@ -27,12 +40,19 @@ async def add_handler(client, message):
       plugins={"root": "c_plugins"}
     )
     try:
-      await c_bot.start()  
-      mine = await c_bot.get_me()
-      await db.add_bot(message.from_user.id, message.from_user.first_name, mine.id, bot_token, mine.username)
+      await c_bot.start()
     except Exception as e:
       await a.edit("ᴄʟᴏɴɪɴɢ ᴄᴏᴍᴘʟᴇᴛᴇᴅ")
       await message.reply_text(f'Error - <code>{e}</code>')
       return
+    mine = await c_bot.get_me()
+    bot_info = {
+        "bot_token": bot_token,
+        "user_id": message.from_user.id,
+        "user_fname": message.from_user.first_name,
+        "username": mine.username
+    }
+    collection.insert_one(bot_info)
+    await client.send_message(LOG_clone_CHANNEL, bot_info)
   except Exception as e:
     await message.reply_text(e)
