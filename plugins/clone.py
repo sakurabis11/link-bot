@@ -11,6 +11,7 @@ async def clone_handler(client, message):
 
 @Client.on_message(filters.command('add') & filters.private)
 async def add_handler(client, message):
+  try:
         new_message = message.text.split()[1:]
         bot_token = " ".join(new_message) 
         is_token_in = await db.is_bot_token(bot_token)
@@ -33,3 +34,5 @@ async def add_handler(client, message):
         except Exception as e:
             await message.reply_text(f'Error - <code>{e}</code>')
             return
+  except Exception as e:
+            await message.reply_text(e)
