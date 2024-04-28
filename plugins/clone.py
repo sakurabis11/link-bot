@@ -14,7 +14,6 @@ async def add_handler(client, message):
   try:
     new_message = message.text.split()[1:]
     bot_token = " ".join(new_message)
-    bot_tok = await db.add_bot_token(bot_token)
 
     if bot_tok == bot_token:
       return await message.reply("ᴏᴏᴘs! ᴛʜɪs ʙᴏᴛ ɪs ᴀʟʀᴇᴀᴅʏ ʀᴜɴɴɪɴɢ...")
