@@ -14,13 +14,14 @@ async def start(client, message: Message):
 @Client.on_callback_query()
 async def callback_handle(client, query):
     if query.data == 'start':
-            button = [[ InlineKeyboardButton("sᴜᴘᴘᴏʀᴛ", url="https://t.me/sd_bots"),
+            button = [[ 
+                InlineKeyboardButton("sᴜᴘᴘᴏʀᴛ", url="https://t.me/sd_bots"),
                 ],[
                 InlineKeyboardButton("ʜᴇʟᴘ" , callback_data='help') ,
                 InlineKeyboardButton("ᴀʙᴏᴜᴛ" , callback_data='about')
             ]]
             reply_markup = InlineKeyboardMarkup(buttons)
-            await query.message.edit_text(chat_id=message.chat.id, text=f"**__Hello {message.from_user.mention}__**", reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
+            await query.message.edit_text(f"**__Hello {message.from_user.mention}__**", reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
         
     elif query.data == 'help':
         buttons = [[
@@ -70,7 +71,7 @@ async def callback_handle(client, query):
             InlineKeyboardButton('close', callback_data='close')
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
-        await query.message.edit_text("✯ Dᴇᴠᴇʟᴏᴩᴇʀ: <a href='https://t.me/MrTG_Coder'\n>ᴍʀ.ʙᴏᴛ ᴛɢ</a>✯ Lɪʙʀᴀʀʏ: <a href='https://docs.pyrogram.org/'>Pʏʀᴏɢʀᴀᴍ</a>\n✯ Lᴀɴɢᴜᴀɢᴇ: <a href='https://www.python.org/download/releases/3.0/'>Pʏᴛʜᴏɴ 3</a>", reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
+        await query.message.edit_text("✯ Dᴇᴠᴇʟᴏᴩᴇʀ: <a href='https://t.me/MrTG_Coder'>ᴍʀ.ʙᴏᴛ ᴛɢ</a>\n✯ Lɪʙʀᴀʀʏ: <a href='https://docs.pyrogram.org/'>Pʏʀᴏɢʀᴀᴍ</a>\n✯ Lᴀɴɢᴜᴀɢᴇ: <a href='https://www.python.org/download/releases/3.0/'>Pʏᴛʜᴏɴ 3</a>", reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
     
     elif query.data == 'close':
         await query.message.delete()
