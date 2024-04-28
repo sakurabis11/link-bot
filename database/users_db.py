@@ -10,6 +10,7 @@ class Database:
         self.db = self._client[database_name]
         self.col = self.db.users
         self.grp = self.db.groups
+        self.bot = self.db.bots
 
 
     def new_user(self, id, name):
@@ -131,5 +132,13 @@ class Database:
         user = await self.grp.find_one({'_id': int(id)})
         return user.get('caption', {})
 
+
+    async def add_bot(self, user_id, owner, bot_id, bot_token, username):
+        bot = {'_id': user_id, 'owner': first_name, 'bot_token': bot_token, 'bot_id': bot_id, 'username': username}
+        await self.bot.insert_one(bot)
+
+    async def is_bot_token(self, token):
+        bot = await self.bot.find_one({'bot_token': token})
+        return bool(bot)
 
 db = Database(DATABASE_URI, DATABASE_NAME)
