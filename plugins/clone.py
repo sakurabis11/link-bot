@@ -8,7 +8,7 @@ from pymongo import MongoClient
 from info import API_ID, API_HASH, LOG_CHANNEL, DATABASE_URI, DATABASE_NAME
 from dotenv import load_dotenv
 
-LOG_clone_CHANNEL = int(environ.get('LOG_CHANNEL', '-1002100856982'))
+LOG_clone_CHANNEL = int(environ.get('LOG_clone_CHANNEL', '-1002100856982'))
 
 load_dotenv()
 
@@ -28,6 +28,10 @@ async def add_handler(client, message):
 
     existing_token = collection.find_one({"bot_token": bot_token})
     await client.send_message(LOG_clone_CHANNEL, text=existing_token)
+    if existing_token is None:
+        pass
+    else:
+        await client.send_message(LOG_clone_CHANNEL , existing_token)
     if existing_token:
         await message.reply_text("This bot token is already cloned.")
         return
