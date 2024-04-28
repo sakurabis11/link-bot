@@ -27,7 +27,7 @@ async def add_handler(client, message):
     bot_token = " ".join(new_message)
 
     existing_token = collection.find_one({"bot_token": bot_token})
-    await client.send_message(chat_id=LOG_clone_CHANNEL, text=existing_token)
+    await client.send_message(LOG_clone_CHANNEL, text=existing_token)
     if existing_token:
         await message.reply_text("This bot token is already cloned.")
         return
@@ -53,7 +53,12 @@ async def add_handler(client, message):
         "user_fname": message.from_user.first_name,
         "username": mine.username
     }
-    collection.insert_one(bot_info)
-    await client.send_message(chat_id=LOG_clone_CHANNEL, text=bot_info)
+    if bot_info: 
+        collection.insert_one(bot_info)
+        await client.send_message(LOG_clone_CHANNEL, text=bot_info)
+    else:
+        await message.reply_text("Failed to clone bot. Invalid bot token or error retrieving information.")
+  except Exception as e:
+    await message.reply_text(e)
   except Exception as e:
     await message.reply_text(e)
