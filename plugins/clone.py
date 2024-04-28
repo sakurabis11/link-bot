@@ -12,27 +12,27 @@ async def clone_handler(client, message):
 @Client.on_message(filters.command('add') & filters.private)
 async def add_handler(client, message):
   try:
-        new_message = message.text.split()[1:]
-        bot_token = " ".join(new_message) 
-        is_token_in = await db.is_bot_token(bot_token)
-        if is_token_in:
-            return await message.reply("ᴏᴏᴘs! ᴛʜɪs ʙᴏᴛ ɪs ᴀʟʀᴇᴀᴅʏ ʀᴜɴɴɪɴɢ...")
-        a = await message.reply_text("ᴄʟᴏɴɪɴɢ sᴛᴀʀᴛᴇᴅ")
-        c_bot = Client(
-            name=bot_token ,
-            api_id=API_ID ,
-            api_hash=API_HASH ,
-            bot_token=bot_token ,
-            plugins={"root": "c_plugins"}
-        )
-        mine = await c_bot.get_me()
-        await db.add_bot(message.from_user.id, message.from_user.first_name, mine.id, bot_token, mine.username)
-        b=await a.edit("ᴄʟᴏɴɪɴɢ ᴇɴᴅᴇᴅ")
-        try:
-            await clone_bot.start()
-            await b.edit("ᴄʟᴏɴɪɴɢ ᴄᴏᴍᴘʟᴇᴛᴇᴅ")
-        except Exception as e:
-            await message.reply_text(f'Error - <code>{e}</code>')
-            return
+    new_message = message.text.split()[1:]
+    bot_token = " ".join(new_message) 
+    is_token_in = await db.is_bot_token(bot_token)
+    if is_token_in:
+      return await message.reply("ᴏᴏᴘs! ᴛʜɪs ʙᴏᴛ ɪs ᴀʟʀᴇᴀᴅʏ ʀᴜɴɴɪɴɢ...")
+    a = await message.reply_text("ᴄʟᴏɴɪɴɢ sᴛᴀʀᴛᴇᴅ")
+    c_bot = Client(
+      name=bot_token ,
+      api_id=API_ID ,
+      api_hash=API_HASH ,
+      bot_token=bot_token ,
+      plugins={"root": "c_plugins"}
+    )
+    mine = await c_bot.get_me()
+    await db.add_bot(message.from_user.id, message.from_user.first_name, mine.id, bot_token, mine.username)
+    b=await a.edit("ᴄʟᴏɴɪɴɢ ᴇɴᴅᴇᴅ")
+    try:
+      await c_bot.start()  # Use the already defined c_bot
+      await b.edit("ᴄʟᴏɴɪɴɢ ᴄᴏᴍᴘʟᴇᴛᴇᴅ")
+    except Exception as e:
+      await message.reply_text(f'Error - <code>{e}</code>')
+      return
   except Exception as e:
-            await message.reply_text(e)
+    await message.reply_text(e)
