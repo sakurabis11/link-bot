@@ -4,6 +4,7 @@ import requests as re
 import os
 from os import environ
 import pymongo
+from pymongo import MongoClient
 from info import API_ID, API_HASH, LOG_CHANNEL, DATABASE_URI, DATABASE_NAME
 from dotenv import load_dotenv
 
