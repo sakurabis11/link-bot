@@ -6,11 +6,11 @@ from database.users_db import db
 from info import API_ID, API_HASH, LOG_CHANNEL
 
 @Client.on_message(filters.command('clone') & filters.private)
-async def clone_menu(client, message):
+async def clone_handler(client, message):
         await message.reply_text("Gᴏ ᴛᴏ @BotFather ᴀɴᴅ ᴄʀᴇᴀᴛᴇ ᴀ ɴᴇᴡ ʙᴏᴛ.\n\nsᴇɴᴅ ᴛʜᴇ ʙᴏᴛ ᴛᴏᴋᴇɴ ᴡɪᴛʜ ᴄᴏᴍᴍᴀɴᴅ /add .(ᴇɢ:- /add 𝟷𝟸𝟹𝟺𝟻𝟼:ᴊʙᴅᴋʜsʜᴅᴠᴄʜᴊʜᴅʙʜs-sʜʙ)")
 
 @Client.on_message(filters.command('add') & filters.private)
-async def clone_menu(client, message):
+async def add_handler(client, message):
         new_message = message.text.split()[1:]
         bot_token = " ".join(new_message) 
         is_token_in = await db.is_bot_token(bot_token)
