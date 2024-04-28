@@ -21,7 +21,7 @@ async def callback_handle(client, query):
                 InlineKeyboardButton("ᴀʙᴏᴜᴛ" , callback_data='about')
             ]]
             reply_markup = InlineKeyboardMarkup(buttons)
-            await query.message.edit_text(f"**__Hello {message.from_user.mention}__**", reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
+            await query.message.edit_text(f"**__Hello {query.from_user.mention}__**", reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
         
     elif query.data == 'help':
         buttons = [[
@@ -63,7 +63,7 @@ async def callback_handle(client, query):
             InlineKeyboardButton('ʜᴏᴍᴇ', callback_data='help')
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
-        await query.message.edit_text(f"ʜᴇʏ {message.from_user.mention}\nᴅᴏɴᴀᴛᴇ ɪғ ʏᴏᴜ ᴄᴀɴ, ᴜᴘɪ ɪᴅ:- <code>zenistu@ibl</code>", reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
+        await query.message.edit_text(f"ʜᴇʏ {query.from_user.mention}\nᴅᴏɴᴀᴛᴇ ɪғ ʏᴏᴜ ᴄᴀɴ, ᴜᴘɪ ɪᴅ:- <code>zenistu@ibl</code>", reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
 
     elif query.data == 'about':
         buttons = buttons = [[
