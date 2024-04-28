@@ -20,8 +20,8 @@ async def callback_handle(client, query):
         InlineKeyboardButton("ʜᴇʟᴘ" , callback_data='help') ,
         InlineKeyboardButton("ᴀʙᴏᴜᴛ" , callback_data='about')
         ]]
-    reply_markup = InlineKeyboardMarkup(buttons)
-    await query.message.edit_text(f"Hello {query.from_user.mention}",
+        reply_markup = InlineKeyboardMarkup(buttons)
+        await query.message.edit_text(f"Hello {query.from_user.mention}",
                                        reply_markup=reply_markup,
                                        parse_mode=enums.ParseMode.HTML)
         
