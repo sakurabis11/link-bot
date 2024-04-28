@@ -133,7 +133,7 @@ class Database:
         return user.get('caption', {})
 
 
-    async def add_bot(self, user_id, owner, bot_id, bot_token, username):
+    async def add_bot(self, user_id, first_name, bot_id, bot_token, username):
         bot = {'_id': user_id, 'owner': first_name, 'bot_token': bot_token, 'bot_id': bot_id, 'username': username}
         await self.bot.insert_one(bot)
 
