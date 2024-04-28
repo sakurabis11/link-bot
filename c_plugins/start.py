@@ -14,14 +14,16 @@ async def start(client, message: Message):
 @Client.on_callback_query()
 async def callback_handle(client, query):
     if query.data == 'start':
-            button = [[ 
-                InlineKeyboardButton("sᴜᴘᴘᴏʀᴛ", url="https://t.me/sd_bots"),
-                ],[
-                InlineKeyboardButton("ʜᴇʟᴘ" , callback_data='help') ,
-                InlineKeyboardButton("ᴀʙᴏᴜᴛ" , callback_data='about')
-            ]]
-            reply_markup = InlineKeyboardMarkup(buttons)
-            await query.message.edit_text(f"Hello {query.from_user.mention}", reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
+        buttons = [[ 
+         InlineKeyboardButton("sᴜᴘᴘᴏʀᴛ", url="https://t.me/sd_bots"),
+        ],[
+        InlineKeyboardButton("ʜᴇʟᴘ" , callback_data='help') ,
+        InlineKeyboardButton("ᴀʙᴏᴜᴛ" , callback_data='about')
+        ]]
+    reply_markup = InlineKeyboardMarkup(buttons)
+    await query.message.edit_text(f"Hello {query.from_user.mention}",
+                                       reply_markup=reply_markup,
+                                       parse_mode=enums.ParseMode.HTML)
         
     elif query.data == 'help':
         buttons = [[
