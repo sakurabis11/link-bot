@@ -108,7 +108,7 @@ async def delete_bot_handler(client, message):
                 name=bot_token ,
                 api_id=API_ID ,
                 api_hash=API_HASH ,
-                bot_token=bot_info.get["bot_token"] ,
+                bot_token=bot_info.get("bot_token"),
                 plugins={"root": "c_plugins"}
             )
             await message.reply_text(f"Bot @{bot_username} successfully deleted from your cloned bot list.")
