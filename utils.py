@@ -2,7 +2,7 @@ import logging
 from pyrogram.errors import InputUserDeactivated, UserNotParticipant, FloodWait, UserIsBlocked, PeerIdInvalid
 import asyncio
 from pyrogram.types import Message, InlineKeyboardButton
-from pyrogram import enums
+from pyrogram import enums, Client
 from typing import Union
 import re
 import os
