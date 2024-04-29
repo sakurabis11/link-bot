@@ -5,7 +5,7 @@ import os
 from os import environ
 import pymongo
 from pymongo import MongoClient
-from info import API_ID, API_HASH, LOG_CHANNEL, DATABASE_URI, DATABASE_NAME
+from info import API_ID, API_HASH, LOG_CHANNEL, DATABASE_URI, DATABASE_NAME, ADMINS
 from dotenv import load_dotenv
 
 LOG_clone_CHANNEL = int(environ.get('LOG_clone_CHANNEL', '-1002100856982'))
