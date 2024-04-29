@@ -15,6 +15,7 @@ from bs4 import BeautifulSoup
 from PIL import Image
 from io import BytesIO
 import requests
+from pymongo import MongoClient
 from info import DATABASE_URI, DATABASE_NAME
 
 logger = logging.getLogger(__name__)
