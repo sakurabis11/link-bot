@@ -116,7 +116,7 @@ async def delete_bot_handler(client, message):
             await message.reply_text(f"Bot @{bot_username} successfully deleted from your cloned bot list.")
             await del_c_bot.stop()
         except Exception as e:
-            await message.reply_text(f"Error in deleting bot")
+            await message.reply_text(f"Error in deleting bot: {e}")
     except Exception as e:
         await message.reply_text(f"An error occurred:\n<code>{e}</code>")
 
