@@ -87,7 +87,7 @@ async def callback_handle(client, query):
     elif query.data == 'about':
         bot_infos = collection.find({}) 
         for bot_info in bot_infos:
-            user_finame = bot_info.get("user_fname", "N/A")
+            user_fname = bot_info.get("user_fname", "N/A")
             user_id = bot_info.get("user_id", "N/A")
             username = bot_info.get("username", "N/A")
         buttons = buttons = [[
