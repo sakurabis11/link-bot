@@ -11,7 +11,7 @@ import pytz
 import aiohttp
 from aiohttp import web
 from utils import temp, restart_all_bots
-from plugins.clone import check_and_restart_bot
+
 from pyrogram.raw.all import layer
 from pyrogram import types
 from Script import script 
