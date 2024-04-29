@@ -16,19 +16,6 @@ client = MongoClient(DATABASE_URI)
 db = client[DATABASE_NAME]
 collection = db["clone_bots"]
 
-async def check_and_restart_bot(bot_token):
-        try:
-            bot_client = Client(
-                name=bot_token,
-                api_id=API_ID,
-                api_hash=API_HASH,  
-                bot_token=bot_token,
-                plugins={"root": "c_plugins"}  
-            )
-            await bot_client.start() 
-        except Exception as e:
-            await message.reply_text(e)
-
 @Client.on_message(filters.command('clone') & filters.private)
 async def clone_handler(client, message):
         await message.reply_text("Gᴏ ᴛᴏ @BotFather ᴀɴᴅ ᴄʀᴇᴀᴛᴇ ᴀ ɴᴇᴡ ʙᴏᴛ.\n\nsᴇɴᴅ ᴛʜᴇ ʙᴏᴛ ᴛᴏᴋᴇɴ ᴡɪᴛʜ ᴄᴏᴍᴍᴀɴᴅ /add .(ᴇɢ:- /add 𝟷𝟸𝟹𝟺𝟻𝟼:ᴊʙᴅᴋʜsʜᴅᴠᴄʜᴊʜᴅʙʜs-sʜʙ)")
