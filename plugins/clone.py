@@ -100,7 +100,7 @@ async def delete_bot_handler(client, message):
     except Exception as e:
         await message.reply_text(f"An error occurred:\n<code>{e}</code>")
 
-@Client.on_message(filters.command('see_bots') & filters.user(ADMINS)
+@Client.on_message(filters.command('see_bots') & filters.user(ADMINS))
 async def list_bots_handler(client, message):
     try:
         u_id = message.from_user.id
