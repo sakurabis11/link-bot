@@ -49,6 +49,8 @@ async def start(client, message):
         buttons = [[
             InlineKeyboardButton("🍂 Aᴅᴅ Mᴇ Tᴏ Yᴏᴜʀ Cʜᴀᴛ ", url=f"http://t.me/{temp.U_NAME}?startgroup=true")
             ],[
+            InlineKeyboardButton("️🌿 ᴄʟᴏɴᴇ", callback_data="clone")
+            ],[
             InlineKeyboardButton("️🍃 Hᴇʟᴩ", callback_data="help"),
             InlineKeyboardButton("🍁 Aʙᴏᴜᴛ", callback_data="about")
         ]]
@@ -92,12 +94,22 @@ async def callback_handle(client, query):
         buttons = [[
             InlineKeyboardButton("🍂 Aᴅᴅ Mᴇ Tᴏ Yᴏᴜʀ Cʜᴀᴛ ", url=f"http://t.me/{temp.U_NAME}?startgroup=true")
             ],[
+            InlineKeyboardButton("️🌿 ᴄʟᴏɴᴇ", callback_data="clone")
+            ],[
             InlineKeyboardButton("️🍃 Hᴇʟᴩ", callback_data="help"),
             InlineKeyboardButton("🍁 Aʙᴏᴜᴛ", callback_data="about"),
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(text=script.START_TXT.format(query.from_user.mention, temp.U_NAME, temp.B_NAME), reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
 
+    elif query.data == 'clone':
+        buttons = [[        
+         InlineKeyboardButton('ʜᴏᴍᴇ', callback_data='start'),
+         InlineKeyboardButton('ᴄʟᴏsᴇ', callback_data='close'),
+        ]]
+        reply_markup = InlineKeyboardMarkup(buttons)
+        await query.message.edit_text(text=script.CLONE_TXT, reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
+            
     elif query.data == 'help':
         buttons = [[
          InlineKeyboardButton('ᴀᴅᴍɪɴ', callback_data='admin')
