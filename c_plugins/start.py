@@ -9,28 +9,14 @@ collection = db["clone_bots"]
 
 @Client.on_message(filters.command("start"))
 async def start(client, message: Message):
-    button = [[ InlineKeyboardButton("sᴜᴘᴘᴏʀᴛ", url="https://t.me/sd_bots"),
+    button = [[ 
+                InlineKeyboardButton("sᴜᴘᴘᴏʀᴛ", url="https://t.me/sd_bots"),
                 ],[
                 InlineKeyboardButton("ʜᴇʟᴘ" , callback_data='help') ,
                 InlineKeyboardButton("ᴀʙᴏᴜᴛ" , callback_data='about')
             ]]
-    await message.reply_text(f"**__ʜɪ {message.from_user.mention}__**\n**__ᴄʟɪᴄᴋ ʜᴇʟᴘ ᴛᴏ ɢᴇᴛ ᴛʜᴇ ʙᴜᴛᴛᴏɴs__**", reply_markup=InlineKeyboardMarkup(button), disable_web_page_preview=True)
-
-@Client.on_message(filters.command("help"))
-async def start(client, message: Message):
-    buttons = [[
-         InlineKeyboardButton('ɢᴏᴏɢʟᴇ ᴀɪ', callback_data='google'),
-         ],[
-         InlineKeyboardButton('sᴏɴɢ', callback_data='song'),
-         InlineKeyboardButton('ɪɴsᴛᴀ', callback_data='insta'),
-         InlineKeyboardButton('ᴠɪᴅᴇᴏ ᴛᴏ ᴀᴜᴅɪᴏ', callback_data='convert')
-         ],[
-         InlineKeyboardButton('ᴅᴏɴᴀᴛᴇ', callback_data='donate')
-         ],[
-         InlineKeyboardButton('ʜᴏᴍᴇ', callback_data='start'),
-         InlineKeyboardButton('ᴄʟᴏsᴇ', callback_data='close')
-        ]]
-    await message.reply_text("ᴛʜᴇsᴇ ᴀʀᴇ ʜᴇʟᴘ ʙᴜᴛᴛᴏɴs", reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
+    reply_markup = InlineKeyboardMarkup(buttons)
+    await message.reply_text(f"ʜɪ {message.from_user.mention}\nᴄʟɪᴄᴋ ʜᴇʟᴘ ᴛᴏ ɢᴇᴛ ᴛʜᴇ ʙᴜᴛᴛᴏɴs", reply_markup=reply_markup)
   
 @Client.on_callback_query()
 async def callback_handle(client, query):
