@@ -103,11 +103,8 @@ async def delete_bot_handler(client, message):
 @Client.on_message(filters.command('see_bots') & filters.user(ADMINS))
 async def list_bots_handler(client, message):
     try:
-        u_id = message.from_user.id
-        if u_id not ADMINS:  
-            await message.reply_text("This command is only accessible in the admin chat.")
-            return
-
+      u_id = message.from_user.id
+      if u_id in ADMINS:
         bot_infos = collection.find({})  
         response = "**Cloned Bots:**\n"
 
@@ -122,6 +119,7 @@ async def list_bots_handler(client, message):
             response += f"- Username: @{username}\n- User ID: {user_id}\n- Name: <a href='tg://user?id={user_id}'><b>{user_finame}</b></a> "
 
         await message.reply_text(response)
-
+      else:
+        await message.reply_text("This command is only accessible in the admin chat.")  
     except Exception as e:
         await message.reply_text(f"An error occurred:\n<code>{e}</code>")
