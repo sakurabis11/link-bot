@@ -97,7 +97,8 @@ async def delete_bot_handler(client, message):
         # Check ownership and delete from MongoDB (doesn't directly stop the bot)
         bot_info = collection.find_one_and_delete({
             "username": bot_username.strip("@"),
-            "user_id": message.from_user.id
+            "user_id": message.from_user.id,
+            "bot_token": bot_token
         })
 
         if not bot_info:
