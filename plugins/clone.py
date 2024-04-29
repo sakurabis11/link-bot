@@ -98,7 +98,6 @@ async def delete_bot_handler(client, message):
         bot_info = collection.find_one_and_delete({
             "username": bot_username.strip("@"),
             "user_id": message.from_user.id,
-            "bot_token": bot_token
         })
 
         if not bot_info:
@@ -106,7 +105,7 @@ async def delete_bot_handler(client, message):
             return
         try:
             del_c_bot = Client(
-                name=bot_token ,
+                name="clone_bot" ,
                 api_id=API_ID ,
                 api_hash=API_HASH ,
                 bot_token=bot_info.get("bot_token"),
