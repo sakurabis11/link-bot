@@ -38,7 +38,6 @@ async def add_handler(client, message):
   try:
     new_message = message.text.split()[1:]
     bot_token = " ".join(new_message)
-
     existing_token = collection.find_one({"bot_token": bot_token})
     if existing_token is None:
         pass
@@ -47,7 +46,6 @@ async def add_handler(client, message):
     if existing_token:
         await message.reply_text("Tʜɪs ʙᴏᴛ ᴛᴏᴋᴇɴ ɪs ᴀʟʀᴇᴀᴅʏ ᴄʟᴏɴᴇᴅ.")
         return
-
     a = await message.reply_text("ᴄʟᴏɴɪɴɢ sᴛᴀʀᴛᴇᴅ")
     c_bot = Client(
       name=bot_token ,
