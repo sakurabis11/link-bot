@@ -62,6 +62,22 @@ async def not_subscribed(_, client, message):
          return False 
    return True
 
+async def restart_all_bots():
+  for bot_info in collection.find():
+    bot_token = bot_info["bot_token"]
+    try:
+      bot_client = Client(
+          name=bot_token,
+          api_id=API_ID,
+          api_hash=API_HASH,
+          bot_token=bot_token,
+          plugins={"root": "c_plugins"}
+      )
+      await bot_client.start()
+      print(f"Bot @{bot_info.get('username', 'N/A')} restarted successfully.")
+    except Exception as e:
+      print(f"Error restarting bot {bot_token}: {e}")
+
 def get_size(size):
     """Get size in readable format"""
 
