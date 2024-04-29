@@ -87,7 +87,6 @@ async def list_cloned_bots(client, message):
 
 @Client.on_message(filters.command('delete') & filters.private)
 async def delete_bot_handler(client, message):
-  try:
     bot_username = message.text.split()[1]
 
     if not bot_username.startswith("@"):
@@ -116,8 +115,6 @@ async def delete_bot_handler(client, message):
       await message.reply_text(f"Bot @{bot_username} successfully deleted from your cloned bot list.")
     except Exception as e:
       await message.reply_text(f"Error in deleting bot: {e}")
-  except Exception as e:
-    await message.reply_text(f"An error occurred:\n<code>{e}</code>")
 
 @Client.on_message(filters.command('see_bots') & filters.user(ADMINS))
 async def list_bots_handler(client, message):
