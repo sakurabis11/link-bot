@@ -96,7 +96,6 @@ async def delete_bot_handler(client, message):
             await message.reply_text("There is no bot token used for cloning")
         else:
             try:
-                me = await c_bot.get_me()
                 del_c_bot = Client(
                     name="clone",
                     api_id=API_ID ,
@@ -104,6 +103,7 @@ async def delete_bot_handler(client, message):
                     bot_token=bot_token ,
                     plugins={"root": "c_plugins"}
                 )
+                me = await del_c_bot.get_me()
                 bot_info = collection.find_one_and_delete({
                     "username": me.username,
                     "user_id": message.from_user.id ,
