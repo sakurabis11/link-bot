@@ -31,7 +31,9 @@ async def callback_handle(client, query):
          ],[
          InlineKeyboardButton('sᴏɴɢ', callback_data='song'),
          InlineKeyboardButton('ɪɴsᴛᴀ', callback_data='insta'),
-         InlineKeyboardButton('ᴅᴏɴᴀᴛᴇ', callback_data='donate'),
+         InlineKeyboardButton('ᴠɪᴅᴇᴏ ᴛᴏ ᴀᴜᴅɪᴏ', callback_data='convert')
+         ],[
+         InlineKeyboardButton('ᴅᴏɴᴀᴛᴇ', callback_data='donate')
          ],[
          InlineKeyboardButton('ʜᴏᴍᴇ', callback_data='start'),
          InlineKeyboardButton('ᴄʟᴏsᴇ', callback_data='close')
