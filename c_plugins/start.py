@@ -9,14 +9,17 @@ collection = db["clone_bots"]
 
 @Client.on_message(filters.command("start"))
 async def start(client, message: Message):
+  try:
     button = [[ 
-                InlineKeyboardButton("sᴜᴘᴘᴏʀᴛ", url="https://t.me/sd_bots"),
+                InlineKeyboardButton("sᴜᴘᴘᴏʀᴛ", url="https://t.me/sd_bots")
                 ],[
                 InlineKeyboardButton("ʜᴇʟᴘ" , callback_data='help') ,
                 InlineKeyboardButton("ᴀʙᴏᴜᴛ" , callback_data='about')
             ]]
     reply_markup = InlineKeyboardMarkup(buttons)
-    await message.reply_text(f"ʜɪ {message.from_user.mention}\nᴄʟɪᴄᴋ ʜᴇʟᴘ ᴛᴏ ɢᴇᴛ ᴛʜᴇ ʙᴜᴛᴛᴏɴs", reply_markup=reply_markup)
+    await message.reply_text(f"ʜɪ {message.from_user.mention}\nᴄʟɪᴄᴋ ʜᴇʟᴘ ʙᴜᴛᴛᴏɴs", reply_markup=reply_markup)
+  except Exception as e:
+    await message.reply_text(e)
   
 @Client.on_callback_query()
 async def callback_handle(client, query):
@@ -85,6 +88,7 @@ async def callback_handle(client, query):
         
    
     elif query.data == 'about':
+     try;
         bot_infos = collection.find({}) 
         for bot_info in bot_infos:
             user_fname = bot_info.get("user_fname", "N/A")
@@ -96,6 +100,8 @@ async def callback_handle(client, query):
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(f"✯ ᴏᴡɴᴇʀ: <a href='tg://user?id={user_id}'><b>{user_finame}</b></a>\n✯ Lɪʙʀᴀʀʏ: <a href='https://docs.pyrogram.org/'>Pʏʀᴏɢʀᴀᴍ</a>\n✯ Lᴀɴɢᴜᴀɢᴇ: <a href='https://www.python.org/download/releases/3.0/'>Pʏᴛʜᴏɴ 3</a>\n\n✯ ᴄʟᴏɴᴇᴅ ʙʏ: @mrtgcoderbot", reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML, disable_web_page_preview=True)
+     except Exception as e:
+        await client.send_message(query.from_user.id, text=e)
     
     elif query.data == 'close':
         await query.message.delete()
