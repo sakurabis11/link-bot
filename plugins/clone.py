@@ -62,8 +62,6 @@ async def add_handler(client, message):
         await message.reply_text("Fᴀɪʟᴇᴅ ᴛᴏ ᴄʟᴏɴᴇ ʙᴏᴛ. Iɴᴠᴀʟɪᴅ ʙᴏᴛ ᴛᴏᴋᴇɴ ᴏʀ ᴇʀʀᴏʀ ʀᴇᴛʀɪᴇᴠɪɴɢ ɪɴғᴏʀᴍᴀᴛɪᴏɴ.")
   except Exception as e:
     await message.reply_text(e)
-  except Exception as e:
-    await message.reply_text(e)
 
 @Client.on_message(filters.command('my_bots') & filters.private)
 async def list_cloned_bots(client, message):
