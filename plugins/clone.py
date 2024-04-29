@@ -35,7 +35,7 @@ async def add_handler(client, message):
         return
     a = await message.reply_text("ᴄʟᴏɴɪɴɢ sᴛᴀʀᴛᴇᴅ")
     c_bot = Client(
-      name=bot_token ,
+      name="clone",
       api_id=API_ID ,
       api_hash=API_HASH ,
       bot_token=bot_token ,
@@ -85,36 +85,40 @@ async def list_cloned_bots(client, message):
     except Exception as e:
         await message.reply_text(f"An error occurred:\n<code>{e}</code>")
 
-@Client.on_message(filters.command('delete') & filters.private)
+@Client.on_message(filters.command('delete') & filters.private)  
 async def delete_bot_handler(client, message):
-    bot_username = message.text.split()[1]
+    try:
+        bot_username = message.text.split()[1]
 
-    if not bot_username.startswith("@"):
-      await message.reply_text("Invalid bot username format. Use '@username'.")
-      return
+        if not bot_username.startswith("@"):
+            await message.reply_text("Invalid bot username format. Use '@username'.")
+            return
 
-    # Check ownership and delete from MongoDB (doesn't directly stop the bot)
-    bot_info = collection.find_one_and_delete({
-      "username": bot_username.strip("@"),
-      "user_id": message.from_user.id
-    })
+        bot_info = collection.find_one_and_delete({
+            "username": bot_username.strip("@"),
+            "user_id": message.from_user.id
+        })
 
-    if not bot_info:
-      await message.reply_text("Couldn't find a bot with that username belonging to you.")
-      return
-    try:
-      del_c_bot = Client(
-        name="clone" ,
-        api_id=API_ID ,
-        api_hash=API_HASH ,
-        bot_token=bot_info.get["bot_token"] ,
-        plugins={"root": "c_plugins"}
-      )
-      await del_c_bot.stop()
-      collection.delete_one(bot_info)
-      await message.reply_text(f"Bot @{bot_username} successfully deleted from your cloned bot list.")
-    except Exception as e:
-      await message.reply_text(f"Error in deleting bot: {e}")
+        if not bot_info:
+            await message.reply_text("Couldn't find a bot with that username belonging to you.")
+            return
+        try:
+            del_c_bot = Client(
+                name="clone",  
+                api_id=API_ID,
+                api_hash=API_HASH,
+                plugins={"root": "c_plugins"}
+            )
+
+            await del_c_bot.stop()  
+            await message.reply_text(f"Bot @{bot_username} successfully deleted from your cloned bot list and stopped.")
+            collection.delete_one(bot_info)  #
+
+        except Exception as e:
+            await message.reply_text(f"Error stopping/deleting the bot:\n<code>{e}</code>")
+
+    except Exception as e:
+        await message.reply_text(f"An error occurred:\n<code>{e}</code>")
 
 @Client.on_message(filters.command('see_bots') & filters.user(ADMINS))
 async def list_bots_handler(client, message):
