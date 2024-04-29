@@ -95,7 +95,7 @@ async def callback_handle(client, query):
             InlineKeyboardButton('ʜᴏᴍᴇ', callback_data='next')
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
-        await query.message.edit_text(f"ʜᴇʏ {query.from_user.mention}\nɪ ᴄᴀɴ ᴄᴏɴᴠᴇʀᴛ ᴠɪᴅᴇᴏ ᴛᴏ ᴀᴜᴅɪᴏ.\nᴊᴜsᴛ sᴇɴᴅ ᴀ ᴠɪᴅᴇᴏ ᴛᴏ ᴛʜᴇ ʙᴏᴛ ᴀɴᴅ sᴇɴᴅ /ᴄᴏɴᴠᴇʀᴛ ᴛᴏ ᴛʜᴇ ᴠɪᴅᴇᴏ.sᴜᴘᴘᴏᴛ ᴏɴʟʏ ᴠɪᴅᴇᴏ", reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
+        await query.message.edit_text(f"ʜᴇʏ {query.from_user.mention}\nɪ ᴄᴀɴ ᴄᴏɴᴠᴇʀᴛ ᴠɪᴅᴇᴏ ᴛᴏ ᴀᴜᴅɪᴏ.\nᴊᴜsᴛ sᴇɴᴅ ᴀ ᴠɪᴅᴇᴏ ᴛᴏ ᴛʜᴇ ʙᴏᴛ ᴀɴᴅ sᴇɴᴅ /convert ᴛᴏ ᴛʜᴇ ᴠɪᴅᴇᴏ.sᴜᴘᴘᴏᴛ ᴏɴʟʏ ᴠɪᴅᴇᴏ", reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
         
    
     elif query.data == 'about':
