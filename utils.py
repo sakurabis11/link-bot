@@ -15,9 +15,14 @@ from bs4 import BeautifulSoup
 from PIL import Image
 from io import BytesIO
 import requests
+from info import DATABASE_URI, DATABASE_NAME
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
+
+client = MongoClient(DATABASE_URI)
+db = client[DATABASE_NAME]
+collection = db["clone_bots"]
 
 BTN_URL_REGEX = re.compile(
     r"(\[([^\[]+?)\]\((buttonurl|buttonalert):(?:/{0,2})(.+?)(:same)?\))"
