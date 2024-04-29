@@ -65,25 +65,25 @@ async def add_handler(client, message):
   except Exception as e:
     await message.reply_text(e)
 
-@Client.on_message(filters.command('mybots') & filters.private)
-async def list_bots_handler(client, message):
+@Client.on_message(filters.command('my_bots') & filters.private)
+async def list_cloned_bots(client, message):
     try:
         user_id = message.from_user.id
-        bot_info_cursor = collection.find({"user_id": user_id})  # Find all bots for the user
+        bot_infos = collection.find({"user_id": user_id})
+        response = "**Your Cloned Bots:**\n"
 
-        if not bot_info_cursor.count_documents():  # Check if any bots found
+        if not bot_infos:
             await message.reply_text("You haven't cloned any bots yet.")
             return
 
-        response = "**Your Cloned Bots:**\n"
-        for bot_info in bot_info_cursor:
+        for bot_info in bot_infos:
             username = bot_info.get("username", "N/A")
-            response += f"- Cloned by: @{username}\n"
+            response += f"- @{username}\n"
 
         await message.reply_text(response)
-    except Exception as e:
-        await message.reply_text("An error occurred while retrieving your bot list.")  # Generic error message
 
+    except Exception as e:
+        await message.reply_text(f"An error occurred:\n<code>{e}</code>")
 
 @Client.on_message(filters.command('delete') & filters.private)
 async def delete_bot_handler(client, message):
