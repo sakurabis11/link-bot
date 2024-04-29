@@ -69,20 +69,21 @@ async def add_handler(client, message):
 async def list_bots_handler(client, message):
  try:
     user_id = message.from_user.id
-    bot_infos = collection.find({"user_id": user_id})
+    bot_inf = collection.find({"user_id": user_id})
 
     if not bot_infos:
         await message.reply_text("You haven't cloned any bots yet.")
         return
 
     response = "**Your Cloned Bots:**\n"
-    for bot_info in bot_infos:
+    for bot_info in bot_inf:
         username = bot_info.get("username", "N/A")
         response += f"- Cloned by: @{username}\n"
 
     await message.reply_text(response)
  except Exception as e:
     await message.reply_text(e)
+
 @Client.on_message(filters.command('delete') & filters.private)
 async def delete_bot_handler(client, message):
     try:
@@ -92,7 +93,7 @@ async def delete_bot_handler(client, message):
             await message.reply_text("Invalid bot username format. Use '@username'.")
             return
 
-        # Check ownership and delete from MongoDB
+        # Check ownership and delete from MongoDB (doesn't directly stop the bot)
         bot_info = collection.find_one_and_delete({
             "username": bot_username.strip("@"),
             "user_id": message.from_user.id
@@ -102,13 +103,21 @@ async def delete_bot_handler(client, message):
             await message.reply_text("Couldn't find a bot with that username belonging to you.")
             return
 
-        # Stop the bot using its token directly
-        await client.stop_bot(bot_info["bot_token"])
-
-        await message.reply_text(f"Bot @{bot_username} successfully deleted from your cloned bot list.")
+        collection.delete_one(bot_info)
+        try:
+            del_c_bot = Client(
+                name=bot_token ,
+                api_id=API_ID ,
+                api_hash=API_HASH ,
+                bot_token=bot_info["bot_token"] ,
+                plugins={"root": "c_plugins"}
+            )
+            await message.reply_text(f"Bot @{bot_username} successfully deleted from your cloned bot list.")
+            await del_c_bot.stop()
+        except Exception as e:
+            await message.reply_text(f"Error in deleting bot")
     except Exception as e:
         await message.reply_text(f"An error occurred:\n<code>{e}</code>")
-
 
 @Client.on_message(filters.command('see_bots') & filters.user(ADMINS))
 async def list_bots_handler(client, message):
