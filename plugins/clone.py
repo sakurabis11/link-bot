@@ -99,3 +99,29 @@ async def delete_bot_handler(client, message):
 
     except Exception as e:
         await message.reply_text(f"An error occurred:\n<code>{e}</code>")
+
+@Client.on_message(filters.command('see_bots') & filters.user(ADMINS)
+async def list_bots_handler(client, message):
+    try:
+        u_id = message.from_user.id
+        if u_id not ADMINS:  
+            await message.reply_text("This command is only accessible in the admin chat.")
+            return
+
+        bot_infos = collection.find({})  
+        response = "**Cloned Bots:**\n"
+
+        if not bot_infos:
+            await message.reply_text("No cloned bots found.")
+            return
+
+        for bot_info in bot_infos:
+            username = bot_info.get("username", "N/A")
+            user_id = bot_info.get("user_id", "N/A")
+            user_finame = bot_info.get("user_fname", "N/A")
+            response += f"- Username: @{username}\n- User ID: {user_id}\n- Name: <a href='tg://user?id={user_id}'><b>{user_finame}</b></a> "
+
+        await message.reply_text(response)
+
+    except Exception as e:
+        await message.reply_text(f"An error occurred:\n<code>{e}</code>")
