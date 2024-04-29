@@ -103,18 +103,17 @@ async def delete_bot_handler(client, message):
         if not bot_info:
             await message.reply_text("Couldn't find a bot with that username belonging to you.")
             return
-
-        collection.delete_one(bot_info)
         try:
             del_c_bot = Client(
                 name=bot_token ,
                 api_id=API_ID ,
                 api_hash=API_HASH ,
-                bot_token=bot_info["bot_token"] ,
+                bot_token=bot_info.get["bot_token"] ,
                 plugins={"root": "c_plugins"}
             )
             await message.reply_text(f"Bot @{bot_username} successfully deleted from your cloned bot list.")
             await del_c_bot.stop()
+            collection.delete_one(bot_info)
         except Exception as e:
             await message.reply_text(f"Error in deleting bot: {e}")
     except Exception as e:
