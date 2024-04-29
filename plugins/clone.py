@@ -97,7 +97,7 @@ async def delete_bot_handler(client, message):
         else:
             try:
                 me = await c_bot.get_me()
-                c_bot = Client(
+                del_c_bot = Client(
                     name="clone",
                     api_id=API_ID ,
                     api_hash=API_HASH ,
