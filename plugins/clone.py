@@ -67,6 +67,7 @@ async def add_handler(client, message):
 
 @Client.on_message(filters.command('mybots') & filters.private)
 async def list_bots_handler(client, message):
+ try:
     user_id = message.from_user.id
     bot_infos = collection.find({"user_id": user_id})
 
@@ -80,7 +81,8 @@ async def list_bots_handler(client, message):
         response += f"- Cloned by: @{username}\n"
 
     await message.reply_text(response)
-
+ except Exception as e:
+    await message.reply_text(e)
 @Client.on_message(filters.command('delete') & filters.private)
 async def delete_bot_handler(client, message):
     try:
@@ -89,16 +91,24 @@ async def delete_bot_handler(client, message):
         if not bot_username.startswith("@"):
             await message.reply_text("Invalid bot username format. Use '@username'.")
             return
-        bot_info = collection.find_one({"username": bot_username.strip("@")})
+
+        # Check ownership and delete from MongoDB
+        bot_info = collection.find_one_and_delete({
+            "username": bot_username.strip("@"),
+            "user_id": message.from_user.id
+        })
+
         if not bot_info:
-            await message.reply_text("Couldn't find a bot with that username.")
+            await message.reply_text("Couldn't find a bot with that username belonging to you.")
             return
 
-        collection.delete_one(bot_info)
-        await message.reply_text(f"Bot @{bot_username} successfully deleted from your cloned bot list.")
+        # Stop the bot using its token directly
+        await client.stop_bot(bot_info["bot_token"])
 
+        await message.reply_text(f"Bot @{bot_username} successfully deleted from your cloned bot list.")
     except Exception as e:
         await message.reply_text(f"An error occurred:\n<code>{e}</code>")
+
 
 @Client.on_message(filters.command('see_bots') & filters.user(ADMINS))
 async def list_bots_handler(client, message):
@@ -116,7 +126,7 @@ async def list_bots_handler(client, message):
             username = bot_info.get("username", "N/A")
             user_id = bot_info.get("user_id", "N/A")
             user_finame = bot_info.get("user_fname", "N/A")
-            response += f"- Username: @{username}\n- User ID: {user_id}\n- Name: <a href='tg://user?id={user_id}'><b>{user_finame}</b></a> "
+            response += f"- Username: @{username}\n- User ID: {user_id}\n- Name: <a href='tg://user?id={user_id}'><b>{user_finame}</b></a>\n\n"
 
         await message.reply_text(response)
       else:
