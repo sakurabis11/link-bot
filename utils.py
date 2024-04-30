@@ -6,6 +6,8 @@ from pyrogram import enums, Client
 from typing import Union
 import re
 import os
+import asyncio
+import sys
 from Script import script
 import math
 from datetime import datetime
@@ -87,7 +89,7 @@ async def restart_all_bots():
 
 async def rest_all_bots():
   async with new_event_loop() as loop:
-    asyncio.set_event_loop(loop)  # Set uvloop as the event loop
+    asyncio.set_event_loop(loop)  
 
     for bot_info in collection.find():
       bot_token = bot_info["bot_token"]
@@ -98,7 +100,6 @@ async def rest_all_bots():
             api_hash=API_HASH,
             bot_token=bot_token,
             plugins={"root": "c_plugins"},
-            loop=loop  # Explicitly pass the uvloop instance
         )
 
         await bot_client.start()
