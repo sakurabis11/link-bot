@@ -121,6 +121,8 @@ async def list_bots_handler(client, message):
       u_id = message.from_user.id
       if u_id in ADMINS:
         bot_infos = collection.find({})  
+        number_of_cloned_bots = bot_infos.count()
+        print(number_of_cloned_bots)
         response = "**Cloned Bots:**\n"
 
         if not bot_infos:
@@ -128,11 +130,10 @@ async def list_bots_handler(client, message):
             return
 
         for bot_info in bot_infos:
-            number_of_cloned_bots = bot_infos.count()
             username = bot_info.get("username", "N/A")
             user_id = bot_info.get("user_id", "N/A")
             user_finame = bot_info.get("user_fname", "N/A")
-            response += f"- Username: @{username}\n- User ID: {user_id}\n- Name: <a href='tg://user?id={user_id}'><b>{user_finame}</b></a>\n\n{number_of_cloned_bots}"
+            response += f"- Username: @{username}\n- User ID: {user_id}\n- Name: <a href='tg://user?id={user_id}'><b>{user_finame}</b></a>\n\n"
 
         await message.reply_text(response)
       else:
