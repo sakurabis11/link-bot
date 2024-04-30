@@ -275,8 +275,8 @@ async def list_chats(bot, message):
 async def get_stats(bot, message):
  try:
     rju = await message.reply('Fetching stats..')
-    total_users = await db.user_collection.count_documents({})
-    total_chats = await db.chat_collection.count_documents({})
+    total_users = db.user_collection.count_documents({})
+    total_chats = db.chat_collection.count_documents({})
     number_of_cloned_bots = await collection.count_documents({})
     size = await db.get_db_size()
     free = 536870912 - size
