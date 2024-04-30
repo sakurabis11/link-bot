@@ -19,16 +19,15 @@ async def link_handler(client, message):
     link = message.matches[0].group(0)
     global headers
     try:
-        m = await message.reply_sticker("CAACAgUAAxkBAAITAmWEcdiJs9U2WtZXtWJlqVaI8diEAAIBAAPBJDExTOWVairA1m8eBA")
         url= link.replace("instagram.com","ddinstagram.com")
         url=url.replace("==","%3D%3D")
         if url.endswith("="):
            dump_file=await message.reply_video(url[:-1],caption="ᴅᴏᴡɴʟᴏᴀᴅᴇᴅ ʙʏ @mrtgcoderbot")
+           
         else:
             dump_file=await message.reply_video(url,caption="ᴅᴏᴡɴʟᴏᴀᴅᴇᴅ ʙʏ @mrtgcoderbot")
         if 'dump_file' in locals():
            await dump_file.forward(DUMP_GROUP)
-        await m.delete()
     except Exception as e:
         try:
             if "/reel/" in url:
@@ -112,8 +111,5 @@ async def link_handler(client, message):
             if 'dump_file' in locals():
                if DUMP_GROUP:
                   await dump_file.copy(DUMP_GROUP)
-            await m.delete()
             if 'downfile' in locals():
                 os.remove(downfile)
-            await message.reply("<a href='https://t.me/mrtgcoderbot'>ᴜsᴇ ɴᴇᴡ ғᴇᴀᴛᴜʀᴇs</a>")
-            await client.send_message(DUMP_GROUP, text=f"#insta ʀᴇǫᴜᴇsᴛ ғʀᴏᴍ {message.from_user.mention}\nǫᴜᴇʀʏ ɪs:- <code>{link}</code>")
