@@ -7,7 +7,7 @@ from pyrogram import enums, filters, Client
 from info import API_ID, API_HASH, BOT_TOKEN, PORT, ADMINS, LOG_CHANNEL, DATABASE_NAME, DATABASE_URI, S_GROUP, S_CHANNEL
 from Script import script
 import time
-from utils import temp
+from utils import temp, get_size
 from pyrogram.errors import FloodWait
 from database.users_db import db
 import re
