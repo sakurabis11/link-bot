@@ -90,7 +90,7 @@ async def restart_all_bots():
       except Exception as e:
         print(f"Error restarting bot {bot_token}: {e}")
     else:
-      print(f"Skipping bot restart: 'bot_token' key missing in document.")
+      pass
 
 
 def get_size(size):
