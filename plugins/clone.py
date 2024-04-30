@@ -3,7 +3,7 @@ from pyrogram import Client, filters, enums
 import requests as re
 import os
 from os import environ
-from utils import await restart_all_bots
+from utils import await rest_all_bots
 import pymongo
 from pymongo import MongoClient
 from info import API_ID, API_HASH, LOG_CHANNEL, DATABASE_URI, DATABASE_NAME, ADMINS
@@ -101,18 +101,9 @@ async def delete_bot_handler(client, message):
     if not bot_info:
       await message.reply_text("Couldn't find a bot with that username belonging to you.")
       return
-
-    del_c_bot = Client(
-      name="clone",
-      api_id=API_ID,
-      api_hash=API_HASH,
-      bot_token=bot_info.get("bot_token", "N/A"),
-      plugins={"root": "c_plugins"}
-    )
-
     try:
       collection.delete_one(bot_info)
-      await restart_all_bots()
+      await rest_all_bots()
       await message.reply_text(f"Bot @{bot_username} successfully deleted from your cloned bot list and stopped.")
     except Exception as e:
       await message.reply_text(f"Error stopping/deleting the bot:\n<code>{e}</code>")
