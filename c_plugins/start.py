@@ -29,7 +29,7 @@ async def start(client, message: Message):
             ]]
         reply_markup = InlineKeyboardMarkup(button)
         await message.reply_text(f"ʜɪ {message.from_user.mention}\nᴄʟɪᴄᴋ ʜᴇʟᴘ ʙᴜᴛᴛᴏɴs", reply_markup=reply_markup)
-  except Exception as e:
+    except Exception as e:
             await message.reply_text(e)
 
 @Client.on_message(filters.command("users"))
