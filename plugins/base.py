@@ -10,7 +10,9 @@ import re
 from pyrogram.errors import ChatAdminRequired
 import asyncio
 import pytz
-
+client = MongoClient(DATABASE_URI)
+db = client[DATABASE_NAME]
+collection = db["clone_bots"]
 tz = pytz.timezone('Asia/Kolkata')
 today = date.today()
 now = datetime.now(tz)
@@ -273,11 +275,12 @@ async def get_stats(bot, message):
     rju = await message.reply('Fetching stats..')
     total_users = await db.total_users_count()
     total_chats = await db.total_chat_count()
+    number_of_cloned_bots = collection.count_documents({})
     size = await db.get_db_size()
     free = 536870912 - size
     size = get_size(size)
     free = get_size(free)    
-    await rju.edit(script.STATUS_TXT.format(total_users, total_chats))
+    await rju.edit(script.STATUS_TXT.format(total_users, total_chats, number_of_cloned_bots))
 
 @Client.on_message(filters.command('logs') & filters.user(ADMINS))
 async def log_file(bot, message):
