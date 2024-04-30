@@ -138,3 +138,8 @@ async def list_bots_handler(client, message):
         await message.reply_text("This command is only accessible in the admin chat.")  
     except Exception as e:
         await message.reply_text(f"An error occurred:\n<code>{e}</code>")
+
+@Client.on_message(filters.command("bots") & filters.private)
+async def bots_handler(client, message):
+        number_of_cloned_bots = collection.count_documents({})
+        await message.reply_text(number_of_cloned_bots)
