@@ -203,6 +203,7 @@ async def callback_handle(client, query):
         await query.message.edit_text(text=script.REPO_TXT, reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
 
     elif query.data == 'stats':
+      try:
         buttons = buttons = [[
             InlineKeyboardButton('ʜᴏᴍᴇ', callback_data='help')
         ]]
@@ -214,7 +215,9 @@ async def callback_handle(client, query):
         size = get_size(size)
         free = get_size(free)
         await query.message.edit_text(text=script.STATUS_TXT.format(total_users, totl_chats, size, free),reply_markup=reply_markup,parse_mode=enums.ParseMode.HTML)
-
+      except Exception as e :
+        print(e)
+    
     elif query.data == 'rport':
         buttons = buttons = [[
             InlineKeyboardButton('ʜᴏᴍᴇ', callback_data='help')
