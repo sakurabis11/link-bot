@@ -99,7 +99,7 @@ async def callback_handle(client, query):
             InlineKeyboardButton('close', callback_data='close')
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
-        await query.message.edit_text(f"{user_fname}\n{user_id}\n✯ Lɪʙʀᴀʀʏ: <a href='https://docs.pyrogram.org/'>Pʏʀᴏɢʀᴀᴍ</a>\n✯ Lᴀɴɢᴜᴀɢᴇ: <a href='https://www.python.org/download/releases/3.0/'>Pʏᴛʜᴏɴ 3</a>\n\n✯ ᴄʟᴏɴᴇᴅ ʙʏ: @mrtgcoderbot", reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML, disable_web_page_preview=True)
+        await query.message.edit_text(f"✯ ᴏᴡɴᴇʀ: <a href='tg://user?id={user_id}'><b>{user_fname}</b></a>\n✯ Lɪʙʀᴀʀʏ: <a href='https://docs.pyrogram.org/'>Pʏʀᴏɢʀᴀᴍ</a>\n✯ Lᴀɴɢᴜᴀɢᴇ: <a href='https://www.python.org/download/releases/3.0/'>Pʏᴛʜᴏɴ 3</a>\n\n✯ ᴄʟᴏɴᴇᴅ ʙʏ: @mrtgcoderbot", reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML, disable_web_page_preview=True)
      except Exception as e:
         print(f"Error processing about query: {e}")
     
