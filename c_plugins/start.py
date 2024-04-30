@@ -88,7 +88,7 @@ async def callback_handle(client, query):
         
    
     elif query.data == 'about':
-     try;
+     try:
         bot_infos = collection.find({}) 
         for bot_info in bot_infos:
             user_fname = bot_info.get("user_fname", "N/A")
@@ -101,7 +101,7 @@ async def callback_handle(client, query):
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(f"✯ ᴏᴡɴᴇʀ: <a href='tg://user?id={user_id}'><b>{user_finame}</b></a>\n✯ Lɪʙʀᴀʀʏ: <a href='https://docs.pyrogram.org/'>Pʏʀᴏɢʀᴀᴍ</a>\n✯ Lᴀɴɢᴜᴀɢᴇ: <a href='https://www.python.org/download/releases/3.0/'>Pʏᴛʜᴏɴ 3</a>\n\n✯ ᴄʟᴏɴᴇᴅ ʙʏ: @mrtgcoderbot", reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML, disable_web_page_preview=True)
      except Exception as e:
-        await client.send_message(query.from_user.id, text=e)
+        print(f"Error processing about query: {e}")
     
     elif query.data == 'close':
         await query.message.delete()
