@@ -9,11 +9,9 @@ from Script import script
 import re
 from pyrogram.errors import ChatAdminRequired
 import asyncio
-from pymongo import MongoClient
+
 import pytz
-client = MongoClient(DATABASE_URI)
-db = client[DATABASE_NAME]
-collection = db["clone_bots"]
+
 tz = pytz.timezone('Asia/Kolkata')
 today = date.today()
 now = datetime.now(tz)
