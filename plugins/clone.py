@@ -121,8 +121,8 @@ async def list_bots_handler(client, message):
       u_id = message.from_user.id
       if u_id in ADMINS:
         bot_infos = collection.find({})  
-        number_of_cloned_bots = bot_infos.count()
-        print(number_of_cloned_bots)
+        count=bot_info.count_documents({})
+        print(count)
         response = "**Cloned Bots:**\n"
 
         if not bot_infos:
