@@ -11,7 +11,7 @@ user = db["clone_add_user"]
 async def start(client, message: Message):
     user_id = message.from_user.id
     first_name = message.from_user.first_name or "Unknown"
-  try:
+    try:
         me = await client.get_me()
         bot_username = me.username
         user_data = collection.find_one({"_id": user_id})
