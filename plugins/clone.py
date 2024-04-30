@@ -134,8 +134,8 @@ async def list_bots_handler(client, message):
             user_id = bot_info.get("user_id", "N/A")
             user_finame = bot_info.get("user_fname", "N/A")
             response += f"- Username: @{username}\n- User ID: {user_id}\n- Name: <a href='tg://user?id={user_id}'><b>{user_finame}</b></a>\n\n"
-
-        await message.reply_text(response)
+         
+        await message.reply_text(f"ᴛᴏᴛᴀʟ ᴄʟᴏɴᴇ ʙᴏᴛs: {number_of_cloned_bots}\n\n{response}")
       else:
         await message.reply_text("This command is only accessible in the admin chat.")  
     except Exception as e:
