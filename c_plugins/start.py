@@ -92,9 +92,8 @@ async def callback_handle(client, query):
         me = await client.get_me()
         bot_username = me.username
         bot_info = collection.find_one({"username": bot_username.strip("@")})
-        for bot_info in bot_infos:
-            user_fname = bot_info.get("user_fname"),
-            user_id = bot_info.get("user_id"),
+        user_fname = bot_info.get("user_fname"),
+        user_id = bot_info.get("user_id"),
         buttons = buttons = [[
             InlineKeyboardButton('Home', callback_data='start'),
             InlineKeyboardButton('close', callback_data='close')
