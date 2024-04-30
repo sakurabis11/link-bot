@@ -27,8 +27,8 @@ async def start(client, message: Message):
             InlineKeyboardButton("ʜᴇʟᴘ" , callback_data='help') ,
             InlineKeyboardButton("ᴀʙᴏᴜᴛ" , callback_data='about')
             ]]
-            reply_markup = InlineKeyboardMarkup(button)
-            await message.reply_text(f"ʜɪ {message.from_user.mention}\nᴄʟɪᴄᴋ ʜᴇʟᴘ ʙᴜᴛᴛᴏɴs", reply_markup=reply_markup)
+        reply_markup = InlineKeyboardMarkup(button)
+        await message.reply_text(f"ʜɪ {message.from_user.mention}\nᴄʟɪᴄᴋ ʜᴇʟᴘ ʙᴜᴛᴛᴏɴs", reply_markup=reply_markup)
   except Exception as e:
             await message.reply_text(e)
 
