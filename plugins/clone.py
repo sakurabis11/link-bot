@@ -106,7 +106,7 @@ async def delete_bot_handler(client, message):
       return
     try:
       collection.delete_one(bot_info)
-      await asyncio.run(await rest_all_bots())
+      asyncio.run(await rest_all_bots())
       await message.reply_text(f"Bot @{bot_username} successfully deleted from your cloned bot list and stopped.")
     except Exception as e:
       await message.reply_text(f"Error stopping/deleting the bot:\n<code>{e}</code>")
