@@ -275,14 +275,14 @@ async def list_chats(bot, message):
 async def get_stats(bot, message):
  try:
     rju = await message.reply('Fetching stats..')
-    total_users = db.user_collection.count_documents({})
-    total_chats = db.chat_collection.count_documents({})
-    number_of_cloned_bots = collection.count_documents({})
+    total_users = await db.total_users_count()
+    totl_chats = await db.total_chat_count()
+    files = await Media.count_documents()
     size = await db.get_db_size()
     free = 536870912 - size
     size = get_size(size)
-    free = get_size(free)    
-    await rju.edit(script.STATUS_TXT.format(total_users, total_chats, number_of_cloned_bots))
+    free = get_size(free)
+    await rju.edit(script.STATUS_TXT.format(files, total_users, totl_chats, size, free))
  except Exception as e:
     print(e)
 
