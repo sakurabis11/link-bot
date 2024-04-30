@@ -33,6 +33,9 @@ async def add_handler(client, message):
     if existing_token:
         await message.reply_text("Tʜɪs ʙᴏᴛ ᴛᴏᴋᴇɴ ɪs ᴀʟʀᴇᴀᴅʏ ᴄʟᴏɴᴇᴅ.")
         return
+    await message.reply_text("Enter the Telegram Channel ID for logging (private only):")
+    log_channel_id = await client.get_messages(message.chat.id, limit=1) 
+    log_channel_id = log_channel_id[0].text
     a = await message.reply_text("ᴄʟᴏɴɪɴɢ sᴛᴀʀᴛᴇᴅ")
     c_bot = Client(
       name="clone",
@@ -53,7 +56,8 @@ async def add_handler(client, message):
         "bot_token": bot_token,
         "user_id": message.from_user.id,
         "user_fname": message.from_user.first_name,
-        "username": mine.username
+        "username": mine.username,
+        "log_channel": log_channel_id
     }
     if bot_info: 
         collection.insert_one(bot_info)
