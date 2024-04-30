@@ -34,8 +34,7 @@ async def add_handler(client, message):
         await message.reply_text("Tʜɪs ʙᴏᴛ ᴛᴏᴋᴇɴ ɪs ᴀʟʀᴇᴀᴅʏ ᴄʟᴏɴᴇᴅ.")
         return
     await message.reply_text("Enter the Telegram Channel ID for logging (private only):")
-    log_channel_id = await client.get_messages(message.from_user.id) 
-    log_channel_id = log_channel_id[0].text
+    log_channel_id = message.text
     a = await message.reply_text("ᴄʟᴏɴɪɴɢ sᴛᴀʀᴛᴇᴅ")
     c_bot = Client(
       name="clone",
