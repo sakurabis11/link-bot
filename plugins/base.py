@@ -273,6 +273,7 @@ async def list_chats(bot, message):
 
 @Client.on_message(filters.command('stats'))
 async def get_stats(bot, message):
+ try:
     rju = await message.reply('Fetching stats..')
     total_users = await db.total_users_count()
     total_chats = await db.total_chat_count()
@@ -282,6 +283,8 @@ async def get_stats(bot, message):
     size = get_size(size)
     free = get_size(free)    
     await rju.edit(script.STATUS_TXT.format(total_users, total_chats, number_of_cloned_bots))
+ except Exception as e:
+    print(e)
 
 @Client.on_message(filters.command('logs') & filters.user(ADMINS))
 async def log_file(bot, message):
