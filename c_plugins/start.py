@@ -94,8 +94,8 @@ async def callback_handle(client, query):
         bot_info = collection.find_one({"username": bot_username.strip("@")})
         user_fname = bot_info.get("user_fname"),
         user_id = bot_info.get("user_id")
-        user = user_id.id
-        print(user)
+        user_id_str = str(user_id)
+        user = user_id_str.replace("(", "").replace(",", "").replace(")","")
         buttons = buttons = [[
             InlineKeyboardButton('Home', callback_data='start'),
             InlineKeyboardButton('close', callback_data='close')
