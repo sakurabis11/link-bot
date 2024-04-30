@@ -6,7 +6,7 @@ import asyncio
 import sys
 import uvloop
 from os import environ
-from utils import await rest_all_bots
+from utils import rest_all_bots
 import pymongo
 from pymongo import MongoClient
 from info import API_ID, API_HASH, LOG_CHANNEL, DATABASE_URI, DATABASE_NAME, ADMINS
