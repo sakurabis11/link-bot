@@ -11,13 +11,9 @@ from utils import temp
 from pyrogram.errors import FloodWait
 from database.users_db import db
 import re
-from pymongo import MongoClient
 import json
 import base64
 import logging
-client = MongoClient(DATABASE_URI)
-db = client[DATABASE_NAME]
-collection = db["clone_bots"]
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.ERROR)
 
@@ -211,10 +207,13 @@ async def callback_handle(client, query):
             InlineKeyboardButton('ʜᴏᴍᴇ', callback_data='help')
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
-        users = await db.total_users_count()
-        chats = await db.total_chat_count()
-        number_of_cloned_bots = collection.count_documents({})
-        await query.message.edit_text(text=script.STATUS_TXT.format(users, chats, number_of_cloned_bots),reply_markup=reply_markup,parse_mode=enums.ParseMode.HTML)
+        total_users = await db.total_users_count()
+        totl_chats = await db.total_chat_count()
+        size = await db.get_db_size()
+        free = 536870912 - size
+        size = get_size(size)
+        free = get_size(free)
+        await query.message.edit_text(text=script.STATUS_TXT.format(total_users, totl_chats, size, free),reply_markup=reply_markup,parse_mode=enums.ParseMode.HTML)
 
     elif query.data == 'rport':
         buttons = buttons = [[
