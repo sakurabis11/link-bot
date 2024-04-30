@@ -5,21 +5,37 @@ from pymongo import MongoClient
 
 client = MongoClient(DATABASE_URI)
 db = client[DATABASE_NAME]
-collection = db["clone_bots"]
+user = db["clone_add_user"]
 
 @Client.on_message(filters.command("start"))
 async def start(client, message: Message):
+    user_id = message.from_user.id
+    first_name = message.from_user.first_name or "Unknown"
   try:
-    button = [[ 
-                InlineKeyboardButton("sᴜᴘᴘᴏʀᴛ", url="https://t.me/sd_bots")
-                ],[
-                InlineKeyboardButton("ʜᴇʟᴘ" , callback_data='help') ,
-                InlineKeyboardButton("ᴀʙᴏᴜᴛ" , callback_data='about')
+        me = await client.get_me()
+        bot_username = me.username
+        user_data = collection.find_one({"_id": user_id})
+        if not user_data:
+            user.insert_one({
+                "_id": user_id,
+                "first_name": first_name,
+                "username": message.from_user.username if message.from_user.username else None,
+            })    
+        button = [[ 
+            InlineKeyboardButton("sᴜᴘᴘᴏʀᴛ", url="https://t.me/sd_bots")
+            ],[
+            InlineKeyboardButton("ʜᴇʟᴘ" , callback_data='help') ,
+            InlineKeyboardButton("ᴀʙᴏᴜᴛ" , callback_data='about')
             ]]
-    reply_markup = InlineKeyboardMarkup(button)
-    await message.reply_text(f"ʜɪ {message.from_user.mention}\nᴄʟɪᴄᴋ ʜᴇʟᴘ ʙᴜᴛᴛᴏɴs", reply_markup=reply_markup)
+            reply_markup = InlineKeyboardMarkup(button)
+            await message.reply_text(f"ʜɪ {message.from_user.mention}\nᴄʟɪᴄᴋ ʜᴇʟᴘ ʙᴜᴛᴛᴏɴs", reply_markup=reply_markup)
   except Exception as e:
-    await message.reply_text(e)
+            await message.reply_text(e)
+
+@Client.on_message(filters.command("users"))
+async def users_count(client, message: Message):
+    user_count = user.count_documents({})
+    await message.reply_text(user_count)
   
 @Client.on_callback_query()
 async def callback_handle(client, query):
