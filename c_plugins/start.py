@@ -1,42 +1,32 @@
 from pyrogram import enums, filters, Client
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery, Message
-from info import DATABASE_URI, DATABASE_NAME
+from datetime import datetime  # Import datetime for timestamps
 from pymongo import MongoClient
+
+# Replace with your actual MongoDB connection details
+DATABASE_URI = "mongodb://localhost:27017/"  # Connection string (replace with yours)
+DATABASE_NAME = "your_database_name"  # Database name (replace with yours)
 
 client = MongoClient(DATABASE_URI)
 db = client[DATABASE_NAME]
-collection = db["clone_bots"]
+collection = db["clone_bots"]  
 
 @Client.on_message(filters.command("start"))
 async def start(client, message: Message):
+  try:
     user_id = message.from_user.id
     first_name = message.from_user.first_name or "Unknown"
-    try:
-        me = await client.get_me()
-        bot_username = me.username
-        user_data = collection.find_one({"_id": user_id})
-        if not user_data:
-            collection.insert_one({
-                "_id": user_id,
-                "first_name": first_name,
-                "username": message.from_user.username if message.from_user.username else None,
-            })    
-        button = [[ 
-            InlineKeyboardButton("sᴜᴘᴘᴏʀᴛ", url="https://t.me/sd_bots")
-            ],[
-            InlineKeyboardButton("ʜᴇʟᴘ" , callback_data='help') ,
-            InlineKeyboardButton("ᴀʙᴏᴜᴛ" , callback_data='about')
-            ]]
-        reply_markup = InlineKeyboardMarkup(button)
-        await message.reply_text(f"ʜɪ {message.from_user.mention}\nᴄʟɪᴄᴋ ʜᴇʟᴘ ʙᴜᴛᴛᴏɴs", reply_markup=reply_markup)
-    except Exception as e:
-            await message.reply_text(e)
+    button = [[
+        InlineKeyboardButton("sᴜᴘᴘᴏʀᴛ", url="https://t.me/sd_bots"),
+    ], [
+        InlineKeyboardButton("ʜᴇʟᴘ", callback_data="help"),
+        InlineKeyboardButton("ᴀʙᴏᴜᴛ", callback_data="about"),
+    ]]
+    reply_markup = InlineKeyboardMarkup(button)
+    await message.reply_text(f"ʜɪ {message.from_user.mention}\nᴄʟɪᴄᴋ ʜᴇʟᴘ ʙᴜᴛṭᴏɴs", reply_markup=reply_markup)
+  except Exception as e:
+    print(e)
 
-@Client.on_message(filters.command("users"))
-async def users_count(client, message: Message):
-    user_count = collection.count_documents({})
-    await message.reply_text(user_count)
-  
 @Client.on_callback_query()
 async def callback_handle(client, query):
     if query.data == 'start':
