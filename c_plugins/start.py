@@ -5,7 +5,7 @@ from pymongo import MongoClient
 
 client = MongoClient(DATABASE_URI)
 db = client[DATABASE_NAME]
-user = db["clone_add_user"]
+collection = db["clone_bots"]
 
 @Client.on_message(filters.command("start"))
 async def start(client, message: Message):
@@ -16,7 +16,7 @@ async def start(client, message: Message):
         bot_username = me.username
         user_data = collection.find_one({"_id": user_id})
         if not user_data:
-            user.insert_one({
+            collection.insert_one({
                 "_id": user_id,
                 "first_name": first_name,
                 "username": message.from_user.username if message.from_user.username else None,
@@ -34,7 +34,7 @@ async def start(client, message: Message):
 
 @Client.on_message(filters.command("users"))
 async def users_count(client, message: Message):
-    user_count = user.count_documents({})
+    user_count = collection.count_documents({})
     await message.reply_text(user_count)
   
 @Client.on_callback_query()
