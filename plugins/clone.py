@@ -100,8 +100,7 @@ async def delete_bot_handler(client, message):
         if not bot_info:
             await message.reply_text("Couldn't find a bot with that username belonging to you.")
             return
-
-            bot_infos = collection.find({"user_id": user_id})    
+   
             del_c_bot = Client(
                 name="clone",  
                 api_id=API_ID,
