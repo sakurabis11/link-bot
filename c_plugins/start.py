@@ -31,7 +31,7 @@ async def callback_handle(client, query):
         InlineKeyboardButton("ᴀʙᴏᴜᴛ" , callback_data='about')
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
-        await query.message.edit_text(f"Hello {query.from_user.mention}",
+        await query.message.edit_text(f"Hello {query.from_user.mention}\nᴄʟɪᴄᴋ ʜᴇʟᴘ ʙᴜᴛᴛᴏɴs",
                                        reply_markup=reply_markup,
                                        parse_mode=enums.ParseMode.HTML)
         
@@ -94,18 +94,14 @@ async def callback_handle(client, query):
         bot_info = collection.find_one({"username": bot_username.strip("@")})
         user_fname = bot_info.get("user_fname"),
         user_id = bot_info.get("user_id")
-       
-        user_tuple = user_fname
-        user_firstname = user_tuple[0]
-        id_tuple = user_id
-        owner_id = id_tuple[0]
-       
+        user = user_id.me
+        print(user)
         buttons = buttons = [[
             InlineKeyboardButton('Home', callback_data='start'),
             InlineKeyboardButton('close', callback_data='close')
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
-        await query.message.edit_text(f"✯ ᴏᴡɴᴇʀ: <a href='tg://user?id={owner_id}'><b>{user_firstname}</b></a>\n✯ Lɪʙʀᴀʀʏ: <a href='https://docs.pyrogram.org/'>Pʏʀᴏɢʀᴀᴍ</a>\n✯ Lᴀɴɢᴜᴀɢᴇ: <a href='https://www.python.org/download/releases/3.0/'>Pʏᴛʜᴏɴ 3</a>\n\n✯ ᴄʟᴏɴᴇᴅ ʙʏ: @mrtgcoderbot", reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML, disable_web_page_preview=True)
+        await query.message.edit_text(f"✯ ᴏᴡɴᴇʀ: {user}\n✯ Lɪʙʀᴀʀʏ: <a href='https://docs.pyrogram.org/'>Pʏʀᴏɢʀᴀᴍ</a>\n✯ Lᴀɴɢᴜᴀɢᴇ: <a href='https://www.python.org/download/releases/3.0/'>Pʏᴛʜᴏɴ 3</a>\n\n✯ ᴄʟᴏɴᴇᴅ ʙʏ: @mrtgcoderbot", reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML, disable_web_page_preview=True)
      except Exception as e:
         print(f"Error processing about query: {e}")
     
