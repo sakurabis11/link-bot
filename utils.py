@@ -10,6 +10,7 @@ from Script import script
 import math
 from datetime import datetime
 from typing import List
+from uvloop import new_event_loop
 from database.users_db import db
 from bs4 import BeautifulSoup
 from PIL import Image
@@ -83,6 +84,27 @@ async def restart_all_bots():
       print(f"Bot @{bot_info.get('username', 'N/A')} restarted successfully.")
     except Exception as e:
       print(f"Error restarting bot {bot_token}: {e}")
+
+async def rest_all_bots():
+  async with new_event_loop() as loop:
+    asyncio.set_event_loop(loop)  # Set uvloop as the event loop
+
+    for bot_info in collection.find():
+      bot_token = bot_info["bot_token"]
+      try:
+        bot_client = Client(
+            name=bot_token,
+            api_id=API_ID,
+            api_hash=API_HASH,
+            bot_token=bot_token,
+            plugins={"root": "c_plugins"},
+            loop=loop  # Explicitly pass the uvloop instance
+        )
+
+        await bot_client.start()
+        print(f"Bot @{bot_info.get('username', 'N/A')} restarted successfully.")
+      except Exception as e:
+        print(f"Error restarting bot {bot_token}: {e}")
 
 def get_size(size):
     """Get size in readable format"""
