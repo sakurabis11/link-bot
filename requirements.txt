@@ -5,6 +5,7 @@ aiohttp==3.8.3
 requests
 bs4==0.0.1
 beautifulsoup4
+uvloop
 telegraph==2.2.0
 pymongo==4.4.1
 dnspython==2.3.0
