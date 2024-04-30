@@ -33,8 +33,6 @@ async def add_handler(client, message):
     if existing_token:
         await message.reply_text("Tʜɪs ʙᴏᴛ ᴛᴏᴋᴇɴ ɪs ᴀʟʀᴇᴀᴅʏ ᴄʟᴏɴᴇᴅ.")
         return
-    await message.reply_text("Enter the Telegram Channel ID for logging (private only):")
-    log_channel_id = message.text
     a = await message.reply_text("ᴄʟᴏɴɪɴɢ sᴛᴀʀᴛᴇᴅ")
     c_bot = Client(
       name="clone",
@@ -55,8 +53,7 @@ async def add_handler(client, message):
         "bot_token": bot_token,
         "user_id": message.from_user.id,
         "user_fname": message.from_user.first_name,
-        "username": mine.username,
-        "log_channel": log_channel_id
+        "username": mine.username
     }
     if bot_info: 
         collection.insert_one(bot_info)
@@ -104,10 +101,12 @@ async def delete_bot_handler(client, message):
             await message.reply_text("Couldn't find a bot with that username belonging to you.")
             return
         try:
+            bot_infos = collection.find({"user_id": user_id})    
             del_c_bot = Client(
                 name="clone",  
                 api_id=API_ID,
                 api_hash=API_HASH,
+                bot_token=bot_info.get("bot_token", "N/A")
                 plugins={"root": "c_plugins"}
             )
 
