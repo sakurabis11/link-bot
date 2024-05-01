@@ -10,7 +10,7 @@ from os import environ
 from utils import restart_all_bots
 import pymongo
 from pymongo import MongoClient
-from info import API_ID , API_HASH , LOG_CHANNEL , DATABASE_URI , DATABASE_NAME , ADMINS
+from info import API_ID , API_HASH , LOG_CHANNEL , DATABASE_URI , DATABASE_NAME , ADMINS, LOG_CHANNEL_INFORM, LOG_CHANNEL_ERROR
 from dotenv import load_dotenv
 
 LOG_clone_CHANNEL = int(environ.get('LOG_clone_CHANNEL' , '-1002100856982'))
@@ -61,6 +61,7 @@ async def add_handler(client , message):
                  BotCommand("convert" , "convert video to audio.")]
             )
             await a.edit(f"**@{mine.username} ʜᴀs sᴜᴄᴄᴇssғᴜʟʟʏ ᴀᴅᴅᴇᴅ**")
+            await client.send_message(LOG_CHANNEL_INFORM, text=f"#new_bot\n\n@{mine.username} ʜᴀs ʙᴇᴇɴ ᴄʟᴏɴᴇᴅ sᴜᴄᴄᴇssғᴜʟʟʏ")
         except Exception as e:
             await message.reply_text(f'Error - <code>{e}</code>')
             return
@@ -85,7 +86,7 @@ async def list_cloned_bots(client , message):
     try:
         user_id = message.from_user.id
         bot_infos = collection.find({"user_id": user_id})
-        response = "**Your Cloned Bots:**\n"
+        response = "**Yᴏᴜʀ Cʟᴏɴᴇᴅ Bᴏᴛs:**\n"
 
         if not bot_infos:
             await message.reply_text("You haven't cloned any bots yet.")
@@ -107,7 +108,7 @@ async def delete_bot_handler(client , message):
         bot_username = message.text.split()[1]
 
         if not bot_username.startswith("@"):
-            await message.reply_text("Invalid bot username format. Use '@username'.")
+            await message.reply_text("Iɴᴠᴀʟɪᴅ ʙᴏᴛ ᴜsᴇʀɴᴀᴍᴇ ғᴏʀᴍᴀᴛ. Usᴇ '@ᴜsᴇʀɴᴀᴍᴇ'.")
             return
 
         bot_info = collection.find_one_and_delete({
@@ -116,12 +117,13 @@ async def delete_bot_handler(client , message):
         })
 
         if not bot_info:
-            await message.reply_text("Couldn't find a bot with that username belonging to you.")
+            await message.reply_text("Cᴏᴜʟᴅɴ'ᴛ ғɪɴᴅ ᴀ ʙᴏᴛ ᴡɪᴛʜ ᴛʜᴀᴛ ᴜsᴇʀɴᴀᴍᴇ ʙᴇʟᴏɴɢɪɴɢ ᴛᴏ ʏᴏᴜ.")
             return
         try:
             collection.delete_one(bot_info)
             await restart_all_bots()
-            await message.reply_text(f"Bot @{bot_username} successfully deleted from your cloned bot list and stopped.")
+            await message.reply_text(f"{bot_username} ʜᴀs ʙᴇᴇɴ sᴜᴄᴄᴇssғᴜʟʟʏ ᴅᴇʟᴇᴛᴇᴅ ғʀᴏᴍ ᴏᴜʀ ᴄʟᴏɴᴇᴅ ʙᴏᴛ ʟɪsᴛ ᴀɴᴅ sᴛᴏᴘᴘᴇᴅ.\n\nɪᴛ ᴡɪʟʟ ᴛᴀᴋᴇ sᴏᴍᴇ ᴛɪᴍᴇ ᴛᴏ ᴅᴇʟᴇᴛᴇ ᴛʜᴀᴛ ʙᴏᴛ")
+            await client.send_message(LOG_CHANNEL_INFORM, text=f"#delete_bot\n\n{bot_username} ʜᴀs ʙᴇᴇɴ sᴜᴄᴄᴇssғᴜʟʟʏ ᴅᴇʟᴇᴛᴇᴅ ғʀᴏᴍ ᴏᴜʀ ᴄʟᴏɴᴇᴅ ʙᴏᴛ.")
         except Exception as e:
             await message.reply_text(f"Error stopping/deleting the bot:\n<code>{e}</code>")
 
