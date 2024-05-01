@@ -1,5 +1,5 @@
 from pyrogram import Client, __version__, filters
-from info import API_ID, API_HASH, BOT_TOKEN, PORT, ADMINS, LOG_CHANNEL, F_SUB
+from info import API_ID, API_HASH, BOT_TOKEN, PORT, ADMINS, LOG_CHANNEL, F_SUB, , LOG_CHANNEL_INFORM, LOG_CHANNEL_ERROR
 import os, math, logging, pytz
 from datetime import date, datetime 
 from pytz import timezone
@@ -49,6 +49,7 @@ class Bot(Client):
         logger.info("Running...")
         print(f"{me.first_name} | @{me.username} started...")
         await restart_all_bots()
+        await self.send_message(chat_id=LOG_CHANNEL_INFORM, text=f"ᴀʟʟ ᴄʟᴏɴᴇᴅ ʙᴏᴛs ᴀʀᴇ ʀᴇsᴛᴀʀᴛᴇᴅ sᴜᴄᴄᴇssғᴜʟʟʏ")
         tz = pytz.timezone('Asia/Kolkata')
         today = date.today()
         now = datetime.now(tz)
