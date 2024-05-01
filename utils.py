@@ -84,7 +84,7 @@ async def restart_all_bots():
                     plugins={"root": "c_plugins"}
                 )
                 await bot_client.start()
-                await c_bot.set_bot_commands(
+                await bot_client.set_bot_commands(
                     [BotCommand("start" , "to check the bot alive or not.") ,
                      BotCommand("help" , "to get the help buttons.") ,
                      BotCommand("about" , "to get the bot details.") ,
