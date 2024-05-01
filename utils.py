@@ -19,7 +19,7 @@ from PIL import Image
 from io import BytesIO
 import requests
 from pymongo import MongoClient
-from info import DATABASE_URI, DATABASE_NAME, API_ID, API_HASH
+from info import DATABASE_URI, DATABASE_NAME, API_ID, API_HASH, LOG_CHANNEL_INFORM, LOG_CHANNEL_ERROR
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
