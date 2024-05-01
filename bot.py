@@ -1,5 +1,5 @@
 from pyrogram import Client, __version__, filters
-from info import API_ID, API_HASH, BOT_TOKEN, PORT, ADMINS, LOG_CHANNEL, F_SUB, , LOG_CHANNEL_INFORM, LOG_CHANNEL_ERROR
+from info import API_ID, API_HASH, BOT_TOKEN, PORT, ADMINS, LOG_CHANNEL, F_SUB, LOG_CHANNEL_INFORM, LOG_CHANNEL_ERROR
 import os, math, logging, pytz
 from datetime import date, datetime 
 from pytz import timezone
