@@ -1,7 +1,7 @@
 import logging
 from pyrogram.errors import InputUserDeactivated, UserNotParticipant, FloodWait, UserIsBlocked, PeerIdInvalid
 import asyncio
-from pyrogram.types import Message, InlineKeyboardButton
+from pyrogram.types import Message, InlineKeyboardButton, BotCommand
 from pyrogram import enums, Client
 from typing import Union
 import re
@@ -72,26 +72,33 @@ async def not_subscribed(_, client, message):
    return True
 
 async def restart_all_bots():
-  for bot_info in collection.find():
-    if 'bot_token' in bot_info:
-      bot_token = bot_info["bot_token"]
-      try:
-        bot_client = Client(
-          name=bot_token,
-          api_id=API_ID,
-          api_hash=API_HASH,
-          bot_token=bot_token,
-          plugins={"root": "c_plugins"}
-        )
-        await bot_client.start()
-        print(f"Bot @{bot_info.get('username', 'N/A')} restarted successfully.")
-      except KeyError as e:
-        print(f"Error: Bot token missing in document: {e}")
-      except Exception as e:
-        print(f"Error restarting bot {bot_token}: {e}")
-    else:
-      pass
-
+    for bot_info in collection.find():
+        if 'bot_token' in bot_info:
+            bot_token = bot_info["bot_token"]
+            try:
+                bot_client = Client(
+                    name=bot_token ,
+                    api_id=API_ID ,
+                    api_hash=API_HASH ,
+                    bot_token=bot_token ,
+                    plugins={"root": "c_plugins"}
+                )
+                await bot_client.start()
+                await c_bot.set_bot_commands(
+                    [BotCommand("start" , "to check the bot alive or not.") ,
+                     BotCommand("help" , "to get the help buttons.") ,
+                     BotCommand("about" , "to get the bot details.") ,
+                     BotCommand("ai" , "ask your doubt to gemini.") ,
+                     BotCommand("song" , "to get the song.") ,
+                     BotCommand("convert" , "convert video to audio.")]
+                )
+                print(f"Bot @{bot_info.get('username' , 'N/A')} restarted successfully.")
+            except KeyError as e:
+                print(f"Error: Bot token missing in document: {e}")
+            except Exception as e:
+                print(f"Error restarting bot {bot_token}: {e}")
+        else:
+            pass
 
 def get_size(size):
     """Get size in readable format"""
