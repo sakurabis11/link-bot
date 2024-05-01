@@ -21,18 +21,29 @@ client = MongoClient(DATABASE_URI)
 db = client[DATABASE_NAME]
 collection = db["clone_bots"]
 
+def is_valid_token(bot_token):
+  if not bot_token:
+    return False
+  return bool(re.match(r"^[\w\-!@#$%^&*()+=.,;:/?]+:[A-Za-z0-9\-_]+$", bot_token))
+
 
 @Client.on_message(filters.command('clone') & filters.private)
 async def clone_handler(client , message):
     await message.reply_text(
         "Gᴏ ᴛᴏ @BotFather ᴀɴᴅ ᴄʀᴇᴀᴛᴇ ᴀ ɴᴇᴡ ʙᴏᴛ.\n\nsᴇɴᴅ ᴛʜᴇ ʙᴏᴛ ᴛᴏᴋᴇɴ ᴡɪᴛʜ ᴄᴏᴍᴍᴀɴᴅ /add .(ᴇɢ:- /add 𝟷𝟸𝟹𝟺𝟻𝟼:ᴊʙᴅᴋʜsʜᴅᴠᴄʜᴊʜᴅʙʜs-sʜʙ)")
 
-
 @Client.on_message(filters.command('add') & filters.private)
 async def add_handler(client , message):
     try:
         new_message = message.text.split()[1:]
         bot_token = " ".join(new_message)
+        if not bot_token:
+            await message.reply_text("Please provide the bot token")
+            return
+        if not is_valid_token:
+            await message.reply_text("something went wrong")
+            return
+            
         existing_token = collection.find_one({"bot_token": bot_token})
         if existing_token is None:
             pass
