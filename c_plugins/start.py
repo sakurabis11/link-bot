@@ -28,6 +28,44 @@ async def start(client , message: Message):
     except Exception as e:
         print(e)
 
+@Client.on_message(filters.command("help"))
+async def help(client, message: Message):
+    try:
+        buttons = [[
+            InlineKeyboardButton('ɢᴏᴏɢʟᴇ ᴀɪ' , callback_data='google') ,
+        ] , [
+            InlineKeyboardButton('sᴏɴɢ' , callback_data='song') ,
+            InlineKeyboardButton('ɪɴsᴛᴀ' , callback_data='insta') ,
+            InlineKeyboardButton('ᴠɪᴅᴇᴏ ᴛᴏ ᴀᴜᴅɪᴏ' , callback_data='convert')
+        ] , [
+            InlineKeyboardButton('ᴅᴏɴᴀᴛᴇ' , callback_data='donate')
+        ] , [
+            InlineKeyboardButton('ʜᴏᴍᴇ' , callback_data='start') ,
+            InlineKeyboardButton('ᴄʟᴏsᴇ' , callback_data='close')
+        ]]
+        reply_markup = InlineKeyboardMarkup(buttons)
+        await query.message.edit_text("ᴛʜᴇsᴇ ᴀʀᴇ ʜᴇʟᴘ ʙᴜᴛᴛᴏɴs" , reply_markup=reply_markup ,
+                                      parse_mode=enums.ParseMode.HTML) 
+    except Exception as e:
+        print(e)
+
+@Client.on_message(filters.command("about"))
+async def about(client, message: Message):
+        try:
+                me = await client.get_me()
+                bot_username = me.username
+                bot_info = collection.find_one({"username": bot_username.strip("@")})
+                buttons = [[
+                    InlineKeyboardButton('Home' , callback_data='start') ,
+                    InlineKeyboardButton('close' , callback_data='close')
+                ]]
+                reply_markup = InlineKeyboardMarkup(buttons)
+                await query.message.edit_text(
+                    f"✯ᴍʏ ɴᴀᴍᴇ: {me.first_name}\n\n✯ Lɪʙʀᴀʀʏ: <a href='https://docs.pyrogram.org/'>Pʏʀᴏɢʀᴀᴍ</a>\n✯ Lᴀɴɢᴜᴀɢᴇ: <a href='https://www.python.org/download/releases/3.0/'>Pʏᴛʜᴏɴ 3</a>\n\n✯ ᴄʟᴏɴᴇᴅ ғʀᴏᴍ: @mrtgcoderbot" ,
+                    reply_markup=reply_markup , parse_mode=enums.ParseMode.HTML , disable_web_page_preview=True)
+
+        except Exception as e:
+            print(f"Error processing about query: {e}")    
 
 @Client.on_callback_query()
 async def callback_handle(client , query):
