@@ -24,8 +24,8 @@ ADMIN_CHANNEL_ID = int(os.environ.get("ADMIN_CHANNEL_ID", "-1002001268584"))
 EVAL_ID = int(os.environ.get("EVAL_ID", "-1002002636126"))
 
 # clone bots
-LOG_CHANNEL_INFORM = int(os.environ.get("LOG_CHANNEL_INFORM", ""))
-LOG_CHANNEL_ERROR = int(os.environ.get("LOG_CHANNEL_ERROR", ""))
+LOG_CHANNEL_INFORM = int(os.environ.get("LOG_CHANNEL_INFORM", "-1002115881406"))
+LOG_CHANNEL_ERROR = int(os.environ.get("LOG_CHANNEL_ERROR", "-1002108014422"))
 
 # important information for your bot
 S_GROUP = environ.get('S_GROUP', "https://t.me/sdbots_support")
