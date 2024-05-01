@@ -121,7 +121,6 @@ async def delete_bot_handler(client, message):
             return
         try:
             collection.delete_one(bot_info)
-            await restart_all_bots()
             await message.reply_text(f"{bot_username} ʜᴀs ʙᴇᴇɴ sᴜᴄᴄᴇssғᴜʟʟʏ ᴅᴇʟᴇᴛᴇᴅ ғʀᴏᴍ ᴏᴜʀ ᴄʟᴏɴᴇᴅ ʙᴏᴛ ʟɪsᴛ ᴀɴᴅ sᴛᴏᴘᴘᴇᴅ.\n\nɪᴛ ᴡɪʟʟ ᴛᴀᴋᴇ sᴏᴍᴇ ᴛɪᴍᴇ ᴛᴏ ᴅᴇʟᴇᴛᴇ ᴛʜᴀᴛ ʙᴏᴛ")
             await client.send_message(LOG_CHANNEL_INFORM, text=f"#delete_bot\n\n{bot_username} ʜᴀs ʙᴇᴇɴ sᴜᴄᴄᴇssғᴜʟʟʏ ᴅᴇʟᴇᴛᴇᴅ ғʀᴏᴍ ᴏᴜʀ ᴄʟᴏɴᴇᴅ ʙᴏᴛ.")
         except Exception as e:
