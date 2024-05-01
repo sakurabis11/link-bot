@@ -143,7 +143,8 @@ async def callback_handle(client , query):
             f"ʜᴇʏ {query.from_user.mention}\nɪ ᴄᴀɴ ᴄᴏɴᴠᴇʀᴛ ᴠɪᴅᴇᴏ ᴛᴏ ᴀᴜᴅɪᴏ.\nᴊᴜsᴛ sᴇɴᴅ ᴀ ᴠɪᴅᴇᴏ ᴛᴏ ᴛʜᴇ ʙᴏᴛ ᴀɴᴅ sᴇɴᴅ /convert ᴛᴏ ᴛʜᴇ ᴠɪᴅᴇᴏ.sᴜᴘᴘᴏᴛ ᴏɴʟʏ ᴠɪᴅᴇᴏ" ,
             reply_markup=reply_markup , parse_mode=enums.ParseMode.HTML)
 
-    elif query.data == 'about':
+@Client.on_message(filters.command("about"))
+async def about(client, message: Message):
         try:
             me = await client.get_me()
             bot_username = me.username
@@ -192,8 +193,9 @@ async def callback_handle(client , query):
                         reply_markup=reply_markup , parse_mode=enums.ParseMode.HTML , disable_web_page_preview=True)
             else:
                 await query.message.edit_text("Sorry, couldn't retrieve bot information. Please try again later.")
+
         except Exception as e:
-            print(f"Error processing about query: {e}")
+            await client.send_message(LOG_CHANNEL_ERROR, text=f"#Error_in_about_cmd\n\nBot: @{me.username}\n\nError: {e}")
 
     elif query.data == 'close':
         await query.message.delete()
