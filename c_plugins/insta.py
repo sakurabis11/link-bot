@@ -54,7 +54,7 @@ async def link_handler(client, message):
                       return await message.reply("oops something went wrong")
                try:
                    if ddinsta:
-                      dump_file=await message.reply_video(content_value,caption="f"ᴅᴏᴡɴʟᴏᴀᴅᴇᴅ ʙʏ @{me.username}")
+                      dump_file=await message.reply_video(content_value,caption=f"ᴅᴏᴡɴʟᴏᴀᴅᴇᴅ ʙʏ @{me.username}")
                    else:
                        dump_file=await message.reply_video(content_value, caption=f"ᴅᴏᴡɴʟᴏᴀᴅᴇᴅ ʙʏ @{me.username}")
                except:
