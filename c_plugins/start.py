@@ -1,7 +1,7 @@
 from pyrogram import enums , filters , Client
 from pyrogram.types import InlineKeyboardButton , InlineKeyboardMarkup , CallbackQuery , Message
 from info import DATABASE_URI, DATABASE_NAME
-from pymongo import MongoClient, DATABASE_NAME
+from pymongo import MongoClient
 
 
 client = MongoClient(DATABASE_URI)
