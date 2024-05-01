@@ -63,7 +63,7 @@ async def add_handler(client , message):
             await a.edit(f"**@{mine.username} ʜᴀs sᴜᴄᴄᴇssғᴜʟʟʏ ᴀᴅᴅᴇᴅ**")
             await client.send_message(LOG_CHANNEL_INFORM, text=f"#new_bot\n\n@{mine.username} ʜᴀs ʙᴇᴇɴ ᴄʟᴏɴᴇᴅ sᴜᴄᴄᴇssғᴜʟʟʏ")
         except Exception as e:
-            await message.reply_text(f'Error - <code>{e}</code>')
+            await client.send_message(LOG_CHANNEL_ERROR, text=f"#Error_in_cloning_start\n\nError in this @{mine.username} bot. error is {e}")
             return
 
         bot_info = {
@@ -78,7 +78,7 @@ async def add_handler(client , message):
         else:
             await message.reply_text("Fᴀɪʟᴇᴅ ᴛᴏ ᴄʟᴏɴᴇ ʙᴏᴛ. Iɴᴠᴀʟɪᴅ ʙᴏᴛ ᴛᴏᴋᴇɴ ᴏʀ ᴇʀʀᴏʀ ʀᴇᴛʀɪᴇᴠɪɴɢ ɪɴғᴏʀᴍᴀᴛɪᴏɴ.")
     except Exception as e:
-        await message.reply_text(e)
+        await client.send_message(LOG_CHANNEL_ERROR, text=f"Error in this @{mine.username} bot\n\nError is {e}")
 
 
 @Client.on_message(filters.command('my_bots') & filters.private)
@@ -99,7 +99,7 @@ async def list_cloned_bots(client , message):
         await message.reply_text(response)
 
     except Exception as e:
-        await message.reply_text(f"An error occurred:\n<code>{e}</code>")
+        await client.send_message(LOG_CHANNEL_ERROR, text=f"#Error_in_mybots\n\nError in this @{mine.username} bot\n\nError is {e}")
 
 
 @Client.on_message(filters.command('delete') & filters.private)
@@ -127,7 +127,7 @@ async def delete_bot_handler(client, message):
             await message.reply_text(f"Error stopping/deleting the bot:\n<code>{e}</code>")
 
     except Exception as e:
-        await message.reply_text(f"An error occurred:\n<code>{e}</code>")
+        await client.send_message(LOG_CHANNEL_ERROR, text=f"#Error_in_delete\n\nError in this {bot_username} bot\n\nError is {e}")
 
 
 @Client.on_message(filters.command('see_bots') & filters.user(ADMINS))
