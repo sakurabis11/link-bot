@@ -51,21 +51,53 @@ async def help(client, message: Message):
 @Client.on_message(filters.command("about"))
 async def about(client, message: Message):
         try:
-                me = await client.get_me()
-                bot_username = me.username
-                bot_info = collection.find_one({"username": bot_username.strip("@")})
-                buttons = [[
-                    InlineKeyboardButton("ᴄʟᴏɴᴇ ʟᴏɢ ᴄʜᴀɴɴᴇʟ" , url="https://t.me/+nAFYw7r7C8xiMzU1"),
-                    InlineKeyboardButton("ᴇʀʀᴏʀs ғʀᴏᴍ ᴄʟᴏɴᴇ ʙᴏᴛ" , url="https://t.me/+cKp_xa58vxZhNWE1")
-                    ],[
-                    InlineKeyboardButton('Home' , callback_data='start') ,
-                    InlineKeyboardButton('close' , callback_data='close')
-                ]]
-                reply_markup = InlineKeyboardMarkup(buttons)
-                await message.reply_text(
-                    f"✯ᴍʏ ɴᴀᴍᴇ: {me.first_name}\n\n✯ Lɪʙʀᴀʀʏ: <a href='https://docs.pyrogram.org/'>Pʏʀᴏɢʀᴀᴍ</a>\n✯ Lᴀɴɢᴜᴀɢᴇ: <a href='https://www.python.org/download/releases/3.0/'>Pʏᴛʜᴏɴ 3</a>\n\n✯ ᴄʟᴏɴᴇᴅ ғʀᴏᴍ: @mrtgcoderbot" ,
-                    reply_markup=reply_markup , parse_mode=enums.ParseMode.HTML , disable_web_page_preview=True)
+            me = await client.get_me()
+            bot_username = me.username
 
+            bot_info = collection.find_one({"username": bot_username.strip("@")})
+            if bot_info:
+                user_fname = bot_info.get("user_fname")
+                user_id = bot_info.get("user_id")
+                user_f_name = user_fname[0]
+                user_id_str = str(user_id)
+                user = user_id_str.replace("(" , "").replace("," , "").replace(")" , "")
+                u_bot = bot_username.strip("@")
+                try:
+                    buttons = [[
+                        InlineKeyboardButton('owner' , user_id=int(user)) ,
+                        ],[
+                        InlineKeyboardButton("ᴄʟᴏɴᴇ ʟᴏɢ ᴄʜᴀɴɴᴇʟ" , url="https://t.me/+nAFYw7r7C8xiMzU1"),
+                        InlineKeyboardButton("ᴇʀʀᴏʀs ғʀᴏᴍ ᴄʟᴏɴᴇ ʙᴏᴛ" , url="https://t.me/+cKp_xa58vxZhNWE1")
+                        ],[
+                        InlineKeyboardButton('Home' , callback_data='start') ,
+                        InlineKeyboardButton('close' , callback_data='close')
+                    ]]
+                    reply_markup = InlineKeyboardMarkup(buttons)
+                    await message.reply_text(
+                        f"✯ᴍʏ ɴᴀᴍᴇ: <a href='https://t.me/{u_bot}'>{me.first_name}</a>\n\n"
+                        f"✯ ᴏᴡɴᴇʀ: <a href='tg://user?id={user}'><b>{user_f_name}</b></a>\n"
+                        f"✯ Lɪʙʀᴀʀʏ: <a href='https://docs.pyrogram.org/'>Pʏʀᴏɢʀᴀᴍ</a>\n"
+                        f"✯ Lᴀɴɢᴜᴀɢᴇ: <a href='https://www.python.org/download/releases/3.0/'>Pʏᴛʜᴏɴ 3</a>\n\n"
+                        f"✯ ᴄʟᴏɴᴇᴅ ғʀᴏᴍ: @mrtgcoderbot" ,
+                        reply_markup=reply_markup , parse_mode=enums.ParseMode.HTML , disable_web_page_preview=True)
+                except ButtonUserPrivacyRestricted:
+                    buttons = [[
+                        InlineKeyboardButton("ᴄʟᴏɴᴇ ʟᴏɢ ᴄʜᴀɴɴᴇʟ" , url="https://t.me/+nAFYw7r7C8xiMzU1"),
+                        InlineKeyboardButton("ᴇʀʀᴏʀs ғʀᴏᴍ ᴄʟᴏɴᴇ ʙᴏᴛ" , url="https://t.me/+cKp_xa58vxZhNWE1")
+                        ],[
+                        InlineKeyboardButton('Home' , callback_data='start') ,
+                        InlineKeyboardButton('close' , callback_data='close')
+                    ]]
+                    reply_markup = InlineKeyboardMarkup(buttons)
+                    await message.reply_text(
+                        f"✯ᴍʏ ɴᴀᴍᴇ: <a href='https://t.me/{u_bot}'>{me.first_name}</a>\n\n"
+                        f"✯ ᴏᴡɴᴇʀ: <a href='tg://user?id={user}'><b>{user_f_name}</b></a>\n"
+                        f"✯ Lɪʙʀᴀʀʏ: <a href='https://docs.pyrogram.org/'>Pʏʀᴏɢʀᴀᴍ</a>\n"
+                        f"✯ Lᴀɴɢᴜᴀɢᴇ: <a href='https://www.python.org/download/releases/3.0/'>Pʏᴛʜᴏɴ 3</a>\n\n"
+                        f"✯ ᴄʟᴏɴᴇᴅ ғʀᴏᴍ: @mrtgcoderbot" ,
+                        reply_markup=reply_markup , parse_mode=enums.ParseMode.HTML , disable_web_page_preview=True)
+            else:
+                await message.reply_text("Sorry, couldn't retrieve bot information. Please try again later.")
         except Exception as e:
             await client.send_message(LOG_CHANNEL_ERROR, text=f"#Error_in_about_cmd\n\nBot: @{me.username}\n\nError: {e}")    
 
