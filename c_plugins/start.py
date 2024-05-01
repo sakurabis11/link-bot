@@ -175,8 +175,7 @@ async def callback_handle(client , query):
             f"ʜᴇʏ {query.from_user.mention}\nɪ ᴄᴀɴ ᴄᴏɴᴠᴇʀᴛ ᴠɪᴅᴇᴏ ᴛᴏ ᴀᴜᴅɪᴏ.\nᴊᴜsᴛ sᴇɴᴅ ᴀ ᴠɪᴅᴇᴏ ᴛᴏ ᴛʜᴇ ʙᴏᴛ ᴀɴᴅ sᴇɴᴅ /convert ᴛᴏ ᴛʜᴇ ᴠɪᴅᴇᴏ.sᴜᴘᴘᴏᴛ ᴏɴʟʏ ᴠɪᴅᴇᴏ" ,
             reply_markup=reply_markup , parse_mode=enums.ParseMode.HTML)
 
-@Client.on_message(filters.command("about"))
-async def about(client, message: Message):
+    elif query.data == 'about':
         try:
             me = await client.get_me()
             bot_username = me.username
