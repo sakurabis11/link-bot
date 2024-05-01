@@ -16,16 +16,17 @@ headers = {
 }
 @Client.on_message(filters.regex(r'https?://.*instagram[^\s]+') & filters.incoming)
 async def link_handler(client, message):
+    me = await client.get_me()
     link = message.matches[0].group(0)
     global headers
     try:
         url= link.replace("instagram.com","ddinstagram.com")
         url=url.replace("==","%3D%3D")
         if url.endswith("="):
-           dump_file=await message.reply_video(url[:-1],caption="ᴅᴏᴡɴʟᴏᴀᴅᴇᴅ ʙʏ @mrtgcoderbot")
+           dump_file=await message.reply_video(url[:-1],caption=f"ᴅᴏᴡɴʟᴏᴀᴅᴇᴅ ʙʏ @{me.username}")
            
         else:
-            dump_file=await message.reply_video(url,caption="ᴅᴏᴡɴʟᴏᴀᴅᴇᴅ ʙʏ @mrtgcoderbot")
+            dump_file=await message.reply_video(url,caption=f"ᴅᴏᴡɴʟᴏᴀᴅᴇᴅ ʙʏ @{me.username}")
         if 'dump_file' in locals():
            await dump_file.forward(DUMP_GROUP)
     except Exception as e:
@@ -53,15 +54,15 @@ async def link_handler(client, message):
                       return await message.reply("oops something went wrong")
                try:
                    if ddinsta:
-                      dump_file=await message.reply_video(content_value,caption="ᴅᴏᴡɴʟᴏᴀᴅᴇᴅ ʙʏ @mrtgcoderbot")
+                      dump_file=await message.reply_video(content_value,caption="f"ᴅᴏᴡɴʟᴏᴀᴅᴇᴅ ʙʏ @{me.username}")
                    else:
-                       dump_file=await message.reply_video(content_value, caption="ᴅᴏᴡɴʟᴏᴀᴅᴇᴅ ʙʏ @mrtgcoderbot")
+                       dump_file=await message.reply_video(content_value, caption=f"ᴅᴏᴡɴʟᴏᴀᴅᴇᴅ ʙʏ @{me.username}")
                except:
                    downfile=f"{os.getcwd()}/{random.randint(1,10000000)}"
                    with open(downfile,'wb') as x:
                        headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'}
                        x.write(requests.get(content_value,headers=headers).content)
-                   dump_file=await message.reply_video(downfile,caption="ᴅᴏᴡɴʟᴏᴀᴅᴇᴅ ʙʏ @mrtgcoderbot") 
+                   dump_file=await message.reply_video(downfile,caption=f"ᴅᴏᴡɴʟᴏᴀᴅᴇᴅ ʙʏ @{me.username}") 
             elif "/p/" in url:
                   meta_tag = requests.post("https://saveig.app/api/ajaxSearch", data={"q": link, "t": "media", "lang": "en"}, headers=headers)
                   if meta_tag.ok:
@@ -74,7 +75,7 @@ async def link_handler(client, message):
                      com=await message.reply_text(meta[i])
                      await asyncio.sleep(1)
                      try:
-                        dump_file=await message.reply_video(com.text,caption="ᴅᴏᴡɴʟᴏᴀᴅᴇᴅ ʙʏ @mrtgcoderbot")
+                        dump_file=await message.reply_video(com.text,caption=f"ᴅᴏᴡɴʟᴏᴀᴅᴇᴅ ʙʏ @{me.username}")
                         await com.delete()
                      except:
                          pass 
@@ -86,12 +87,12 @@ async def link_handler(client, message):
                   else:
                       return await message.reply("Oops something went wrong")
                   try:
-                     dump_file=await message.reply_video(meta[0], caption="ᴅᴏᴡɴʟᴏᴀᴅᴇᴅ ʙʏ @mrtgcoderbot")
+                     dump_file=await message.reply_video(meta[0], caption=f"ᴅᴏᴡɴʟᴏᴀᴅᴇᴅ ʙʏ @{me.username}")
                   except:
                       com=await message.reply(meta[0])
                       await asyncio.sleep(1)
                       try:
-                          dump_file=await message.reply_video(com.text,caption="ᴅᴏᴡɴʟᴏᴀᴅᴇᴅ ʙʏ @mrtgcoderbot")
+                          dump_file=await message.reply_video(com.text,caption=f"ᴅᴏᴡɴʟᴏᴀᴅᴇᴅ ʙʏ @{me.username}")
                           await com.delete()
                       except:
                           pass
