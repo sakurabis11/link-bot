@@ -103,21 +103,21 @@ async def list_cloned_bots(client , message):
 
 
 @Client.on_message(filters.command('delete') & filters.private)
-async def delete_bot_handler(client , message):
+async def delete_bot_handler(client, message):
     try:
         bot_username = message.text.split()[1]
 
         if not bot_username.startswith("@"):
-            await message.reply_text("Iɴᴠᴀʟɪᴅ ʙᴏᴛ ᴜsᴇʀɴᴀᴍᴇ ғᴏʀᴍᴀᴛ. Usᴇ '@ᴜsᴇʀɴᴀᴍᴇ'.")
+            await message.reply_text("Invalid bot username format. Use '@username'.")
             return
 
         bot_info = collection.find_one_and_delete({
-            "username": bot_username.strip("@") ,
-            "user_id": message.from_user.id
+          "username": bot_username.strip("@") ,
+          "user_id": message.from_user.id
         })
 
         if not bot_info:
-            await message.reply_text("Cᴏᴜʟᴅɴ'ᴛ ғɪɴᴅ ᴀ ʙᴏᴛ ᴡɪᴛʜ ᴛʜᴀᴛ ᴜsᴇʀɴᴀᴍᴇ ʙᴇʟᴏɴɢɪɴɢ ᴛᴏ ʏᴏᴜ.")
+            await message.reply_text("Couldn't find a bot with that username belonging to you.")
             return
         try:
             collection.delete_one(bot_info)
