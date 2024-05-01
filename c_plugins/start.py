@@ -93,25 +93,36 @@ async def callback_handle(client, query):
         await query.message.edit_text(f"ʜᴇʏ {query.from_user.mention}\nɪ ᴄᴀɴ ᴄᴏɴᴠᴇʀᴛ ᴠɪᴅᴇᴏ ᴛᴏ ᴀᴜᴅɪᴏ.\nᴊᴜsᴛ sᴇɴᴅ ᴀ ᴠɪᴅᴇᴏ ᴛᴏ ᴛʜᴇ ʙᴏᴛ ᴀɴᴅ sᴇɴᴅ /convert ᴛᴏ ᴛʜᴇ ᴠɪᴅᴇᴏ.sᴜᴘᴘᴏᴛ ᴏɴʟʏ ᴠɪᴅᴇᴏ", reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
         
    
-    elif query.data == 'about':
-     try:
-        me = await client.get_me()
-        bot_username = me.username
-        bot_info = collection.find_one({"username": bot_username.strip("@")})
-        user_fname = bot_info.get("user_fname"),
-        user_id = bot_info.get("user_id")
-        user_f_name = user_fname[0]
-        user_id_str = str(user_id)
-        user = user_id_str.replace("(", "").replace(",", "").replace(")","")
-        
-        buttons = buttons = [[
-            InlineKeyboardButton('Home', callback_data='start'),
-            InlineKeyboardButton('close', callback_data='close')
-        ]]
-        reply_markup = InlineKeyboardMarkup(buttons)
-        await query.message.edit_text(f"✯ ᴏᴡɴᴇʀ: <a href='tg://user?id={user}'><b>{user_f_name}</b></a>\n✯ Lɪʙʀᴀʀʏ: <a href='https://docs.pyrogram.org/'>Pʏʀᴏɢʀᴀᴍ</a>\n✯ Lᴀɴɢᴜᴀɢᴇ: <a href='https://www.python.org/download/releases/3.0/'>Pʏᴛʜᴏɴ 3</a>\n\n✯ ᴄʟᴏɴᴇᴅ ғʀᴏᴍ: @mrtgcoderbot", reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML, disable_web_page_preview=True)
-     except Exception as e:
-        print(f"Error processing about query: {e}")
+elif query.data == 'about':
+  try:
+    me = await client.get_me()
+    bot_username = me.username
+    bot_info = collection.find_one({"username": bot_username.strip("@")})
+
+    if bot_info:
+      me = client.get_me()
+      user_fname = bot_info.get("user_fname"),
+      user_id = bot_info.get("user_id")
+      user_f_name = user_fname[0]
+      user_id_str = str(user_id)
+      user = user_id_str.replace("(", "").replace(",", "").replace(")", "")
+
+      buttons = [[
+          InlineKeyboardButton('Home', callback_data='start'),
+          InlineKeyboardButton('close', callback_data='close')
+      ]]
+      reply_markup = InlineKeyboardMarkup(buttons)
+      await query.message.edit_text(f"✯ ᴏᴡɴᴇʀ: <a href='tg://user?id={user}'><b>{user_f_name}</b></a>\n✯ Lɪʙʀᴀʀʏ: <a href='https://docs.pyrogram.org/'>Pʏʀᴏɢʀᴀᴍ</a>\n✯ Lᴀɴɢᴜᴀɢᴇ: <a href='https://www.python.org/download/releases/3.0/'>Pʏᴛʜᴏɴ 3</a>\n\n✯ ᴄʟᴏɴᴇᴅ ғʀᴏᴍ: @mrtgcoderbot", reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML, disable_web_page_preview=True)
+    else:
+      buttons = [[
+        InlineKeyboardButton('Home' , callback_data='start') ,
+        InlineKeyboardButton('close' , callback_data='close')
+      ]]
+      reply_markup = InlineKeyboardMarkup(buttons)
+      await query.message.edit_text(f"✯ᴍʏ ɴᴀᴍᴇ: {me.first_name}\n\n✯ Lɪʙʀᴀʀʏ: <a href='https://docs.pyrogram.org/'>Pʏʀᴏɢʀᴀᴍ</a>\n✯ Lᴀɴɢᴜᴀɢᴇ: <a href='https://www.python.org/download/releases/3.0/'>Pʏᴛʜᴏɴ 3</a>\n\n✯ ᴄʟᴏɴᴇᴅ ғʀᴏᴍ: @mrtgcoderbot", reply_markup=InlineKeyboardMarkup([]))
+
+  except Exception as e:
+    print(f"Error processing about query: {e}")
     
     elif query.data == 'close':
         await query.message.delete()
