@@ -1,5 +1,6 @@
 import pyrogram
 from pyrogram import Client , filters , enums
+from pyrogram.types import BotCommand
 import requests as re
 import os
 import asyncio
