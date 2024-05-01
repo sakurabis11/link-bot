@@ -51,7 +51,7 @@ async def add_handler(client , message):
         try:
             await c_bot.start()
             mine = await c_bot.get_me()
-            await clone_bot.set_bot_commands(
+            await c_bot.set_bot_commands(
                 [BotCommand("start" , "to check the bot alive or not.") ,
                  BotCommand("help" , "to get the help buttons.") ,
                  BotCommand("about" , "to get the bot details.") ,
