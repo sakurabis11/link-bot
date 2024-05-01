@@ -1,6 +1,6 @@
 from pyrogram import enums , filters , Client
 from pyrogram.types import InlineKeyboardButton , InlineKeyboardMarkup , CallbackQuery , Message
-from info import DATABASE_URI, DATABASE_NAME
+from info import DATABASE_URI, DATABASE_NAME, LOG_CHANNEL_INFORM, LOG_CHANNEL_ERROR
 from pymongo import MongoClient
 from pyrogram.errors.exceptions.bad_request_400 import ButtonUserPrivacyRestricted
 
@@ -12,6 +12,7 @@ collection = db["clone_bots"]
 @Client.on_message(filters.command("start"))
 async def start(client , message: Message):
     try:
+        me = client.get_me()
         user_id = message.from_user.id
         first_name = message.from_user.first_name or "Unknown"
         button = [[
@@ -23,11 +24,12 @@ async def start(client , message: Message):
         reply_markup = InlineKeyboardMarkup(button)
         await message.reply_text(f"ʜɪ {message.from_user.mention}\nᴄʟɪᴄᴋ ʜᴇʟᴘ ʙᴜᴛṭᴏɴs" , reply_markup=reply_markup)
     except Exception as e:
-        print(e)
+        await client.send_message(LOG_CHANNEL_ERROR, text=f"#Error_in_start_cmd\n\nBot: @{me.username}\n\nError: {e}")
 
 @Client.on_message(filters.command("help"))
 async def help(client, message: Message):
     try:
+        me = client.get_me()
         buttons = [[
             InlineKeyboardButton('ɢᴏᴏɢʟᴇ ᴀɪ' , callback_data='google') ,
         ] , [
@@ -44,7 +46,7 @@ async def help(client, message: Message):
         await message.reply_text("ᴛʜᴇsᴇ ᴀʀᴇ ʜᴇʟᴘ ʙᴜᴛᴛᴏɴs" , reply_markup=reply_markup ,
                                       parse_mode=enums.ParseMode.HTML) 
     except Exception as e:
-        print(e)
+        await client.send_message(LOG_CHANNEL_ERROR, text=f"#Error_in_help_cmd\n\nBot: @{me.username}\n\nError: {e}")
 
 @Client.on_message(filters.command("about"))
 async def about(client, message: Message):
@@ -65,7 +67,7 @@ async def about(client, message: Message):
                     reply_markup=reply_markup , parse_mode=enums.ParseMode.HTML , disable_web_page_preview=True)
 
         except Exception as e:
-            print(f"Error processing about query: {e}")    
+            await client.send_message(LOG_CHANNEL_ERROR, text=f"#Error_in_about_cmd\n\nBot: @{me.username}\n\nError: {e}")    
 
 @Client.on_callback_query()
 async def callback_handle(client , query):
