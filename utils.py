@@ -84,14 +84,6 @@ async def restart_all_bots():
                     plugins={"root": "c_plugins"}
                 )
                 await bot_client.start()
-                await bot_client.set_bot_commands(
-                    [BotCommand("start" , "to check the bot alive or not.") ,
-                     BotCommand("help" , "to get the help buttons.") ,
-                     BotCommand("about" , "to get the bot details.") ,
-                     BotCommand("ai" , "ask your doubt to gemini.") ,
-                     BotCommand("song" , "to get the song.") ,
-                     BotCommand("convert" , "convert video to audio.")]
-                )
                 print(f"Bot @{bot_info.get('username' , 'N/A')} restarted successfully.")
             except KeyError as e:
                 print(f"Error: Bot token missing in document: {e}")
