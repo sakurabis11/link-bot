@@ -12,7 +12,7 @@ collection = db["clone_bots"]
 @Client.on_message(filters.command("start"))
 async def start(client , message: Message):
     try:
-        me = client.get_me()
+        me = await client.get_me()
         user_id = message.from_user.id
         first_name = message.from_user.first_name or "Unknown"
         button = [[
@@ -29,7 +29,7 @@ async def start(client , message: Message):
 @Client.on_message(filters.command("help"))
 async def help(client, message: Message):
     try:
-        me = client.get_me()
+        me = await client.get_me()
         buttons = [[
             InlineKeyboardButton('ɢᴏᴏɢʟᴇ ᴀɪ' , callback_data='google') ,
         ] , [
