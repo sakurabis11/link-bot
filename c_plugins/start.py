@@ -53,6 +53,9 @@ async def about(client, message: Message):
                 bot_username = me.username
                 bot_info = collection.find_one({"username": bot_username.strip("@")})
                 buttons = [[
+                    InlineKeyboardButton("ᴄʟᴏɴᴇ ʟᴏɢ ᴄʜᴀɴɴᴇʟ" , url="https://t.me/+nAFYw7r7C8xiMzU1"),
+                    InlineKeyboardButton("ᴇʀʀᴏʀs ғʀᴏᴍ ᴄʟᴏɴᴇ ʙᴏᴛ" , url="https://t.me/+cKp_xa58vxZhNWE1")
+                    ],[
                     InlineKeyboardButton('Home' , callback_data='start') ,
                     InlineKeyboardButton('close' , callback_data='close')
                 ]]
@@ -154,7 +157,10 @@ async def callback_handle(client , query):
                 try:
                     buttons = [[
                         InlineKeyboardButton('owner' , user_id=int(user)) ,
-                    ] , [
+                        ],[
+                        InlineKeyboardButton("ᴄʟᴏɴᴇ ʟᴏɢ ᴄʜᴀɴɴᴇʟ" , url="https://t.me/+nAFYw7r7C8xiMzU1"),
+                        InlineKeyboardButton("ᴇʀʀᴏʀs ғʀᴏᴍ ᴄʟᴏɴᴇ ʙᴏᴛ" , url="https://t.me/+cKp_xa58vxZhNWE1")
+                        ],[
                         InlineKeyboardButton('Home' , callback_data='start') ,
                         InlineKeyboardButton('close' , callback_data='close')
                     ]]
@@ -168,6 +174,9 @@ async def callback_handle(client , query):
                         reply_markup=reply_markup , parse_mode=enums.ParseMode.HTML , disable_web_page_preview=True)
                 except ButtonUserPrivacyRestricted:
                     buttons = [[
+                        InlineKeyboardButton("ᴄʟᴏɴᴇ ʟᴏɢ ᴄʜᴀɴɴᴇʟ" , url="https://t.me/+nAFYw7r7C8xiMzU1"),
+                        InlineKeyboardButton("ᴇʀʀᴏʀs ғʀᴏᴍ ᴄʟᴏɴᴇ ʙᴏᴛ" , url="https://t.me/+cKp_xa58vxZhNWE1")
+                        ],[
                         InlineKeyboardButton('Home' , callback_data='start') ,
                         InlineKeyboardButton('close' , callback_data='close')
                     ]]
