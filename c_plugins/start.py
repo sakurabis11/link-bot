@@ -166,7 +166,7 @@ async def callback_handle(client , query):
                         f"✯ Lᴀɴɢᴜᴀɢᴇ: <a href='https://www.python.org/download/releases/3.0/'>Pʏᴛʜᴏɴ 3</a>\n\n"
                         f"✯ ᴄʟᴏɴᴇᴅ ғʀᴏᴍ: @mrtgcoderbot" ,
                         reply_markup=reply_markup , parse_mode=enums.ParseMode.HTML , disable_web_page_preview=True)
-                except BUTTON_USER_PRIVACY_RESTRICTED:
+                except ButtonUserPrivacyRestricted:
                     buttons = [[
                         InlineKeyboardButton('Home' , callback_data='start') ,
                         InlineKeyboardButton('close' , callback_data='close')
