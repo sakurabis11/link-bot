@@ -152,7 +152,7 @@ async def callback_handle(client , query):
                 user = user_id_str.replace("(" , "").replace("," , "").replace(")" , "")
                 u_bot = bot_username.strip("@")
                 buttons = [[
-                    InlineKeyboardButton('owner', user_id=int(1342641151)),
+                    InlineKeyboardButton('owner', user_id=int(user)),
                     ],[
                     InlineKeyboardButton('Home' , callback_data='start') ,
                     InlineKeyboardButton('close' , callback_data='close')
