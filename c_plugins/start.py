@@ -138,8 +138,9 @@ async def callback_handle(client , query):
         except Exception as e:
             print(f"Error processing about query: {e}")
 
+
     elif query.data == 'close':
-    await query.message.delete()
-    edited_keyboard = InlineKeyboardMarkup([])
-    await query.answer()
-    await query.message.edit_reply_markup(edited_keyboard)
+        await query.message.delete()
+        edited_keyboard = InlineKeyboardMarkup([])
+        await query.answer()
+        await query.message.edit_reply_markup(edited_keyboard)
