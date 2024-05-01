@@ -117,7 +117,8 @@ async def list_cloned_bots(client , message):
 async def delete_bot_handler(client, message):
     try:
         bot_username = message.text.split()[1]
-
+        if not bot_username:
+            await message.reply_text("please provide the username, to get the your cloned bot username, /my_bots then copy it. eg: /delete (username)")
         if not bot_username.startswith("@"):
             await message.reply_text("Invalid bot username format. Use '@username'.")
             return
