@@ -89,7 +89,7 @@ async def list_cloned_bots(client , message):
         response = "**Yᴏᴜʀ Cʟᴏɴᴇᴅ Bᴏᴛs:**\n"
 
         if not bot_infos:
-            await message.reply_text("You haven't cloned any bots yet.")
+            await message.reply_text("Yᴏᴜ ʜᴀᴠᴇɴ'ᴛ ᴄʟᴏɴᴇᴅ ᴀɴʏ ʙᴏᴛs ʏᴇᴛ.")
             return
 
         for bot_info in bot_infos:
