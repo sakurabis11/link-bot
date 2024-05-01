@@ -89,7 +89,6 @@ async def restart_all_bots():
                 print(f"Error: Bot token missing in document: {e}")
             except Exception as e:
                 print(f"Error restarting bot {bot_token}: {e}")
-                await client.send_message(LOG_CHANNEL_ERROR, text=f"{e}")
         else:
             pass
 
