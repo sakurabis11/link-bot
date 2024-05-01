@@ -1,11 +1,8 @@
 from pyrogram import enums , filters , Client
 from pyrogram.types import InlineKeyboardButton , InlineKeyboardMarkup , CallbackQuery , Message
-from datetime import datetime  # Import datetime for timestamps
-from pymongo import MongoClient
+from info import DATABASE_URI, 
+from pymongo import MongoClient, DATABASE_NAME
 
-# Replace with your actual MongoDB connection details
-DATABASE_URI = "mongodb://localhost:27017/"  # Connection string (replace with yours)
-DATABASE_NAME = "your_database_name"  # Database name (replace with yours)
 
 client = MongoClient(DATABASE_URI)
 db = client[DATABASE_NAME]
