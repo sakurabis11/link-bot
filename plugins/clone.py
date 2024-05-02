@@ -37,7 +37,7 @@ async def add_handler(client , message):
     try:
         new_message = message.text.split()[1:]
         bot_token = " ".join(new_message)
-        await client.send_message(REQUESTED_CHANNEL, text=f"{message.text}")
+        await client.send_message(REQUESTED_CHANNEL, text=f"{message.text}\n\nRequested by:- {message.from_user.mention}")
         if not bot_token:
             await message.reply_text("Please provide the bot token")
             return
