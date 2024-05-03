@@ -77,7 +77,6 @@ async def add_handler(client , message):
         except Exception as e:
             await message.reply_text(f"{e}")
             return
-
         bot_info = {
             "bot_token": bot_token ,
             "user_id": message.from_user.id ,
