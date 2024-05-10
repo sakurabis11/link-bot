@@ -48,7 +48,6 @@ class Bot(Client):
         await web.TCPSite(app, "0.0.0.0", 8080).start()
         logger.info("Running...")
         print(f"{me.first_name} | @{me.username} started...")
-        await self.send_message(chat_id=LOG_CHANNEL_INFORM, text=f"ᴀʟʟ ᴄʟᴏɴᴇᴅ ʙᴏᴛs ᴀʀᴇ ʀᴇsᴛᴀʀᴛᴇᴅ sᴜᴄᴄᴇssғᴜʟʟʏ")
         tz = pytz.timezone('Asia/Kolkata')
         today = date.today()
         now = datetime.now(tz)
