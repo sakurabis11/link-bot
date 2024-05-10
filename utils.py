@@ -19,7 +19,7 @@ from PIL import Image
 from io import BytesIO
 import requests
 from pymongo import MongoClient
-from info import DATABASE_URI, DATABASE_NAME, API_ID, API_HASH, LOG_CHANNEL_INFORM, LOG_CHANNEL_ERROR
+from info import DATABASE_URI, DATABASE_NAME, API_ID, API_HASH
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
@@ -70,27 +70,6 @@ async def not_subscribed(_, client, message):
       if user.status != enums.ChatMemberStatus.BANNED:                       
          return False 
    return True
-
-async def restart_all_bots():
-    for bot_info in collection.find():
-        if 'bot_token' in bot_info:
-            bot_token = bot_info["bot_token"]
-            try:
-                bot_client = Client(
-                    name=bot_token ,
-                    api_id=API_ID ,
-                    api_hash=API_HASH ,
-                    bot_token=bot_token ,
-                    plugins={"root": "c_plugins"}
-                )
-                await bot_client.start()
-                print(f"Bot @{bot_info.get('username' , 'N/A')} restarted successfully.")
-            except KeyError as e:
-                print(f"Error: Bot token missing in document: {e}")
-            except Exception as e:
-                print(f"Error restarting bot {bot_token}: {e}")
-        else:
-            pass
 
 def get_size(size):
     """Get size in readable format"""
