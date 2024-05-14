@@ -53,7 +53,8 @@ async def start(client, message):
         reply_markup = reply_markup ,
         parse_mode = enums.ParseMode.HTML
         )
-@Client.on_message(filters.photo  & filters.private)
+ 
+@Client.on_message(filters.photo)
 async def photo(client, message):
   try:
     photo = message.photo
@@ -62,8 +63,11 @@ async def photo(client, message):
     pic_saves = collection.find({"user_id": user_id})
 
     x = collection.insert_one({"user_id": user_id, "file_id": file_ids})
-    await message.reply_text(f"insert {x}")
     await message.reply_text("Photo saved successfully")
+    if message.from_user.username:
+        await client.send_cached_media(chat_id=user_id, file_id=file_ids, caption=f"Photo from {message.from_user.username}")
+    else:
+        await client.send_cached_media(chat_id=user_id , file_id=file_ids , caption=f"Photo from {message.from_user.mention}\n\n{message.from_user.first_name}")
   except Exception as e:
     await message.reply_text(e)
 
@@ -87,7 +91,6 @@ async def del_many(client, message):
         file_id = photo.file_id
         pic_exists = collection.find({"user_id": user_id})
         v = collection.delete_many({"file_id": file_id})
-        await message.reply_text(v)
         await message.reply_text("Photo deleted successfully")
     except Exception as e:
         await message.reply_text(e)
@@ -100,7 +103,6 @@ async def delete(client, message):
     for pic_exist in pic_exists:
         file_id = pic_exist.get("file_id", "N/A")
         y = collection.delete_many({"file_id": file_id})
-        await message.reply_text(y)
     await message.reply_text("Photo deleted successfully")
   except Exception as e:
     await message.reply_text(e)
