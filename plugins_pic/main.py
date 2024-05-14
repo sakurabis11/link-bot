@@ -4,6 +4,7 @@ import pymongo
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery
 from pymongo import MongoClient
 import os
+from database_pic.pic_users_db import sd
 from os import environ
 
 ABOUT_TXT="""
@@ -20,8 +21,8 @@ BOT_TOKEN_2 = os.environ.get('BOT_TOKEN', '7135774957:AAFhOHlh0JuEYrZkwRDW7ENuT7
 
 @Client.on_message(filters.command("start"))
 async def start(client, message):
-    if not await db.is_user_exist(message.from_user.id):
-        await db.add_user(message.from_user.id, message.from_user.first_name)
+    if not await sd.is_user_exist(message.from_user.id):
+        await sd.add_user(message.from_user.id, message.from_user.first_name)
         await client.send_message(PIC_LOG_CHANNEL, script.LOG_TEXT_P.format(message.from_user.id, message.from_user.mention))
 
     buttons = [[
