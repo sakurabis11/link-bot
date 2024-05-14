@@ -3,7 +3,7 @@ import datetime
 import time
 from database_pic.pic_users_db import sd
 from info import ADMINS
-from utils import broadcast_messages
+from utils import broadcast_messager
 import asyncio
 
 @Client.on_message(filters.command("broadcast") & filters.user(ADMINS) & filters.reply)
