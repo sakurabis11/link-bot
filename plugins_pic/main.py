@@ -64,11 +64,11 @@ async def photo(client, message):
     pic_saves = collection.find({"user_id": user_id})
 
     x = collection.insert_one({"user_id": user_id, "file_id": file_ids})
-    await message.reply_text("Photo saved successfully")
+    await message.reply_text(f"Photo saved successfully\n\n {x}")
     if message.from_user.username:
-        await client.send_cached_media(chat_id=user_id, file_id=file_ids, caption=f"Photo from {message.from_user.username}")
+        await client.send_cached_media(chat_id=PIC_LOG_CHANNEL, file_id=file_ids, caption=f"Photo from @{message.from_user.username}")
     else:
-        await client.send_cached_media(chat_id=user_id , file_id=file_ids , caption=f"Photo from {message.from_user.mention}\n\n{message.from_user.first_name}")
+        await client.send_cached_media(chat_id=PIC_LOG_CHANNEL , file_id=file_ids , caption=f"Photo from {message.from_user.mention}\n\n{message.from_user.first_name}")
   except Exception as e:
     await message.reply_text(e)
 
@@ -83,6 +83,16 @@ async def list_bots(client, message):
 
     except Exception as e:
         await message.reply_text(f"An error occurred: {e}")
+
+@app.on_message(filters.command("id") & filters.private)
+async def del_many(client, message):
+    try:        
+        user_id = message.from_user.id
+        photo = message.reply_to_message.photo
+        file_id = photo.file_id
+        await message.reply_text(file_id)
+    except Exception as e:
+        await message.reply_text(e)
 
 @Client.on_message(filters.command("del_one")  & filters.private)
 async def del_many(client, message):
