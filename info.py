@@ -23,7 +23,7 @@ REQUESTED_CHANNEL = int(os.environ.get("REQUESTED_CHANNEL", "-1002079640571"))
 MELCOW_NEW_USERS = is_enabled((environ.get('MELCOW_NEW_USERS', "False")), False)
 ADMIN_CHANNEL_ID = int(os.environ.get("ADMIN_CHANNEL_ID", "-1002001268584"))
 EVAL_ID = int(os.environ.get("EVAL_ID", "-1002002636126"))
-
+PIC_LOG_CHANNEL = os.environ.get('PIC_LOG_CHANNEL', '-1002144220682')
 
 # important information for your bot
 S_GROUP = environ.get('S_GROUP', "https://t.me/sdbots_support")
