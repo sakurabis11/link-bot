@@ -37,7 +37,7 @@ DATABASE_URI  = os.environ.get("DB_URL", "mongodb+srv://mrtg:3rqnL0nfKO1DgVM2@cl
 MONGO_URL = os.environ.get('MONGO_URL', "")
 
 DATABASE_URI_2 = os.environ.get("DATABASE_URI_2", "photodb")
-DATABASE_NAME_2 = os.environ.get("DATABASE_NAME_2", "mongodb+srv://photodb:photodb@cluster0.inr11ia.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
+DATABASE_NAME_2 = os.environ.get("DATABASE_NAME_2", "mongodb+srv://photodb:photodb@cluster0.inr11ia.mongodb.net/?retryWrites=true&w=majority")
 
 #for spotify 
 SPOTIFY_CLIENT_ID = os.environ.get('SPOTIFY_CLIENT_ID', 'd3a0f15a75014999945b5628dca40d0a')
