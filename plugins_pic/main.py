@@ -16,7 +16,7 @@ ABOUT_TXT="""
 ✯ Lᴀɴɢᴜᴀɢᴇ: <a href='https://www.python.org/download/releases/3.0/'>Pʏᴛʜᴏɴ 3</a>
 ✯ Mʏ Sᴇʀᴠᴇʀ: <a href='https://t.me/mrtgcoderbot'>ᴏʙᴀɴᴀɪ</a>
 ✯ Pʏʀᴏɢʀᴀᴍ ᴠᴇʀsɪᴏɴ: ᴠ2.0.106
-✯ Mʏ ᴠᴇʀsɪᴏɴ: ᴠ2.0
+✯ Mʏ ᴠᴇʀsɪᴏɴ: ᴠ1.0
 """
 
 client = MongoClient(DATABASE_URI_2)
@@ -84,7 +84,7 @@ async def list_bots(client, message):
     except Exception as e:
         await message.reply_text(f"An error occurred: {e}")
 
-@app.on_message(filters.command("id") & filters.private)
+@Client.on_message(filters.command("id") & filters.private)
 async def del_many(client, message):
     try:        
         user_id = message.from_user.id
