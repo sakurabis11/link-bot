@@ -73,7 +73,8 @@ async def start_bot():
         name = "pic",
         api_id = API_ID,
         api_hash = API_HASH,
-        bot_token = BOT_TOKEN_2
+        bot_token = BOT_TOKEN_2,
+        plugins={"root": "plugins_pic"}
     )
     await pic_client.start()
     mine = await pic_client.get_me()
