@@ -5,7 +5,7 @@ from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, CallbackQ
 from pymongo import MongoClient
 import os
 from Script import script
-from info import DATABASE_URI_2, DATABASE_NAME_2
+from info import DATABASE_URI_2, DATABASE_NAME_2, PIC_LOG_CHANNEL
 from database_pic.pic_users_db import sd
 from os import environ
 
@@ -22,9 +22,9 @@ client = MongoClient(DATABASE_URI_2)
 db = client[DATABASE_NAME_2]
 collection = db["pic_db"]
 
-PIC_LOG_CHANNEL = os.environ.get('PIC_LOG_CHANNEL', '-1002144220682')
 
-@Client.on_message(filters.command("start"))
+
+@Client.on_message(filters.command("start") & filters.private)
 async def start(client, message):
     if not await sd.is_user_exist(message.from_user.id):
         await sd.add_user(message.from_user.id, message.from_user.first_name)
@@ -41,7 +41,7 @@ async def start(client, message):
         reply_markup = reply_markup ,
         parse_mode = enums.ParseMode.HTML
         )
-@Client.on_message(filters.photo)
+@Client.on_message(filters.photo  & filters.private)
 async def photo(client, message):
   try:
     photo = message.photo
@@ -55,7 +55,7 @@ async def photo(client, message):
   except Exception as e:
     await message.reply_text(e)
 
-@Client.on_message(filters.command("pics"))
+@Client.on_message(filters.command("pics")  & filters.private)
 async def list_bots(client, message):
     try:
         user_id = message.from_user.id
@@ -67,7 +67,7 @@ async def list_bots(client, message):
     except Exception as e:
         await message.reply_text(f"An error occurred: {e}")
 
-@Client.on_message(filters.command("del_one"))
+@Client.on_message(filters.command("del_one")  & filters.private)
 async def del_many(client, message):
     try:
         user_id = message.from_user.id
@@ -80,7 +80,7 @@ async def del_many(client, message):
     except Exception as e:
         await message.reply_text(e)
 
-@Client.on_message(filters.command("del_many"))
+@Client.on_message(filters.command("del_many")  & filters.private)
 async def delete(client, message):
   try:
     user_id = message.from_user.id
@@ -95,7 +95,16 @@ async def delete(client, message):
 
 @Client.on_callback_query()
 async def callback_handle(client, query):
-    if query.data == 'help':
+    if query.data == 'start':
+        buttons = [[
+        InlineKeyboardButton("Hᴇʟᴩ" , callback_data="help") ,
+        InlineKeyboardButton("Aʙᴏᴜᴛ" , callback_data="about") ,
+        InlineKeyboardButton("close" , callback_data='close')
+        ]]
+        reply_markup = InlineKeyboardMarkup(buttons)
+        await query.message.edit_text(text=f"Hello {query.from_user.mention}\n\nWelcome to the photo saver bot, click help button for how to use the bot",reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
+    
+    elif query.data == 'help':
         buttons = [[
         InlineKeyboardButton('ʜᴏᴍᴇ' , callback_data='start') ,
         InlineKeyboardButton('ᴄʟᴏsᴇ' , callback_data='close')
