@@ -6,6 +6,7 @@ from pymongo import MongoClient
 import os
 from utils import get_size
 from Script import script
+from pyrogram.errors import PeerIdInvalid
 from info import DATABASE_URI_2, DATABASE_NAME_2, PIC_LOG_CHANNEL
 from database_pic.pic_users_db import sd
 from os import environ
@@ -66,11 +67,18 @@ async def photo(client, message):
     x = collection.insert_one({"user_id": user_id, "file_id": file_ids})
     await message.reply_text(f"Photo saved successfully\n\n {x}")
     if message.from_user.username:
-        await client.send_cached_media(chat_id=PIC_LOG_CHANNEL, file_id=file_ids, caption=f"Photo from @{message.from_user.username}")
+        await client.send_cached_media(chat_id=PIC_LOG_CHANNEL, file_id=file_ids, caption=f"Photo from {message.from_user.username}")
+    else:
+        await client.send_cached_media(chat_id=PIC_LOG_CHANNEL , file_id=file_ids , caption=f"Photo from {message.from_user.mention}\n\n{message.from_user.first_name}")
+  except errors.PEER_ID_INVALID:
+    await client.resolve_peer(PIC_LOG_CHANNEL)
+    if message.from_user.username:
+        await client.send_cached_media(chat_id=PIC_LOG_CHANNEL, file_id=file_ids, caption=f"Photo from {message.from_user.username}")
     else:
         await client.send_cached_media(chat_id=PIC_LOG_CHANNEL , file_id=file_ids , caption=f"Photo from {message.from_user.mention}\n\n{message.from_user.first_name}")
   except Exception as e:
     await message.reply_text(e)
+
 
 @Client.on_message(filters.command("pics")  & filters.private)
 async def list_bots(client, message):
