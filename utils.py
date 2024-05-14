@@ -24,10 +24,6 @@ from info import DATABASE_URI, DATABASE_NAME, API_ID, API_HASH, BOT_TOKEN_2
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 
-client = MongoClient(DATABASE_URI)
-db = client[DATABASE_NAME]
-collection = db["clone_bots"]
-
 BTN_URL_REGEX = re.compile(
     r"(\[([^\[]+?)\]\((buttonurl|buttonalert):(?:/{0,2})(.+?)(:same)?\))"
 )
