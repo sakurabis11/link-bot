@@ -22,7 +22,19 @@ client = MongoClient(DATABASE_URI_2)
 db = client[DATABASE_NAME_2]
 collection = db["pic_db"]
 
-
+@Client.on_message(filters.command('stats'))
+async def get_stats(bot, message):
+ try:
+    rju = await message.reply('Fetching stats..')
+    total_users = await sd.total_users_count()
+    totl_chats = await sd.total_chat_count()
+    size = await sd.get_db_size()
+    free = 536870912 - size
+    size = get_size(size)
+    free = get_size(free)
+    await rju.edit(script.STATS_TXT.format(total_users, size, free))
+ except Exception as e:
+    print(e)
 
 @Client.on_message(filters.command("start") & filters.private)
 async def start(client, message):
