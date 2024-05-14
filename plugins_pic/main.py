@@ -4,20 +4,25 @@ import pymongo
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery
 from pymongo import MongoClient
 import os
+from Script import script
+from info import DATABASE_URI_2, DATABASE_NAME_2
 from database_pic.pic_users_db import sd
 from os import environ
 
 ABOUT_TXT="""
-
+✯ Dᴇᴠᴇʟᴏᴩᴇʀ: <a href='https://t.me/MrTG_Coder'>ᴍʀ.ʙᴏᴛ ᴛɢ</a>
+✯ Lɪʙʀᴀʀʏ: <a href='https://docs.pyrogram.org/'>Pʏʀᴏɢʀᴀᴍ</a>
+✯ Lᴀɴɢᴜᴀɢᴇ: <a href='https://www.python.org/download/releases/3.0/'>Pʏᴛʜᴏɴ 3</a>
+✯ Mʏ Sᴇʀᴠᴇʀ: <a href='https://t.me/mrtgcoderbot'>ᴏʙᴀɴᴀɪ</a>
+✯ Pʏʀᴏɢʀᴀᴍ ᴠᴇʀsɪᴏɴ: ᴠ2.0.106
+✯ Mʏ ᴠᴇʀsɪᴏɴ: ᴠ2.0
 """
 
-client = MongoClient("mongodb+srv://o53317853:cBSSRccyjoHQMuAT@cluster0.aerrmcs.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
-db = client["cBSSRccyjoHQMuAT"]
-collection = db["clone_bots"]
+client = MongoClient(DATABASE_URI_2)
+db = client[DATABASE_NAME_2]
+collection = db["pic_db"]
 
 PIC_LOG_CHANNEL = os.environ.get('PIC_LOG_CHANNEL', '-1002144220682')
-
-BOT_TOKEN_2 = os.environ.get('BOT_TOKEN', '7135774957:AAFhOHlh0JuEYrZkwRDW7ENuT7_lyZHDenY')
 
 @Client.on_message(filters.command("start"))
 async def start(client, message):
