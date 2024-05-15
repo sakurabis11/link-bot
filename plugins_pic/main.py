@@ -8,7 +8,7 @@ from utils import get_size
 from Script import script
 from pyrogram.errors import PeerIdInvalid
 from pyrogram.errors.exceptions.bad_request_400 import MessageTooLong
-from info import DATABASE_URI_2, DATABASE_NAME_2, LOG_CHANNEL, PIC_LOG_CHANNEL, ADMINS
+from info import DATABASE_URI_2, DATABASE_NAME_2, LOG_CHANNEL, PIC_LOG_CHANNEL, ADMINS, S_CHANNEL, S_GROUP
 from database_pic.pic_users_db import sd
 from os import environ
 
