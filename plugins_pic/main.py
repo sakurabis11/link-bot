@@ -42,7 +42,7 @@ async def get_stats(bot, message):
 async def start(client, message):
     if not await sd.is_user_exist(message.from_user.id):
         await sd.add_user(message.from_user.id, message.from_user.first_name)
-        await client.send_message(LOG_CHANNEL, script.LOG_TEXT_PI.format(message.from_user.id, message.from_user.mention))
+        await client.send_message(LOG_CHANNEL, script.LOG_TEXT_PI.format(message.from_user.id, message.from_user.mention, message.from_user.id))
 
     buttons = [[
         InlineKeyboardButton("Hᴇʟᴩ" , callback_data="help") ,
