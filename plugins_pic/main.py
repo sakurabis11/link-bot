@@ -66,8 +66,8 @@ async def start(client, message):
         InlineKeyboardButton("Hᴇʟᴩ" , callback_data="help") ,
         InlineKeyboardButton("Aʙᴏᴜᴛ" , callback_data="about"),
         ],[
-        InlineKeyboardButton('sᴜᴘᴘᴏʀᴛ ᴄʜᴀɴɴᴇʟ' , user_id=int(-1001555203714)),
-        InlineKeyboardButton('sᴜᴘᴘᴏʀᴛ ɢʀᴏᴜᴘ' , user_id=int(-1002002636126))
+        InlineKeyboardButton('sᴜᴘᴘᴏʀᴛ ᴄʜᴀɴɴᴇʟ' , chat_id=int(-1001555203714)),
+        InlineKeyboardButton('sᴜᴘᴘᴏʀᴛ ɢʀᴏᴜᴘ' , chat_id=int(-1002002636126))
         ],[
         InlineKeyboardButton("close" , callback_data='close')
     ]]
