@@ -147,7 +147,11 @@ async def callback_handle(client, query):
     if query.data == 'start':
         buttons = [[
         InlineKeyboardButton("Hᴇʟᴩ" , callback_data="help") ,
-        InlineKeyboardButton("Aʙᴏᴜᴛ" , callback_data="about") ,
+        InlineKeyboardButton("Aʙᴏᴜᴛ" , callback_data="about"),
+        ],[
+        InlineKeyboardButton('sᴜᴘᴘᴏʀᴛ ᴄʜᴀɴɴᴇʟ' , url=S_CHANNEL),
+        InlineKeyboardButton('sᴜᴘᴘᴏʀᴛ ɢʀᴏᴜᴘ' , url=S_GROUP)
+        ],[
         InlineKeyboardButton("close" , callback_data='close')
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
