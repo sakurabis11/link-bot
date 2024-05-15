@@ -23,7 +23,7 @@ async def broadcast(bot, message):
 
     success = 0
     async for user in users:
-        pti, sh = await broadcast_messages(int(user['id']), b_msg)
+        pti, sh = await broadcast_messager(int(user['id']), b_msg)
         if pti:
             success += 1
         elif pti == False:
