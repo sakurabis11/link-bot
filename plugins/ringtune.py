@@ -5,39 +5,57 @@ import requests
 import json
 from info import REQUESTED_CHANNEL
 
-# Define the command handler for /song
+
 @Client.on_message(filters.command("ringtune"))
 async def music(client, message):
-  # Extract the query from the command message
-  query = " ".join(message.command[1:])
 
-  # Check if a query is provided
-  if not query:
-    await client.send_message(message.chat.id, "ᴘʟᴇᴀsᴇ ᴘʀᴏᴠɪᴅᴇ ᴀ sᴏɴɢ ɴᴀᴍᴇ ᴛᴏ sᴇᴀʀᴄʜ. ᴜsᴀɢᴇ: /ringtune (song_name) or (song_name + Artist_name)")
-    return
+    query = " ".join(message.command[1:])
 
-  try:
-    # Spotify Search API requires a user access token
-    # You'll need to obtain a Spotify developer token 
-    # and implement logic to store and use it.
-    # Replace 'YOUR_ACCESS_TOKEN' with your actual token
-    # This is for demonstration purposes only.
 
-    # headers = {"Authorization": f"Bearer YOUR_ACCESS_TOKEN"}
-    # response = requests.get(f"https://api.spotify.com/v1/search?q={query}&type=track", headers=headers)
+    if not query:
+        await client.send_message(message.chat.id, "ᴘʟᴇᴀsᴇ ᴘʀᴏᴠɪᴅᴇ ᴀ sᴏɴɢ ɴᴀᴍᴇ ᴛᴏ sᴇᴀʀᴄʜ. ᴜsᴀɢᴇ: /ringtune (song_name) or (song_name + Artist_name)")
+        return
 
-    # Look for alternative methods to search Spotify without a user token
-    # Consider using a service that provides song data with Spotify links
+    try:
+  
+        response = requests.get(f"https://api.deezer.com/search?q={query}")
 
-    # Example using a placeholder link (replace with actual implementation)
-    preview_url = f"https://open.spotify.com/search/{query}"
 
-    # Send a message to the user with the song details and a Spotify link
-    await client.send_message(message.chat.id, f"ʜᴇʏ {message.from_user.mention},\n\nʏᴏᴜʀ ʀᴇǫᴜᴇsᴛ {query}\n\nCheck Spotify results:\n{preview_url}")
+        response.raise_for_status()
 
-    # Chat action and sending audio are not applicable for Spotify links
 
-  except requests.RequestException as e:
-    # Handle HTTP request errors
-    logging.error(f"Error fetching song information: {e}")
-    await client.send_message(message.chat.id, "An error occurred while fetching the song information. Please try again later.")
+        result = response.json()
+
+
+        if "data" not in result or not result["data"]:
+            await client.send_message(message.chat.id, "ɴᴏ ʀᴇsᴜʟᴛs ғᴏᴜɴᴅ ғᴏʀ ᴛʜᴇ ɢɪᴠᴇɴ {query}.")
+            return
+
+        song = result["data"][0]
+
+ 
+        song_info = {
+            "artist": song["artist"]["name"],
+            "title": song["title"],
+            "duration": song["duration"],
+            "preview_url": song["preview"],
+        }
+
+
+        await client.send_message(message.chat.id, f"ʜᴇʏ {message.from_user.mention},\n\nʏᴏᴜʀ ʀᴇǫᴜᴇsᴛ {query}\n\n🎤 ᴀʀᴛɪsᴛ: {song_info['artist']}\n🎧 ᴛɪᴛʟᴇ: {song_info['title']}\n⌛ ᴅᴜʀᴀᴛɪᴏɴ: {song_info['duration']} sᴇᴄᴏɴᴅs\n\nʏᴏᴜ ᴄᴀɴ ᴅᴏᴡɴʟᴏᴀᴅ ᴛʜɪs sᴏɴɢ ғʀᴏᴍ ᴄʜʀᴏᴍᴇ: {song_info['preview_url']}")
+
+
+        await client.send_chat_action(message.chat.id, "upload_audio")
+
+  
+        if message.reply_to_message and message.reply_to_message.media:
+
+            await client.send_audio(message.chat.id, song_info['preview_url'], title=song_info['title'], performer=song_info['artist'], reply_to_message_id=message.reply_to_message.id)
+        else:
+
+            await client.send_audio(message.chat.id, song_info['preview_url'], title=song_info['title'], performer=song_info['artist'], reply_to_message_id=message.id)
+    except requests.RequestException as e:
+
+        logging.error(f"Error fetching song information: {e}")
+        await client.send_message(message.chat.id, "An error occurred while fetching the song information. Please try again later.")
+        await client.send_message(REQUESTED_CHANNEL, text=f"#ʀɪɴɢᴛᴜɴᴇ\nʀᴇǫᴜᴇsᴛᴇᴅ ғʀᴏᴍ {message.from_user.mention}\nʀᴇǫᴜᴇsᴛ ɪs {query}")
