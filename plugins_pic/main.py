@@ -18,7 +18,7 @@ ABOUT_TXT="""
 ✯ Lᴀɴɢᴜᴀɢᴇ: <a href='https://www.python.org/download/releases/3.0/'>Pʏᴛʜᴏɴ 3</a>
 ✯ Mʏ Sᴇʀᴠᴇʀ: <a href='https://t.me/mrtgcoderbot'>ᴏʙᴀɴᴀɪ</a>
 ✯ Pʏʀᴏɢʀᴀᴍ ᴠᴇʀsɪᴏɴ: ᴠ2.0.106
-✯ Mʏ ᴠᴇʀsɪᴏɴ: ᴠ1.0
+✯ Mʏ ᴠᴇʀsɪᴏɴ: ᴠ1
 """
 
 client = MongoClient(DATABASE_URI_2)
@@ -65,6 +65,10 @@ async def start(client, message):
     buttons = [[
         InlineKeyboardButton("Hᴇʟᴩ" , callback_data="help") ,
         InlineKeyboardButton("Aʙᴏᴜᴛ" , callback_data="about"),
+        ],[
+        InlineKeyboardButton('sᴜᴘᴘᴏʀᴛ ᴄʜᴀɴɴᴇʟ' , user_id=int(-1001555203714)),
+        InlineKeyboardButton('sᴜᴘᴘᴏʀᴛ ɢʀᴏᴜᴘ' , user_id=int(-1002002636126))
+        ],[
         InlineKeyboardButton("close" , callback_data='close')
     ]]
     reply_markup = InlineKeyboardMarkup(buttons)
