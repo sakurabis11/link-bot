@@ -6,7 +6,7 @@ import json
 from info import REQUESTED_CHANNEL
 
 # Define the command handler for /song
-@Client.on_message(filters.command("ringtone"))
+@Client.on_message(filters.command("ringtune"))
 async def music(client, message):
   # Extract the query from the command message
   query = " ".join(message.command[1:])
