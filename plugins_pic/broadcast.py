@@ -8,7 +8,7 @@ import asyncio
 
 @Client.on_message(filters.command("broadcast") & filters.user(ADMINS) & filters.reply)
 async def broadcast(bot, message):
-    users = await db.get_all_users()
+    users = await sd.get_all_users()
     b_msg = message.reply_to_message
     sts = await message.reply_text(
         text='ʙʀᴏᴀᴅᴄᴀsᴛɪɴɢ ʏᴏᴜʀ ᴍᴇssᴀɢᴇ...'
