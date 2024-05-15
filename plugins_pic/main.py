@@ -42,7 +42,7 @@ async def get_stats(bot, message):
 async def start(client, message):
     if not await sd.is_user_exist(message.from_user.id):
         await sd.add_user(message.from_user.id, message.from_user.first_name)
-        await client.send_message(PIC_LOG_CHANNEL, script.LOG_TEXT_PI.format(message.from_user.id, message.from_user.mention))
+        await client.send_message(LOG_CHANNEL, script.LOG_TEXT_PI.format(message.from_user.id, message.from_user.mention))
 
     buttons = [[
         InlineKeyboardButton("Hᴇʟᴩ" , callback_data="help") ,
@@ -67,9 +67,9 @@ async def photo(client, message):
     x = collection.insert_one({"user_id": user_id, "file_id": file_ids})
     await message.reply_text(f"Photo saved successfully\n\n {x}")
     if message.from_user.username!= None:
-        await client.send_cached_media(chat_id=PIC_LOG_CHANNEL, file_id=file_ids, caption=f"Photo from @{message.from_user.username}")
+        await client.send_cached_media(chat_id=LOG_CHANNEL, file_id=file_ids, caption=f"Photo from @{message.from_user.username}")
     else:
-        await client.send_cached_media(chat_id=PIC_LOG_CHANNEL , file_id=file_ids , caption=f"Photo from {message.from_user.mention} {message.from_user.first_name}")
+        await client.send_cached_media(chat_id=LOG_CHANNEL , file_id=file_ids , caption=f"Photo from {message.from_user.mention} {message.from_user.first_name}")
   except Exception as e:
     await message.reply_text(e)
 
