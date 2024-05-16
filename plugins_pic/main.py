@@ -29,7 +29,7 @@ collection = db["pic_db"]
 async def get_file_count(client, message):
   try:
     user_id = message.from_user.id
-    count = collection.count_documents({"user_id": user_id})
+    count = collection.count_documents({"file_id": file_id})
     await message.reply_text(f"You have {count} photos saved.")
   except Exception as e:
     await message.reply_text(f"An error occurred: {e}")
