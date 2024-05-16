@@ -1,5 +1,7 @@
 from pyrogram import Client, filters
 import os
+from pathlib import Path
+import hashlib
 import google.generativeai as genai
 
 genai.configure(api_key="AIzaSyD214hhYJ-xf8rfaWX044_g1VEBQ0ua55Q")
@@ -45,10 +47,8 @@ async def ai_generate_private(client , message):
     x = text.edit("w8...")
 
     prompt_parts = [
-        "input: " ,
-        genai.upload_file(f"<path>{media}") ,
-        " what is this picture shows" ,
-        "output: " ,
+      genai.upload_file(f"<path>{media}"),
+      " what is the picture show\n\n",
     ]
 
     response = model.generate_content(prompt_parts)
