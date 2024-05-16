@@ -7,52 +7,60 @@ import google.generativeai as genai
 genai.configure(api_key="AIzaSyD214hhYJ-xf8rfaWX044_g1VEBQ0ua55Q")
 
 @Client.on_message(filters.command("pic"))
-async def ai_generate_private(client , message):
- try:
-    replied = message.reply_to_message
-    if not replied:
-        return await message.reply_text("Ʀᴇᴘʟʏ ᴛᴏ ᴘʜᴏᴛᴏ")
-    if not replied.photo:
-        return await message.reply_text("ᴘʟᴇᴀsᴇ ʀᴇᴘʟʏ ᴡɪᴛʜ ᴀ ᴠᴀʟɪᴅ ᴍᴇᴅɪᴀ")
-    text = await message.reply_text("<code>detecting...</code>")
-    media = await replied.download()
+async def ai_generate_private(client, message):
+    try:
+        replied = message.reply_to_message
+        if not replied:
+            return await message.reply_text("Ʀᴇᴘʟʏ ᴛᴏ ᴘʜᴏᴛᴏ")
+        if not replied.photo:
+            return await message.reply_text("ᴘʟᴇᴀsᴇ ʀᴇᴘʟʏ ᴡɪᴛʜ ᴀ ᴠᴀʟɪᴅ ᴍᴇᴅɪᴀ")
 
-    generation_config = {
-        "temperature": 1 ,
-        "top_p": 0.95 ,
-        "top_k": 64 ,
-        "max_output_tokens": 8192 ,
-    }
-    safety_settings = [
-        {
-            "category": "HARM_CATEGORY_HARASSMENT" ,
-            "threshold": "BLOCK_MEDIUM_AND_ABOVE"
-        } ,
-        {
-            "category": "HARM_CATEGORY_HATE_SPEECH" ,
-            "threshold": "BLOCK_MEDIUM_AND_ABOVE"
-        } ,
-        {
-            "category": "HARM_CATEGORY_SEXUALLY_EXPLICIT" ,
-            "threshold": "BLOCK_MEDIUM_AND_ABOVE"
-        } ,
-        {
-            "category": "HARM_CATEGORY_DANGEROUS_CONTENT" ,
-            "threshold": "BLOCK_MEDIUM_AND_ABOVE"
-        } ,
-    ]
-    model = genai.GenerativeModel(model_name="gemini-1.5-flash-latest" ,
-                                  generation_config=generation_config ,
-                                  safety_settings=safety_settings)
-    x = text.edit("w8...")
+        text = await message.reply_text("<code>detecting...</code>")
 
-    prompt_parts = [
-      genai.upload_file(f"<path>{media}"),
-      " what is the picture show\n\n",
-    ]
+        # Create the download directory if it doesn't exist
+        os.makedirs("/app/downloads/", exist_ok=True)
 
-    response = model.generate_content(prompt_parts)
-    await message.reply_text(prompt_parts)
-    os.remove(media)
- except Exception as e:
-    await message.reply_text(e)
+        media_path = f"/app/downloads/{Path(message.reply_to_message.photo.file_id).name}"
+        await replied.download(file_name=media_path)
+
+        generation_config = {
+            "temperature": 1,
+            "top_p": 0.95,
+            "top_k": 64,
+            "max_output_tokens": 8192,
+        }
+        safety_settings = [
+            {
+                "category": "HARM_CATEGORY_HARASSMENT",
+                "threshold": "BLOCK_MEDIUM_AND_ABOVE",
+            },
+            {
+                "category": "HARM_CATEGORY_HATE_SPEECH",
+                "threshold": "BLOCK_MEDIUM_AND_ABOVE",
+            },
+            {
+                "category": "HARM_CATEGORY_SEXUALLY_EXPLICIT",
+                "threshold": "BLOCK_MEDIUM_AND_ABOVE",
+            },
+            {
+                "category": "HARM_CATEGORY_DANGEROUS_CONTENT",
+                "threshold": "BLOCK_MEDIUM_AND_ABOVE",
+            },
+        ]
+        model = genai.GenerativeModel(
+            model_name="gemini-1.5-flash-latest",
+            generation_config=generation_config,
+            safety_settings=safety_settings,
+        )
+        x = text.edit("w8...")
+
+        prompt_parts = [
+            genai.upload_file(media_path),
+            " what is the picture show\n\n",
+        ]
+
+        response = model.generate_content(prompt_parts)
+        await message.reply_text(prompt_parts)
+        os.remove(media_path)
+    except Exception as e:
+        await message.reply_text(e)
