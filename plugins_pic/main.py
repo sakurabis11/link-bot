@@ -54,14 +54,7 @@ async def get_stats(client, message):
         size = get_size(size)  
         free = get_size(free)
 
-        response = script.STATS_TXT.format(
-            total_users=total_count,
-            user_photos=user_count,
-            size=size,
-            free=free
-        )
-        await message.reply(response)
-
+        await message.reply(f"total photo count= {total_count},ur photo count= {user_count} ,size={size},free= {free}")
     except Exception as e:
         print(f"An error occurred: {e}")
         await message.reply_text(f"An error occurred while fetching stats.")
