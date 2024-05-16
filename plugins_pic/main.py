@@ -48,8 +48,8 @@ async def get_stats(bot, message):
     rju = await message.reply('Fetching stats..')
     total_users = await sd.total_users_count()
     totl_chats = await sd.total_chat_count()
-    total_count = await collection.count_documents({})
-    user_count = await collection.count_documents({"user_id": user_id})
+    total_count = collection.count_documents({})
+    user_count = collection.count_documents({"user_id": user_id})
     size = await sd.get_db_size()
     free = 536870912 - size
     size = get_size(size)
