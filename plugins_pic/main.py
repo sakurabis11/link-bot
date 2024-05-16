@@ -34,6 +34,14 @@ async def get_file_count(client, message):
   except Exception as e:
     await message.reply_text(f"An error occurred: {e}")
 
+@Client.on_message(filters.command("total") & filters.private)
+async def get_total_count(client, message):
+  try:
+    total_count = collection.count_documents({}) 
+    await message.reply_text(f"There are a total of {total_count} photos saved in the database.")
+  except Exception as e:
+    await message.reply_text(f"An error occurred: {e}")
+
 
 @Client.on_message(filters.command('stats'))
 async def get_stats(bot, message):
