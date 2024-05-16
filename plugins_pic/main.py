@@ -25,23 +25,6 @@ client = MongoClient(DATABASE_URI_2)
 db = client[DATABASE_NAME_2]
 collection = db["pic_db"]
 
-@Client.on_message(filters.command("count") & filters.private)
-async def get_file_count(client, message):
-  try:
-    user_id = message.from_user.id
-    count = collection.count_documents({"user_id": user_id})
-    await message.reply_text(f"You have {count} photos saved.")
-  except Exception as e:
-    await message.reply_text(f"An error occurred: {e}")
-
-@Client.on_message(filters.command("total") & filters.private)
-async def get_total_count(client, message):
-  try:
-    total_count = collection.count_documents({}) 
-    await message.reply_text(f"There are a total of {total_count} photos saved in the database.")
-  except Exception as e:
-    await message.reply_text(f"An error occurred: {e}")
-
 @Client.on_message(filters.command('stats'))
 async def get_stats(bot, message):
  try:
