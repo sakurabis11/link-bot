@@ -18,12 +18,11 @@ async def telegraph_upload(bot, update):
     try:
         response = upload_file(media)
     except Exception as error:
-        print(error)
         return await text.edit_text(text=f"ᴇƦƦᴏƦ :- {error}\nғᴏʀᴡʀᴅ ᴛʜɪs ᴍᴇssᴀɢᴇ ᴛᴏ sᴜᴘᴘᴏʀᴛ ɢʀᴏᴜᴘ(/support) ᴏʀ ᴀᴅᴍɪɴ(/about", disable_web_page_preview=True)          
     try:
         os.remove(media)
     except Exception as error:
-        print(error)
+        await update.reply_text(error)
         return    
     await text.edit_text(
         text=f"https://telegra.ph{response[0]}",
