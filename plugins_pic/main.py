@@ -42,37 +42,21 @@ async def get_total_count(client, message):
   except Exception as e:
     await message.reply_text(f"An error occurred: {e}")
 
-@Client.on_message(filters.command('status'))
-async def get_stats(client, message):
-    try:
-        user_id = message.from_user.id
-        user_count = await collection.count_documents({"user_id": user_id})
-        total_count = await collection.count_documents({})
-
-        size = await sd.get_db_size()  
-        free = 536870912 - size  
-        size = get_size(size)  
-        free = get_size(free)
-
-        await message.reply(f"total photo count= {total_count},ur photo count= {user_count} ,size={size},free= {free}")
-    except Exception as e:
-        print(f"An error occurred: {e}")
-        await message.reply_text(f"An error occurred while fetching stats.")
-
-
 @Client.on_message(filters.command('stats'))
 async def get_stats(bot, message):
  try:
     rju = await message.reply('Fetching stats..')
     total_users = await sd.total_users_count()
     totl_chats = await sd.total_chat_count()
+    total_count = await collection.count_documents({})
+    user_count = await collection.count_documents({"user_id": user_id})
     size = await sd.get_db_size()
     free = 536870912 - size
     size = get_size(size)
     free = get_size(free)
-    await rju.edit(script.STATS_TXT.format(total_users, size, free))
+    await rju.edit(script.STATS_TXT.format(total_users, total_count, user_count, size, free))
  except Exception as e:
-    print(e)
+    await messsage.reply_text(e)
 
 @Client.on_message(filters.command('users') & filters.user(ADMINS))
 async def list_users(bot, message):
