@@ -55,6 +55,8 @@ Mʏ Nᴀᴍᴇ Is <a href=https://t.me/{}>{}</a>. ɪ ᴀᴍ ᴀ sᴘᴇᴄɪᴀ�
 ◉ ғʀᴇᴇ: <code>{}</code>"""
 
     STATS_TXT =  """<b>◉ ᴛᴏᴛᴀʟ ᴜꜱᴇʀꜱ: <code>{}</code></b>
+◉ ᴛᴏᴛᴀʟ ᴘʜᴏᴛᴏs: <code>{}</code>
+◉ ᴜʀ ᴘʜᴏᴛᴏ ᴄᴏᴜɴᴛ :<code>{}</code>
 ◉ sɪᴢᴇ: <code>{}</code>
 ◉ ғʀᴇᴇ: <code>{}</code>"""
 
