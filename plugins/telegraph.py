@@ -13,6 +13,7 @@ async def telegraph_upload(bot, update):
         return await update.reply_text("ᴘʟᴇᴀsᴇ ʀᴇᴘʟʏ ᴡɪᴛʜ ᴀ ᴠᴀʟɪᴅ ᴍᴇᴅɪᴀ")
     text = await update.reply_text("<code>Downloading...</code>", disable_web_page_preview=True)   
     media = await replied.download()   
+    await update.reply_text(media)
     await text.edit_text("<code>ᴜᴘʟᴏᴀᴅɪɴɢ...</code>", disable_web_page_preview=True)                                            
     try:
         response = upload_file(media)
