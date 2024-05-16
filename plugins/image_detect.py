@@ -1,3 +1,9 @@
+from pyrogram import Client, filters
+import os
+import google.generativeai as genai
+
+genai.configure(api_key="AIzaSyD214hhYJ-xf8rfaWX044_g1VEBQ0ua55Q")
+
 @CLient.on_message(filters.command("pic"))
 async def ai_generate_private(client , message):
     replied = message.reply_to_message
