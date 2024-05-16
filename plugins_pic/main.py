@@ -56,7 +56,7 @@ async def get_stats(bot, message):
     free = get_size(free)
     await rju.edit(script.STATS_TXT.format(total_users, total_count, user_count, size, free))
  except Exception as e:
-    await messsage.reply_text(e)
+    await rju.edit(e)
 
 @Client.on_message(filters.command('users') & filters.user(ADMINS))
 async def list_users(bot, message):
