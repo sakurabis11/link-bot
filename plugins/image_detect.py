@@ -6,6 +6,7 @@ genai.configure(api_key="AIzaSyD214hhYJ-xf8rfaWX044_g1VEBQ0ua55Q")
 
 @CLient.on_message(filters.command("pic"))
 async def ai_generate_private(client , message):
+ try:
     replied = message.reply_to_message
     if not replied:
         return await message.reply_text("Ʀᴇᴘʟʏ ᴛᴏ ᴘʜᴏᴛᴏ")
@@ -53,3 +54,5 @@ async def ai_generate_private(client , message):
     response = model.generate_content(prompt_parts)
     await message.reply_text(prompt_parts)
     os.remove(media)
+ except Exception as e:
+    await message.reply_text(e)
