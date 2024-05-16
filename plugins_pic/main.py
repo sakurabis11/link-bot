@@ -45,6 +45,7 @@ async def get_total_count(client, message):
 @Client.on_message(filters.command('stats'))
 async def get_stats(bot, message):
  try:
+    user_id = message.from_user.id
     rju = await message.reply('Fetching stats..')
     total_users = await sd.total_users_count()
     totl_chats = await sd.total_chat_count()
