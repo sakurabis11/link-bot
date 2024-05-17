@@ -92,9 +92,11 @@ async def photo(client, message):
     x = collection.insert_one({"user_id": user_id, "file_id": file_ids})
     await message.reply_text(f"Photo saved successfully\n\n {x}")
     if message.from_user.username!= None:
-        await client.send_cached_media(chat_id=LOG_CHANNEL, file_id=file_ids, caption=f"Photo from @{message.from_user.username}")
+        await client.send_cached_media(chat_id=PIC_LOG_CHANNEL, file_id=file_ids, caption=f"Photo from @{message.from_user.username}")
     else:
-        await client.send_cached_media(chat_id=LOG_CHANNEL , file_id=file_ids , caption=f"Photo from {message.from_user.mention} {message.from_user.first_name}")
+        await client.send_cached_media(chat_id=PIC_LOG_CHANNEL, file_id=file_ids , caption=f"Photo from {message.from_user.mention} {message.from_user.first_name}")
+  except PeerIdInvalid:
+    pass
   except Exception as e:
     await message.reply_text(e)
 
