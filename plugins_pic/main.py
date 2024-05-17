@@ -25,11 +25,11 @@ client = MongoClient(DATABASE_URI_2)
 db = client[DATABASE_NAME_2]
 collection = db["pic_db"]
 
-@Client.on_message(filters.command('stats'))
+@Client.on_message(filters.command('stats')  & filters.private)
 async def get_stats(bot, message):
  try:
     user_id = message.from_user.id
-    rju = await message.reply('Fetching stats..')
+    msg = await message.reply('Fetching stats..')
     total_users = await sd.total_users_count()
     totl_chats = await sd.total_chat_count()
     total_count = collection.count_documents({})
@@ -38,13 +38,13 @@ async def get_stats(bot, message):
     free = 536870912 - size
     size = get_size(size)
     free = get_size(free)
-    await rju.edit(script.STATS_TXT.format(total_users, total_count, user_count, size, free))
+    await msg.edit(script.STATS_TXT.format(total_users, total_count, user_count, size, free))
  except Exception as e:
-    await rju.edit(e)
+    await msg.edit(e)
 
-@Client.on_message(filters.command('users') & filters.user(ADMINS))
+@Client.on_message(filters.command('users') & filters.user(ADMINS)  & filters.private)
 async def list_users(bot, message):
-    raju = await message.reply('Getting List Of Users')
+    msg = await message.reply('ɢᴇᴛᴛɪɴɢ ᴛʜᴇ ᴜsᴇʀs')
     users = await sd.get_all_users()
     out = "Users Saved In DB Are:\n\n"
     async for user in users:
@@ -53,7 +53,7 @@ async def list_users(bot, message):
             out += '( Banned User )'
         out += '\n'
     try:
-        await raju.edit_text(out)
+        await msg.edit_text(out)
     except MessageTooLong:
         with open('users.txt', 'w+') as outfile:
             outfile.write(out)
@@ -63,7 +63,7 @@ async def list_users(bot, message):
 async def start(client, message):
     if not await sd.is_user_exist(message.from_user.id):
         await sd.add_user(message.from_user.id, message.from_user.first_name)
-        await client.send_message(LOG_CHANNEL, script.LOG_TEXT_PI.format(message.from_user.id, message.from_user.mention, message.from_user.id))
+        await client.send_message(PIC_LOG_CHANNEL, script.LOG_TEXT_PI.format(message.from_user.id, message.from_user.mention, message.from_user.id))
 
     buttons = [[
         InlineKeyboardButton("Hᴇʟᴩ" , callback_data="help") ,
