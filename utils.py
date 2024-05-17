@@ -141,7 +141,7 @@ async def broadcast_messager(user_id, message):
         return True, "Success"
     except FloodWait as e:
         await asyncio.sleep(e.x)
-        return await broadcast_messages(user_id, message)
+        return await broadcast_messager(user_id, message)
     except InputUserDeactivated:
         await sd.delete_user(int(user_id))
         logging.info(f"{user_id}-Removed from Database, since deleted account.")
