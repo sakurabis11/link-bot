@@ -49,5 +49,5 @@ async def main(client, message):
         await message.reply_text("Image URL not found. Consider respecting Pinterest's terms of service.")
         
   except Exception as e:
-        await message.reply_text(f"Unexcepted error: {e]\n\nForward this error message to my admin or in support group")
+        await message.reply_text(f"Unexcepted error: {e}\n\nForward this error message to my admin or in support group")
   
