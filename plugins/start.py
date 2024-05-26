@@ -339,7 +339,7 @@ async def callback_handle(client, query):
 
     elif query.data == 'pinterest':
         buttons = buttons = [[
-            InlineKeyboardButton('ʜᴏᴍᴇ', callback_data='next')
+            InlineKeyboardButton('ʜᴏᴍᴇ', callback_data='help')
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(text=script.PINTEREST_TXT.format(query.from_user.mention), reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
