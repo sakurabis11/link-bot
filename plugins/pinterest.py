@@ -29,9 +29,11 @@ pinterest_link_regex = r"https://pin\.it/(?P<code>\w+)"
 
 @Client.on_message(filters.regex(pinterest_link_regex))
 async def main(client, message):
+  try:
+      
     pinterest_url = message.text
     image_url = extract_image_url(pinterest_url)
-
+      
     if image_url:
         ls = image_url.split("x/")
         first_part = ls[0]
@@ -44,6 +46,8 @@ async def main(client, message):
         b = wget.download(m)
         await client.send_document(message.chat.id , b)
     else:
-        print("Image URL not found. Consider respecting Pinterest's terms of service.")
-
-
+        await message.reply_text("Image URL not found. Consider respecting Pinterest's terms of service.")
+        
+  except Exception as e:
+        await message.reply_text(f"Unexcepted error: {e]\n\nForward this error message to my admin or in support group")
+  
