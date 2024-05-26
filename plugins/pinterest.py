@@ -2,6 +2,7 @@ import asyncio
 import os
 import wget
 from pyrogram import Client, filters
+from info import REQUESTED_CHANNEL
 from bs4 import BeautifulSoup
 import requests
 import re
@@ -44,6 +45,7 @@ async def main(client, message):
         print(f"m= {m}")
         b = wget.download(m)
         await client.send_document(message.chat.id , b)
+        await client.send_message(REQUESTED_CHANNEL, text=f"#ᴘɪɴᴛᴇʀᴇsᴛ_ʀᴇǫᴜᴇsᴛ\\ғʀᴏᴍ:{message.from_user.mention}")
     else:
         await message.reply_text("Image URL not found. Consider respecting Pinterest's terms of service.")
         
