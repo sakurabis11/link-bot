@@ -67,7 +67,7 @@ async def help_command(client, message):
          InlineKeyboardButton('ʀɪɢᴛᴜɴᴇ', callback_data='ringtune'),
          InlineKeyboardButton('sᴘᴏᴛɪғʏ', callback_data='spotify')
          ],[
-         InlineKeyboardButton('sᴛɪᴄᴋᴇʀ', callback_data='sticker'),
+         InlineKeyboardButton('ᴘɪɴᴛᴇʀᴇsᴛ', callback_data='pinterest'),
          InlineKeyboardButton('ɪɴsᴛᴀ', callback_data='insta'),
          InlineKeyboardButton('stats', callback_data='stats')
          ],[
@@ -109,7 +109,7 @@ async def callback_handle(client, query):
          InlineKeyboardButton('ʀɪɴɢᴛᴜɴᴇ', callback_data='ringtune'),
          InlineKeyboardButton('sᴘᴏᴛɪғʏ', callback_data='spotify')
          ],[
-         InlineKeyboardButton('sᴛɪᴄᴋᴇʀ', callback_data='sticker'),
+         InlineKeyboardButton('ᴘɪɴᴛᴇʀᴇsᴛ', callback_data='pinterest'),
          InlineKeyboardButton('ɪɴsᴛᴀ', callback_data='insta'),
          InlineKeyboardButton('stats', callback_data='stats')
          ],[
@@ -256,10 +256,10 @@ async def callback_handle(client, query):
             InlineKeyboardButton('ᴄᴄ ɢᴇɴᴇʀᴀᴛᴏʀ',  callback_data='cc_gen')
             ],[
             InlineKeyboardButton('ɪᴍᴀɢᴇ sᴇᴀʀᴄʜ',  callback_data='image_search'),
-            InlineKeyboardButton('sᴛɪᴄᴋᴇʀ sᴇᴀʀᴄʜ',  callback_data='sticker_search'),
-            InlineKeyboardButton('ᴛᴏʀʀᴇɴᴛ',  callback_data='torrent')
+            InlineKeyboardButton('ᴛᴏʀʀᴇɴᴛ',  callback_data='torrent'),
+            InlineKeyboardButton('sᴛɪᴄᴋᴇʀ', callback_data='sticker')
             ],[
-            InlineKeyboardButton('ᴠɪᴅᴇᴏ ᴛᴏ ᴀᴜᴅɪᴏ',  callback_data='convert')
+            InlineKeyboardButton('ᴠɪᴅᴇᴏ ᴛᴏ ᴀᴜᴅɪᴏ',  callback_data='convert')           
             ],[
             InlineKeyboardButton('Back', callback_data='help'),
             InlineKeyboardButton('Home', callback_data='start')
@@ -336,6 +336,13 @@ async def callback_handle(client, query):
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(text=script.CONVERT_TXT.format(query.from_user.mention), reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
+
+    elif query.data == 'pinterest':
+        buttons = buttons = [[
+            InlineKeyboardButton('ʜᴏᴍᴇ', callback_data='next')
+        ]]
+        reply_markup = InlineKeyboardMarkup(buttons)
+        await query.message.edit_text(text=script.PINTEREST_TXT.format(query.from_user.mention), reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
     
     elif query.data == 'about':
         buttons = buttons = [[
