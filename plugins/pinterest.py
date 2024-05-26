@@ -12,16 +12,15 @@ def extract_image_url(pinterest_url):
         response.raise_for_status()
         soup = BeautifulSoup(response.content, 'html.parser')
         image_tags = soup.find_all('img', class_=['h-image-fit', 'h-unsplash-img'])
-        print(f"image tag {image_tags}")
         if not image_tags:
             image_tags = soup.find_all('img', attrs={'src': lambda src: src and src.startswith('https://i.pinimg.com/')})
         if image_tags:
             return image_tags[0]['src']
     except requests.exceptions.RequestException as e:
-        await message.reply_text(f"Error fetching content from URL: {e}")
+        message.reply_text(f"Error fetching content from URL: {e}")
         print(f"Error fetching content from URL: {e}")
     except Exception as e:
-        await message.reply_text(f"Unexpected error: {e}")
+        message.reply_text(f"Unexpected error: {e}")
         print(f"Unexpected error: {e}")
     return None
   
