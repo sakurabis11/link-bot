@@ -40,7 +40,7 @@ async def main(client, message):
         f_s = first_part.split(".com/")
         second_part = ls[1]
         n = "https://i.pinimg.com/"
-        index = "736"
+        index = "1200"
         m = n + index + "x/" + second_part
         print(f"m= {m}")
         b = wget.download(m)
