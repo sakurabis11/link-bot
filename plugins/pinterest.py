@@ -30,7 +30,7 @@ pinterest_link_regex = r"https://pin\.it/(?P<code>\w+)"
 @Client.on_message(filters.regex(pinterest_link_regex))
 async def main(client, message):
   try:
-      
+    sd=await message.reply_text("<code>Downloading...</code>")
     pinterest_url = message.text
     image_url = extract_image_url(pinterest_url)
       
@@ -45,6 +45,7 @@ async def main(client, message):
         print(f"m= {m}")
         b = wget.download(m)
         await client.send_document(message.chat.id , b)
+        await sd.delete()
         await client.send_message(REQUESTED_CHANNEL, text=f"#ᴘɪɴᴛᴇʀᴇsᴛ_ʀᴇǫᴜᴇsᴛ\\ғʀᴏᴍ:{message.from_user.mention}")
     else:
         await message.reply_text("Image URL not found. Consider respecting Pinterest's terms of service.")
