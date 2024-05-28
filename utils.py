@@ -14,6 +14,7 @@ from datetime import datetime
 from typing import List
 from uvloop import new_event_loop
 from database.users_db import db
+from database_pic.pic_users_db import sd
 from bs4 import BeautifulSoup
 from PIL import Image
 from io import BytesIO
