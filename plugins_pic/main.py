@@ -34,15 +34,7 @@ collection = db["pic_db"]
 @Client.on_message(filters.command('stats')  & filters.private)
 async def get_stats(bot, message):
  try:
-    user_id = message.from_user.id
-    find_user_id = collection.find_one({"user_ids": message.from_user.id})
-    if not find_user_id:
-        await message.reply_text("you didn't sign up for storing pic ,so click on /create")
-        return
-    existing_log_u = collection.find_one({"login": message.from_user.id})
-    if not existing_log_u:
-        await message.reply_text("You didn't logg in, so please login")
-    else:
+        user_id = message.from_user.id
         msg = await message.reply('Fetching stats..')
         total_users = await sd.total_users_count()
         totl_chats = await sd.total_chat_count()
