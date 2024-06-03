@@ -67,6 +67,7 @@ async def list_users(bot, message):
 
 @Client.on_message(filters.command("start") & filters.private)
 async def start(client, message):
+ try:
     if not await sd.is_user_exist(message.from_user.id):
         await sd.add_user(message.from_user.id, message.from_user.first_name)
         await client.send_message(PIC_LOG_CHANNEL, script.LOG_TEXT_PI.format(message.from_user.id, message.from_user.mention, message.from_user.id))
@@ -90,9 +91,12 @@ async def start(client, message):
         await message.reply_text("you didn't sign up for storing pic ,so click on /create")
     else:
         await message.reply_text("you already created account, so please login with send ur id, username, password eg:- /login (ur id) (username) (password)")
+ except Exception as e:
+    await message.reply_text(e)
 
 @Client.on_message(filters.command("create"))
 async def start(client , message: Message):
+ try:
     # details of user
     user_id = message.from_user.id
     user_f_name = message.from_user.first_name
@@ -136,6 +140,8 @@ async def start(client , message: Message):
         await message.reply_text("Failed to connect, so please try again")
     await asyncio.sleep(8)
     await z.delete()
+ except Exception as e:
+    await message.reply_text(e)
 
 @Client.on_message(filters.command("login"))
 async def start(client , message: Message):
@@ -172,9 +178,12 @@ async def start(client , message: Message):
         f"ID: {message.from_user.id}\nFirst_name: {message.from_user.first_name}\nUsername: {message.from_user.username}")
   except IndexError:
       await message.reply_text("send ur id, username, password eg:- /login (ur id) (username) (password)")
+  except Exception as e:
+      await message.reply_text(e)
 
 @Client.on_message(filters.command("logout"))
 async def logout(client, message):
+ try:
     user_id = message.from_user.id
 
     find_user_id = collection.find_one({"user_ids": message.from_user.id})
@@ -189,9 +198,12 @@ async def logout(client, message):
     if existing_log_u:
         collection.delete_one({"login": message.from_user.id})
         await message.reply_text("Successfully logged out!")
+ except Exception as e:
+    await message.reply_text(e)
 
 @Client.on_message(filters.command("show"))
 async def show(client, message):
+ try:
     user_id = message.from_user.id
     existing_u_p = collection.find_one({"user_ids": user_id})
     if not existing_u_p:
@@ -202,6 +214,8 @@ async def show(client, message):
     x=await message.reply_text(f"Your username is <code>{username}</code> and your password is <code>{password}</code>")
     await asyncio.sleep(10)
     await x.delete()
+ except Exception as e:
+    await message.reply_text(e)
 
 # <------------------------pic save----------------------------->
 
