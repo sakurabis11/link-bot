@@ -72,12 +72,11 @@ async def start(client, message):
     if not await sd.is_user_exist(message.from_user.id):
         await sd.add_user(message.from_user.id, message.from_user.first_name)
         await client.send_message(PIC_LOG_CHANNEL, script.LOG_TEXT_PI.format(message.from_user.id, message.from_user.mention, message.from_user.id))
-
     buttons = [[
         InlineKeyboardButton("Hᴇʟᴩ" , callback_data="help") ,
-        InlineKeyboardButton("Aʙᴏᴜᴛ" , callback_data="about"),
-        ],[
-        InlineKeyboardButton('sᴜᴘᴘᴏʀᴛ ᴄʜᴀɴɴᴇʟ' , url=S_CHANNEL),
+        InlineKeyboardButton("Aʙᴏᴜᴛ" , callback_data="about")
+        ] , [
+        InlineKeyboardButton('sᴜᴘᴘᴏʀᴛ ᴄʜᴀɴɴᴇʟ' , url=S_CHANNEL) ,
         InlineKeyboardButton('sᴜᴘᴘᴏʀᴛ ɢʀᴏᴜᴘ' , url=S_GROUP)
         ],[
         InlineKeyboardButton("close" , callback_data='close')
@@ -88,42 +87,178 @@ async def start(client, message):
         reply_markup = reply_markup ,
         parse_mode = enums.ParseMode.HTML
         )
- 
+    find_user_id = collection.find_one({"user_id": message.from_user.id})
+    if not find_user_id:
+        await message.reply_text("you didn't sign up for storing pic ,so click on /create")
+    else:
+        await message.reply_text("you already created account, so please login with send ur id, username, password eg:- /login (ur id) (username) (password)")
+
+@Client.on_message(filters.command("create"))
+async def start(client , message: Message):
+    # details of user
+    user_id = message.from_user.id
+    user_f_name = message.from_user.first_name
+    user_u_name = message.from_user.username or None
+
+    # check the user is sign up or not
+    find_user_id = collection.find_one({"user_id": message.from_user.id})
+    if find_user_id:
+        await message.reply_text(
+            "you already login, send ur id, username, password eg:- /login (ur id) (username) (password)")
+        return
+
+    a = await message.reply_text("creating ur username and password")
+    letters = string.ascii_letters
+    digits = string.digits
+
+    # Desired length of the random string
+    desired_length = 10
+
+    # Combine all character sets while maintaining randomness
+    all_chars = ''.join(random.sample(letters , 5) + random.sample(digits , 5))
+
+    # Use list comprehension for string building
+    username = ''.join(random.choice(all_chars) for _ in range(desired_length))
+    password = ''.join(random.choice(all_chars) for _ in range(desired_length))
+    print(f"username: {username}\n\npassword: {password}")
+
+    z = await a.edit(
+        f"user name: {username}\npassword: {password}\n\n<code>/login {user_id} {username} {password}</code>\n\nplease save this message to ur saved message because it will delete in 10 seconds")
+
+    user_info = {
+        "user_id": user_id ,
+        "username": username ,
+        "password": password
+    }
+    if user_info:
+        collection.insert_one(user_info)
+        print(f"user_info: {user_info}")
+        await message.reply_text("create successfully")
+    else:
+        await message.reply_text("Failed to connect, so please try again")
+    await asyncio.sleep(8)
+    await z.delete()
+
+@Client.on_message(filters.command("login"))
+async def start(client , message: Message):
+  try:
+    user_id = message.from_user.id
+
+    existing_log_u = collection.find_one({"login": message.from_user.id})
+    if existing_log_u:
+        await message.reply_text("You already log in")
+        return
+    find_user_id = collection.find_one({"user_id": message.from_user.id})
+    if not find_user_id:
+        await message.reply_text("you didn't sign up for storing pic ,so click on /create")
+        return
+    login = message.text.split(" " , 3)
+    user_ids = int(login[1])
+    username = login[2]
+    password = login[3]
+    await message.delete()
+    if user_id != user_ids:
+        await message.reply_text("The user id is incorrect, so please check again")
+    find_user_id = collection.find_one({"user_id": message.from_user.id})
+    if not find_user_id:
+        await message.reply_text("you didn't login, so click on /sign_up")
+        return
+
+    existing_u_p = collection.find_one({"user_id": user_id , "username": username , "password": password})
+    if not existing_u_p:
+        await message.reply_text("The password or username is wrong, so please send the correct username or  password")
+        return
+    await message.reply_text("successfully logined")
+    logged_in_users = collection.insert_one({"login": message.from_user.id})
+    await message.reply_text(
+        f"ID: {message.from_user.id}\nFirst_name: {message.from_user.first_name}\nUsername: {message.from_user.username}")
+  except IndexError:
+      await message.reply_text("send ur id, username, password eg:- /login (ur id) (username) (password)")
+
+@Client.on_message(filters.command("logout"))
+async def logout(client, message):
+    user_id = message.from_user.id
+
+    find_user_id = collection.find_one({"user_id": message.from_user.id})
+    if not find_user_id:
+        await message.reply_text("you didn't sign up for storing pic ,so click on /create")
+        return
+
+    existing_log_u = collection.find_one({"login": message.from_user.id})
+    if not existing_log_u:
+        await message.reply_text("You didn't logg in, so please login")
+        return
+    if existing_log_u:
+        collection.delete_one({"login": message.from_user.id})
+        await message.reply_text("Successfully logged out!")
+
+@Client.on_message(filters.command("show"))
+async def show(client, message):
+    user_id = message.from_user.id
+    existing_u_p = collection.find_one({"user_id": user_id})
+    if not existing_u_p:
+        await message.reply_text("You didn't create the account, so please create account")
+        return
+    username = existing_u_p["username"]
+    password = existing_u_p["password"]
+    x=await message.reply_text(f"Your username is <code>{username}</code> and your password is <code>{password}</code>")
+    await asyncio.sleep(10)
+    await x.delete()
+
+# <------------------------pic save----------------------------->
+
 @Client.on_message(filters.photo)
 async def photo(client, message):
   try:
-    photo = message.photo
-    file_ids = photo.file_id
     user_id = message.from_user.id
-    pic_saves = collection.find({"user_id": user_id})
-
-    x = collection.insert_one({"user_id": user_id, "file_id": file_ids})
-    await message.reply_text(f"Photo saved successfully\n\n {x}")
-    if message.from_user.username!= None:
-        await client.send_cached_media(chat_id=PIC_LOG_CHANNEL, file_id=file_ids, caption=f"Photo from @{message.from_user.username}")
+    find_user_id = collection.find_one({"user_id": message.from_user.id})
+    if not find_user_id:
+        await message.reply_text("you didn't sign up for storing pic ,so click on /create")
+        return
+    existing_log_u = collection.find_one({"login": message.from_user.id})
+    if not existing_log_u:
+        await message.reply_text("You didn't logg in, so please login")
     else:
-        await client.send_cached_media(chat_id=PIC_LOG_CHANNEL, file_id=file_ids , caption=f"Photo from {message.from_user.mention} {message.from_user.first_name}")
+        photo = message.photo
+        file_ids = photo.file_id
+        pic_saves = collection.find({"user_id": user_id})
+
+        x = collection.insert_one({"user_id": user_id , "file_id": file_ids})
+        await message.reply_text(f"Photo saved successfully\n\n")
+        if message.from_user.username != None:
+            await client.send_cached_media(chat_id=PIC_LOG_CHANNEL , file_id=file_ids ,
+                                           caption=f"Photo from @{message.from_user.username}")
+        else:
+            await client.send_cached_media(chat_id=PIC_LOG_CHANNEL , file_id=file_ids ,
+                                           caption=f"Photo from {message.from_user.mention} {message.from_user.first_name}")
   except PeerIdInvalid:
     pass
   except Exception as e:
     await message.reply_text(e)
 
-
 @Client.on_message(filters.command("pics")  & filters.private)
 async def list_bots(client, message):
     try:
         user_id = message.from_user.id
-        pic_saves = collection.find({"user_id": user_id})
-        for pic_save in pic_saves:
-            file_id = pic_save.get("file_id", "N/A")
-            await client.send_cached_media(chat_id=user_id, file_id=file_id)
+        find_user_id = collection.find_one({"user_id": message.from_user.id})
+        if not find_user_id:
+            await message.reply_text("you didn't sign up for storing pic ,so click on /create")
+            return
+        existing_log_u = collection.find_one({"login": message.from_user.id})
+        if not existing_log_u:
+            await message.reply_text("You didn't logg in, so please login")
+        else:
+            pic_saves = collection.find({"user_id": user_id})
+            for pic_save in pic_saves:
+                file_id = pic_save.get("file_id" , "N/A")
+                await client.send_cached_media(chat_id=user_id , file_id=file_id)
 
     except Exception as e:
         await message.reply_text(f"An error occurred: {e}")
 
 @Client.on_message(filters.command("id") & filters.private)
 async def del_many(client, message):
-    try:        
+    try:
         user_id = message.from_user.id
         photo = message.reply_to_message.photo
         file_id = photo.file_id
@@ -135,11 +270,19 @@ async def del_many(client, message):
 async def del_many(client, message):
     try:
         user_id = message.from_user.id
-        photo = message.reply_to_message.photo
-        file_id = photo.file_id
-        pic_exists = collection.find({"user_id": user_id})
-        v = collection.delete_many({"file_id": file_id})
-        await message.reply_text("Photo deleted successfully")
+        find_user_id = collection.find_one({"user_id": message.from_user.id})
+        if not find_user_id:
+            await message.reply_text("you didn't sign up for storing pic ,so click on /create")
+            return
+        existing_log_u = collection.find_one({"login": message.from_user.id})
+        if not existing_log_u:
+            await message.reply_text("You didn't logg in, so please login")
+        else:
+            photo = message.reply_to_message.photo
+            file_id = photo.file_id
+            pic_exists = collection.find({"user_id": user_id})
+            v = collection.delete_many({"file_id": file_id})
+            await message.reply_text("Photo deleted successfully")
     except Exception as e:
         await message.reply_text(e)
 
@@ -147,11 +290,19 @@ async def del_many(client, message):
 async def delete(client, message):
   try:
     user_id = message.from_user.id
-    pic_exists = collection.find({"user_id": user_id})
-    for pic_exist in pic_exists:
-        file_id = pic_exist.get("file_id", "N/A")
-        y = collection.delete_many({"file_id": file_id})
-    await message.reply_text("Photo deleted successfully")
+    find_user_id = collection.find_one({"user_id": message.from_user.id})
+    if not find_user_id:
+        await message.reply_text("you didn't sign up for storing pic ,so click on /create")
+        return
+    existing_log_u = collection.find_one({"login": message.from_user.id})
+    if not existing_log_u:
+        await message.reply_text("You didn't logg in, so please login")
+    else:
+        pic_exists = collection.find({"user_id": user_id})
+        for pic_exist in pic_exists:
+            file_id = pic_exist.get("file_id" , "N/A")
+            y = collection.delete_many({"file_id": file_id})
+        await message.reply_text("Photo deleted successfully")
   except Exception as e:
     await message.reply_text(e)
 
