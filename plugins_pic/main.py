@@ -86,11 +86,6 @@ async def start(client, message):
         reply_markup = reply_markup ,
         parse_mode = enums.ParseMode.HTML
         )
-    find_user_id = collection.find_one({"user_ids": message.from_user.id})
-    if not find_user_id:
-        await message.reply_text("you didn't sign up for storing pic ,so click on /create")
-    else:
-        await message.reply_text("you already created account, so please login with send ur id, username, password eg:- /login (ur id) (username) (password)")
  except Exception as e:
     await message.reply_text(e)
 
