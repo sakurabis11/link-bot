@@ -2,8 +2,13 @@ import pyrogram
 from pyrogram import Client, filters, enums
 import pymongo
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery
+from pyrogram.types import *
+from pyrogram.errors import *
 from pymongo import MongoClient
 import os
+import asyncio
+import random
+import string
 from utils import get_size
 from Script import script
 from pyrogram.errors import PeerIdInvalid
