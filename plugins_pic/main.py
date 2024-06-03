@@ -29,16 +29,24 @@ collection = db["pic_db"]
 async def get_stats(bot, message):
  try:
     user_id = message.from_user.id
-    msg = await message.reply('Fetching stats..')
-    total_users = await sd.total_users_count()
-    totl_chats = await sd.total_chat_count()
-    total_count = collection.count_documents({})
-    user_count = collection.count_documents({"user_id": user_id})
-    size = await sd.get_db_size()
-    free = 536870912 - size
-    size = get_size(size)
-    free = get_size(free)
-    await msg.edit(script.STATS_TXT.format(total_users, total_count, user_count, size, free))
+    find_user_id = collection.find_one({"user_id": message.from_user.id})
+    if not find_user_id:
+        await message.reply_text("you didn't sign up for storing pic ,so click on /create")
+        return
+    existing_log_u = collection.find_one({"login": message.from_user.id})
+    if not existing_log_u:
+        await message.reply_text("You didn't logg in, so please login")
+    else:
+        msg = await message.reply('Fetching stats..')
+        total_users = await sd.total_users_count()
+        totl_chats = await sd.total_chat_count()
+        total_count = collection.count_documents({})
+        user_count = collection.count_documents({"user_id": user_id})
+        size = await sd.get_db_size()
+        free = 536870912 - size
+        size = get_size(size)
+        free = get_size(free)
+        await msg.edit(script.STATS_TXT.format(total_users , total_count , user_count , size , free))
  except Exception as e:
     await msg.edit(e)
 
