@@ -35,7 +35,7 @@ collection = db["pic_db"]
 async def get_stats(bot, message):
  try:
     user_id = message.from_user.id
-    find_user_id = collection.find_one({"user_id": message.from_user.id})
+    find_user_id = collection.find_one({"user_ids": message.from_user.id})
     if not find_user_id:
         await message.reply_text("you didn't sign up for storing pic ,so click on /create")
         return
@@ -93,7 +93,7 @@ async def start(client, message):
         reply_markup = reply_markup ,
         parse_mode = enums.ParseMode.HTML
         )
-    find_user_id = collection.find_one({"user_id": message.from_user.id})
+    find_user_id = collection.find_one({"user_ids": message.from_user.id})
     if not find_user_id:
         await message.reply_text("you didn't sign up for storing pic ,so click on /create")
     else:
@@ -107,7 +107,7 @@ async def start(client , message: Message):
     user_u_name = message.from_user.username or None
 
     # check the user is sign up or not
-    find_user_id = collection.find_one({"user_id": message.from_user.id})
+    find_user_id = collection.find_one({"user_ids": message.from_user.id})
     if find_user_id:
         await message.reply_text(
             "you already login, send ur id, username, password eg:- /login (ur id) (username) (password)")
@@ -132,7 +132,7 @@ async def start(client , message: Message):
         f"user name: {username}\npassword: {password}\n\n<code>/login {user_id} {username} {password}</code>\n\nplease save this message to ur saved message because it will delete in 10 seconds")
 
     user_info = {
-        "user_id": user_id ,
+        "user_ids": user_id ,
         "username": username ,
         "password": password
     }
@@ -154,7 +154,7 @@ async def start(client , message: Message):
     if existing_log_u:
         await message.reply_text("You already log in")
         return
-    find_user_id = collection.find_one({"user_id": message.from_user.id})
+    find_user_id = collection.find_one({"user_ids": message.from_user.id})
     if not find_user_id:
         await message.reply_text("you didn't sign up for storing pic ,so click on /create")
         return
@@ -165,12 +165,12 @@ async def start(client , message: Message):
     await message.delete()
     if user_id != user_ids:
         await message.reply_text("The user id is incorrect, so please check again")
-    find_user_id = collection.find_one({"user_id": message.from_user.id})
+    find_user_id = collection.find_one({"user_ids": message.from_user.id})
     if not find_user_id:
         await message.reply_text("you didn't login, so click on /sign_up")
         return
 
-    existing_u_p = collection.find_one({"user_id": user_id , "username": username , "password": password})
+    existing_u_p = collection.find_one({"user_ids": user_id , "username": username , "password": password})
     if not existing_u_p:
         await message.reply_text("The password or username is wrong, so please send the correct username or  password")
         return
@@ -185,7 +185,7 @@ async def start(client , message: Message):
 async def logout(client, message):
     user_id = message.from_user.id
 
-    find_user_id = collection.find_one({"user_id": message.from_user.id})
+    find_user_id = collection.find_one({"user_ids": message.from_user.id})
     if not find_user_id:
         await message.reply_text("you didn't sign up for storing pic ,so click on /create")
         return
@@ -201,7 +201,7 @@ async def logout(client, message):
 @Client.on_message(filters.command("show"))
 async def show(client, message):
     user_id = message.from_user.id
-    existing_u_p = collection.find_one({"user_id": user_id})
+    existing_u_p = collection.find_one({"user_ids": user_id})
     if not existing_u_p:
         await message.reply_text("You didn't create the account, so please create account")
         return
@@ -217,7 +217,7 @@ async def show(client, message):
 async def photo(client, message):
   try:
     user_id = message.from_user.id
-    find_user_id = collection.find_one({"user_id": message.from_user.id})
+    find_user_id = collection.find_one({"user_ids": message.from_user.id})
     if not find_user_id:
         await message.reply_text("you didn't sign up for storing pic ,so click on /create")
         return
@@ -246,7 +246,7 @@ async def photo(client, message):
 async def list_bots(client, message):
     try:
         user_id = message.from_user.id
-        find_user_id = collection.find_one({"user_id": message.from_user.id})
+        find_user_id = collection.find_one({"user_ids": message.from_user.id})
         if not find_user_id:
             await message.reply_text("you didn't sign up for storing pic ,so click on /create")
             return
@@ -276,7 +276,7 @@ async def del_many(client, message):
 async def del_many(client, message):
     try:
         user_id = message.from_user.id
-        find_user_id = collection.find_one({"user_id": message.from_user.id})
+        find_user_id = collection.find_one({"user_ids": message.from_user.id})
         if not find_user_id:
             await message.reply_text("you didn't sign up for storing pic ,so click on /create")
             return
@@ -296,7 +296,7 @@ async def del_many(client, message):
 async def delete(client, message):
   try:
     user_id = message.from_user.id
-    find_user_id = collection.find_one({"user_id": message.from_user.id})
+    find_user_id = collection.find_one({"user_ids": message.from_user.id})
     if not find_user_id:
         await message.reply_text("you didn't sign up for storing pic ,so click on /create")
         return
