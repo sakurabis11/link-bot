@@ -147,10 +147,6 @@ async def login_session(client: Client , message: Message):
     await message.delete()
     if user_id != user_ids:
         await message.reply_text("The user id is incorrect, so please check again")
-    find_user_id = collection.find_one({"user_ids": message.from_user.id})
-    if not find_user_id:
-        await message.reply_text("you didn't login, so click on /sign_up")
-        return
 
     existing_u_p = collection.find_one({"user_ids": user_id , "username": username , "password": password})
     if not existing_u_p:
