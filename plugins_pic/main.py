@@ -165,6 +165,23 @@ async def login_session(client: Client , message: Message):
   except Exception as e:
       await message.reply_text(e)
 
+@Client.on_message(filters.command("logout"))
+async def logout(client:Client, message: Message):
+    user_id = message.from_user.id
+
+    find_user_id = collection.find_one({"user_ids": message.from_user.id})
+    if not find_user_id:
+        await message.reply_text("you didn't sign up for storing pic ,so click on /create")
+        return
+
+    existing_log_u = collection.find_one({"login": message.from_user.id})
+    if not existing_log_u:
+        await message.reply_text("You didn't logg in, so please login")
+        return
+    if existing_log_u:
+        collection.delete_one({"login": message.from_user.id})
+        await message.reply_text("Successfully logged out!")
+
 @Client.on_message(filters.command("show") & filters.private)
 async def show(client: Client, message):
     user_id = message.from_user.id
