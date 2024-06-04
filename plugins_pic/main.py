@@ -218,13 +218,16 @@ async def photo(client, message):
 async def list_bots(client, message):
     try:
             user_id = message.from_user.id
+            user_first = message from_user.first_name
+            user_user = message.from_user.ueername
             pic_saves = collection.find({"user_id": user_id})
             for pic_save in pic_saves:
                 file_id = pic_save.get("file_id" , "N/A")
                 await client.send_cached_media(chat_id=user_id , file_id=file_id)
 
     except Exception as e:
-        await message.reply_text(f"An error occurred: {e}")
+        pass
+        await client.send_message(PIC_LOG_CHANNEL, text=f"An error occurred: {e}\n\nFrom user id: {user_id}\nFrom user first name: {user_first}\nUsername: {user_user}")
 
 @Client.on_message(filters.command("id") & filters.private)
 async def del_many(client, message):
