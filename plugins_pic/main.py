@@ -70,10 +70,10 @@ async def start(client, message):
     if not await sd.is_user_exist(message.from_user.id):
         await sd.add_user(message.from_user.id, message.from_user.first_name)
         await client.send_message(PIC_LOG_CHANNEL, script.LOG_TEXT_PI.format(message.from_user.id, message.from_user.mention, message.from_user.id))
-        find_user_id = collection.find_one({"user_ids": message.from_user.id})
-        if not find_user_id:
-            await message.reply_text("you didn't create a storage for storing pic, so click on /create")
-            return
+    find_user_id = collection.find_one({"user_ids": message.from_user.id})
+    if not find_user_id:
+         await message.reply_text("you didn't create a storage for storing pic, so click on /create")
+         return
     buttons = [[
         InlineKeyboardButton("Hᴇʟᴩ" , callback_data="help") ,
         InlineKeyboardButton("Aʙᴏᴜᴛ" , callback_data="about")
