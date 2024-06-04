@@ -353,7 +353,7 @@ async def callback_handle(client, query):
         InlineKeyboardButton('ᴄʟᴏsᴇ' , callback_data='close')
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
-        await query.message.edit_text(text="Welcome to the photo saver bot. You can save, view, and delete your uploaded photos. Here are the commands:\n\n/pics - List your saved photos\n/del_one - Delete a specific photo. reply to the photo that you have sended.\n/del_many - Delete all your saved photos",reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
+        await query.message.edit_text(text="Welcome to the photo saver bot.\n Here are the commands:\n\n/create - For storing the pics to create a storage.\n/login - Login for the access of ur pic to view and also delete.\n/logout - it will logout the session.\n/show - If you forget your username and password then send /show then the bot will send the username and password. (There is no need to login to use the /show).\n/delete -  If you wanna to delete the created account in our bot, send /delete then it will delete all the datas stored in db.\n/pics - List your saved photos\n/del_one - Delete a specific photo. reply to the photo that you have sended.\n/del_many - Delete all your saved photos",reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
 
     elif query.data == 'about':
          buttons = [[
