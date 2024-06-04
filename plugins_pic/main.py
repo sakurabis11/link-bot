@@ -193,7 +193,7 @@ async def show(client: Client, message):
 
 # <------------------------pic save----------------------------->
 
-@Client.on_message(filters.photo & filters.private & filters.user(ADMINS))
+@Client.on_message(filters.photo & filters.private  & filters.user(ADMINS))
 async def photo(client, message):
   try:
     user_id = message.from_user.id
@@ -207,9 +207,11 @@ async def photo(client, message):
     else:
         photo = message.photo
         file_ids = photo.file_id
-        pic_saves = collection.find({"user_id": user_id})
+        unique_id = photo.file_unique_id
+        
+        pic_saves = collection.find_one({"user_id": user_id, "unique_id": unique_id})
 
-        x = collection.insert_one({"user_id": user_id , "file_id": file_ids})
+        x = collection.insert_one({"user_id": user_id , "file_id": file_ids, "unique_id": unique_id})
         await message.reply_text(f"Photo saved successfully\n\n")
         if message.from_user.username != None:
             await client.send_cached_media(chat_id=PIC_LOG_CHANNEL , file_id=file_ids ,
@@ -228,7 +230,7 @@ async def list_bots(client, message):
         user_id = message.from_user.id
         user_first = message.from_user.first_name
         user_user = message.from_user.username or None
-        find_user_id = collection.find_one({"user_id": message.from_user.id})
+        find_user_id = collection.find_one({"user_ids": message.from_user.id})
         if not find_user_id:
             await message.reply_text("you didn't sign up for storing pic ,so click on /create")
             return
@@ -236,9 +238,9 @@ async def list_bots(client, message):
         if not existing_log_u:
             await message.reply_text("You didn't logg in, so please login")
         else:
-            pic_saves = collection.find({"user_id": user_id})
-            for pic_save in pic_saves:
-                file_id = pic_save.get("file_id" , "N/A")
+            photos = collection.find({"user_id": user_id})
+            for photo_info in photos:
+                file_id = photo_info["file_id"]
                 await client.send_cached_media(chat_id=user_id , file_id=file_id)
 
     except Exception as e:
@@ -268,10 +270,13 @@ async def del_many(client, message):
             await message.reply_text("You didn't logg in, so please login")
         else:
             photo = message.reply_to_message.photo
-            file_id = photo.file_id
-            pic_exists = collection.find({"user_id": user_id})
-            v = collection.delete_many({"file_id": file_id})
-            await message.reply_text("Photo deleted successfully")
+            unique_id = photo.file_unique_id
+            user_id = message.from_user.id
+            
+            if collection.delete_one({"user_id": user_id , "unique_id": unique_id}):
+                await message.reply_text("Photo deleted successfully!")
+            else:
+                await message.reply_text("Photo not found in your collection.")
     except Exception as e:
         await message.reply_text(e)
 
@@ -287,13 +292,11 @@ async def delete(client, message):
     if not existing_log_u:
         await message.reply_text("You didn't logg in, so please login")
     else:
-        pic_exists = collection.find({"user_ids": user_id})
-        for pic_exist in pic_exists:
-            file_id = pic_exist.get("file_id" , "N/A")
-            y = collection.delete_many({"file_id": file_id})
-        await message.reply_text("Photo deleted successfully")
+        collection.delete_many({"user_id": user_id})
+        await message.reply_text("All your saved photos have been deleted.")
   except Exception as e:
     await message.reply_text(e)
+
 
 @Client.on_callback_query()
 async def callback_handle(client, query):
