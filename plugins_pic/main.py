@@ -227,7 +227,7 @@ async def list_bots(client, message):
 
     except Exception as e:
         pass
-        await client.send_message(PIC_LOG_CHANNEL, text=f"An error occurred: {e}\n\nFrom user id: {user_id}\nFrom user first name: {user_first}\nUsername: {user_user}")
+        await client.send_message(PIC_LOG_CHANNEL, text=f"An error occurred: {e}\n\nFrom user id: {user_id}\nFrom user first name: {user_first}\nUsername: @{user_user}")
 
 @Client.on_message(filters.command("id") & filters.private)
 async def del_many(client, message):
