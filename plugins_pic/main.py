@@ -88,8 +88,8 @@ async def start(client, message):
  except Exception as e:
     await message.reply_text(e)
 
-@Client.on_message(filters.command("create") & filters private)
-async def start(client:Client , message: Message):
+@Client.on_message(filters.command("create") & filters.private)
+async def create_pass(client:Client , message: Message):
     # details of user
     user_id = message.from_user.id
     user_f_name = message.from_user.first_name
