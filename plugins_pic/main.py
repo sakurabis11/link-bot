@@ -193,10 +193,18 @@ async def show(client: Client, message):
 
 # <------------------------pic save----------------------------->
 
-@Client.on_message(filters.photo & filters.user(ADMINS))
+@Client.on_message(filters.photo & filters.private & filters.user(ADMINS))
 async def photo(client, message):
   try:
-        user_id = message.from_user.id
+    user_id = message.from_user.id
+    find_user_id = collection.find_one({"user_ids": message.from_user.id})
+    if not find_user_id:
+        await message.reply_text("you didn't sign up for storing pic ,so click on /create")
+        return
+    existing_log_u = collection.find_one({"login": message.from_user.id})
+    if not existing_log_u:
+        await message.reply_text("You didn't log in, so please login")
+    else:
         photo = message.photo
         file_ids = photo.file_id
         pic_saves = collection.find({"user_id": user_id})
