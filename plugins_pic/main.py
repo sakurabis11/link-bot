@@ -213,7 +213,7 @@ async def photo(client, message):
         if pic_saves:
            await message.reply_text("This photo is already saved in your collection.")
            return
-        x = collection.insert_one({"user_id": user_id , "file_id": file_ids, "unique_id": unique_id})
+        collection.insert_one({"user_id": user_id, "unique_id": unique_id, "file_id": file_ids})
 
         await message.reply_text(f"Photo saved successfully\n\n")
         if message.from_user.username != None:
@@ -242,6 +242,9 @@ async def list_bots(client, message):
             await message.reply_text("You didn't logg in, so please login")
         else:
             photos = collection.find({"user_id": user_id})
+            if not photos:
+               await message.reply_text("You don't have any saved photos yet.")
+               return
             for photo_info in photos:
                 file_id = photo_info["file_id"]
                 await client.send_cached_media(chat_id=user_id , file_id=file_id)
