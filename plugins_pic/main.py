@@ -101,20 +101,10 @@ async def start(client, message):
 async def help_session(client: Client, message: Message):
  try:
     user_id = message.from_user.id
-    await client.send_cached_media(chat_id=user_id, file_id="BAACAgUAAxkBAAIHgmZfbyU-4g2aGQ3436uaCdOTjgUrAAKsDwAC7LcAAVdK03i96kHfzB4E",
+    await client.send_cached_media(chat_id=user_id, file_id="BAACAgUAAxkBAAILi2ZfdOmq-5_bMfaGOXo2lxwXM2Y3AAKsDwAC7LcAAVcC3IcsTZT8hR4E",
                                            caption=f"Tutorial for how to use this bot")
  except Exception as e:
     await message.reply_text(e)
-
-@Client.on_message(filters.command("id") & filters.reply)
-async def id(client, message):
-    user_id =message.from_user.id
-    video = message.reply_to_message.video
-    file_id=message.reply_to_message.video.file_id
-    await message.reply_text(file_id)
-    await client.send_cached_media(chat_id=user_id ,
-                                   file_id=file_id,
-                                   caption=f"Tutorial for how to use this bot")
 
 @Client.on_message(filters.command("create") & filters.private)
 async def create_pass(client:Client , message: Message):
