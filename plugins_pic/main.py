@@ -367,7 +367,7 @@ async def callback_handle(client, query):
          user_id = query.from_user.id
          collection.delete_one({"user_ids": user_id})
          collection.delete_many({"user_id": user_id})
-         collection.delete_one({"login": message.from_user.id})
+         collection.delete_one({"login": user_id})
          await client.send_message(user_id , text="Your account has been deleted successfully.")
          await query.message.delete()
          edited_keyboard = InlineKeyboardMarkup([])
