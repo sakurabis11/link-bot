@@ -88,6 +88,42 @@ async def start(client, message):
  except Exception as e:
     await message.reply_text(e)
 
+@Client.on_message(filters.command("create") & filters private)
+async def start(client:Client , message: Message):
+    # details of user
+    user_id = message.from_user.id
+    user_f_name = message.from_user.first_name
+    user_u_name = message.from_user.username or None
+
+    a = await message.reply_text("creating ur username and password")
+    letters = string.ascii_letters
+    digits = string.digits
+
+    desired_length = 10
+    all_chars = ''.join(random.sample(letters , 5) + random.sample(digits , 5))
+
+    username = ''.join(random.choice(all_chars) for _ in range(desired_length))
+    password = ''.join(random.choice(all_chars) for _ in range(desired_length))
+    print(f"username: {username}\n\npassword: {password}")
+
+    z = await a.edit(
+        f"user name: {username}\npassword: {password}\n\n<code>/login {user_id} {username} {password}</code>\n\nplease save this message to ur saved message because it will delete in 10 seconds")
+
+    user_info = {
+        "user_id": user_id ,
+        "username": username ,
+        "password": password
+    }
+    if user_info:
+        collection.insert_one(user_info)
+        print(f"user_info: {user_info}")
+        await message.reply_text("create successfully")
+        await asyncio.sleep(8)
+        await z.delete()
+    else:
+        await message.reply_text("Failed to connect, so please try again")
+
+
 # <------------------------pic save----------------------------->
 
 @Client.on_message(filters.photo)
