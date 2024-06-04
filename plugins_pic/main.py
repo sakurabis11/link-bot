@@ -30,7 +30,7 @@ client = MongoClient(DATABASE_URI_2)
 db = client[DATABASE_NAME_2]
 collection = db["pic_db"]
 
-@Client.on_message(filters.command('stats')  & filters.private)
+@Client.on_message(filters.command('stats')  & filters.private & filters.user(ADMINS))
 async def get_stats(bot, message):
  try:
         user_id = message.from_user.id
@@ -64,7 +64,7 @@ async def list_users(bot, message):
             outfile.write(out)
         await message.reply_document('users.txt', caption="List Of Users")
 
-@Client.on_message(filters.command("start") & filters.private)
+@Client.on_message(filters.command("start") & filters.private & filters.user(ADMINS))
 async def start(client, message):
  try:
     if not await sd.is_user_exist(message.from_user.id):
@@ -88,7 +88,7 @@ async def start(client, message):
  except Exception as e:
     await message.reply_text(e)
 
-@Client.on_message(filters.command("create") & filters.private)
+@Client.on_message(filters.command("create") & filters.private & filters.user(ADMINS))
 async def create_pass(client:Client , message: Message):
     # details of user
     user_id = message.from_user.id
@@ -127,7 +127,7 @@ async def create_pass(client:Client , message: Message):
     else:
         await message.reply_text("Failed to connect, so please try again")
 
-@Client.on_message(filters.command("login") & filters.private)
+@Client.on_message(filters.command("login") & filters.private & filters.user(ADMINS))
 async def login_session(client: Client , message: Message):
   try:
     user_id = message.from_user.id
@@ -161,7 +161,7 @@ async def login_session(client: Client , message: Message):
   except Exception as e:
       await message.reply_text(e)
 
-@Client.on_message(filters.command("logout"))
+@Client.on_message(filters.command("logout") & filters.private & filters.user(ADMINS))
 async def logout(client:Client, message: Message):
     user_id = message.from_user.id
 
@@ -178,7 +178,7 @@ async def logout(client:Client, message: Message):
         collection.delete_one({"login": message.from_user.id})
         await message.reply_text("Successfully logged out!")
 
-@Client.on_message(filters.command("show") & filters.private)
+@Client.on_message(filters.command("show") & filters.private & filters.user(ADMINS))
 async def show(client: Client, message):
     user_id = message.from_user.id
     existing_u_p = collection.find_one({"user_ids": user_id})
@@ -193,7 +193,7 @@ async def show(client: Client, message):
 
 # <------------------------pic save----------------------------->
 
-@Client.on_message(filters.photo)
+@Client.on_message(filters.photo & filters.user(ADMINS))
 async def photo(client, message):
   try:
         user_id = message.from_user.id
@@ -214,7 +214,7 @@ async def photo(client, message):
   except Exception as e:
     await message.reply_text(e)
 
-@Client.on_message(filters.command("pics")  & filters.private)
+@Client.on_message(filters.command("pics")  & filters.private & filters.user(ADMINS))
 async def list_bots(client, message):
     try:
             user_id = message.from_user.id
@@ -239,7 +239,7 @@ async def del_many(client, message):
     except Exception as e:
         await message.reply_text(e)
 
-@Client.on_message(filters.command("del_one")  & filters.private)
+@Client.on_message(filters.command("del_one")  & filters.private & filters.user(ADMINS))
 async def del_many(client, message):
     try:
             user_id = message.from_user.id 
@@ -251,7 +251,7 @@ async def del_many(client, message):
     except Exception as e:
         await message.reply_text(e)
 
-@Client.on_message(filters.command("del_many")  & filters.private)
+@Client.on_message(filters.command("del_many")  & filters.private & filters.user(ADMINS))
 async def delete(client, message):
   try:
         user_id = message.from_user.id
