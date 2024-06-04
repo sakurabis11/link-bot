@@ -94,7 +94,11 @@ async def create_pass(client:Client , message: Message):
     user_id = message.from_user.id
     user_f_name = message.from_user.first_name
     user_u_name = message.from_user.username or None
-
+    find_user_id = collection.find_one({"user_ids": message.from_user.id})
+    if find_user_id:
+        await message.reply_text(
+            "you already login, send ur id, username, password eg:- /login (ur id) (username) (password)")
+        return
     a = await message.reply_text("creating ur username and password")
     letters = string.ascii_letters
     digits = string.digits
@@ -110,7 +114,7 @@ async def create_pass(client:Client , message: Message):
         f"user name: {username}\npassword: {password}\n\n<code>/login {user_id} {username} {password}</code>\n\nplease save this message to ur saved message because it will delete in 10 seconds")
 
     user_info = {
-        "user_id": user_id ,
+        "user_ids": user_id ,
         "username": username ,
         "password": password
     }
@@ -123,6 +127,43 @@ async def create_pass(client:Client , message: Message):
     else:
         await message.reply_text("Failed to connect, so please try again")
 
+@Client.on_message(filters.command("login") & filters.private)
+async def login_session(client: Client , message: Message):
+  try:
+    user_id = message.from_user.id
+
+    existing_log_u = collection.find_one({"login": message.from_user.id})
+    if existing_log_u:
+        await message.reply_text("You already log in")
+        return
+    find_user_id = collection.find_one({"user_id": message.from_user.id})
+    if not find_user_id:
+        await message.reply_text("you didn't sign up for storing pic ,so click on /create")
+        return
+    login = message.text.split(" " , 3)
+    user_ids = int(login[1])
+    username = login[2]
+    password = login[3]
+    await message.delete()
+    if user_id != user_ids:
+        await message.reply_text("The user id is incorrect, so please check again")
+    find_user_id = collection.find_one({"user_id": message.from_user.id})
+    if not find_user_id:
+        await message.reply_text("you didn't login, so click on /sign_up")
+        return
+
+    existing_u_p = collection.find_one({"user_id": user_id , "username": username , "password": password})
+    if not existing_u_p:
+        await message.reply_text("The password or username is wrong, so please send the correct username or  password")
+        return
+    await message.reply_text("successfully logined")
+    logged_in_users = collection.insert_one({"login": message.from_user.id})
+    await message.reply_text(
+        f"ID: {message.from_user.id}\nFirst_name: {message.from_user.first_name}\nUsername: {message.from_user.username}")
+  except IndexError:
+      await message.reply_text("send ur id, username, password eg:- /login (ur id) (username) (password)")
+  except Exception as e:
+      await message.reply_text(e)
 
 # <------------------------pic save----------------------------->
 
