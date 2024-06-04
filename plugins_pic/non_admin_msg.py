@@ -1,5 +1,5 @@
 import pyrogram 
-from pyrogram import Client, message
+from pyrogram import Client, filters
 from info import ADMINS
 
 @Client.on_message(filters.txt | filters.photo & filters.private & ~filters.user(ADMINS))
