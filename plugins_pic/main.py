@@ -214,7 +214,7 @@ async def photo(client, message):
   except Exception as e:
     await message.reply_text(e)
 
-@Client.on_message(filters.command("pics")  & filters.private & filters.user(ADMINS))
+@Client.on_message(filters.command("pics") & filters.private & filters.user(ADMINS))
 async def list_bots(client, message):
     try:
             user_id = message.from_user.id
