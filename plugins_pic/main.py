@@ -136,7 +136,7 @@ async def login_session(client: Client , message: Message):
     if existing_log_u:
         await message.reply_text("You already log in")
         return
-    find_user_id = collection.find_one({"user_id": message.from_user.id})
+    find_user_id = collection.find_one({"user_ids": message.from_user.id})
     if not find_user_id:
         await message.reply_text("you didn't sign up for storing pic ,so click on /create")
         return
@@ -147,12 +147,12 @@ async def login_session(client: Client , message: Message):
     await message.delete()
     if user_id != user_ids:
         await message.reply_text("The user id is incorrect, so please check again")
-    find_user_id = collection.find_one({"user_id": message.from_user.id})
+    find_user_id = collection.find_one({"user_ids": message.from_user.id})
     if not find_user_id:
         await message.reply_text("you didn't login, so click on /sign_up")
         return
 
-    existing_u_p = collection.find_one({"user_id": user_id , "username": username , "password": password})
+    existing_u_p = collection.find_one({"user_ids": user_id , "username": username , "password": password})
     if not existing_u_p:
         await message.reply_text("The password or username is wrong, so please send the correct username or  password")
         return
@@ -164,6 +164,19 @@ async def login_session(client: Client , message: Message):
       await message.reply_text("send ur id, username, password eg:- /login (ur id) (username) (password)")
   except Exception as e:
       await message.reply_text(e)
+
+@Client.on_message(filters.command("show") & filters.private)
+async def show(client: Client, message):
+    user_id = message.from_user.id
+    existing_u_p = collection.find_one({"user_ids": user_id})
+    if not existing_u_p:
+        await message.reply_text("You didn't create the account, so please create account")
+        return
+    username = existing_u_p["username"]
+    password = existing_u_p["password"]
+    x=await message.reply_text(f"Your username is <code>{username}</code> and your password is <code>{password}</code>")
+    await asyncio.sleep(10)
+    await x.delete()
 
 # <------------------------pic save----------------------------->
 
