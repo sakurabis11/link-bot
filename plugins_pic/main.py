@@ -198,6 +198,29 @@ async def show(client: Client, message):
     await asyncio.sleep(10)
     await x.delete()
 
+@Client.on_message(filters.command("delete") & filters.private)
+async def delete_account(client: Client, message: Message):
+  user_id = message.from_user.id
+
+  find_user_id = collection.find_one({"user_ids": user_id})
+  if not find_user_id:
+      await message.reply_text("You don't have an account to delete. Please create one using /create")
+      return
+
+  # Confirmation before deletion
+  confirmation_message = "Are you sure you want to delete your account? This action is irreversible.'yes' to confirm or 'no' to cancel."
+  buttons = [[
+      InlineKeyboardButton("yes" , callback_data="yess")
+      ],[
+      InlineKeyboardButton("no" , callback_data="noo")
+  ]]
+  reply_markup = InlineKeyboardMarkup(buttons)
+  await message.reply_text(
+      text=confirmation_message,
+      reply_markup=reply_markup ,
+      parse_mode=enums.ParseMode.HTML
+  )
+
 # <------------------------pic save----------------------------->
 
 @Client.on_message(filters.photo & filters.private)
@@ -340,6 +363,21 @@ async def callback_handle(client, query):
          reply_markup = InlineKeyboardMarkup(buttons)
          await query.message.edit_text(text=ABOUT_TXT,reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML)
 
+    elif query.data == 'yess':
+        user_id = query.from_user.id
+        collection.delete_one({"user_ids": user_id})
+        await client.send_message(user_id, text="Your account has been deleted successfully.")
+        await query.message.delete()
+        edited_keyboard = InlineKeyboardMarkup([])
+        await query.answer()
+        await query.message.edit_reply_markup(edited_keyboard)
+
+    elif query.data == 'noo':
+        await query.message.delete()
+        edited_keyboard = InlineKeyboardMarkup([])
+        await query.answer()
+        await query.message.edit_reply_markup(edited_keyboard)
+     
     elif query.data == 'close':
         await query.message.delete()
         edited_keyboard = InlineKeyboardMarkup([])
