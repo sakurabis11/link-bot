@@ -24,7 +24,6 @@ ABOUT_TXT="""
 ✯ Mʏ Sᴇʀᴠᴇʀ: <a href='https://t.me/mrtgcoderbot'>ᴏʙᴀɴᴀɪ</a>
 ✯ Pʏʀᴏɢʀᴀᴍ ᴠᴇʀsɪᴏɴ: ᴠ2.0.106
 ✯ Mʏ ᴠᴇʀsɪᴏɴ: ᴠ4.5
-✯ ᴍʏ sᴇᴄᴜʀɪᴛʏ: ᴠ𝟺.𝟶
 """
 
 client = MongoClient(DATABASE_URI_2)
