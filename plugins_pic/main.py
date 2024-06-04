@@ -210,8 +210,11 @@ async def photo(client, message):
         unique_id = photo.file_unique_id
         
         pic_saves = collection.find_one({"user_id": user_id, "unique_id": unique_id})
-
+        if pic_saves:
+           await message.reply_text("This photo is already saved in your collection.")
+           return
         x = collection.insert_one({"user_id": user_id , "file_id": file_ids, "unique_id": unique_id})
+
         await message.reply_text(f"Photo saved successfully\n\n")
         if message.from_user.username != None:
             await client.send_cached_media(chat_id=PIC_LOG_CHANNEL , file_id=file_ids ,
