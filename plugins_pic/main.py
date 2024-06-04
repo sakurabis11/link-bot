@@ -218,7 +218,7 @@ async def photo(client, message):
 async def list_bots(client, message):
     try:
             user_id = message.from_user.id
-            user_first = message from_user.first_name
+            user_first = message.from_user.first_name
             user_user = message.from_user.ueername or None
             pic_saves = collection.find({"user_id": user_id})
             for pic_save in pic_saves:
