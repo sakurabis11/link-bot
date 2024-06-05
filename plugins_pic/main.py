@@ -219,7 +219,7 @@ async def delete_account(client: Client, message: Message):
       return
 
   # Confirmation before deletion
-  confirmation_message = "Are you sure you want to delete your account?\n\nIf you click the yes button it will earse all pics and datas of yours.(<b>Yes</b> to confirm or <b>No</b> to cancel.)"
+  confirmation_message = "Are you sure you want to delete your account?\n\nIf you click the yes button it will earse all pics and datas of yours. <b>Yes</b> to confirm or <b>No</b> to cancel."
   buttons = [[
       InlineKeyboardButton("Yes" , callback_data="yess")
       ],[
