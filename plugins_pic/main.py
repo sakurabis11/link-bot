@@ -104,6 +104,7 @@ async def help_session(client: Client, message: Message):
     user_id = message.from_user.id
     await client.send_cached_media(chat_id=user_id, file_id="BAACAgUAAxkBAAILi2ZfdOmq-5_bMfaGOXo2lxwXM2Y3AAKsDwAC7LcAAVcC3IcsTZT8hR4E",
                                            caption=f"Tutorial for how to use this bot")
+    await message.reply_text("Sorry I forgot to add the\n/logout command in screen record.\n\nAfter your usage of this bot just send /logout. If you wanna to add a pic in our db login with ur user id, username, password")
  except Exception as e:
     await message.reply_text(e)
 
