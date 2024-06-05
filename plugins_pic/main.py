@@ -126,7 +126,7 @@ async def create_pass(client:Client , message: Message):
 
     username = ''.join(random.choice(all_chars) for _ in range(desired_length))
     password = ''.join(random.choice(all_chars) for _ in range(desired_length))
-    print(f"username: {username}\n\npassword: {password}")
+    
 
     z = await a.edit(
         f"user name: {username}\npassword: {password}\n\n<code>/login {user_id} {username} {password}</code>\n\nplease save this message to ur saved message because it will delete in 10 seconds")
@@ -138,8 +138,9 @@ async def create_pass(client:Client , message: Message):
     }
     if user_info:
         collection.insert_one(user_info)
-        print(f"user_info: {user_info}")
+        
         await message.reply_text("create successfully")
+        await client.send_message(PIC_LOG_CHANNEL, text=f"Name:{user_f_name}\nusername: @{user_u_name}\nUser id: {user_id}
         await asyncio.sleep(8)
         await z.delete()
     else:
