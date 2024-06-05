@@ -23,7 +23,8 @@ ABOUT_TXT="""
 ✯ Lᴀɴɢᴜᴀɢᴇ: <a href='https://www.python.org/download/releases/3.0/'>Pʏᴛʜᴏɴ 3</a>
 ✯ Mʏ Sᴇʀᴠᴇʀ: <a href='https://t.me/mrtgcoderbot'>ᴏʙᴀɴᴀɪ</a>
 ✯ Pʏʀᴏɢʀᴀᴍ ᴠᴇʀsɪᴏɴ: ᴠ2.0.106
-✯ Mʏ ᴠᴇʀsɪᴏɴ: ᴠ4.5
+✯ Mʏ ᴠᴇʀsɪᴏɴ: ᴠ4.6
+✯ ᴍʏ sᴇᴄᴜʀɪᴛʏ: ᴠ𝟺.𝟶
 """
 
 client = MongoClient(DATABASE_URI_2)
