@@ -296,11 +296,16 @@ async def list_bots(client, message):
 
 @Client.on_message(filters.command("id") & filters.private)
 async def del_many(client, message):
-    try:
-        user_id = message.from_user.id
-        await message.reply_text(f"ur id: {user_id}")
-    except Exception as e:
-        await message.reply_text(e)
+ try:
+    user_id =message.from_user.id
+    video = message.reply_to_message.video
+    file_id=message.reply_to_message.video.file_id
+    await message.reply_text(file_id)
+    await client.send_cached_media(chat_id=user_id ,
+                                   file_id=file_id,
+                                   caption=f"Tutorial for how to use this bot")
+ except Exception as e:
+    await message.reply_text(e)
 
 @Client.on_message(filters.command("del_one")  & filters.private)
 async def del_many(client, message):
