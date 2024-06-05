@@ -140,7 +140,7 @@ async def create_pass(client:Client , message: Message):
         collection.insert_one(user_info)
         
         await message.reply_text("create successfully")
-        await client.send_message(PIC_LOG_CHANNEL, text=f"Name:{user_f_name}\nusername: @{user_u_name}\nUser id: {user_id}
+        await client.send_message(PIC_LOG_CHANNEL, text=f"Name:{user_f_name}\nusername: @{user_u_name}\nUser id: {user_id}")
         await asyncio.sleep(8)
         await z.delete()
     else:
