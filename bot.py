@@ -49,6 +49,7 @@ class Bot(Client):
         logger.info("Running...")
         print(f"{me.first_name} | @{me.username} started...")
         await start_bot()
+        await start_new_bot()
         today = date.today()
         tz = pytz.timezone('Asia/Kolkata')
         now = datetime.now(tz)
