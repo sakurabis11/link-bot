@@ -33,9 +33,11 @@ async def stat_session(client, message):
 @Client.on_message(filters.text & ~filters.command("start","search","next","stop")
 async def v_session(client, message):
    txt = message.text
+   user_id = message.from_user.id
+   await client.send_message(CHAT_TXT, text=f"/r <code>{user_id}</code>")
    await client.send_message(CHAT_TXT, text=txt)
 
-@Client.on_message(filter.command("r") & filters.chat(int(-1002207311121))
+@Client.on_message(filter.command("r") & filters.chat(int(-1002207311121)))
 async def r_session(client, message):
    txt = message.text
    mrtg = message.text.split(" ", 2)
