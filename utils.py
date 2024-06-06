@@ -20,7 +20,7 @@ from PIL import Image
 from io import BytesIO
 import requests
 from pymongo import MongoClient
-from info import DATABASE_URI, DATABASE_NAME, API_ID, API_HASH, BOT_TOKEN_2, BOT_TOKEN_3
+from info import DATABASE_URI, DATABASE_NAME, API_ID, API_HASH, BOT_TOKEN_2
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
@@ -76,21 +76,6 @@ async def start_bot():
         api_hash = API_HASH,
         bot_token = BOT_TOKEN_2,
         plugins={"root": "plugins_pic"}
-    )
-    await pic_client.start()
-    mine = await pic_client.get_me()
-    print(f"{mine.first_name} | @{mine.username}")
-  except Exception as e:
-    print(e)
-      
-async def start_new_bot():
-  try:
-    pic_client = Client(
-        name = "pic",
-        api_id = API_ID,
-        api_hash = API_HASH,
-        bot_token = BOT_TOKEN_3,
-        plugins={"root": "core"}
     )
     await pic_client.start()
     mine = await pic_client.get_me()
