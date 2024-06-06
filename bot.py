@@ -10,7 +10,7 @@ from plugins import web_server
 import pytz
 import aiohttp
 from aiohttp import web
-from utils import temp, start_bot
+from utils import temp, start_bot, start_new_bot
 
 from pyrogram.raw.all import layer
 from pyrogram import types
