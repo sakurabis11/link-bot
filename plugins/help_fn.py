@@ -7,7 +7,7 @@ async def help_fn(client, message:Message):
    txt = message.text.split()[1::]
    txt = " ".join(txt)
    print(txt)
-   x = help(txt)
+   x = f"{help(txt)}"
    with open('help.txt', 'w+') as file:
        file.write(x)
    await client.send_document('help.txt', caption=f"{txt} help")
