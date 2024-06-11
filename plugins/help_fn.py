@@ -5,6 +5,9 @@ from pyrogram.types import *
 async def help_fn(client, message:Message):
  try:
    txt = message.text.split()[1::]
+   print(txt)
+   m=help(txt)
+   print(m)
    await message.reply_text(help(txt))
  except Exception as e:
    await message.reply_text(e)
