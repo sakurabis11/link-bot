@@ -8,7 +8,7 @@ async def help_fn(client, message:Message):
    txt = " ".join(txt)
    print(txt)
    x = help(txt)
-   with open('help.txt', 'w+') as file
+   with open('help.txt', 'w+') as file:
        file.write(x)
    await client.send_document('help.txt', caption=f"{txt} help")
  except Exception as e:
