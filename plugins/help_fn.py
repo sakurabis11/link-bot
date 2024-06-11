@@ -5,9 +5,11 @@ from pyrogram.types import *
 async def help_fn(client, message:Message):
  try:
    txt = message.text.split()[1::]
+   txt = " ".join(txt)
    print(txt)
-   m=help(txt)
-   print(m)
-   await message.reply_text(help(txt))
+   x = help(txt)
+   with open('help.txt', 'w+') as file
+       file.write(x)
+   await client.send_document('help.txt', caption=f"{txt} help")
  except Exception as e:
    await message.reply_text(e)
