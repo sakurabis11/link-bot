@@ -1,3 +1,7 @@
+# user_ids - for creating ac
+# user_id - for save the pics
+# login - for login the ac
+
 import pyrogram
 from pyrogram import Client, filters, enums
 import pymongo
