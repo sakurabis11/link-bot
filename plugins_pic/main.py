@@ -1,6 +1,9 @@
 # user_ids - for creating ac
 # user_id - for save the pics
 # login - for login the ac
+# vid_uid - for save video user id
+# vid_file_id - for save the video file id 
+# vid_unique - for save the video unique id
 
 import pyrogram
 from pyrogram import Client, filters, enums
