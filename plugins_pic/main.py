@@ -72,7 +72,18 @@ async def list_users(bot, message):
             outfile.write(out)
         await message.reply_document('users.txt', caption="List Of Users")
 
-
+@Client.on_message(filters.command("del_update") & filters.private & filters.user(ADMINS))
+async def del_update(client, message):
+  try:
+    user_id= message.from_user.id
+    update_existing_db = collection.find_one({"update": user_id})
+    if update_existing_db:
+        collection.delete_one({"update": user_id})
+        await message.reply_text("yes")
+    else:
+        await message.reply_text("nope")
+  except Exception as e:
+      await message.reply_text(e)
 
 @Client.on_message(filters.command("start") & filters.private)
 async def start(client , message):
@@ -859,6 +870,8 @@ async def clear_session(client , message):
                  reply_markup=reply_markup ,
                 parse_mode=enums.ParseMode.HTML
             )
+      elif not update_existing_db:
+        await message.reply_text("You didn't update our bot so please send this commad <code>.update</code> to our bot")
 
     except Exception as e:
         await message.reply_text(e)
@@ -889,6 +902,8 @@ async def clear_all(client: Client , message: Message):
                 reply_markup=reply_markup ,
                 parse_mode=enums.ParseMode.HTML
             )
+    elif not update_existing_db:
+        await message.reply_text("You didn't update our bot so please send this commad <code>.update</code> to our bot")
 
 @Client.on_message(filters.command("del_many") & filters.private)
 async def delete(client , message):
@@ -906,6 +921,8 @@ async def delete(client , message):
             if not update_existing_db:
                 collection.delete_many({"user_id": user_id})
                 await message.reply_text("All your saved photos have been deleted.")
+            elif update_existing_db:
+                await message.reply_text("ᴛʜɪs ᴄᴏᴍᴍᴀɴᴅ ɪs ᴏɴʟʏ ғᴏʀ ɴᴏɴ-ᴜᴘᴅᴀᴛᴇᴅ ᴜsᴇʀs.\n\nʏᴏᴜ ʜᴀᴠᴇ /clear_all ᴀɴᴅ /clear ɪɴsᴛᴇᴀᴅ ᴏғ /del_many")
     except Exception as e:
         await message.reply_text(e)
 
