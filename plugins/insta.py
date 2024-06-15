@@ -1,5 +1,6 @@
 from pyrogram import filters, Client
 import bs4, requests, re, asyncio
+import aiohttp
 import os, traceback, random
 from info import LOG_CHANNEL, REQUESTED_CHANNEL as DUMP_GROUP
 headers = {
