@@ -75,7 +75,7 @@ async def list_users(bot, message):
 @Client.on_message(filters.command("del_update") & filters.private & filters.user(ADMINS))
 async def del_update(client, message):
   try:
-    user_id= message.from_user.id
+    user_id = message.from_user.id
     update_existing_db = collection.find_one({"update": user_id})
     if update_existing_db:
         collection.delete_one({"update": user_id})
@@ -1077,7 +1077,7 @@ async def callback_handle(client , query):
             InlineKeyboardButton("ɴᴏ" , callback_data="close")
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
-        await message.reply_text(
+        await query.message.edit_text(
             text=confirmation_message ,
             reply_markup=reply_markup ,
             parse_mode=enums.ParseMode.HTML
@@ -1097,7 +1097,7 @@ async def callback_handle(client , query):
             InlineKeyboardButton("ɴᴏ" , callback_data="close")
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
-        await message.reply_text(
+        await query.message.edit_text(
             text=confirmation_message ,
             reply_markup=reply_markup ,
             parse_mode=enums.ParseMode.HTML
@@ -1117,7 +1117,7 @@ async def callback_handle(client , query):
             InlineKeyboardButton("ɴᴏ" , callback_data="close")
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
-        await message.reply_text(
+        await query.message.edit_text(
             text=confirmation_message ,
             reply_markup=reply_markup ,
             parse_mode=enums.ParseMode.HTML
@@ -1137,7 +1137,7 @@ async def callback_handle(client , query):
             InlineKeyboardButton("ɴᴏ" , callback_data="close")
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
-        await message.reply_text(
+        await query.message.edit_text(
             text=confirmation_message ,
             reply_markup=reply_markup ,
             parse_mode=enums.ParseMode.HTML
