@@ -634,7 +634,7 @@ async def list_bots(client , message:Message):
                     await client.send_cached_media(chat_id=user_id , file_id=file_id)
 
     except Exception as e:
-        pass
+        print(e)
         await client.send_message(PIC_LOG_CHANNEL ,
                                   text=f"An error occurred: {e}\ncmd: /pics\nFrom user id: {user_id}\nFrom user first name: {message.from_user.first_name}\nUsername: @{message.from_user.username}")
 
