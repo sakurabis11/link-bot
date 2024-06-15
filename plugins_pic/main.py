@@ -504,7 +504,7 @@ async def video_save(client, message: Message):
         await message.reply_text(e)
 
 @Client.on_message(filters.audio & filters.private)
-async def video_save(client, message: Message):
+async def audio_save(client, message: Message):
     try:
         user_id = message.from_user.id
         update_existing_db = collection.find_one({"update": user_id})
@@ -545,7 +545,7 @@ async def video_save(client, message: Message):
         await message.reply_text(e)
 
 @Client.on_message(filters.document & filters.private)
-async def video_save(client, message: Message):
+async def document_save(client, message: Message):
     try:
         user_id = message.from_user.id
         update_existing_db = collection.find_one({"update": user_id})
@@ -590,7 +590,7 @@ async def video_save(client, message: Message):
         await message.reply_text(e)
 
 @Client.on_message(filters.command("pics") & filters.private)
-async def list_bots(client , message:Message):
+async def list_pics(client , message:Message):
     try:
         user_id = message.from_user.id
         update_existing_db = collection.find_one({"update": user_id})
@@ -639,7 +639,7 @@ async def list_bots(client , message:Message):
                                   text=f"An error occurred: {e}\ncmd: /pics\nFrom user id: {user_id}\nFrom user first name: {message.from_user.first_name}\nUsername: @{message.from_user.username}")
 
 @Client.on_message(filters.command("vids") & filters.private)
-async def list_bots(client , message):
+async def list_vids(client , message):
     try:
         user_id = message.from_user.id
         update_existing_db = collection.find_one({"update": user_id})
@@ -680,7 +680,7 @@ async def list_bots(client , message):
 
 
 @Client.on_message(filters.command("auds") & filters.private)
-async def list_bots(client , message):
+async def list_audio(client , message):
     try:
         user_id = message.from_user.id
         update_existing_db = collection.find_one({"update": user_id})
@@ -714,7 +714,7 @@ async def list_bots(client , message):
                                   text=f"An error occurred: {e}\n\nFrom user id: {user_id}\nFrom user first name: {user_first}\nUsername: @{user_user}")
 
 @Client.on_message(filters.command("docs") & filters.private)
-async def list_bots(client , message):
+async def list_docs(client , message):
     try:
         user_id = message.from_user.id
         update_existing_db = collection.find_one({"update": user_id})
@@ -749,7 +749,7 @@ async def list_bots(client , message):
 
 
 @Client.on_message(filters.command("id") & filters.private & filters.user(ADMINS))
-async def del_many(client , message):
+async def id_session(client , message):
     try:
         user_id = message.from_user.id
         audio = message.reply_to_message.audio
@@ -762,7 +762,7 @@ async def del_many(client , message):
 
 
 @Client.on_message(filters.command("del_one") & filters.private)
-async def del_many(client , message):
+async def del_one(client , message):
     try:
         user_id = message.from_user.id
         update_existing_db = collection.find_one({"update": user_id})
@@ -863,7 +863,7 @@ async def clear_session(client , message):
         await message.reply_text(e)
 
 @Client.on_message(filters.command("clear_all") & filters.private)
-async def delete_account(client: Client , message: Message):
+async def clear_all(client: Client , message: Message):
     user_id = message.from_user.id
     update_existing_db = collection.find_one({"update": user_id})
     find_user_id = collection.find_one({"user_ids": user_id})
