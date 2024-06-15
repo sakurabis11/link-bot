@@ -41,7 +41,6 @@ class Bot(Client):
         temp.U_NAME = me.username
         temp.B_NAME = me.first_name
         self.username = '@' + me.username
-        self.f_channel = F_SUB
         logging.info(f"{me.first_name} with for Pyrogram v{__version__} (Layer {layer}) started on {me.username}.")
         app = web.AppRunner(await web_server())
         await app.setup()
