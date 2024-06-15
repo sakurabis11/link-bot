@@ -6,7 +6,7 @@ from pytz import timezone
 import logging.config
 from pyrogram.errors import BadRequest, Unauthorized
 from typing import Union, Optional, AsyncGenerator
-from plugins import web_server 
+from plugins_pic import web_server 
 import pytz
 import aiohttp
 from aiohttp import web
