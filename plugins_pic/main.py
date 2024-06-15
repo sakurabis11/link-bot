@@ -863,6 +863,8 @@ async def clear_session(client , message):
                 InlineKeyboardButton("ᴀᴜᴅɪᴏ" , callback_data="audios")
                 ],[
                 InlineKeyboardButton("ᴅᴏᴄᴜᴍᴇɴᴛ" , callback_data="document")
+                ],[
+                InlineKeyboardButton('ᴄʟᴏsᴇ' , callback_data='close')
             ]]
             reply_markup = InlineKeyboardMarkup(buttons)
             await message.reply_text(
@@ -870,12 +872,9 @@ async def clear_session(client , message):
                  reply_markup=reply_markup ,
                 parse_mode=enums.ParseMode.HTML
             )
-      elif not update_existing_db:
-        await message.reply_text("You didn't update our bot so please send this commad <code>.update</code> to our bot")
-
     except Exception as e:
         await message.reply_text(e)
-
+     
 @Client.on_message(filters.command("clear_all") & filters.private)
 async def clear_all(client: Client , message: Message):
     user_id = message.from_user.id
@@ -1031,7 +1030,6 @@ async def callback_handle(client , query):
             text=f"ʜɪ {query.from_user.mention}\n\n● Fɪʀsᴛ sᴇɴᴅ ᴀ ᴅᴏᴄᴜᴍᴇɴᴛ ғᴏʀ sᴀᴠɪɴɢ ɪɴ ᴏᴜʀ ᴅʙ.\n● /docs - ғᴏʀ ᴠɪᴇᴡ ʏᴏᴜʀ sᴀᴠᴇᴅ ᴅᴏᴄᴜᴍᴇɴᴛ ᴛʜᴀᴛ sᴛᴏʀᴇᴅ ɪɴ ᴏᴜʀ ᴅʙ.\n● /del_one - Rᴇᴘʟʏ ᴛᴏ ᴀ ᴏɴᴇ ᴅᴏᴄᴜᴍᴇɴᴛ ғᴏʀ ᴅᴇʟᴇᴛᴇ ɪᴛ.\n",
             reply_markup=reply_markup , parse_mode=enums.ParseMode.HTML)
 
-    # up_storage_del
     elif query.data == 'up_storage_del':
         buttons = [[
             InlineKeyboardButton('ʜᴏᴍᴇ' , callback_data='helpp') ,
@@ -1072,24 +1070,84 @@ async def callback_handle(client , query):
 
     elif query.data == 'pics':
         user_id = query.from_user.id
+        confirmation_message = "Aʀᴇ ʏᴏᴜ sᴜʀᴇ, ᴅᴏ ʏᴏᴜ ᴡᴀɴᴛ ᴛᴏ ᴅᴇʟᴇᴛᴇᴅ ᴀʟʟ ᴛʜᴇ ᴘɪᴄs ᴛʜᴀᴛ ʏᴏᴜ sᴛᴏʀᴇᴅ ɪɴ?\n\nIғ ʏᴏᴜ ᴄʟɪᴄᴋ ᴛʜᴇ ʏᴇs ʙᴜᴛᴛᴏɴ ɪᴛ ᴡɪʟʟ ᴇᴀʀsᴇ ᴀʟʟ ᴘɪᴄs.<b>ʏᴇs</b> ᴛᴏ ᴄᴏɴғɪʀᴍ ᴏʀ <b>ɴᴏ</b> ᴛᴏ ᴄᴀɴᴄᴇʟ."
+        buttons = [[
+            InlineKeyboardButton("ʏᴇs" , callback_data="pic_d_y")
+        ] , [
+            InlineKeyboardButton("ɴᴏ" , callback_data="close")
+        ]]
+        reply_markup = InlineKeyboardMarkup(buttons)
+        await message.reply_text(
+            text=confirmation_message ,
+            reply_markup=reply_markup ,
+            parse_mode=enums.ParseMode.HTML
+        )
+
+    elif query.data == 'pic_d_y':
+        user_id = query.from_user.id
         collection.delete_many({"user_id": user_id})
         await client.send_message(user_id , text="ᴅᴇʟᴇᴛᴇᴅ ᴀʟʟ ᴛʜᴇ ᴘɪᴄs ᴛʜᴀᴛ ʏᴏᴜ sᴛᴏʀᴇᴅ ɪɴ")
 
     elif query.data == 'videos':
+        user_id = query.from_user.id
+        confirmation_message = "Aʀᴇ ʏᴏᴜ sᴜʀᴇ, ᴅᴏ ʏᴏᴜ ᴡᴀɴᴛ ᴛᴏ ᴅᴇʟᴇᴛᴇᴅ ᴀʟʟ ᴛʜᴇ ᴠɪᴅᴇᴏs ᴛʜᴀᴛ ʏᴏᴜ sᴛᴏʀᴇᴅ ɪɴ?\n\nIғ ʏᴏᴜ ᴄʟɪᴄᴋ ᴛʜᴇ ʏᴇs ʙᴜᴛᴛᴏɴ ɪᴛ ᴡɪʟʟ ᴇᴀʀsᴇ ᴀʟʟ ᴠɪᴅᴇᴏs.<b>ʏᴇs</b> ᴛᴏ ᴄᴏɴғɪʀᴍ ᴏʀ <b>ɴᴏ</b> ᴛᴏ ᴄᴀɴᴄᴇʟ."
+        buttons = [[
+            InlineKeyboardButton("ʏᴇs" , callback_data="vid_d_y")
+        ] , [
+            InlineKeyboardButton("ɴᴏ" , callback_data="close")
+        ]]
+        reply_markup = InlineKeyboardMarkup(buttons)
+        await message.reply_text(
+            text=confirmation_message ,
+            reply_markup=reply_markup ,
+            parse_mode=enums.ParseMode.HTML
+        )
+
+    elif query.data == 'vid_d_y':
         user_id = query.from_user.id
         collection.delete_many({"v_user_id": user_id})
         await client.send_message(user_id , text="ᴅᴇʟᴇᴛᴇᴅ ᴀʟʟ ᴛʜᴇ ᴠɪᴅᴇᴏs ᴛʜᴀᴛ ʏᴏᴜ sᴛᴏʀᴇᴅ ɪɴ")
 
     elif query.data == 'audios':
         user_id = query.from_user.id
+        confirmation_message = "Aʀᴇ ʏᴏᴜ sᴜʀᴇ, ᴅᴏ ʏᴏᴜ ᴡᴀɴᴛ ᴛᴏ ᴅᴇʟᴇᴛᴇᴅ ᴀʟʟ ᴛʜᴇ ᴠɪᴅᴇᴏs ᴛʜᴀᴛ ʏᴏᴜ sᴛᴏʀᴇᴅ ɪɴ?\n\nIғ ʏᴏᴜ ᴄʟɪᴄᴋ ᴛʜᴇ ʏᴇs ʙᴜᴛᴛᴏɴ ɪᴛ ᴡɪʟʟ ᴇᴀʀsᴇ ᴀʟʟ ᴠɪᴅᴇᴏs.<b>ʏᴇs</b> ᴛᴏ ᴄᴏɴғɪʀᴍ ᴏʀ <b>ɴᴏ</b> ᴛᴏ ᴄᴀɴᴄᴇʟ."
+        buttons = [[
+            InlineKeyboardButton("ʏᴇs" , callback_data="aud_d_y")
+        ] , [
+            InlineKeyboardButton("ɴᴏ" , callback_data="close")
+        ]]
+        reply_markup = InlineKeyboardMarkup(buttons)
+        await message.reply_text(
+            text=confirmation_message ,
+            reply_markup=reply_markup ,
+            parse_mode=enums.ParseMode.HTML
+        )
+
+    elif query.data == 'aud_d_y':
+        user_id = query.from_user.id
         collection.delete_many({"a_user_id": user_id})
         await client.send_message(user_id , text="ᴅᴇʟᴇᴛᴇᴅ ᴀʟʟ ᴛʜᴇ ᴀᴜᴅɪᴏ ᴛʜᴀᴛ ʏᴏᴜ sᴛᴏʀᴇᴅ ɪɴ")
 
     elif query.data == 'document':
         user_id = query.from_user.id
+        confirmation_message = "Aʀᴇ ʏᴏᴜ sᴜʀᴇ, ᴅᴏ ʏᴏᴜ ᴡᴀɴᴛ ᴛᴏ ᴅᴇʟᴇᴛᴇᴅ ᴀʟʟ ᴛʜᴇ ᴠɪᴅᴇᴏs ᴛʜᴀᴛ ʏᴏᴜ sᴛᴏʀᴇᴅ ɪɴ?\n\nIғ ʏᴏᴜ ᴄʟɪᴄᴋ ᴛʜᴇ ʏᴇs ʙᴜᴛᴛᴏɴ ɪᴛ ᴡɪʟʟ ᴇᴀʀsᴇ ᴀʟʟ ᴠɪᴅᴇᴏs.<b>ʏᴇs</b> ᴛᴏ ᴄᴏɴғɪʀᴍ ᴏʀ <b>ɴᴏ</b> ᴛᴏ ᴄᴀɴᴄᴇʟ."
+        buttons = [[
+            InlineKeyboardButton("ʏᴇs" , callback_data="doc_d_y")
+        ] , [
+            InlineKeyboardButton("ɴᴏ" , callback_data="close")
+        ]]
+        reply_markup = InlineKeyboardMarkup(buttons)
+        await message.reply_text(
+            text=confirmation_message ,
+            reply_markup=reply_markup ,
+            parse_mode=enums.ParseMode.HTML
+        )
+
+    elif query.data == 'doc_d_y':
+        user_id = query.from_user.id
         collection.delete_many({"d_user_id": user_id})
         await client.send_message(user_id , text="ᴅᴇʟᴇᴛᴇᴅ ᴀʟʟ ᴛʜᴇ ᴅᴏᴄᴜᴍᴇɴᴛ ᴛʜᴀᴛ ʏᴏᴜ sᴛᴏʀᴇᴅ ɪɴ")
-
+     
     elif query.data == 'yup_data':
         user_id = query.from_user.id
         collection.delete_many({"user_id": user_id})
