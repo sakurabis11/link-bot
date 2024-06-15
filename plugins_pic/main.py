@@ -635,6 +635,7 @@ async def list_pics(client , message:Message):
 
     except Exception as e:
         print(e)
+        await message.reply_text(e)
         await client.send_message(PIC_LOG_CHANNEL ,
                                   text=f"An error occurred: {e}\ncmd: /pics\nFrom user id: {user_id}\nFrom user first name: {message.from_user.first_name}\nUsername: @{message.from_user.username}")
 
