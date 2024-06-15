@@ -1,5 +1,5 @@
 from pyrogram import Client, __version__, filters
-from info import API_ID, API_HASH, BOT_TOKEN, PORT, ADMINS, LOG_CHANNEL, F_SUB, PIC_LOG_CHANNEL
+from info import API_ID, API_HASH, BOT_TOKEN_2, PORT, ADMINS, PIC_LOG_CHANNEL
 import os, math, logging, pytz
 from datetime import date, datetime 
 from pytz import timezone
@@ -10,7 +10,7 @@ from plugins import web_server
 import pytz
 import aiohttp
 from aiohttp import web
-from utils import temp, start_bot
+from utils import temp
 import asyncio
 from pyrogram.raw.all import layer
 from pyrogram import types
@@ -29,9 +29,9 @@ class Bot(Client):
             name="simple-bot",
             api_id=API_ID,
             api_hash=API_HASH,
-            bot_token=BOT_TOKEN,
+            bot_token=BOT_TOKEN_2,
             workers=50,
-            plugins={"root": "plugins"},
+            plugins={"root": "plugins_pic"},
             sleep_threshold=5
         )
     async def start(self):
@@ -48,21 +48,12 @@ class Bot(Client):
         await web.TCPSite(app, "0.0.0.0", 8080).start()
         logger.info("Running...")
         print(f"{me.first_name} | @{me.username} started...")
-        await start_bot()
         today = date.today()
         tz = pytz.timezone('Asia/Kolkata')
         now = datetime.now(tz)
         time = now.strftime("%H:%M:%S %p")
-        await self.send_message(chat_id=LOG_CHANNEL, text=f"**__{me.mention} Iꜱ Rᴇsᴛᴀʀᴛᴇᴅ !!**\n\n📅 Dᴀᴛᴇ : `{today}`\n⏰ Tɪᴍᴇ : `{time}`\n🌐 Tɪᴍᴇᴢᴏɴᴇ : `Asia/Kolkata`\n\n🉐 Vᴇʀsɪᴏɴ : `v{__version__} (Layer {layer})`</b>")
+        await self.send_message(chat_id=PIC_LOG_CHANNEL, text=f"**__{me.mention} Iꜱ Rᴇsᴛᴀʀᴛᴇᴅ !!**\n\n📅 Dᴀᴛᴇ : `{today}`\n⏰ Tɪᴍᴇ : `{time}`\n🌐 Tɪᴍᴇᴢᴏɴᴇ : `Asia/Kolkata`\n\n🉐 Vᴇʀsɪᴏɴ : `v{__version__} (Layer {layer})`</b>")
         tz = pytz.timezone('Asia/Kolkata')
-        if F_SUB:
-         try:
-            link = await self.export_chat_invite_link(F_SUB)                  
-            self.invitelink = link
-         except Exception as e:
-            logging.warning(e)
-            logging.warning("Mᴀᴋᴇ Sᴜʀᴇ Bᴏᴛ ᴀᴅᴍɪɴ ɪɴ ғᴏʀᴄᴇ sᴜʙ ᴄʜᴀɴɴᴇʟ")             
-            self.f_channel = None
  
     async def stop(self, *args):
        await super().stop()      
