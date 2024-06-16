@@ -1083,7 +1083,7 @@ async def callback_handle(client , query):
            InlineKeyboardButton('ᴄʟᴏsᴇ' , callback_data='close')
        ]]
        reply_markup = InlineKeyboardMarkup(buttons)
-       await message.reply_text(
+       await query.message.edit_text(
            text=confirmation_message ,
            reply_markup=reply_markup ,
            parse_mode=enums.ParseMode.HTML
@@ -1095,7 +1095,7 @@ async def callback_handle(client , query):
         buttons = [[
             InlineKeyboardButton("ʏᴇs" , callback_data="pic_d_y")
         ] , [
-            InlineKeyboardButton("ɴᴏ" , callback_data="clear_p_v_a_d") ,
+            InlineKeyboardButton("ʜᴏᴍᴇ" , callback_data="clear_p_v_a_d") ,
             InlineKeyboardButton("ɴᴏ" , callback_data="close")
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
@@ -1116,7 +1116,7 @@ async def callback_handle(client , query):
         buttons = [[
             InlineKeyboardButton("ʏᴇs" , callback_data="vid_d_y")
         ] , [
-            InlineKeyboardButton("ɴᴏ" , callback_data="clear_p_v_a_d") ,
+            InlineKeyboardButton("ʜᴏᴍᴇ" , callback_data="clear_p_v_a_d") ,
             InlineKeyboardButton("ɴᴏ" , callback_data="close")
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
@@ -1133,11 +1133,11 @@ async def callback_handle(client , query):
 
     elif query.data == 'audios':
         user_id = query.from_user.id
-        confirmation_message = "Aʀᴇ ʏᴏᴜ sᴜʀᴇ, ᴅᴏ ʏᴏᴜ ᴡᴀɴᴛ ᴛᴏ ᴅᴇʟᴇᴛᴇᴅ ᴀʟʟ ᴛʜᴇ ᴠɪᴅᴇᴏs ᴛʜᴀᴛ ʏᴏᴜ sᴛᴏʀᴇᴅ ɪɴ?\n\nIғ ʏᴏᴜ ᴄʟɪᴄᴋ ᴛʜᴇ ʏᴇs ʙᴜᴛᴛᴏɴ ɪᴛ ᴡɪʟʟ ᴇᴀʀsᴇ ᴀʟʟ ᴠɪᴅᴇᴏs.<b>ʏᴇs</b> ᴛᴏ ᴄᴏɴғɪʀᴍ ᴏʀ <b>ɴᴏ</b> ᴛᴏ ᴄᴀɴᴄᴇʟ."
+        confirmation_message = "Aʀᴇ ʏᴏᴜ sᴜʀᴇ, ᴅᴏ ʏᴏᴜ ᴡᴀɴᴛ ᴛᴏ ᴅᴇʟᴇᴛᴇᴅ ᴀʟʟ ᴛʜᴇ ᴀᴜᴅɪᴏs ᴛʜᴀᴛ ʏᴏᴜ sᴛᴏʀᴇᴅ ɪɴ?\n\nIғ ʏᴏᴜ ᴄʟɪᴄᴋ ᴛʜᴇ ʏᴇs ʙᴜᴛᴛᴏɴ ɪᴛ ᴡɪʟʟ ᴇᴀʀsᴇ ᴀʟʟ ᴀᴜᴅɪᴏs.<b>ʏᴇs</b> ᴛᴏ ᴄᴏɴғɪʀᴍ ᴏʀ <b>ɴᴏ</b> ᴛᴏ ᴄᴀɴᴄᴇʟ."
         buttons = [[
             InlineKeyboardButton("ʏᴇs" , callback_data="aud_d_y")
         ] , [
-            InlineKeyboardButton("ɴᴏ" , callback_data="clear_p_v_a_d") ,
+            InlineKeyboardButton("ʜᴏᴍᴇ" , callback_data="clear_p_v_a_d") ,
             InlineKeyboardButton("ɴᴏ" , callback_data="close")
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
@@ -1154,11 +1154,11 @@ async def callback_handle(client , query):
 
     elif query.data == 'document':
         user_id = query.from_user.id
-        confirmation_message = "Aʀᴇ ʏᴏᴜ sᴜʀᴇ, ᴅᴏ ʏᴏᴜ ᴡᴀɴᴛ ᴛᴏ ᴅᴇʟᴇᴛᴇᴅ ᴀʟʟ ᴛʜᴇ ᴠɪᴅᴇᴏs ᴛʜᴀᴛ ʏᴏᴜ sᴛᴏʀᴇᴅ ɪɴ?\n\nIғ ʏᴏᴜ ᴄʟɪᴄᴋ ᴛʜᴇ ʏᴇs ʙᴜᴛᴛᴏɴ ɪᴛ ᴡɪʟʟ ᴇᴀʀsᴇ ᴀʟʟ ᴠɪᴅᴇᴏs.<b>ʏᴇs</b> ᴛᴏ ᴄᴏɴғɪʀᴍ ᴏʀ <b>ɴᴏ</b> ᴛᴏ ᴄᴀɴᴄᴇʟ."
+        confirmation_message = "Aʀᴇ ʏᴏᴜ sᴜʀᴇ, ᴅᴏ ʏᴏᴜ ᴡᴀɴᴛ ᴛᴏ ᴅᴇʟᴇᴛᴇᴅ ᴀʟʟ ᴛʜᴇ ᴅᴏᴄᴜᴍᴇɴᴛs ᴛʜᴀᴛ ʏᴏᴜ sᴛᴏʀᴇᴅ ɪɴ?\n\nIғ ʏᴏᴜ ᴄʟɪᴄᴋ ᴛʜᴇ ʏᴇs ʙᴜᴛᴛᴏɴ ɪᴛ ᴡɪʟʟ ᴇᴀʀsᴇ ᴀʟʟ ᴅᴏᴄᴜᴍᴇɴᴛs.<b>ʏᴇs</b> ᴛᴏ ᴄᴏɴғɪʀᴍ ᴏʀ <b>ɴᴏ</b> ᴛᴏ ᴄᴀɴᴄᴇʟ."
         buttons = [[
             InlineKeyboardButton("ʏᴇs" , callback_data="doc_d_y")
         ] , [
-            InlineKeyboardButton("ɴᴏ" , callback_data="clear_p_v_a_d") ,
+            InlineKeyboardButton("ʜᴏᴍᴇ" , callback_data="clear_p_v_a_d") ,
             InlineKeyboardButton("ɴᴏ" , callback_data="close")
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
