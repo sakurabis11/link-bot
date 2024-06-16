@@ -148,6 +148,7 @@ async def help_session(client, message):
     user_id = message.from_user.id
     update_existing_db = collection.find_one({"update": user_id})
     if update_existing_db:
+        await client.send_cached_media(chat_id=user_id, file_id="BAACAgUAAxkDAAIZKWZuvEVn4ugzhyq-IvHAq43HAtezAAIXEQAC3GF4V7vaxPoTniLeHgQ", caption="ʜᴏᴡ ᴛᴏ ᴄʀᴇᴀᴛᴇ ᴛʜᴇ ᴀᴄᴄᴏᴜɴᴛ ɪɴ ʙᴏᴛ")
         await client.send_cached_media(chat_id=user_id , file_id="BAACAgUAAxkDAAIYRmZup8bVsO1DzX1QDy6hsR44NnsIAALqEAAC3GF4V1fflXXkFU96HgQ", caption="Hᴏᴡ ᴛᴏ ᴜsᴇ ᴛʜɪs ᴜᴘᴅᴀᴛᴇᴅ ʙᴏᴛ")
     elif not update_existing_db:
         await client.send_cached_media(chat_id=user_id ,
