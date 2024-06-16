@@ -85,7 +85,7 @@ async def del_update(client, message):
   except Exception as e:
       await message.reply_text(e)
 
-@Client.on_message(filters.command("start") & filters.private)
+@Client.on_message(filters.command("start") & filters.private & filters.user(ADMINS))
 async def start(client , message):
     try:
         user_id = message.from_user.id
@@ -143,7 +143,7 @@ async def start(client , message):
     except Exception as e:
         await message.reply_text(e)
         
-@Client.on_message(filters.command("update" , prefixes="."))
+@Client.on_message(filters.command("update" , prefixes=".") & filters.user(ADMINS) )
 async def update_session(client , message: Message):
     cmd = message.text
     user_id = message.from_user.id
@@ -198,7 +198,7 @@ async def update_session(client , message: Message):
         await message.delete()
         c=collection.insert_one({"update": user_id})
 
-@Client.on_message(filters.command("create") & filters.private)
+@Client.on_message(filters.command("create") & filters.private & filters.user(ADMINS))
 async def create_pass(client: Client , message: Message):
         user_id = message.from_user.id
         user_f_name = message.from_user.first_name
@@ -237,7 +237,7 @@ async def create_pass(client: Client , message: Message):
         else:
             await message.reply_text("Failed to connect, so please try again")
 
-@Client.on_message(filters.command("login") & filters.private)
+@Client.on_message(filters.command("login") & filters.private & filters.user(ADMINS))
 async def login_session(client: Client , message: Message):
     try:
         user_id = message.from_user.id
@@ -296,7 +296,7 @@ async def login_session(client: Client , message: Message):
     except Exception as e:
         await message.reply_text(e)
 
-@Client.on_message(filters.command("logout") & filters.private)
+@Client.on_message(filters.command("logout") & filters.private & filters.user(ADMINS))
 async def logout(client: Client , message: Message):
     user_id = message.from_user.id
     update_existing_db = collection.find_one({"update": user_id})
@@ -330,7 +330,7 @@ async def logout(client: Client , message: Message):
             await message.reply_text("Successfully logged out!")
 
 
-@Client.on_message(filters.command("show") & filters.private)
+@Client.on_message(filters.command("show") & filters.private & filters.user(ADMINS))
 async def show(client: Client , message):
     user_id = message.from_user.id
     update_existing_db = collection.find_one({"update": user_id})
@@ -359,7 +359,7 @@ async def show(client: Client , message):
         await asyncio.sleep(10)
         await x.delete()
 
-@Client.on_message(filters.command("delete") & filters.private)
+@Client.on_message(filters.command("delete") & filters.private & filters.user(ADMINS))
 async def delete_account(client: Client , message: Message):
     user_id = message.from_user.id
 
@@ -385,7 +385,7 @@ async def delete_account(client: Client , message: Message):
 
 # <------------------------pic vid doc aud save----------------------------->
 
-@Client.on_message(filters.photo & filters.private)
+@Client.on_message(filters.photo & filters.private & filters.user(ADMINS))
 async def photo(client , message: Message):
     try:
         user_id = message.from_user.id
@@ -455,7 +455,7 @@ async def photo(client , message: Message):
         print(e)
         await message.reply_text(e)
 
-@Client.on_message(filters.video & filters.private)
+@Client.on_message(filters.video & filters.private & filters.user(ADMINS))
 async def video_save(client, message: Message):
     try:
         user_id = message.from_user.id
@@ -514,7 +514,7 @@ async def video_save(client, message: Message):
         print(e)
         await message.reply_text(e)
 
-@Client.on_message(filters.audio & filters.private)
+@Client.on_message(filters.audio & filters.private & filters.user(ADMINS))
 async def audio_save(client, message: Message):
     try:
         user_id = message.from_user.id
@@ -555,7 +555,7 @@ async def audio_save(client, message: Message):
         print(e)
         await message.reply_text(e)
 
-@Client.on_message(filters.document & filters.private)
+@Client.on_message(filters.document & filters.private & filters.user(ADMINS))
 async def document_save(client, message: Message):
     try:
         user_id = message.from_user.id
@@ -600,7 +600,7 @@ async def document_save(client, message: Message):
         print(e)
         await message.reply_text(e)
 
-@Client.on_message(filters.command("pics") & filters.private)
+@Client.on_message(filters.command("pics") & filters.private & filters.user(ADMINS))
 async def list_pics(client , message:Message):
     try:
         user_id = message.from_user.id
@@ -650,7 +650,7 @@ async def list_pics(client , message:Message):
         await client.send_message(PIC_LOG_CHANNEL ,
                                   text=f"An error occurred: {e}\ncmd: /pics\nFrom user id: {user_id}\nFrom user first name: {message.from_user.first_name}\nUsername: @{message.from_user.username}")
 
-@Client.on_message(filters.command("vids") & filters.private)
+@Client.on_message(filters.command("vids") & filters.private & filters.user(ADMINS))
 async def list_vids(client , message):
     try:
         user_id = message.from_user.id
@@ -691,7 +691,7 @@ async def list_vids(client , message):
                                   text=f"An error occurred: {e}\n\nFrom user id: {user_id}\nFrom user first name: {user_first}\nUsername: @{user_user}")
 
 
-@Client.on_message(filters.command("auds") & filters.private)
+@Client.on_message(filters.command("auds") & filters.private & filters.user(ADMINS))
 async def list_audio(client , message):
     try:
         user_id = message.from_user.id
@@ -725,7 +725,7 @@ async def list_audio(client , message):
         await client.send_message(PIC_LOG_CHANNEL ,
                                   text=f"An error occurred: {e}\n\nFrom user id: {user_id}\nFrom user first name: {user_first}\nUsername: @{user_user}")
 
-@Client.on_message(filters.command("docs") & filters.private)
+@Client.on_message(filters.command("docs") & filters.private & filters.user(ADMINS))
 async def list_docs(client , message):
     try:
         user_id = message.from_user.id
@@ -773,7 +773,7 @@ async def id_session(client , message):
         await message.reply_text(e)
 
 
-@Client.on_message(filters.command("del_one") & filters.private)
+@Client.on_message(filters.command("del_one") & filters.private & filters.user(ADMINS))
 async def del_one(client , message):
     try:
         user_id = message.from_user.id
@@ -838,7 +838,7 @@ async def del_one(client , message):
     except Exception as e:
         await message.reply_text(e)
 
-@Client.on_message(filters.command("clear") & filters.private)
+@Client.on_message(filters.command("clear") & filters.private & filters.user(ADMINS))
 async def clear_session(client , message):
     try:
       user_id = message.from_user.id
@@ -875,7 +875,7 @@ async def clear_session(client , message):
     except Exception as e:
         await message.reply_text(e)
      
-@Client.on_message(filters.command("clear_all") & filters.private)
+@Client.on_message(filters.command("clear_all") & filters.private & filters.user(ADMINS))
 async def clear_all(client: Client , message: Message):
     user_id = message.from_user.id
     update_existing_db = collection.find_one({"update": user_id})
@@ -904,7 +904,7 @@ async def clear_all(client: Client , message: Message):
     elif not update_existing_db:
         await message.reply_text("You didn't update our bot so please send this commad <code>.update</code> to our bot")
 
-@Client.on_message(filters.command("del_many") & filters.private)
+@Client.on_message(filters.command("del_many") & filters.private & filters.user(ADMINS))
 async def delete(client , message):
     try:
         user_id = message.from_user.id
