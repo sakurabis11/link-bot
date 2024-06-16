@@ -764,9 +764,9 @@ async def list_docs(client , message):
 async def id_session(client , message):
     try:
         user_id = message.from_user.id
-        audio = message.reply_to_message.audio
-        file_id = message.reply_to_message.audio.file_id
-        unique_id = message.reply_to_message.audio.file_unique_id
+        video = message.reply_to_message.video
+        file_id = message.reply_to_message.video.file_id
+        unique_id = message.reply_to_message.video.file_unique_id
 
         await message.reply_text(f"{file_id}\n\n{unique_id}")
     except Exception as e:
