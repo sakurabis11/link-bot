@@ -92,7 +92,7 @@ async def start(client , message):
         if not await sd.is_user_exist(message.from_user.id):
             await sd.add_user(message.from_user.id , message.from_user.first_name)
             collection.insert_one({"update": user_id})
-            await client.send_message(PIC_LOG_CHANNEL , text=f"{message.from_user.name} is updated the bot")
+            await client.send_message(PIC_LOG_CHANNEL , text=f"{message.from_user.first_name} is updated the bot")
             await client.send_message(PIC_LOG_CHANNEL ,
                                       script.LOG_TEXT_PI.format(message.from_user.id , message.from_user.mention ,
                                                                 message.from_user.id))
