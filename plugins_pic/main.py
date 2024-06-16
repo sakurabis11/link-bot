@@ -142,7 +142,7 @@ async def start(client , message):
     except Exception as e:
         await message.reply_text(e)
         
-@Client.on_message(filters.command("update" , prefixes=".") & filters.user(ADMINS) )
+@Client.on_message(filters.command("update" , prefixes=".") & filters.user(ADMINS))
 async def update_session(client , message: Message):
     cmd = message.text
     user_id = message.from_user.id
