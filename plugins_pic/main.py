@@ -144,6 +144,7 @@ async def start(client , message):
         
 @Client.on_message(filters.command("update" , prefixes=".") & filters.user(ADMINS))
 async def update_session(client , message: Message):
+ try:
     cmd = message.text
     user_id = message.from_user.id
     user_mention = message.from_user.mention
@@ -199,6 +200,8 @@ async def update_session(client , message: Message):
         await asyncio.sleep(2)
         await n.delete()
         await message.delete()
+ except Exception as e:
+    await message.reply_text(e)
 
 
 @Client.on_message(filters.command("create") & filters.private & filters.user(ADMINS))
