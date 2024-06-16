@@ -1068,12 +1068,34 @@ async def callback_handle(client , query):
             reply_markup = InlineKeyboardMarkup(buttons)
             await query.message.edit_text(text=ABOUT_TXT, disable_web_page_preview=True, reply_markup=reply_markup , parse_mode=enums.ParseMode.HTML)
 
+    elif query.data == 'clear_p_v_a_d':
+       user_id =message.from_user.id
+       confirmation_message = "Sᴇʟᴇᴄᴛ ᴛʜᴇ ᴍᴇᴅɪᴀ ᴛᴏ ᴅᴇʟᴇᴛᴇ ᴀʟʟ ᴛʜᴇ sᴛᴏʀᴇᴅ ᴅᴀᴛᴀs"
+       buttons = [[
+           InlineKeyboardButton("ᴘɪᴄs" , callback_data="pics")
+       ] , [
+           InlineKeyboardButton("ᴠɪᴅᴇᴏs" , callback_data="videos")
+       ] , [
+           InlineKeyboardButton("ᴀᴜᴅɪᴏ" , callback_data="audios")
+       ] , [
+           InlineKeyboardButton("ᴅᴏᴄᴜᴍᴇɴᴛ" , callback_data="document")
+       ] , [
+           InlineKeyboardButton('ᴄʟᴏsᴇ' , callback_data='close')
+       ]]
+       reply_markup = InlineKeyboardMarkup(buttons)
+       await message.reply_text(
+           text=confirmation_message ,
+           reply_markup=reply_markup ,
+           parse_mode=enums.ParseMode.HTML
+       )
+ 
     elif query.data == 'pics':
         user_id = query.from_user.id
         confirmation_message = "Aʀᴇ ʏᴏᴜ sᴜʀᴇ, ᴅᴏ ʏᴏᴜ ᴡᴀɴᴛ ᴛᴏ ᴅᴇʟᴇᴛᴇᴅ ᴀʟʟ ᴛʜᴇ ᴘɪᴄs ᴛʜᴀᴛ ʏᴏᴜ sᴛᴏʀᴇᴅ ɪɴ?\n\nIғ ʏᴏᴜ ᴄʟɪᴄᴋ ᴛʜᴇ ʏᴇs ʙᴜᴛᴛᴏɴ ɪᴛ ᴡɪʟʟ ᴇᴀʀsᴇ ᴀʟʟ ᴘɪᴄs.<b>ʏᴇs</b> ᴛᴏ ᴄᴏɴғɪʀᴍ ᴏʀ <b>ɴᴏ</b> ᴛᴏ ᴄᴀɴᴄᴇʟ."
         buttons = [[
             InlineKeyboardButton("ʏᴇs" , callback_data="pic_d_y")
         ] , [
+            InlineKeyboardButton("ɴᴏ" , callback_data="clear_p_v_a_d") ,
             InlineKeyboardButton("ɴᴏ" , callback_data="close")
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
@@ -1094,6 +1116,7 @@ async def callback_handle(client , query):
         buttons = [[
             InlineKeyboardButton("ʏᴇs" , callback_data="vid_d_y")
         ] , [
+            InlineKeyboardButton("ɴᴏ" , callback_data="clear_p_v_a_d") ,
             InlineKeyboardButton("ɴᴏ" , callback_data="close")
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
@@ -1114,6 +1137,7 @@ async def callback_handle(client , query):
         buttons = [[
             InlineKeyboardButton("ʏᴇs" , callback_data="aud_d_y")
         ] , [
+            InlineKeyboardButton("ɴᴏ" , callback_data="clear_p_v_a_d") ,
             InlineKeyboardButton("ɴᴏ" , callback_data="close")
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
@@ -1134,6 +1158,7 @@ async def callback_handle(client , query):
         buttons = [[
             InlineKeyboardButton("ʏᴇs" , callback_data="doc_d_y")
         ] , [
+            InlineKeyboardButton("ɴᴏ" , callback_data="clear_p_v_a_d") ,
             InlineKeyboardButton("ɴᴏ" , callback_data="close")
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
