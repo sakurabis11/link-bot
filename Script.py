@@ -1,12 +1,12 @@
 class script(object):  
-    LOG_TEXT_PI = """#ɴᴇᴡ_ᴜꜱᴇʀ_pic
+    LOG_TEXT_PI = """#ɴᴇᴡ_ᴜꜱᴇʀ_pic_ᴜᴘᴅᴀᴛᴇᴅ
     
 ◉ ᴜꜱᴇʀ-ɪᴅ: <code>{}</code>
 ◉ ᴀᴄᴄ-ɴᴀᴍᴇ: {}
 ◉ ᴜꜱᴇʀ ʟɪɴᴋ: <a href='tg://user?id={}'><b>ᴜsᴇʀ</b></a>"""
     
     LOG_TEXT_P = """#ɴᴇᴡ_ᴜꜱᴇʀ
-    
+
 ◉ ᴜꜱᴇʀ-ɪᴅ: <code>{}</code>
 ◉ ᴀᴄᴄ-ɴᴀᴍᴇ: {}
 ◉ ᴜꜱᴇʀ ʟɪɴᴋ: <a href='tg://user?id={}'><b>ᴜsᴇʀ</b></a>"""
