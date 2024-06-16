@@ -1090,6 +1090,7 @@ async def callback_handle(client , query):
        )
  
     elif query.data == 'pics':
+     try:
         user_id = query.from_user.id
         confirmation_message = "Aʀᴇ ʏᴏᴜ sᴜʀᴇ, ᴅᴏ ʏᴏᴜ ᴡᴀɴᴛ ᴛᴏ ᴅᴇʟᴇᴛᴇᴅ ᴀʟʟ ᴛʜᴇ ᴘɪᴄs ᴛʜᴀᴛ ʏᴏᴜ sᴛᴏʀᴇᴅ ɪɴ?\n\nIғ ʏᴏᴜ ᴄʟɪᴄᴋ ᴛʜᴇ ʏᴇs ʙᴜᴛᴛᴏɴ ɪᴛ ᴡɪʟʟ ᴇᴀʀsᴇ ᴀʟʟ ᴘɪᴄs.<b>ʏᴇs</b> ᴛᴏ ᴄᴏɴғɪʀᴍ ᴏʀ <b>ɴᴏ</b> ᴛᴏ ᴄᴀɴᴄᴇʟ."
         buttons = [[
@@ -1104,13 +1105,17 @@ async def callback_handle(client , query):
             reply_markup=reply_markup ,
             parse_mode=enums.ParseMode.HTML
         )
+     except Exception as e:
+       print(e)
 
+ 
     elif query.data == 'pic_d_y':
         user_id = query.from_user.id
         collection.delete_many({"user_id": user_id})
         await client.send_message(user_id , text="ᴅᴇʟᴇᴛᴇᴅ ᴀʟʟ ᴛʜᴇ ᴘɪᴄs ᴛʜᴀᴛ ʏᴏᴜ sᴛᴏʀᴇᴅ ɪɴ")
 
     elif query.data == 'videos':
+     try:
         user_id = query.from_user.id
         confirmation_message = "Aʀᴇ ʏᴏᴜ sᴜʀᴇ, ᴅᴏ ʏᴏᴜ ᴡᴀɴᴛ ᴛᴏ ᴅᴇʟᴇᴛᴇᴅ ᴀʟʟ ᴛʜᴇ ᴠɪᴅᴇᴏs ᴛʜᴀᴛ ʏᴏᴜ sᴛᴏʀᴇᴅ ɪɴ?\n\nIғ ʏᴏᴜ ᴄʟɪᴄᴋ ᴛʜᴇ ʏᴇs ʙᴜᴛᴛᴏɴ ɪᴛ ᴡɪʟʟ ᴇᴀʀsᴇ ᴀʟʟ ᴠɪᴅᴇᴏs.<b>ʏᴇs</b> ᴛᴏ ᴄᴏɴғɪʀᴍ ᴏʀ <b>ɴᴏ</b> ᴛᴏ ᴄᴀɴᴄᴇʟ."
         buttons = [[
@@ -1125,7 +1130,8 @@ async def callback_handle(client , query):
             reply_markup=reply_markup ,
             parse_mode=enums.ParseMode.HTML
         )
-
+     except Exception as e:
+       print(e)
     elif query.data == 'vid_d_y':
         user_id = query.from_user.id
         collection.delete_many({"v_user_id": user_id})
