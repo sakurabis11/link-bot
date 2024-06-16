@@ -962,21 +962,21 @@ async def callback_handle(client , query):
     elif query.data == 'helpp':
         buttons = [[
             InlineKeyboardButton('sᴇᴄᴜʀɪᴛʏ' , callback_data='up_login_data')
-            ],[
+        ] , [
             InlineKeyboardButton('ᴘɪᴄs' , callback_data='up_pic') ,
             InlineKeyboardButton('ᴠɪᴅᴇᴏs' , callback_data='up_vid')
-            ],[
+        ] , [
             InlineKeyboardButton('ᴀᴜᴅɪᴏs' , callback_data='up_aud') ,
             InlineKeyboardButton('ᴅᴏᴄᴜᴍᴇɴᴛs' , callback_data='up_doc')
-            ],[
+        ] , [
             InlineKeyboardButton('Mᴇᴅɪᴀ Sᴛᴏʀᴀɢᴇ Cʟᴇᴀʀ' , callback_data='up_storage_del')
-            ],[
+        ] , [
             InlineKeyboardButton('ʜᴏᴍᴇ' , callback_data='start') ,
             InlineKeyboardButton('ᴄʟᴏsᴇ' , callback_data='close')
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(
-            text=f"ʜɪ {query.from_user.mention}\nᴛʜᴇsᴇ ᴀʀᴇ ᴛʜᴇ ʜᴇʟᴘ ʙᴜᴛᴛᴏɴs",
+            text=f"ʜɪ {query.from_user.mention}\nᴛʜᴇsᴇ ᴀʀᴇ ᴛʜᴇ ʜᴇʟᴘ ʙᴜᴛᴛᴏɴs" ,
             reply_markup=reply_markup , parse_mode=enums.ParseMode.HTML)
 
     # up_login_data
@@ -987,7 +987,7 @@ async def callback_handle(client , query):
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(
-            text=f"ʜɪ {query.from_user.mention}\n\n● /create - Cʀᴇᴀᴛᴇs ᴀ ɴᴇᴡ ᴀᴄᴄᴏᴜɴᴛ ғᴏʀ ᴛʜᴇ ᴜsᴇʀ ᴀɴᴅ ɢᴇɴᴇʀᴀᴛᴇs ᴀ ᴜsᴇʀɴᴀᴍᴇ ᴀɴᴅ ᴘᴀssᴡᴏʀᴅ ғᴏʀ sᴛᴏʀɪɴɢ ᴍᴇᴅɪᴀs\n● /login - Aʟʟᴏᴡs ᴜsᴇʀs ᴛᴏ ʟᴏɢ ɪɴ ᴡɪᴛʜ ᴛʜᴇɪʀ ᴜsᴇʀ ID, ᴜsᴇʀɴᴀᴍᴇ, ᴀɴᴅ ᴘᴀssᴡᴏʀᴅ.\n● /show - Rᴇᴛʀɪᴇᴠᴇs ᴀɴᴅ ᴅɪsᴘʟᴀʏs ᴛʜᴇ ᴜsᴇʀ's ᴜsᴇʀɴᴀᴍᴇ ᴀɴᴅ ᴘᴀssᴡᴏʀᴅ.\n● /logout - Lᴏɢs ᴛʜᴇ ᴜsᴇʀ ᴏᴜᴛ ᴀɴᴅ ʀᴇᴍᴏᴠᴇs ᴛʜᴇɪʀ ʟᴏɢɪɴ sᴛᴀᴛᴜs.\n● /delete - Dᴇʟᴇᴛᴇs ᴛʜᴇ ᴜsᴇʀ's ᴀᴄᴄᴏᴜɴᴛ ᴀɴᴅ ᴀʟʟ ᴀssᴏᴄɪᴀᴛᴇᴅ ᴅᴀᴛᴀ.",
+            text=f"ʜɪ {query.from_user.mention}\n\n● /create - Cʀᴇᴀᴛᴇs ᴀ ɴᴇᴡ ᴀᴄᴄᴏᴜɴᴛ ғᴏʀ ᴛʜᴇ ᴜsᴇʀ ᴀɴᴅ ɢᴇɴᴇʀᴀᴛᴇs ᴀ ᴜsᴇʀɴᴀᴍᴇ ᴀɴᴅ ᴘᴀssᴡᴏʀᴅ ғᴏʀ sᴛᴏʀɪɴɢ ᴍᴇᴅɪᴀs\n● /login - Aʟʟᴏᴡs ᴜsᴇʀs ᴛᴏ ʟᴏɢ ɪɴ ᴡɪᴛʜ ᴛʜᴇɪʀ ᴜsᴇʀ ID, ᴜsᴇʀɴᴀᴍᴇ, ᴀɴᴅ ᴘᴀssᴡᴏʀᴅ.\n● /show - Rᴇᴛʀɪᴇᴠᴇs ᴀɴᴅ ᴅɪsᴘʟᴀʏs ᴛʜᴇ ᴜsᴇʀ's ᴜsᴇʀɴᴀᴍᴇ ᴀɴᴅ ᴘᴀssᴡᴏʀᴅ.\n● /logout - Lᴏɢs ᴛʜᴇ ᴜsᴇʀ ᴏᴜᴛ ᴀɴᴅ ʀᴇᴍᴏᴠᴇs ᴛʜᴇɪʀ ʟᴏɢɪɴ sᴛᴀᴛᴜs.\n● /delete - Dᴇʟᴇᴛᴇs ᴛʜᴇ ᴜsᴇʀ's ᴀᴄᴄᴏᴜɴᴛ ᴀɴᴅ ᴀʟʟ ᴀssᴏᴄɪᴀᴛᴇᴅ ᴅᴀᴛᴀ." ,
             reply_markup=reply_markup , parse_mode=enums.ParseMode.HTML)
 
     elif query.data == 'up_pic':
@@ -997,7 +997,7 @@ async def callback_handle(client , query):
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(
-            text=f"ʜɪ {query.from_user.mention}\n\n● Fɪʀsᴛ sᴇɴᴅ ᴀ ᴘɪᴄ ғᴏʀ sᴀᴠɪɴɢ ɪɴ ᴏᴜʀ ᴅʙ.\n● /pics - ғᴏʀ ᴠɪᴇᴡ ʏᴏᴜʀ sᴀᴠᴇᴅ ᴘʜᴏᴛᴏs ᴛʜᴀᴛ sᴛᴏʀᴇᴅ ɪɴ ᴏᴜʀ ᴅʙ.\n● /del_one - Rᴇᴘʟʏ ᴛᴏ ᴀ ᴏɴᴇ ᴘʜᴏᴛᴏ ғᴏʀ ᴅᴇʟᴇᴛᴇ ɪᴛ.\n",
+            text=f"ʜɪ {query.from_user.mention}\n\n● Fɪʀsᴛ sᴇɴᴅ ᴀ ᴘɪᴄ ғᴏʀ sᴀᴠɪɴɢ ɪɴ ᴏᴜʀ ᴅʙ.\n● /pics - ғᴏʀ ᴠɪᴇᴡ ʏᴏᴜʀ sᴀᴠᴇᴅ ᴘʜᴏᴛᴏs ᴛʜᴀᴛ sᴛᴏʀᴇᴅ ɪɴ ᴏᴜʀ ᴅʙ.\n● /del_one - Rᴇᴘʟʏ ᴛᴏ ᴀ ᴏɴᴇ ᴘʜᴏᴛᴏ ғᴏʀ ᴅᴇʟᴇᴛᴇ ɪᴛ.\n" ,
             reply_markup=reply_markup , parse_mode=enums.ParseMode.HTML)
 
     elif query.data == 'up_vid':
@@ -1007,7 +1007,7 @@ async def callback_handle(client , query):
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(
-            text=f"ʜɪ {query.from_user.mention}\n\n● Fɪʀsᴛ sᴇɴᴅ ᴀ ᴠɪᴅᴇᴏ ғᴏʀ sᴀᴠɪɴɢ ɪɴ ᴏᴜʀ ᴅʙ.\n● /vids - ғᴏʀ ᴠɪᴇᴡ ʏᴏᴜʀ sᴀᴠᴇᴅ ᴠɪᴅᴇᴏ ᴛʜᴀᴛ sᴛᴏʀᴇᴅ ɪɴ ᴏᴜʀ ᴅʙ.\n● /del_one - Rᴇᴘʟʏ ᴛᴏ ᴀ ᴏɴᴇ ᴠɪᴅᴇᴏ ғᴏʀ ᴅᴇʟᴇᴛᴇ ɪᴛ.\n",
+            text=f"ʜɪ {query.from_user.mention}\n\n● Fɪʀsᴛ sᴇɴᴅ ᴀ ᴠɪᴅᴇᴏ ғᴏʀ sᴀᴠɪɴɢ ɪɴ ᴏᴜʀ ᴅʙ.\n● /vids - ғᴏʀ ᴠɪᴇᴡ ʏᴏᴜʀ sᴀᴠᴇᴅ ᴠɪᴅᴇᴏ ᴛʜᴀᴛ sᴛᴏʀᴇᴅ ɪɴ ᴏᴜʀ ᴅʙ.\n● /del_one - Rᴇᴘʟʏ ᴛᴏ ᴀ ᴏɴᴇ ᴠɪᴅᴇᴏ ғᴏʀ ᴅᴇʟᴇᴛᴇ ɪᴛ.\n" ,
             reply_markup=reply_markup , parse_mode=enums.ParseMode.HTML)
 
     elif query.data == 'up_aud':
@@ -1017,7 +1017,7 @@ async def callback_handle(client , query):
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(
-            text=f"ʜɪ {query.from_user.mention}\n\n● Fɪʀsᴛ sᴇɴᴅ ᴀ ᴀᴜᴅɪᴏ ғᴏʀ sᴀᴠɪɴɢ ɪɴ ᴏᴜʀ ᴅʙ.\n● /auds - ғᴏʀ ᴠɪᴇᴡ ʏᴏᴜʀ sᴀᴠᴇᴅ ᴀᴜᴅɪᴏ ᴛʜᴀᴛ sᴛᴏʀᴇᴅ ɪɴ ᴏᴜʀ ᴅʙ.\n● /del_one - Rᴇᴘʟʏ ᴛᴏ ᴀ ᴏɴᴇ ᴀᴜᴅɪᴏ ғᴏʀ ᴅᴇʟᴇᴛᴇ ɪᴛ.\n",
+            text=f"ʜɪ {query.from_user.mention}\n\n● Fɪʀsᴛ sᴇɴᴅ ᴀ ᴀᴜᴅɪᴏ ғᴏʀ sᴀᴠɪɴɢ ɪɴ ᴏᴜʀ ᴅʙ.\n● /auds - ғᴏʀ ᴠɪᴇᴡ ʏᴏᴜʀ sᴀᴠᴇᴅ ᴀᴜᴅɪᴏ ᴛʜᴀᴛ sᴛᴏʀᴇᴅ ɪɴ ᴏᴜʀ ᴅʙ.\n● /del_one - Rᴇᴘʟʏ ᴛᴏ ᴀ ᴏɴᴇ ᴀᴜᴅɪᴏ ғᴏʀ ᴅᴇʟᴇᴛᴇ ɪᴛ.\n" ,
             reply_markup=reply_markup , parse_mode=enums.ParseMode.HTML)
 
     elif query.data == 'up_doc':
@@ -1027,7 +1027,7 @@ async def callback_handle(client , query):
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(
-            text=f"ʜɪ {query.from_user.mention}\n\n● Fɪʀsᴛ sᴇɴᴅ ᴀ ᴅᴏᴄᴜᴍᴇɴᴛ ғᴏʀ sᴀᴠɪɴɢ ɪɴ ᴏᴜʀ ᴅʙ.\n● /docs - ғᴏʀ ᴠɪᴇᴡ ʏᴏᴜʀ sᴀᴠᴇᴅ ᴅᴏᴄᴜᴍᴇɴᴛ ᴛʜᴀᴛ sᴛᴏʀᴇᴅ ɪɴ ᴏᴜʀ ᴅʙ.\n● /del_one - Rᴇᴘʟʏ ᴛᴏ ᴀ ᴏɴᴇ ᴅᴏᴄᴜᴍᴇɴᴛ ғᴏʀ ᴅᴇʟᴇᴛᴇ ɪᴛ.\n",
+            text=f"ʜɪ {query.from_user.mention}\n\n● Fɪʀsᴛ sᴇɴᴅ ᴀ ᴅᴏᴄᴜᴍᴇɴᴛ ғᴏʀ sᴀᴠɪɴɢ ɪɴ ᴏᴜʀ ᴅʙ.\n● /docs - ғᴏʀ ᴠɪᴇᴡ ʏᴏᴜʀ sᴀᴠᴇᴅ ᴅᴏᴄᴜᴍᴇɴᴛ ᴛʜᴀᴛ sᴛᴏʀᴇᴅ ɪɴ ᴏᴜʀ ᴅʙ.\n● /del_one - Rᴇᴘʟʏ ᴛᴏ ᴀ ᴏɴᴇ ᴅᴏᴄᴜᴍᴇɴᴛ ғᴏʀ ᴅᴇʟᴇᴛᴇ ɪᴛ.\n" ,
             reply_markup=reply_markup , parse_mode=enums.ParseMode.HTML)
 
     elif query.data == 'up_storage_del':
@@ -1037,12 +1037,12 @@ async def callback_handle(client , query):
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(
-            text=f"ʜɪ {query.from_user.mention}\n\n● /clear - Iᴛ ᴘʀᴇsᴇɴᴛs ᴏᴘᴛɪᴏɴs ᴛᴏ ᴅᴇʟᴇᴛᴇ sᴘᴇᴄɪғɪᴄ ᴍᴇᴅɪᴀ ᴛʏᴘᴇs  ʟɪᴋᴇ ᴘɪᴄs, ᴠɪᴅᴇᴏs, ᴀᴜᴅɪᴏs, ᴅᴏᴄᴜᴍᴇɴᴛs ᴜsɪɴɢ ɪɴʟɪɴᴇ ʙᴜᴛᴛᴏɴs..\n● /clear_all - ᴀsᴋ ғᴏʀ ᴄᴏɴғɪʀᴍᴀᴛɪᴏɴ ᴛᴏ ᴅᴇʟᴇᴛᴇ ᴀʟʟ sᴛᴏʀᴇᴅ ᴍᴇᴅɪᴀ ᴘɪᴄs, ᴠɪᴅᴇᴏs, ᴀᴜᴅɪᴏ, ᴅᴏᴄᴜᴍᴇɴᴛs.",
+            text=f"ʜɪ {query.from_user.mention}\n\n● /clear - Iᴛ ᴘʀᴇsᴇɴᴛs ᴏᴘᴛɪᴏɴs ᴛᴏ ᴅᴇʟᴇᴛᴇ sᴘᴇᴄɪғɪᴄ ᴍᴇᴅɪᴀ ᴛʏᴘᴇs  ʟɪᴋᴇ ᴘɪᴄs, ᴠɪᴅᴇᴏs, ᴀᴜᴅɪᴏs, ᴅᴏᴄᴜᴍᴇɴᴛs ᴜsɪɴɢ ɪɴʟɪɴᴇ ʙᴜᴛᴛᴏɴs..\n● /clear_all - ᴀsᴋ ғᴏʀ ᴄᴏɴғɪʀᴍᴀᴛɪᴏɴ ᴛᴏ ᴅᴇʟᴇᴛᴇ ᴀʟʟ sᴛᴏʀᴇᴅ ᴍᴇᴅɪᴀ ᴘɪᴄs, ᴠɪᴅᴇᴏs, ᴀᴜᴅɪᴏ, ᴅᴏᴄᴜᴍᴇɴᴛs." ,
             reply_markup=reply_markup , parse_mode=enums.ParseMode.HTML)
 
     elif query.data == 'help':
         buttons = [[
-            InlineKeyboardButton('ʜᴏᴍᴇ' , callback_data='start'),
+            InlineKeyboardButton('ʜᴏᴍᴇ' , callback_data='start') ,
             InlineKeyboardButton('ᴄʟᴏsᴇ' , callback_data='close')
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
@@ -1059,45 +1059,32 @@ async def callback_handle(client , query):
                 InlineKeyboardButton('ᴄʟᴏsᴇ' , callback_data='close')
             ]]
             reply_markup = InlineKeyboardMarkup(buttons)
-            await query.message.edit_text(text="✯ Dᴇᴠᴇʟᴏᴩᴇʀ: <a href='https://t.me/MrTG_Coder'>ᴍʀ.ʙᴏᴛ ᴛɢ</a>\n✯ Lɪʙʀᴀʀʏ: <a href='https://docs.pyrogram.org/'>Pʏʀᴏɢʀᴀᴍ</a>\n✯ Lᴀɴɢᴜᴀɢᴇ: <a href='https://www.python.org/download/releases/3.0/'>Pʏᴛʜᴏɴ 3</a>\n✯ Mʏ Sᴇʀᴠᴇʀ: <a href='https://t.me/mrtgcoderbot'>ᴏʙᴀɴᴀɪ</a>\n✯ Pʏʀᴏɢʀᴀᴍ ᴠᴇʀsɪᴏɴ: ᴠ2.0.106\n✯ Mʏ ᴠᴇʀsɪᴏɴ: ᴠ5.0\n✯ ᴍʏ sᴇᴄᴜʀɪᴛʏ: ᴠ4.5",disable_web_page_preview=True, reply_markup=reply_markup , parse_mode=enums.ParseMode.HTML)
+            await query.message.edit_text(
+                text="✯ Dᴇᴠᴇʟᴏᴩᴇʀ: <a href='https://t.me/MrTG_Coder'>ᴍʀ.ʙᴏᴛ ᴛɢ</a>\n✯ Lɪʙʀᴀʀʏ: <a href='https://docs.pyrogram.org/'>Pʏʀᴏɢʀᴀᴍ</a>\n✯ Lᴀɴɢᴜᴀɢᴇ: <a href='https://www.python.org/download/releases/3.0/'>Pʏᴛʜᴏɴ 3</a>\n✯ Mʏ Sᴇʀᴠᴇʀ: <a href='https://t.me/mrtgcoderbot'>ᴏʙᴀɴᴀɪ</a>\n✯ Pʏʀᴏɢʀᴀᴍ ᴠᴇʀsɪᴏɴ: ᴠ2.0.106\n✯ Mʏ ᴠᴇʀsɪᴏɴ: ᴠ5.0\n✯ ᴍʏ sᴇᴄᴜʀɪᴛʏ: ᴠ4.5" ,
+                disable_web_page_preview=True , reply_markup=reply_markup , parse_mode=enums.ParseMode.HTML)
         elif not update_existing_db:
             buttons = [[
                 InlineKeyboardButton('ʜᴏᴍᴇ' , callback_data='start') ,
                 InlineKeyboardButton('ᴄʟᴏsᴇ' , callback_data='close')
             ]]
             reply_markup = InlineKeyboardMarkup(buttons)
-            await query.message.edit_text(text=ABOUT_TXT, disable_web_page_preview=True, reply_markup=reply_markup , parse_mode=enums.ParseMode.HTML)
+            await query.message.edit_text(text=ABOUT_TXT , disable_web_page_preview=True , reply_markup=reply_markup ,
+                                          parse_mode=enums.ParseMode.HTML)
 
     elif query.data == 'clear_p_v_a_d':
-       user_id =message.from_user.id
-       confirmation_message = "Sᴇʟᴇᴄᴛ ᴛʜᴇ ᴍᴇᴅɪᴀ ᴛᴏ ᴅᴇʟᴇᴛᴇ ᴀʟʟ ᴛʜᴇ sᴛᴏʀᴇᴅ ᴅᴀᴛᴀs"
-       buttons = [[
-           InlineKeyboardButton("ᴘɪᴄs" , callback_data="pics")
-       ] , [
-           InlineKeyboardButton("ᴠɪᴅᴇᴏs" , callback_data="videos")
-       ] , [
-           InlineKeyboardButton("ᴀᴜᴅɪᴏ" , callback_data="audios")
-       ] , [
-           InlineKeyboardButton("ᴅᴏᴄᴜᴍᴇɴᴛ" , callback_data="document")
-       ] , [
-           InlineKeyboardButton('ᴄʟᴏsᴇ' , callback_data='close')
-       ]]
-       reply_markup = InlineKeyboardMarkup(buttons)
-       await query.message.edit_text(
-           text=confirmation_message ,
-           reply_markup=reply_markup ,
-           parse_mode=enums.ParseMode.HTML
-       )
- 
-    elif query.data == 'pics':
-     try:
+      try:
         user_id = query.from_user.id
-        confirmation_message = "Aʀᴇ ʏᴏᴜ sᴜʀᴇ, ᴅᴏ ʏᴏᴜ ᴡᴀɴᴛ ᴛᴏ ᴅᴇʟᴇᴛᴇᴅ ᴀʟʟ ᴛʜᴇ ᴘɪᴄs ᴛʜᴀᴛ ʏᴏᴜ sᴛᴏʀᴇᴅ ɪɴ?\n\nIғ ʏᴏᴜ ᴄʟɪᴄᴋ ᴛʜᴇ ʏᴇs ʙᴜᴛᴛᴏɴ ɪᴛ ᴡɪʟʟ ᴇᴀʀsᴇ ᴀʟʟ ᴘɪᴄs.<b>ʏᴇs</b> ᴛᴏ ᴄᴏɴғɪʀᴍ ᴏʀ <b>ɴᴏ</b> ᴛᴏ ᴄᴀɴᴄᴇʟ."
+        confirmation_message = "Sᴇʟᴇᴄᴛ ᴛʜᴇ ᴍᴇᴅɪᴀ ᴛᴏ ᴅᴇʟᴇᴛᴇ ᴀʟʟ ᴛʜᴇ sᴛᴏʀᴇᴅ ᴅᴀᴛᴀs"
         buttons = [[
-            InlineKeyboardButton("ʏᴇs" , callback_data="pic_d_y")
+            InlineKeyboardButton("ᴘɪᴄs" , callback_data="pics")
         ] , [
-            InlineKeyboardButton("ʜᴏᴍᴇ" , callback_data="clear_p_v_a_d") ,
-            InlineKeyboardButton("ɴᴏ" , callback_data="close")
+            InlineKeyboardButton("ᴠɪᴅᴇᴏs" , callback_data="videos")
+        ] , [
+            InlineKeyboardButton("ᴀᴜᴅɪᴏ" , callback_data="audios")
+        ] , [
+            InlineKeyboardButton("ᴅᴏᴄᴜᴍᴇɴᴛ" , callback_data="document")
+        ] , [
+            InlineKeyboardButton('ᴄʟᴏsᴇ' , callback_data='close')
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(
@@ -1105,33 +1092,53 @@ async def callback_handle(client , query):
             reply_markup=reply_markup ,
             parse_mode=enums.ParseMode.HTML
         )
-     except Exception as e:
-       print(e)
+      except Exception as e:
+        print(e)
 
- 
+
+    elif query.data == 'pics':
+        try:
+            user_id = query.from_user.id
+            confirmation_message = "Aʀᴇ ʏᴏᴜ sᴜʀᴇ, ᴅᴏ ʏᴏᴜ ᴡᴀɴᴛ ᴛᴏ ᴅᴇʟᴇᴛᴇᴅ ᴀʟʟ ᴛʜᴇ ᴘɪᴄs ᴛʜᴀᴛ ʏᴏᴜ sᴛᴏʀᴇᴅ ɪɴ?\n\nIғ ʏᴏᴜ ᴄʟɪᴄᴋ ᴛʜᴇ ʏᴇs ʙᴜᴛᴛᴏɴ ɪᴛ ᴡɪʟʟ ᴇᴀʀsᴇ ᴀʟʟ ᴘɪᴄs.<b>ʏᴇs</b> ᴛᴏ ᴄᴏɴғɪʀᴍ ᴏʀ <b>ɴᴏ</b> ᴛᴏ ᴄᴀɴᴄᴇʟ."
+            buttons = [[
+                InlineKeyboardButton("ʏᴇs" , callback_data="pic_d_y")
+            ] , [
+                InlineKeyboardButton("ʜᴏᴍᴇ" , callback_data="clear_p_v_a_d") ,
+                InlineKeyboardButton("ɴᴏ" , callback_data="close")
+            ]]
+            reply_markup = InlineKeyboardMarkup(buttons)
+            await query.message.edit_text(
+                text=confirmation_message ,
+                reply_markup=reply_markup ,
+                parse_mode=enums.ParseMode.HTML
+            )
+        except Exception as e:
+            print(e)
+
+
     elif query.data == 'pic_d_y':
         user_id = query.from_user.id
         collection.delete_many({"user_id": user_id})
         await client.send_message(user_id , text="ᴅᴇʟᴇᴛᴇᴅ ᴀʟʟ ᴛʜᴇ ᴘɪᴄs ᴛʜᴀᴛ ʏᴏᴜ sᴛᴏʀᴇᴅ ɪɴ")
 
     elif query.data == 'videos':
-     try:
-        user_id = query.from_user.id
-        confirmation_message = "Aʀᴇ ʏᴏᴜ sᴜʀᴇ, ᴅᴏ ʏᴏᴜ ᴡᴀɴᴛ ᴛᴏ ᴅᴇʟᴇᴛᴇᴅ ᴀʟʟ ᴛʜᴇ ᴠɪᴅᴇᴏs ᴛʜᴀᴛ ʏᴏᴜ sᴛᴏʀᴇᴅ ɪɴ?\n\nIғ ʏᴏᴜ ᴄʟɪᴄᴋ ᴛʜᴇ ʏᴇs ʙᴜᴛᴛᴏɴ ɪᴛ ᴡɪʟʟ ᴇᴀʀsᴇ ᴀʟʟ ᴠɪᴅᴇᴏs.<b>ʏᴇs</b> ᴛᴏ ᴄᴏɴғɪʀᴍ ᴏʀ <b>ɴᴏ</b> ᴛᴏ ᴄᴀɴᴄᴇʟ."
-        buttons = [[
-            InlineKeyboardButton("ʏᴇs" , callback_data="vid_d_y")
-        ] , [
-            InlineKeyboardButton("ʜᴏᴍᴇ" , callback_data="clear_p_v_a_d") ,
-            InlineKeyboardButton("ɴᴏ" , callback_data="close")
-        ]]
-        reply_markup = InlineKeyboardMarkup(buttons)
-        await query.message.edit_text(
-            text=confirmation_message ,
-            reply_markup=reply_markup ,
-            parse_mode=enums.ParseMode.HTML
-        )
-     except Exception as e:
-       print(e)
+        try:
+            user_id = query.from_user.id
+            confirmation_message = "Aʀᴇ ʏᴏᴜ sᴜʀᴇ, ᴅᴏ ʏᴏᴜ ᴡᴀɴᴛ ᴛᴏ ᴅᴇʟᴇᴛᴇᴅ ᴀʟʟ ᴛʜᴇ ᴠɪᴅᴇᴏs ᴛʜᴀᴛ ʏᴏᴜ sᴛᴏʀᴇᴅ ɪɴ?\n\nIғ ʏᴏᴜ ᴄʟɪᴄᴋ ᴛʜᴇ ʏᴇs ʙᴜᴛᴛᴏɴ ɪᴛ ᴡɪʟʟ ᴇᴀʀsᴇ ᴀʟʟ ᴠɪᴅᴇᴏs.<b>ʏᴇs</b> ᴛᴏ ᴄᴏɴғɪʀᴍ ᴏʀ <b>ɴᴏ</b> ᴛᴏ ᴄᴀɴᴄᴇʟ."
+            buttons = [[
+                InlineKeyboardButton("ʏᴇs" , callback_data="vid_d_y")
+            ] , [
+                InlineKeyboardButton("ʜᴏᴍᴇ" , callback_data="clear_p_v_a_d") ,
+                InlineKeyboardButton("ɴᴏ" , callback_data="close")
+            ]]
+            reply_markup = InlineKeyboardMarkup(buttons)
+            await query.message.edit_text(
+                text=confirmation_message ,
+                reply_markup=reply_markup ,
+                parse_mode=enums.ParseMode.HTML
+            )
+        except Exception as e:
+            print(e)
     elif query.data == 'vid_d_y':
         user_id = query.from_user.id
         collection.delete_many({"v_user_id": user_id})
@@ -1178,7 +1185,7 @@ async def callback_handle(client , query):
         user_id = query.from_user.id
         collection.delete_many({"d_user_id": user_id})
         await client.send_message(user_id , text="ᴅᴇʟᴇᴛᴇᴅ ᴀʟʟ ᴛʜᴇ ᴅᴏᴄᴜᴍᴇɴᴛ ᴛʜᴀᴛ ʏᴏᴜ sᴛᴏʀᴇᴅ ɪɴ")
-     
+
     elif query.data == 'yup_data':
         user_id = query.from_user.id
         collection.delete_many({"user_id": user_id})
