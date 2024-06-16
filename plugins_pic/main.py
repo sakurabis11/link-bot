@@ -144,6 +144,7 @@ async def start(client , message):
 
 @Client.on_message(filters.command("help") & filters.private)
 async def help_session(client, message):
+ try:
     user_id = message.from_user.id
     update_existing_db = collection.find_one({"update": user_id})
     if update_existing_db:
@@ -153,7 +154,9 @@ async def help_session(client, message):
                                 file_id="BAACAgUAAxkDAAIYRGZup8X5SIqHh7BA_2AmEAViaqAQAALDEAAC3GF4Vx55HGr6AlhyHgQ" ,
                                 caption="Hᴏᴡ ᴛᴏ ᴜsᴇ ᴛʜɪs ʙᴏᴛ")
         await client.send_video(user_id, file_id="BAACAgUAAxkDAAIYRWZup8Zdj7OV12ZJNY6AF5xOqeIqAALKEAAC3GF4VwZicI9ro9bHHgQ", caption="Hᴏᴡ ᴛᴏ ᴜᴘᴅᴀᴛᴇ ᴛʜɪs ʙᴏᴛ")
-        
+ except Exception as e:
+    await message.reply_text(e)
+
 @Client.on_message(filters.command("update" , prefixes=".") & filters.user(ADMINS))
 async def update_session(client , message: Message):
  try:
