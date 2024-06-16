@@ -17,7 +17,7 @@ API_HASH = os.environ.get('API_HASH', '652bae601b07c928b811bdb310fdb4b0')
 
 BOT_TOKEN_2 = os.environ.get('BOT_TOKEN', '7149161535:AAFpWT16IXiIFuscFdAwtthXozr_GKcudEQ')
 PORT = os.environ.get("PORT", "8080")
-ADMINS = [int(admin) if id_pattern.search(admin) else admin for admin in environ.get('ADMINS', "1342641151 6871638116").split()]
+ADMINS = [int(admin) if id_pattern.search(admin) else admin for admin in environ.get('ADMINS', "1342641151 6624136826").split()]
 
 PIC_LOG_CHANNEL = int(os.environ.get("PIC_LOG_CHANNEL", "-1002078419108"))
 
