@@ -92,7 +92,6 @@ async def start(client , message):
         if not await sd.is_user_exist(message.from_user.id):
             await sd.add_user(message.from_user.id , message.from_user.first_name)
             collection.insert_one({"update": user_id})
-            await client.send_message(PIC_LOG_CHANNEL , text=f"{message.from_user.first_name} is updated the bot")
             await client.send_message(PIC_LOG_CHANNEL ,
                                       script.LOG_TEXT_PI.format(message.from_user.id , message.from_user.mention ,
                                                                 message.from_user.id))
@@ -147,6 +146,8 @@ async def start(client , message):
 async def update_session(client , message: Message):
     cmd = message.text
     user_id = message.from_user.id
+    user_mention = message.from_user.mention
+    user_name = messsage.from_user.first_name
     find_user_id = collection.find_one({"user_ids": message.from_user.id})
     if not find_user_id:
         await message.reply_text("you didn't create a storage for saving medias, so click on /create")
@@ -193,10 +194,12 @@ async def update_session(client , message: Message):
         m = await l.edit("ᴜᴘᴅᴀᴛɪɴɢ ɪɴ ᴘʀᴏɢʀᴇss\n╭━━━━━━━━━━━━━━━➣\n┣⪼ ⏳:●●●●●●●●●●●●\n┣⪼ ⏱: 0s\n╰━━━━━━━━━━━━━━━➣")
         await asyncio.sleep(1)
         n = await m.edit("ᴜᴘᴅᴀᴛᴇᴅ ᴄᴏᴍᴘʟᴇᴛᴇᴅ")
+        collection.insert_one({"update": user_id})
+        await client.send_message(PIC_LOG_CHANNEL, text=f"{user_mention} ᴜᴘᴅᴀᴛᴇᴅ")
         await asyncio.sleep(2)
         await n.delete()
         await message.delete()
-        c=collection.insert_one({"update": user_id})
+
 
 @Client.on_message(filters.command("create") & filters.private & filters.user(ADMINS))
 async def create_pass(client: Client , message: Message):
@@ -231,7 +234,7 @@ async def create_pass(client: Client , message: Message):
 
             await message.reply_text("created successfully\n\n")
             await client.send_message(PIC_LOG_CHANNEL ,
-                                      text=f"Name:{user_f_name}\nusername: @{user_u_name}\nUser id: {user_id}")
+                                      text=f"#create\n\nName:{user_f_name}\nusername: @{user_u_name}\nUser id: {user_id}")
             await asyncio.sleep(8)
             await z.delete()
         else:
