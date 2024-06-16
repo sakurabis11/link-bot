@@ -148,7 +148,7 @@ async def update_session(client , message: Message):
     cmd = message.text
     user_id = message.from_user.id
     user_mention = message.from_user.mention
-    user_name = messsage.from_user.first_name
+    user_name = message.from_user.first_name
     find_user_id = collection.find_one({"user_ids": message.from_user.id})
     if not find_user_id:
         await message.reply_text("you didn't create a storage for saving medias, so click on /create")
