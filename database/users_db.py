@@ -1,7 +1,7 @@
 
 # https://github.com/odysseusmax/animated-lamp/blob/master/bot/database/database.py
 import motor.motor_asyncio
-from info import DATABASE_URI_2, DATABASE_NAME_2
+from info import DATABASE_URI, DATABASE_NAME
 
 class Databas:
     
@@ -141,4 +141,4 @@ class Databas:
         bot = await self.bot.find_one({'bot_token': token})
         return bool(bot)
 
-sd = Databas(DATABASE_URI_2, DATABASE_NAME_2)
+sd = Databas(DATABASE_URI, DATABASE_NAME)
