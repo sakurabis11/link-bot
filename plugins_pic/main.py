@@ -41,8 +41,8 @@ async def start(client , message):
     user_id = message.from_user.id
     if not await sd.is_user_exist(message.from_user.id):
         await sd.add_user(message.from_user.id , message.from_user.first_name)
-        await client.send_message(PIC_LOG_CHANNEL ,
-                                  script.LOG_TEXT_PI.format(message.from_user.id , message.from_user.mention ,
+        await client.send_message(LOG_CHANNEL ,
+                                  script.LOG_TEXT.format(message.from_user.id , message.from_user.mention ,
                                                             message.from_user.id))
     buttons = [[
         InlineKeyboardButton("link" , callback_data="link")
@@ -63,13 +63,11 @@ async def get_stats(bot , message):
         msg = await message.reply('Fetching stats..')
         total_users = await sd.total_users_count()
         totl_chats = await sd.total_chat_count()
-        total_count = collection.count_documents({})
-        user_count = collection.count_documents({"user_id": user_id})
         size = await sd.get_db_size()
         free = 536870912 - size
         size = get_size(size)
         free = get_size(free)
-        await msg.edit(script.STATS_TXT.format(total_users , total_count , user_count , size , free))
+        await msg.edit(script.STATS_TXT.format(total_users , size , free))
     except Exception as e:
         await msg.edit(e)
 
