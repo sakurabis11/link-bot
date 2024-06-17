@@ -15,7 +15,7 @@ def is_enabled(value, default):
 API_ID = int(os.environ.get('API_ID', ''))
 API_HASH = os.environ.get('API_HASH', '')
 
-BOT_TOKEN_2 = os.environ.get('BOT_TOKEN', '')
+BOT_TOKEN = os.environ.get('BOT_TOKEN', '')
 PORT = os.environ.get("PORT", "8080")
 ADMINS = [int(admin) if id_pattern.search(admin) else admin for admin in environ.get('ADMINS', "").split()]
 
