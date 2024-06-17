@@ -14,7 +14,7 @@ from datetime import datetime
 from typing import List
 from database_pic.pic_users_db import sd
 from pymongo import MongoClient
-from info import API_ID, API_HASH, BOT_TOKEN
+from info import API_ID, API_HASH, BOT_TOKEN, F_SUB
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
@@ -75,3 +75,15 @@ async def broadcast_messager(user_id, message):
         return False, "Error"
     except Exception as e:
         return False, "Error"
+
+async def not_subscribed(_, client, message):
+   if not client.f_channel:
+      return False
+   try:             
+      user = await client.get_chat_member(client.f_channel, message.from_user.id)
+   except UserNotParticipant:
+      pass
+   else:
+      if user.status != enums.ChatMemberStatus.BANNED:                       
+         return False 
+   return True
