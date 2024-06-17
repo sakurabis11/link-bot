@@ -1,5 +1,5 @@
 from pyrogram import Client, __version__, filters
-from info import API_ID, API_HASH, BOT_TOKEN_2, PORT, ADMINS, PIC_LOG_CHANNEL
+from info import API_ID, API_HASH, BOT_TOKEN, PORT, ADMINS, LOG_CHANNEL
 import os, math, logging, pytz
 from datetime import date, datetime 
 from pytz import timezone
@@ -29,7 +29,7 @@ class Bot(Client):
             name="simple-bot",
             api_id=API_ID,
             api_hash=API_HASH,
-            bot_token=BOT_TOKEN_2,
+            bot_token=BOT_TOKEN,
             workers=50,
             plugins={"root": "plugins_pic"},
             sleep_threshold=5
@@ -51,7 +51,7 @@ class Bot(Client):
         tz = pytz.timezone('Asia/Kolkata')
         now = datetime.now(tz)
         time = now.strftime("%H:%M:%S %p")
-        await self.send_message(chat_id=PIC_LOG_CHANNEL, text=f"**__{me.mention} Iꜱ Rᴇsᴛᴀʀᴛᴇᴅ !!**\n\n📅 Dᴀᴛᴇ : `{today}`\n⏰ Tɪᴍᴇ : `{time}`\n🌐 Tɪᴍᴇᴢᴏɴᴇ : `Asia/Kolkata`\n\n🉐 Vᴇʀsɪᴏɴ : `v{__version__} (Layer {layer})`</b>")
+        await self.send_message(chat_id=LOG_CHANNEL, text=f"**__{me.mention} Iꜱ Rᴇsᴛᴀʀᴛᴇᴅ !!**\n\n📅 Dᴀᴛᴇ : `{today}`\n⏰ Tɪᴍᴇ : `{time}`\n🌐 Tɪᴍᴇᴢᴏɴᴇ : `Asia/Kolkata`\n\n🉐 Vᴇʀsɪᴏɴ : `v{__version__} (Layer {layer})`</b>")
         tz = pytz.timezone('Asia/Kolkata')
  
     async def stop(self, *args):
