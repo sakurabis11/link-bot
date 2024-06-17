@@ -14,7 +14,7 @@ from datetime import datetime
 from typing import List
 from database_pic.pic_users_db import sd
 from pymongo import MongoClient
-from info import API_ID, API_HASH, BOT_TOKEN_2
+from info import API_ID, API_HASH, BOT_TOKEN
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
